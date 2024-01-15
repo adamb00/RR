@@ -1,0 +1,101 @@
+.login {
+   border-radius: $default-border-radius;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   width: 50%;
+   font-size: $default-font-size;
+   box-shadow: $default-box-shadow;
+   padding: 2rem;
+
+   &__form {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      width: 50%;
+      height: 100%;
+      justify-content: start;
+      gap: 1rem;
+
+      &--welcome {
+         margin-bottom: 3rem;
+      }
+
+      &--icon {
+         padding-right: 0.2rem;
+         font-size: 3rem;
+         position: absolute;
+         transform: translateY(0.5rem);
+         border-right: 1px solid currentColor;
+         fill: $color-primary-tint;
+         font-weight: normal;
+      }
+
+      &--input {
+         padding: 1rem 3.5rem;
+         font-size: 2rem;
+         width: 100%;
+         outline: none;
+         border: none;
+         border-bottom: 1px solid $color-grey-dark-1;
+         background-color: transparent;
+         color: currentColor;
+
+         &--error {
+            color: $color-error;
+            border-bottom: 1px solid $color-error;
+         }
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      input:-webkit-autofill:active {
+         background-color: transparent;
+         transition: background-color 5000s;
+         -webkit-text-fill-color: $color-grey-dark-2 !important;
+         font-size: inherit;
+      }
+      &--group {
+         display: flex;
+         width: 100%;
+         gap: 2rem;
+
+         // align-items: center;
+      }
+      &--error {
+         color: $color-error;
+         font-size: 1.2rem;
+      }
+      &--forgotPassword {
+         align-self: center;
+         color: $color-grey-dark-1;
+         font-size: 1.2rem;
+         text-decoration: none;
+         text-align: center;
+         border-radius: $default-border-radius;
+         padding: 0.5rem 2.5rem;
+
+         &:hover {
+            background-color: $color-grey-light-4;
+            transition: all 0.5s;
+            color: $color-grey-dark-4;
+         }
+      }
+   }
+   &__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $color-grey-light-3;
+      opacity: 0.9;
+   }
+   &__exit {
+      position: absolute;
+   }
+}

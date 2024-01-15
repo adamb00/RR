@@ -1,0 +1,45 @@
+.toggle {
+   cursor: pointer;
+   display: inline-block;
+
+   &__switch {
+      display: inline-block;
+      background: $color-grey-light-4;
+      border-radius: 16px;
+      width: 58px;
+      height: 32px;
+      position: relative;
+      vertical-align: middle;
+      transition: background 0.25s;
+      &:before,
+      &:after {
+         content: '';
+      }
+      &:before {
+         display: block;
+         background: linear-gradient(to bottom, $color-grey-light-1 0%, $color-grey-light-2 100%);
+         border-radius: 50%;
+         box-shadow: $default-box-shadow;
+         width: 24px;
+         height: 24px;
+         position: absolute;
+         top: 4px;
+         left: 4px;
+         transition: left 0.25s;
+      }
+      .toggle:hover &:before {
+         background: linear-gradient(to bottom, $color-white 0%, $color-white 100%);
+         box-shadow: $default-box-shadow;
+      }
+      .toggle__checkbox:checked + & {
+         background: $color-grey-dark-6;
+         &:before {
+            left: 30px;
+         }
+      }
+   }
+   &__checkbox {
+      position: absolute;
+      visibility: hidden;
+   }
+}

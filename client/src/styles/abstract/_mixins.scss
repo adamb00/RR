@@ -1,0 +1,38 @@
+@mixin respond($breakpoint) {
+   @if $breakpoint == phone {
+      @media only screen and (max-width: 37.5em) {
+         @content;
+      }
+   }
+   @if $breakpoint == tab-port {
+      @media only screen and (max-width: 56.25em) {
+         @content;
+      }
+   }
+   @if $breakpoint == tab-land {
+      @media only screen and (max-width: 75em) {
+         @content;
+      }
+   }
+   @if $breakpoint == big-desktop {
+      @media only screen and (min-width: 112.5em) {
+         @content;
+      }
+   }
+}
+
+@mixin theme-colors {
+   --color-grey-light-1: var(--color-grey-light-1);
+   --color-grey-light-2: var(--color-grey-light-2);
+   --color-grey-light-3: var(--color-grey-light-3);
+   --color-grey-light-4: var(--color-grey-light-4);
+   --color-grey-light-5: var(--color-grey-light-5);
+   --color-grey-light-6: var(--color-grey-light-6);
+
+   --color-grey-dark-1: var(--color-grey-dark-1);
+   --color-grey-dark-2: var(--color-grey-dark-2);
+   --color-grey-dark-3: var(--color-grey-dark-3);
+   --color-grey-dark-4: var(--color-grey-dark-4);
+   --color-grey-dark-5: var(--color-grey-dark-5);
+   --color-grey-dark-6: var(--color-grey-dark-6);
+}

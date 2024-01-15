@@ -1,0 +1,21 @@
+.dropdown {
+   display: inline-flex;
+   flex-direction: column;
+   height: 5rem;
+   margin-bottom: 2rem;
+   width: 37%;
+   &__select {
+      padding: 1rem;
+      font-size: 2rem;
+      width: 100%;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid $color-grey-dark-1;
+      background-color: transparent;
+      color: currentColor;
+   }
+
+   &__option {
+      font-size: $default-font-size;
+   }
+}

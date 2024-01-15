@@ -1,0 +1,84 @@
+.btn {
+   &,
+   &:link,
+   &:visited {
+      position: relative;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.5rem 6rem;
+      display: inline-block;
+      border-radius: $default-border-radius;
+      font-size: $default-font-size;
+      transition: all 200ms;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+   }
+   &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: $default-box-shadow;
+
+      &::after {
+         transform: scaleX(1.4) scaleY(1.6);
+         opacity: 0;
+      }
+   }
+   &:active,
+   &:focus {
+      outline: none;
+      transform: translateY(-0.1rem);
+      box-shadow: $default-box-shadow;
+   }
+   &::after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: $default-border-radius;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all 400ms;
+   }
+
+   &--primary {
+      background-color: $color-primary-tint;
+      color: $color-grey-light-1;
+
+      &::after {
+         background-color: $color-primary-tint;
+      }
+   }
+   &--secondary {
+      font-size: 1.2rem;
+      text-transform: none;
+      background-color: transparent;
+      color: currentColor;
+
+      &::after {
+         background-color: $color-grey-light-2;
+      }
+   }
+}
+
+.btn-icon {
+   background: none;
+   border: none;
+   display: inline-flex;
+   padding: 0.6rem;
+   justify-content: center;
+   font-size: 2rem;
+   border-radius: $default-border-radius;
+   border: 1px solid transparent;
+   transition: all 1s;
+   -webkit-transition: all 1s;
+   -moz-transition: all 1s;
+   cursor: pointer;
+   color: $color-grey-dark-3;
+
+   &:hover {
+      border: 1px solid $color-grey-dark-4;
+      border-radius: $default-border-radius;
+   }
+}
