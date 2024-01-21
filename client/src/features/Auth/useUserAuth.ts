@@ -1,10 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
    createUser as createUserFn,
    getReferralCode as getReferralCodeFn,
    loginUser as loginUserFn,
+   logoutUser as logoutUserFn,
+   getOneUser as getOneUserFn,
 } from '../../services/apiUser';
 import IError from '../../interfaces/IError';
+import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -25,6 +28,7 @@ export const useCreateUser = ({ onError }: Props) => {
       },
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ['user'] });
+         //TODO ONLY REDIRECT IF NO ERROR
          navigate('/');
       },
    });
@@ -49,6 +53,8 @@ export const useGetReferalCode = () => {
 
 export const useLoginUser = ({ onError }: Props) => {
    const queryClient = useQueryClient();
+   const navigate = useNavigate();
+   const { signin } = useAuth();
 
    const {
       mutate: loginUser,
@@ -59,10 +65,44 @@ export const useLoginUser = ({ onError }: Props) => {
       onError: (error: IError) => {
          onError(error);
       },
-      onSuccess: () => {
+      onSuccess: data => {
          queryClient.invalidateQueries({ queryKey: ['user'] });
+         signin(data);
+         navigate('/');
       },
    });
 
    return { loginUser, isLogging, loginError };
+};
+
+export const useLogoutUser = () => {
+   const { signout } = useAuth();
+   const navigate = useNavigate();
+   const queryClient = useQueryClient();
+
+   const { mutate: logoutUser } = useMutation({
+      mutationFn: logoutUserFn,
+      onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: ['user'] });
+         signout();
+         navigate('/');
+      },
+   });
+
+   return { logoutUser };
+};
+
+export const useGetOneUser = (id: string) => {
+   const {
+      isLoading,
+      data: currentUser,
+      error,
+   } = useQuery({
+      queryKey: ['user', id],
+      queryFn: () => getOneUserFn(id),
+      staleTime: 5000,
+      refetchInterval: 5000,
+   });
+
+   return { isLoading, currentUser, error };
 };

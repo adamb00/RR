@@ -1,10 +1,10 @@
-$color-primary: #e50914;
-$color-primary-tint: #ed535b;
-$color-primary-shade: #a0060e;
+// $color-primary: #e50914;
+// $color-primary-tint: #ed535b;
+// $color-primary-shade: #a0060e;
 
-$color-secondary: #00d394;
-$color-secondary-tint: #80e9ca;
-$color-secondary-shade: #006a4a;
+// $color-secondary: #8debcf;
+// $color-secondary-tint: #c0f4e5;
+// $color-secondary-shade: #80e9ca;
 
 $color-black: #000000;
 $color-white: #ffffff;
@@ -12,9 +12,13 @@ $color-white: #ffffff;
 $color-success: #57f287;
 $color-error: #ed4245;
 
+$color-red-main: #ed535b;
+$color-green-main: #8debcf;
+
 $color-grey-light-1: var(--color-grey-light-1);
 $color-grey-light-2: var(--color-grey-light-2);
 $color-grey-light-3: var(--color-grey-light-3);
+$color-grey-light-3_1: var(--color-grey-light-3_1);
 $color-grey-light-4: var(--color-grey-light-4);
 $color-grey-light-5: var(--color-grey-light-5);
 $color-grey-light-6: var(--color-grey-light-6);
@@ -25,6 +29,14 @@ $color-grey-dark-3: var(--color-grey-dark-3);
 $color-grey-dark-4: var(--color-grey-dark-4);
 $color-grey-dark-5: var(--color-grey-dark-5);
 $color-grey-dark-6: var(--color-grey-dark-6);
+
+$color-primary: var(--color-primary);
+$color-primary-tint: var(--color-primary-tint);
+$color-primary-shade: var(--color-primary-shade);
+
+$color-secondary: var(--color-secondary);
+$color-secondary-tint: var(--color-secondary-tint);
+$color-secondary-shade: var(--color-secondary-shade);
 
 $default-font-size: 1.6rem;
 $default-border-radius: 0.8rem;
@@ -45,6 +57,14 @@ $default-box-shadow: 0 0.5rem 2rem rgba($color-black, 0.2);
    --color-grey-light-3: #2e2e2e;
    --color-grey-light-2: #292929;
    --color-grey-light-1: #252525;
+
+   --color-secondary: #e50914;
+   --color-secondary-tint: #ed535b;
+   --color-secondary-shade: #a0060e;
+
+   --color-primary: #8debcf;
+   --color-primary-tint: #c0f4e5;
+   --color-primary-shade: #80e9ca;
 }
 
 .light-mode {
@@ -61,4 +81,12 @@ $default-box-shadow: 0 0.5rem 2rem rgba($color-black, 0.2);
    --color-grey-dark-4: #2e2e2e;
    --color-grey-dark-5: #292929;
    --color-grey-dark-6: #252525;
+
+   --color-primary: #e50914;
+   --color-primary-tint: #ed535b;
+   --color-primary-shade: #a0060e;
+
+   --color-secondary: #8debcf;
+   --color-secondary-tint: #c0f4e5;
+   --color-secondary-shade: #80e9ca;
 }

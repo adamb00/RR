@@ -1,22 +1,44 @@
 import { BASE_URL, OPTIONS } from '../utils/helpers';
 
-export const createUser = async (newUser: object) => {
-   const response = await fetch(BASE_URL + 'user/signup', OPTIONS('POST', newUser));
+export const createUser = async (data: object) => {
+   const response = await fetch(BASE_URL + 'user/signup', OPTIONS({ method: 'POST', data }));
    const responseData = await response.json();
 
    return responseData;
 };
 
 export const getReferralCode = async (referralCode: number) => {
-   const response = await fetch(BASE_URL + `user/getReferralCode/${referralCode}`, OPTIONS('GET'));
+   const response = await fetch(BASE_URL + `user/getReferralCode/${referralCode}`, OPTIONS({ method: 'GET' }));
    const responseData = await response.json();
 
    return responseData;
 };
 
-export const loginUser = async (user: object) => {
-   const response = await fetch(BASE_URL + 'user/signin', OPTIONS('POST', user));
+export const loginUser = async (data: object) => {
+   try {
+      const response = await fetch(BASE_URL + 'user/signin', OPTIONS({ method: 'POST', data }));
+      const responseData = await response.json();
+
+      return responseData;
+   } catch (err) {
+      console.log(err);
+   }
+};
+
+export const logoutUser = async () => {
+   const response = await fetch(BASE_URL + 'user/signout', OPTIONS({ method: 'POST' }));
    const responseData = await response.json();
+
+   if (!response.ok) throw new Error(responseData.message);
+
+   return responseData;
+};
+
+export const getOneUser = async (id: string) => {
+   const response = await fetch(BASE_URL + `user/${id}`, OPTIONS({ method: 'GET' }));
+   const responseData = await response.json();
+
+   if (!response.ok) throw new Error(responseData.message);
 
    return responseData;
 };

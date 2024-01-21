@@ -60,6 +60,16 @@
          background-color: $color-grey-light-2;
       }
    }
+   &--paginator {
+      padding: 1rem;
+      border-radius: 100%;
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $color-primary-tint;
+   }
 }
 
 .btn-icon {
@@ -77,8 +87,16 @@
    cursor: pointer;
    color: $color-grey-dark-3;
 
+   @include respond(tab-land) {
+      font-size: 3rem;
+   }
+
    &:hover {
       border: 1px solid $color-grey-dark-4;
       border-radius: $default-border-radius;
    }
+}
+
+.icon {
+   color: $color-grey-light-1;
 }

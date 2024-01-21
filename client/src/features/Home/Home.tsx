@@ -1,3 +1,9 @@
+import { useAuth } from '../../context/AuthContext';
+import HomeAuth from './HomeAuth';
+import HomeNoAuth from './HomeNoAuth';
+
 export default function Home() {
-   return <div>This is the Home Page</div>;
+   const { user } = useAuth();
+
+   return <div className='home'>{user ? <HomeAuth /> : <HomeNoAuth />}</div>;
 }

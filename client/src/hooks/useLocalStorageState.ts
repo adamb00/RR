@@ -8,12 +8,13 @@ export function useLocalStorageState<T>(initialState: T, key: string): UseLocalS
       return storedValue ? JSON.parse(storedValue) : initialState;
    });
 
-   useEffect(
-      function () {
+   useEffect(() => {
+      if (value === undefined) {
+         localStorage.removeItem(key);
+      } else {
          localStorage.setItem(key, JSON.stringify(value));
-      },
-      [value, key]
-   );
+      }
+   }, [value, key]);
 
    return [value, setValue];
 }

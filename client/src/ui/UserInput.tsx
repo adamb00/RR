@@ -33,7 +33,9 @@ export default function UserInput({
          render={({ field: { value, onChange: onFieldChange, onBlur }, fieldState: { error: fieldError } }) => (
             <div className='user-input'>
                {children}
+               <label htmlFor='input'></label>
                <input
+                  id='input'
                   autoComplete='new-password'
                   autoFocus={false}
                   type={type}
@@ -41,7 +43,7 @@ export default function UserInput({
                   placeholder={placeholder}
                   onChange={e => {
                      if (onChange) {
-                        onChange(); // Call the onChange prop
+                        onChange();
                      }
                      onFieldChange(e);
                   }}

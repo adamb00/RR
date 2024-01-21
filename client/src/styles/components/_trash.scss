@@ -1,0 +1,11 @@
+.trash {
+   position: absolute;
+   right: 1rem;
+   bottom: 1rem;
+
+   &__icon {
+      height: 10rem;
+
+      width: 10rem;
+   }
+}

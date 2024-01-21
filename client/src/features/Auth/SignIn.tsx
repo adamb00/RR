@@ -7,8 +7,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useLoginUser } from './useUserAuth';
 import IError from '../../interfaces/IError';
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function SignIn() {
+   const navigate = useNavigate();
+   const { user } = useAuth();
    const { control, handleSubmit } = useForm();
    const { loginUser, isLogging } = useLoginUser({
       onError: (error: IError) => {
@@ -16,7 +19,6 @@ export default function SignIn() {
       },
    });
    const [error, setError] = useState<IError>();
-   const navigate = useNavigate();
 
    const handleInputChange = () => {
       setError(undefined);
@@ -34,6 +36,8 @@ export default function SignIn() {
          }
       );
    };
+
+   if (user) navigate('/');
 
    return (
       <div className='login'>

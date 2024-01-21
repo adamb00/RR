@@ -7,8 +7,12 @@
    top: 0;
    background-color: $color-grey-light-3;
    border-bottom: 1px solid $color-grey-dark-1;
+   z-index: 1000;
 
    &-nav {
+      @include respond(tab-land) {
+         margin-right: 5rem;
+      }
       &__list {
          display: flex;
          gap: 3rem;
@@ -46,6 +50,29 @@
          &--active {
             color: $color-primary-tint;
             border-bottom: 1px solid $color-primary-tint;
+         }
+      }
+   }
+   &-icon {
+      &__image {
+         width: 7rem;
+         height: 7rem;
+         top: 6rem;
+         right: 6rem;
+         border-radius: 50%;
+         z-index: 2000;
+         box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
+         text-align: center;
+         cursor: pointer;
+
+         @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+         }
+
+         @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
          }
       }
    }

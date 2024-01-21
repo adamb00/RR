@@ -1,0 +1,31 @@
+.share-links {
+   display: flex;
+
+   &__input {
+      height: 4rem;
+      border-radius: 2rem;
+      outline: none;
+      border: none;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+   }
+   &__icon {
+      position: absolute;
+      right: 3rem;
+      top: 13.5rem;
+      fill: $color-red-main !important;
+      color: $color-red-main !important;
+
+      &:hover {
+         border: 1px solid $color-red-main !important;
+      }
+   }
+   &__loader {
+      color: $color-primary-tint;
+      height: 0.5rem;
+   }
+   &__error {
+      color: $color-error;
+      margin: 0.5rem 1.5rem;
+   }
+}

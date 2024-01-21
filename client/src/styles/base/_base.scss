@@ -1,6 +1,6 @@
-:root {
-   @include theme-colors;
-}
+// :root {
+//    @include theme-colors;
+// }
 
 *,
 *::before,
@@ -28,5 +28,5 @@ body {
    box-sizing: border-box;
    min-height: 100vh;
    min-width: 100vw;
-   background-color: $color-grey-light-3;
+   background-color: $color-grey-light-1;
 }

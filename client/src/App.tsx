@@ -5,6 +5,7 @@ import Home from './features/Home/Home';
 import About from './features/About/About';
 import SignIn from './features/Auth/SignIn';
 import SignUp from './features/Auth/SignUp';
+import Links from './features/Links/Links';
 
 const router = createBrowserRouter([
    {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
          },
          { path: '/signin', element: <SignIn /> },
          { path: '/signup', element: <SignUp /> },
+         { path: '/my-links', element: <Links /> },
       ],
    },
 ]);
