@@ -15,5 +15,8 @@ export default cleanEnv(process.env, {
 
    JWT_SECRET: str(),
    JWT_EXPIRES_IN: str(),
-   JWT_COOKIE_EXPIRES_IN: num(),
+
+   FACEBOOK_ID: str(),
+   FACEBOOK_SECRET: str(),
+   FACEBOOK_CALLBACK_URL: str(),
 });

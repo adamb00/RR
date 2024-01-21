@@ -60,17 +60,17 @@ const userSchema: Schema = new Schema<IUser>({
    parent: {
       type: String,
    },
-   children: {
+   children_level_1: {
       type: [String],
    },
-   grandChildren: {
+   children_level_2: {
+      type: [String],
+   },
+   children_level_3: {
       type: [String],
    },
    photo: {
       type: String,
-   },
-   availableLinks: {
-      type: [String],
    },
    active: {
       type: Boolean,

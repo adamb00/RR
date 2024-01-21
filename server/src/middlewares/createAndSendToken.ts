@@ -5,12 +5,12 @@ import env from '../utils/validateEnv';
 import { UserType } from '../models/UserModel';
 
 const signToken = (id: string): string => {
-   return jwt.sign({ id }, env.JWT_SECRET, { expiresIn: env.JWT_COOKIE_EXPIRES_IN * 5 * 60 * 1000 });
+   return jwt.sign({ id }, env.JWT_SECRET, { expiresIn: 7 * 60 * 60 * 1000 });
 };
 
 export const createAndSendToken = async (user: UserType, statusCode: number, req: Request, res: Response) => {
    const token = signToken(user._id);
-   const expires = new Date(Date.now() + env.JWT_COOKIE_EXPIRES_IN * 5 * 60 * 1000);
+   const expires = new Date(Date.now() + 7 * 60 * 60 * 1000);
 
    if (!req.user) req.user = user;
 

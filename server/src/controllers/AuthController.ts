@@ -6,15 +6,15 @@ import Email from '../utils/email';
 import AppError from '../utils/appError';
 import { correctPassword } from '../middlewares/correctPassword';
 import { createAndSendToken } from '../middlewares/createAndSendToken';
-import ICustomError from '../interfaces/ICustomError';
+import { MongoError } from 'mongodb';
 
-declare global {
-   namespace Express {
-      interface Request {
-         user: UserType;
-      }
-   }
-}
+// declare global {
+//    namespace Express {
+//       interface Request {
+//          user: UserType;
+//       }
+//    }
+// }
 
 export default class AuthController {
    public signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -22,6 +22,7 @@ export default class AuthController {
          const highestReferralCode = await User.findOne({}, 'referralCode', { sort: { referralCode: -1 } }).lean();
          const parentUser = await User.findOne({ _id: req.body.parent });
          const grandparentUser = await User.findOne({ _id: parentUser?.parent });
+         const granderparentUser = await User.findOne({ _id: grandparentUser?.parent });
 
          const newUser: UserType = await User.create({
             ...req.body,
@@ -29,10 +30,13 @@ export default class AuthController {
             level: parentUser!.level + 1,
          });
 
-         if (parentUser) await User.updateOne({ _id: parentUser._id }, { $push: { children: newUser._id } });
+         if (parentUser) await User.updateOne({ _id: parentUser._id }, { $push: { children_level_1: newUser._id } });
 
          if (grandparentUser)
-            await User.updateOne({ _id: grandparentUser._id }, { $push: { grandChildren: newUser._id } });
+            await User.updateOne({ _id: grandparentUser._id }, { $push: { children_level_2: newUser._id } });
+
+         if (granderparentUser)
+            await User.updateOne({ _id: granderparentUser._id }, { $push: { children_level_3: newUser._id } });
 
          // const url = `${req.protocol}://${req.get('host')}/signup?referralCode=${parentUser?.referralCode}`;
          const url = `http://localhost:5173/signin`;
@@ -55,8 +59,13 @@ export default class AuthController {
                status: 'error',
                errors: errorMessages,
             });
+         } else if ((err as MongoError).code === 11000) {
+            console.log((err as MongoError).message);
+            res.status(400).json({
+               status: 'error',
+               message: 'Email address is already in use.',
+            });
          } else {
-            //TODO HANDLE DUPLICATE ERROR
             res.status(500).json({
                status: 'error',
                message: 'An error occurred',
@@ -117,4 +126,11 @@ export default class AuthController {
       await createAndSendToken(user, 200, req, res);
       req.user = user;
    });
+
+   public signout = (_req: Request, res: Response) => {
+      res.cookie('jwt', 'loggedout', {
+         expires: new Date(Date.now() + 10 * 1000),
+      });
+      res.status(200).json({ status: 'success' });
+   };
 }

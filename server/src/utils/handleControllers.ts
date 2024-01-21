@@ -12,8 +12,6 @@ export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Req
          filter = filterFn(req);
       }
 
-      if (req.params.reservationId) filter = { reservation: req.params.reservationId };
-
       const totalItems = (await Model.find()).length;
 
       const features = new APIFeatures(Model.find(filter), req.query).filter().sort().limitFields().paginate();
@@ -35,30 +33,13 @@ export const createOne = <T extends Document>(Model: Model<T>, customizeRequestB
       }
 
       try {
-         let doc;
-         let data = req.body;
-
-         if (Model.modelName === 'Food') {
-            const parsedPrice = JSON.parse(data.price);
-
-            data = {
-               ...data,
-               price: parsedPrice,
-            };
-         }
-
-         if (Model.modelName === 'Ad') {
-            data = { ...data, expirationDate: new Date(Date.now() + 12 * 60 * 60 * 1000) };
-         }
-
-         doc = await Model.create(data);
+         const doc = await Model.create(req.body);
 
          res.status(201).json({
             status: 'success',
             doc,
          });
       } catch (error) {
-         console.log(error);
          res.send(500).json({ status: 'error', message: error });
       }
    });

@@ -14,11 +14,11 @@ export default interface IUser extends Document {
    referralCode: number;
    level: number;
    parent: string;
-   children: string[];
-   grandChildren: string[];
+   children_level_1: string[];
+   children_level_2: string[];
+   children_level_3: string[];
    photo: string;
    role: string;
-   availableLinks: string[];
    active: boolean;
    notifications: string[];
    availablePoints: number;

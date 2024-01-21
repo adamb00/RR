@@ -1,5 +1,5 @@
 import User from '../models/UserModel';
-import * as handler from './../utils/handleControllers';
+import * as handler from '../utils/handleControllers';
 
 export default class UserController {
    public getAllUsers = handler.getAll(User);
