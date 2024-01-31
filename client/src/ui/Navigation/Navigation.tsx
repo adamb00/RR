@@ -1,10 +1,12 @@
-import { useLogoutUser } from '../features/Auth/useUserAuth';
-import { closeMenu } from '../utils/helpers';
-import Button from './Button';
+import { useAuth } from '../../context/AuthContext';
+import { useLogoutUser } from '../../features/Auth/useUserAuth';
+import { closeMenu } from '../../utils/helpers';
+import Button from '../Buttons/Button';
 import NavigationLinkMobile from './NavigationLinkMobile';
 
 export default function Navigation() {
    const { logoutUser } = useLogoutUser();
+   const { user } = useAuth();
 
    return (
       <div className='navigation'>
@@ -26,9 +28,15 @@ export default function Navigation() {
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
-                  <NavigationLinkMobile to='/account' onClick={closeMenu}>
-                     Account
-                  </NavigationLinkMobile>
+                  {user?.role === 'Admin' ? (
+                     <NavigationLinkMobile onClick={closeMenu} to='/account/edit-links'>
+                        Account
+                     </NavigationLinkMobile>
+                  ) : (
+                     <NavigationLinkMobile onClick={closeMenu} to='/account/personal'>
+                        Account
+                     </NavigationLinkMobile>
+                  )}
                </li>
                <li className='navigation__item'>
                   <Button className='btn btn--primary' onClick={logoutUser}>

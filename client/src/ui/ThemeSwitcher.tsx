@@ -1,6 +1,6 @@
 import { useTheme } from '../context/ThemeContext';
 import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi2';
-import ButtonIcon from './ButtonIcon';
+import ButtonIcon from './Buttons/ButtonIcon';
 
 export default function ThemeSwitcher() {
    const { theme, handleToggle } = useTheme();

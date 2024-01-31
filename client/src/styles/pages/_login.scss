@@ -1,17 +1,24 @@
 .login {
    border-radius: $default-border-radius;
    position: absolute;
+   align-items: center;
+   justify-content: center;
    left: 50%;
    top: 50%;
-   transform: translate(-50%, -50%);
+   transform: translate(-50%, -40%);
    width: 50%;
    font-size: $default-font-size;
    box-shadow: $default-box-shadow;
    padding: 2rem;
 
    @include respond(tab-land) {
+      width: 80%;
+      transform: translate(-50%, -50%);
+   }
+   @include respond(phone) {
       width: 100%;
       box-shadow: none;
+      transform: translate(-50%, -50%);
    }
 
    &__form {
@@ -19,11 +26,19 @@
       flex-direction: column;
       position: relative;
       left: 50%;
+      width: 100%;
       transform: translate(-50%);
-      width: 50%;
-      height: 100%;
       justify-content: start;
       gap: 1rem;
+
+      & button {
+         width: 70%;
+         align-self: center;
+
+         @include respond(phone) {
+            width: 100%;
+         }
+      }
 
       @include respond(tab-land) {
          width: 100%;
@@ -31,50 +46,22 @@
       }
 
       &--welcome {
-         margin-bottom: 3rem;
+         margin: 5rem 0;
       }
 
       &--icon {
-         padding-right: 0.2rem;
-         font-size: 3rem;
-         position: absolute;
-         transform: translateY(0.5rem);
-         border-right: 1px solid currentColor;
-         fill: $color-primary-tint;
-         font-weight: normal;
+         @include formIcon;
       }
 
       &--input {
-         padding: 1rem 3.5rem;
-         font-size: 2rem;
-         width: 100%;
-         outline: none;
-         border: none;
-         border-bottom: 1px solid $color-grey-dark-1;
-         background-color: transparent;
-         color: currentColor;
-
-         &--error {
-            color: $color-error;
-            border-bottom: 1px solid $color-error;
-         }
+         @include defaultBorderlessInput;
       }
+      @include webkitAutofill;
 
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover,
-      input:-webkit-autofill:focus,
-      input:-webkit-autofill:active {
-         background-color: transparent;
-         transition: background-color 5000s;
-         -webkit-text-fill-color: $color-grey-dark-2 !important;
-         font-size: inherit;
-      }
       &--group {
          display: flex;
          width: 100%;
          gap: 2rem;
-
-         // align-items: center;
       }
       &--error {
          color: $color-error;
@@ -95,17 +82,5 @@
             color: $color-grey-dark-4;
          }
       }
-   }
-   &__overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: $color-grey-light-3;
-      opacity: 0.9;
-   }
-   &__exit {
-      position: absolute;
    }
 }

@@ -1,7 +1,3 @@
-// :root {
-//    @include theme-colors;
-// }
-
 *,
 *::before,
 *::after {
@@ -28,5 +24,6 @@ body {
    box-sizing: border-box;
    min-height: 100vh;
    min-width: 100vw;
-   background-color: $color-grey-light-1;
+   background-color: $color-grey-light-3;
+   overflow-x: hidden;
 }

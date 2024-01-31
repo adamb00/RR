@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import Button from './Button';
+import Button from '../Buttons/Button';
 import NavigationLinkMobile from './NavigationLinkMobile';
-import { closeMenu } from '../utils/helpers';
+import { closeMenu } from '../../utils/helpers';
 
 export default function NavigationNoAuth() {
    const navigate = useNavigate();
@@ -13,10 +13,10 @@ export default function NavigationNoAuth() {
 
    return (
       <div className='navigation'>
-         <input type='checkbox' name='' id='navi-toggle' className='navigation__checkbox' />
          <label htmlFor='navi-toggle' className='navigation__button'>
             <span className='navigation__icon'>&nbsp;</span>
          </label>
+         <input type='checkbox' name='' id='navi-toggle' className='navigation__checkbox' />
          <div className='navigation__background'>&nbsp;</div>
          <div className='navigation__nav'>
             <ul className='navigation__list'>
@@ -27,7 +27,22 @@ export default function NavigationNoAuth() {
                </li>
                <li className='navigation__item'>
                   <NavigationLinkMobile to='/about' onClick={closeMenu}>
-                     About
+                     About us
+                  </NavigationLinkMobile>
+               </li>
+               <li>
+                  <NavigationLinkMobile to='/affiliate' onClick={closeMenu}>
+                     Affiliate
+                  </NavigationLinkMobile>
+               </li>
+               <li>
+                  <NavigationLinkMobile to='/faq' onClick={closeMenu}>
+                     FAQ
+                  </NavigationLinkMobile>
+               </li>
+               <li>
+                  <NavigationLinkMobile to='/contact' onClick={closeMenu}>
+                     Contact us
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>

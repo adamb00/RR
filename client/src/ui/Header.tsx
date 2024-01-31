@@ -1,16 +1,14 @@
 import { useAuth } from '../context/AuthContext';
-import Navbar from './Navbar';
-import NavbarNotAuth from './NavbarNotAuth';
-import LogoImage from '../../assets/logo.png';
+import Navbar from './Navbar/Navbar';
+import NavbarNotAuth from './Navbar/NavbarNotAuth';
+import Logo from './Logo';
 
 export default function Header() {
    const { user } = useAuth();
 
    return (
       <header className='header'>
-         <div className='header-icon'>
-            <img src={LogoImage} className='header-icon__image' />
-         </div>
+         <Logo />
          {user ? <Navbar /> : <NavbarNotAuth />}
       </header>
    );

@@ -1,5 +1,5 @@
 import { CiBarcode } from 'react-icons/ci';
-import UserInput from '../../ui/UserInput';
+import UserInput from '../../ui/UserInteractions/UserInput';
 import { IS_VALID_NUMBER } from '../../utils/helpers';
 import { Control } from 'react-hook-form';
 

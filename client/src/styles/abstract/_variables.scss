@@ -1,11 +1,3 @@
-// $color-primary: #e50914;
-// $color-primary-tint: #ed535b;
-// $color-primary-shade: #a0060e;
-
-// $color-secondary: #8debcf;
-// $color-secondary-tint: #c0f4e5;
-// $color-secondary-shade: #80e9ca;
-
 $color-black: #000000;
 $color-white: #ffffff;
 
@@ -18,7 +10,6 @@ $color-green-main: #8debcf;
 $color-grey-light-1: var(--color-grey-light-1);
 $color-grey-light-2: var(--color-grey-light-2);
 $color-grey-light-3: var(--color-grey-light-3);
-$color-grey-light-3_1: var(--color-grey-light-3_1);
 $color-grey-light-4: var(--color-grey-light-4);
 $color-grey-light-5: var(--color-grey-light-5);
 $color-grey-light-6: var(--color-grey-light-6);
@@ -41,10 +32,13 @@ $color-secondary-shade: var(--color-secondary-shade);
 $default-font-size: 1.6rem;
 $default-border-radius: 0.8rem;
 
+$color-hover-box-shadow: var(--color-hover-box-shadow);
+
 $default-box-shadow: 0 0.5rem 2rem rgba($color-black, 0.2);
+$hover-box-shadow: 0 0.5rem 2rem $color-hover-box-shadow !important;
 
 .dark-mode {
-   --color-grey-dark-6: #ebebeb;
+   --color-grey-dark-6: #eeeeee;
    --color-grey-dark-5: #e9e9e9;
    --color-grey-dark-4: #e6e6e6;
    --color-grey-dark-3: #cfcfcf;
@@ -59,16 +53,18 @@ $default-box-shadow: 0 0.5rem 2rem rgba($color-black, 0.2);
    --color-grey-light-1: #252525;
 
    --color-secondary: #e50914;
-   --color-secondary-tint: #ed535b;
+   --color-secondary-tint: rgb(237, 83, 91);
    --color-secondary-shade: #a0060e;
 
    --color-primary: #8debcf;
-   --color-primary-tint: #c0f4e5;
+   --color-primary-tint: rgb(192, 244, 229);
    --color-primary-shade: #80e9ca;
+
+   --color-hover-box-shadow: #c0f4e533;
 }
 
 .light-mode {
-   --color-grey-light-1: #ebebeb;
+   --color-grey-light-1: #eeeeee;
    --color-grey-light-2: #e9e9e9;
    --color-grey-light-3: #e6e6e6;
    --color-grey-light-4: #cfcfcf;
@@ -83,10 +79,15 @@ $default-box-shadow: 0 0.5rem 2rem rgba($color-black, 0.2);
    --color-grey-dark-6: #252525;
 
    --color-primary: #e50914;
-   --color-primary-tint: #ed535b;
+   --color-primary-tint: rgb(237, 83, 91);
    --color-primary-shade: #a0060e;
 
+   --color-hover-box-shadow: #ed535b33;
+
    --color-secondary: #8debcf;
-   --color-secondary-tint: #c0f4e5;
+   --color-secondary-tint: rgb(192, 244, 229);
    --color-secondary-shade: #80e9ca;
 }
+
+$default-font-size: 1.6rem;
+$default-border-radius: 0.8rem;

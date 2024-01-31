@@ -1,7 +1,7 @@
 import { CiUnlock, CiUser } from 'react-icons/ci';
-import Button from '../../ui/Button';
+import Button from '../../ui/Buttons/Button';
 import { useForm } from 'react-hook-form';
-import UserInput from '../../ui/UserInput';
+import UserInput from '../../ui/UserInteractions/UserInput';
 import { IS_VALID_EMAIL } from '../../utils/helpers';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useLoginUser } from './useUserAuth';
@@ -43,7 +43,7 @@ export default function SignIn() {
       <div className='login'>
          <form action='' onSubmit={handleSubmit(handleSubmitForm)} className='login__form' autoComplete='new-password'>
             <div className='login__form--welcome'>
-               <div className='heading-primary'>Hello!</div>
+               <div className='heading-primary'>Welcome back!</div>
                <div className='heading-secondary'>We are really happy to see you again!</div>
             </div>
             <UserInput
@@ -87,7 +87,7 @@ export default function SignIn() {
                <p className='login__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
             )}
             <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLogging} className='btn btn--primary'>
-               Log in
+               Log in now
             </Button>
             <Button onClick={() => navigate('/signup')} disabled={isLogging} className='btn btn--secondary'>
                Don't you have an account yet? Register now!

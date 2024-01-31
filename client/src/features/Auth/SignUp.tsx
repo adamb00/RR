@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import Button from '../../ui/Button';
+import Button from '../../ui/Buttons/Button';
 import { useState } from 'react';
 import { useCreateUser, useGetReferalCode } from './useUserAuth';
 import IError from '../../interfaces/IError';
@@ -57,7 +57,11 @@ export default function SignUp() {
       <div className='signup'>
          <form action='' autoComplete='off' className='signup__form'>
             <div className='signup__form--welcome'>
-               <div className='heading-primary'>Hello!</div>
+               {validReferralCode ? (
+                  <div className='heading-primary'>You are almost there!</div>
+               ) : (
+                  <div className='heading-primary'>Nice to meet you!</div>
+               )}
                {!validReferralCode && (
                   <div className='heading-secondary'>Please provide us Your referral code first.</div>
                )}
@@ -76,7 +80,7 @@ export default function SignUp() {
 
             {!validReferralCode && (
                <Button onClick={handleSubmit(handleReferralAvailability)} className='btn btn--primary'>
-                  Register
+                  Continue to register
                </Button>
             )}
 

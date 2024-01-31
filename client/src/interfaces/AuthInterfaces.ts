@@ -1,4 +1,11 @@
 import { Dispatch } from 'react';
+import INotification from './INotification';
+
+export interface UserLinks {
+   title: string;
+   link: string;
+   active: boolean;
+}
 
 export interface UserData {
    name: string;
@@ -7,6 +14,7 @@ export interface UserData {
    password: string;
    birthday: string;
    availablePoints: number;
+   accumulatedPoints: number;
    createdAt: string;
    nationality: string;
    referralCode: number;
@@ -15,7 +23,7 @@ export interface UserData {
    children_level_2: string[];
    children_level_3: string[];
    active: boolean;
-   notifications: string[];
+   notifications: INotification[];
    passwordChangedAt: string;
    _id: string;
    __v: number;
@@ -27,11 +35,13 @@ export interface AppState {
    token: string | undefined;
    isAuthenticated: boolean;
 }
+
 export interface SigninAction {
    type: 'signin';
    payload: {
-      data: UserData;
+      user?: UserData;
       token: string;
+      expires?: Date;
    };
 }
 
@@ -39,13 +49,20 @@ export interface SignoutAction {
    type: 'signout';
 }
 
+export interface UpdateAction {
+   type: 'updateUser';
+   payload: UserData;
+}
+
 export type AuthAction = SigninAction | SignoutAction;
 
 export interface AuthContextValue {
    user: UserData | undefined;
    isAuthenticated: boolean;
+   isFetchingUser: boolean;
+   isAdmin: boolean;
    token: string | undefined;
    dispatch: Dispatch<AuthAction>;
-   signin: (data: { data: UserData; token: string }) => void;
+   signin: (data: { expires: Date; token: string; data: UserData }) => void;
    signout: () => void;
 }

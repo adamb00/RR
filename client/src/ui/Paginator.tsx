@@ -1,14 +1,19 @@
-import Button from './Button';
+import Button from './Buttons/Button';
 import { HiChevronDoubleLeft, HiChevronDoubleRight, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { ITEM_PER_PAGE } from '../utils/constants';
+// import { SetURLSearchParams } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
 import { useNavigateToFirtsPage } from '../hooks/useNavigateToFirstPage';
 
 interface PaginatorProps {
    count: number;
+   // currentPage: number;
+   // searchParams: URLSearchParams;
+   // setSearchParams: SetURLSearchParams;
 }
 
+// export default function Paginator({ count, currentPage, searchParams, setSearchParams }: PaginatorProps) {
 export default function Paginator({ count }: PaginatorProps) {
    const [searchParams, setSearchParams] = useSearchParams();
    const currentPage = useMemo(

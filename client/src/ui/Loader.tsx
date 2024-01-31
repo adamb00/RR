@@ -1,9 +1,22 @@
 import PuffLoader from 'react-spinners/PuffLoader';
 
-export default function Loader() {
+interface LoaderProps {
+   className?: string;
+   isLoading?: boolean;
+   size: number;
+}
+
+export default function Loader({ className, isLoading = true, size }: LoaderProps) {
+   const theme = localStorage.getItem('theme');
    return (
-      <div className='loader'>
-         <PuffLoader color={'#000'} loading={true} size={250} aria-label='Loading Spinner' data-testid='loader' />
+      <div className={`loader ${className}`}>
+         <PuffLoader
+            color={theme === 'light' ? ' #ed535b' : '#C0F4E5'}
+            loading={isLoading}
+            size={size}
+            aria-label='Loading Spinner'
+            data-testid='loader'
+         />
       </div>
    );
 }

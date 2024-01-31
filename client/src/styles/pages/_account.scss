@@ -1,0 +1,145 @@
+.account {
+   display: grid;
+   grid-template-columns: 1fr 3.5fr;
+   grid-template-areas: 'sidebar body';
+   position: relative;
+   height: 100vh;
+
+   @include respond(tab-port) {
+      grid-template-columns: 1.2fr 3fr;
+   }
+
+   @include respond(phone) {
+      grid-template-columns: 0.5fr 3.5fr;
+   }
+
+   &__closed {
+      grid-template-columns: 10rem 4fr;
+   }
+
+   &__sidebar {
+      grid-area: 'sidebar';
+      background-color: $color-grey-light-2;
+      position: relative;
+      padding-top: 4rem;
+
+      &--notifications {
+         &__wrapper {
+            @include readPoint;
+         }
+         &__title {
+            @include notificationsTitle;
+            cursor: pointer;
+         }
+      }
+
+      &--icon {
+         font-size: 2rem;
+
+         &__not-open {
+            &:hover {
+               border-color: $color-primary-tint;
+            }
+            @include respond(tab-land) {
+               &:hover {
+                  border-color: transparent;
+               }
+            }
+         }
+      }
+
+      &--list {
+         display: flex;
+         align-items: center;
+      }
+
+      &--navigation {
+         list-style-type: none;
+         padding: 0 3rem;
+         display: flex;
+         flex-direction: column;
+         gap: 2rem;
+         margin-bottom: 7rem;
+         animation: moveInLeft 0.8s forwards;
+
+         &-link__not-open {
+            &::after {
+               background: none;
+            }
+
+            &--active {
+               border: 1px solid $color-primary-tint;
+               border-radius: $default-border-radius;
+            }
+         }
+
+         &__goback {
+            padding: 1rem;
+            border-radius: $default-border-radius;
+            border: 1px solid transparent;
+            transition: all 1s;
+            -webkit-transition: all 1s;
+            -moz-transition: all 1s;
+            cursor: pointer;
+            &:hover {
+               border: 1px solid red;
+               transition: all 1s ease-in-out;
+            }
+
+            &--icon {
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               font-size: 2rem;
+            }
+
+            &.open {
+               align-self: self-start;
+            }
+         }
+
+         &__not-open {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 7rem;
+            align-items: center;
+            animation: moveInLeft 0.8s forwards;
+         }
+      }
+   }
+   &__body {
+      grid-area: 'body';
+      background: $color-grey-light-4;
+   }
+
+   &__open-menu {
+      position: absolute;
+      background-color: $color-primary-tint;
+
+      padding: 1rem;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      border-radius: 100%;
+      right: -2.3rem;
+      top: 25%;
+      overflow: visible !important;
+      z-index: 2;
+      font-size: 2.5rem;
+      border: none;
+      color: $color-grey-light-6;
+
+      &:hover {
+         animation: spin 2s linear infinite;
+         cursor: pointer;
+         color: $color-grey-light-4;
+      }
+      &__icon {
+         color: $color-secondary-tint;
+         z-index: 2;
+         font-size: 5rem;
+      }
+   }
+}

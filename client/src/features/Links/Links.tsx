@@ -1,37 +1,67 @@
 import { useGetAllLinks } from './useLinks';
 import Paginator from '../../ui/Paginator';
-import PuffLoader from 'react-spinners/PuffLoader';
 import { ILink } from '../../interfaces/ILink';
-import LinkItem from './LinkItem';
-import Trash from '../../ui/Trash';
-import { useIsMobile } from '../../hooks/useIsMobile';
-import { useAuth } from '../../context/AuthContext';
+import LinkItem from './LinkItemUsers';
 import useDeviceDetection from '../../hooks/useDetectDevice';
+import { Draggable } from 'react-drag-reorder';
+import { useEffect } from 'react';
+import { useLocalStorageState } from '../../hooks/useLocalStorageState';
+import { IoEyeOutline, IoSettingsOutline } from 'react-icons/io5';
+import Icon from '../../ui/Icon';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import Loader from '../../ui/Loader';
 
 export default function Links() {
-   const { links, isLoading, count } = useGetAllLinks();
-   const { isMobile } = useIsMobile();
    const { user } = useAuth();
-   const isAdmin = user?.role === 'Admin';
+   const { links, isLoading, count } = useGetAllLinks();
+   const [orderedLinks, setOrderedLinks] = useLocalStorageState<ILink[]>([], 'orderedLinks');
    const device = useDeviceDetection();
 
-   if (isLoading || !links)
+   useEffect(() => {
+      if (links) {
+         if (orderedLinks.length !== links.doc.length) {
+            setOrderedLinks(links.doc);
+         }
+      }
+   }, [links, orderedLinks, setOrderedLinks]);
+
+   const handlePosChange = (currentPos: number, newPos: number) => {
+      const newOrderedLinks = [...orderedLinks];
+      const [movedLink] = newOrderedLinks.splice(currentPos, 1);
+      newOrderedLinks.splice(newPos, 0, movedLink);
+
+      setOrderedLinks(newOrderedLinks);
+   };
+
+   if (isLoading || !links || !user)
       return (
          <div className='links__loader'>
-            <PuffLoader color='#ed535b' size={100} />
+            <Loader size={250} />
          </div>
       );
 
    return (
-      <>
+      <div className='link'>
+         <div className='link__preview'>
+            <Icon className='link__icon'>
+               <IoSettingsOutline />
+            </Icon>
+
+            <Link to={`/${user!._id}`} target='_blank' rel='noopener noreferrer'>
+               <Icon className='link__icon'>
+                  <IoEyeOutline />
+               </Icon>
+            </Link>
+         </div>
          <div className='links'>
-            {links.doc.map((link: ILink) => (
-               <LinkItem key={link._id} link={link} isMobile={isMobile} />
-            ))}
+            <Draggable onPosChange={handlePosChange}>
+               {orderedLinks.map((link: ILink) => (
+                  <LinkItem key={link._id} link={link} device={device} />
+               ))}
+            </Draggable>
          </div>
          <Paginator count={count} />
-         {/* {!isMobile && isAdmin && <Trash />} */}
-         {device !== 'mobile' && device !== 'tablet' && isAdmin && <Trash />}
-      </>
+      </div>
    );
 }

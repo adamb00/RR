@@ -1,6 +1,6 @@
+import Loader from '../../ui/Loader';
 import { createMonogram } from '../../utils/helpers';
 import { useGetOneUser } from '../Auth/useUserAuth';
-import PuffLoader from 'react-spinners/PuffLoader';
 
 interface ChildrenProps {
    id: string;
@@ -9,7 +9,7 @@ interface ChildrenProps {
 export default function Children({ id }: ChildrenProps) {
    const { currentUser, isLoading: isLoadingUser } = useGetOneUser(id);
 
-   if (isLoadingUser) return <PuffLoader color='#ed535b' />;
+   if (isLoadingUser) return <Loader />;
 
    const { doc: user } = currentUser;
 

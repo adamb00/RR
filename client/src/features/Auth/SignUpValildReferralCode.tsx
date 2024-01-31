@@ -1,5 +1,5 @@
 import { Control, useWatch } from 'react-hook-form';
-import UserInput from '../../ui/UserInput';
+import UserInput from '../../ui/UserInteractions/UserInput';
 import { CiUnlock, CiUser, CiMail, CiGlobe, CiCalendarDate } from 'react-icons/ci';
 import { IS_VALID_EMAIL } from '../../utils/helpers';
 
@@ -79,17 +79,7 @@ export default function SignUpValildReferralCode({ control, handleInputChange }:
                <CiUnlock className='signup__form--icon' />
             </UserInput>
          </div>
-         <div className='signup__form--group'>
-            <UserInput
-               control={control}
-               name='birthday'
-               onChange={handleInputChange}
-               className='signup__form--input'
-               fieldErrorClassname='signup__form--error'
-               type='date'
-            >
-               <CiCalendarDate className='signup__form--icon' />
-            </UserInput>
+         <div className='signup__form--group signup__form--group__date'>
             <UserInput
                control={control}
                name='nationality'
@@ -100,6 +90,16 @@ export default function SignUpValildReferralCode({ control, handleInputChange }:
                placeholder='Your country'
             >
                <CiGlobe className='signup__form--icon' />
+            </UserInput>
+            <UserInput
+               control={control}
+               name='birthday'
+               onChange={handleInputChange}
+               className='signup__form--input signup__form--input__date'
+               fieldErrorClassname='signup__form--error'
+               type='date'
+            >
+               <CiCalendarDate className='signup__form--icon' />
             </UserInput>
          </div>
       </>

@@ -1,7 +1,10 @@
+import { UserData } from '../interfaces/AuthInterfaces';
+
 export const BASE_URL = 'http://192.168.0.33:8000/api/v1/';
+// export const BASE_URL = 'http://172.20.10.3:8000/api/v1/'; // MOBILNET
 // export const BASE_URL = 'http://localhost:8000/api/v1/';
 
-export const getUserToken = () => {
+export const getUserToken = async () => {
    return document.cookie.includes('jwt') ? document.cookie.split('=')[1] : '';
 };
 
@@ -13,7 +16,6 @@ export const OPTIONS = (options: {
 }) => {
    const { method, data, userToken, header = 'application/json' } = options;
 
-   // let headers: Record<string, string> = { 'Content-Type': header ? header : 'application/json' };
    let headers: Record<string, string> = { 'Content-Type': 'application/json' };
 
    let body: BodyInit | null | undefined;
@@ -71,4 +73,31 @@ export const closeMenu = () => {
    if (checkbox) {
       checkbox.checked = !checkbox.checked;
    }
+};
+
+export const truncateText = (text: string, maxLength: number) => {
+   if (text.length > maxLength) {
+      const commaIndex = text.lastIndexOf(',', maxLength - 3);
+      if (commaIndex !== -1) {
+         return text.substring(0, commaIndex) + '...';
+      }
+      return text.substring(0, maxLength - 3) + '...';
+   }
+   return text;
+};
+
+export const emptyInputField = (className: string) => {
+   const inputElement = document.querySelector(className) as HTMLInputElement;
+   if (inputElement) {
+      inputElement.value = '';
+   }
+};
+
+export const getSortedNotifications = async (user: UserData) => {
+   if (!user?.notifications) {
+      return [];
+   }
+   return user?.notifications.slice().sort((a, b) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+   });
 };

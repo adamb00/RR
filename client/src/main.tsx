@@ -8,11 +8,13 @@ import { StrictMode } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
+import 'drag-drop-touch';
+
 const queryClient = new QueryClient({
    defaultOptions: {
       queries: {
-         staleTime: 1 * 60 * 1000,
-         refetchInterval: 1 * 60 * 1000,
+         staleTime: 1000,
+         refetchInterval: 1000,
       },
    },
 });

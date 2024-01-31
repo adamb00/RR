@@ -14,41 +14,104 @@
          @content;
       }
    }
+
+   @if $breakpoint == desktop {
+      @media only screen and (max-width: 120em) {
+         @content;
+      }
+   }
    @if $breakpoint == big-desktop {
-      @media only screen and (min-width: 112.5em) {
+      @media only screen and (min-width: 120em) {
          @content;
       }
    }
 }
-
-// @mixin theme-colors {
-//    --color-grey-light-1: var(--color-grey-light-1);
-//    --color-grey-light-2: var(--color-grey-light-2);
-//    --color-grey-light-3: var(--color-grey-light-3);
-//    --color-grey-light-4: var(--color-grey-light-4);
-//    --color-grey-light-5: var(--color-grey-light-5);
-//    --color-grey-light-6: var(--color-grey-light-6);
-
-//    --color-grey-dark-1: var(--color-grey-dark-1);
-//    --color-grey-dark-2: var(--color-grey-dark-2);
-//    --color-grey-dark-3: var(--color-grey-dark-3);
-//    --color-grey-dark-4: var(--color-grey-dark-4);
-//    --color-grey-dark-5: var(--color-grey-dark-5);
-//    --color-grey-dark-6: var(--color-grey-dark-6);
-
-//    --color-primary: var(--color-primary);
-//    --color-primary-tint: var(--color-primary-tint);
-//    --color-primary-shade: var(--color-primary-shade);
-
-//    --color-secondary: var(--color-secondary);
-//    --color-secondary-tint: var(--color-secondary-tint);
-//    --color-secondary-shade: var(--color-secondary-shade);
-// }
 
 @mixin translateYLoop($count) {
    @for $i from 1 through $count {
       &:nth-child(#{$i}) {
          transform: translateY(calc(-1rem * #{$i}));
       }
+   }
+}
+
+@mixin defaultBorderlessInput {
+   padding: 1rem 3.5rem;
+   font-size: 2rem;
+   width: 100%;
+   outline: none;
+   border: none;
+   border-bottom: 1px solid $color-grey-dark-1;
+   background-color: transparent;
+   color: currentColor;
+
+   @include respond(tab-land) {
+      border-radius: 0;
+   }
+   &--error {
+      color: $color-error;
+      border-bottom: 1px solid $color-error;
+   }
+}
+
+@mixin defaultInput {
+   height: 4rem;
+   border-radius: 2rem;
+   outline: none;
+   border: none;
+   font-size: 2rem;
+   padding: 2.5rem 2rem;
+}
+
+@mixin webkitAutofill {
+   input:-webkit-autofill,
+   input:-webkit-autofill:hover,
+   input:-webkit-autofill:focus,
+   input:-webkit-autofill:active {
+      background-color: transparent;
+      transition: background-color 5000s;
+      -webkit-text-fill-color: $color-grey-dark-2 !important;
+      font-size: inherit;
+      width: 100%;
+   }
+}
+
+@mixin formIcon {
+   padding-right: 0.2rem;
+   font-size: 3rem;
+   position: absolute;
+   transform: translateY(0.5rem);
+   border-right: 1px solid currentColor;
+   fill: $color-primary-tint;
+   font-weight: normal;
+}
+
+@mixin notificationsTitle {
+   backface-visibility: hidden;
+   text-transform: uppercase;
+   letter-spacing: 0.2rem;
+   color: $color-grey-dark-4;
+   font-size: 1.2rem;
+   font-family: 'Chivo', sans-serif;
+   background: -webkit-linear-gradient(left, $color-primary-tint, $color-grey-dark-1 50%);
+   background-clip: text;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   transition: background-clip 0.3s;
+}
+
+@mixin readPoint {
+   &::before {
+      content: '';
+      background-color: $color-primary-shade;
+      width: 0.5rem;
+      height: 0.5rem;
+      position: absolute;
+      top: 1rem;
+      right: 0rem;
+      border-radius: 100%;
+   }
+   &.read::before {
+      background-color: transparent;
    }
 }

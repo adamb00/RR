@@ -3,6 +3,7 @@ import {
    createLink as createLinkFn,
    getAllLinks as getAllLinksFn,
    deleteOneLink as deleteOneLinkFn,
+   updateOneLink as updateOneLinkFn,
 } from '../../services/apiLinks';
 import IError from '../../interfaces/IError';
 import { useSearchParams } from 'react-router-dom';
@@ -11,6 +12,12 @@ import { ITEM_PER_PAGE } from '../../utils/constants';
 interface Props {
    onError: CallableFunction;
 }
+
+interface MutationParams {
+   id: string;
+   data: object;
+}
+
 export const useCreateLink = ({ onError }: Props) => {
    const queryClient = useQueryClient();
 
@@ -43,6 +50,7 @@ export const useGetAllLinks = () => {
       queryKey: ['link', page],
       queryFn: () => getAllLinksFn({ page }),
       staleTime: 5000,
+      refetchOnWindowFocus: true,
    });
 
    const count = links?.totalItems;
@@ -70,10 +78,24 @@ export const useDeleteOneLink = () => {
 
    const { isLoading: isDeleting, mutate: deleteLink } = useMutation({
       mutationFn: deleteOneLinkFn,
-      onSuccess: () => {
+      onSuccess: async () => {
          queryClient.invalidateQueries({ queryKey: ['link'] });
+         queryClient.invalidateQueries({ queryKey: ['user'] });
       },
    });
 
    return { isDeleting, deleteLink };
+};
+
+export const useUpdateLink = () => {
+   const queryClient = useQueryClient();
+
+   const { mutate: updateLink, isLoading: isUpdating } = useMutation({
+      mutationFn: (mutateParams: MutationParams) => updateOneLinkFn(mutateParams),
+      onSuccess: link => {
+         queryClient.setQueryData(['link'], link);
+      },
+   });
+
+   return { updateLink, isUpdating };
 };

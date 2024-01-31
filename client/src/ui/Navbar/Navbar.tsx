@@ -1,19 +1,19 @@
-import Button from './Button';
-import NavigationLink from './NavigationLink';
-import ThemeSwitcher from './ThemeSwitcher';
-import { useLogoutUser } from '../features/Auth/useUserAuth';
-import Notifications from './Notifications';
-import { useIsMobile } from '../hooks/useIsMobile';
-import Navigation from './Navigation';
-import { useAuth } from '../context/AuthContext';
-import NavigationNoAuth from './NavigationNoAuth';
+import Button from '../Buttons/Button';
+import NavigationLink from '../Navigation/NavigationLink';
+import ThemeSwitcher from '../ThemeSwitcher';
+import { useLogoutUser } from '../../features/Auth/useUserAuth';
+import Notifications from '../HomeNotifications/Notifications';
+import Navigation from '../Navigation/Navigation';
+import { useAuth } from '../../context/AuthContext';
+import NavigationNoAuth from '../Navigation/NavigationNoAuth';
+import useDeviceDetection from '../../hooks/useDetectDevice';
 
 export default function Navbar() {
-   const { user } = useAuth();
+   const { user, isAdmin } = useAuth();
    const { logoutUser } = useLogoutUser();
-   const { isMobile } = useIsMobile();
+   const device = useDeviceDetection();
 
-   if (isMobile)
+   if (device === 'Mobile')
       return (
          <nav className='header-nav'>
             <ul className='header-nav__list'>
@@ -38,14 +38,16 @@ export default function Navbar() {
                <NavigationLink to='/my-links'>Links</NavigationLink>
             </li>
             <li>
-               <NavigationLink to='/account'>Account</NavigationLink>
+               {isAdmin ? (
+                  <NavigationLink to='/account/edit-links'>Account</NavigationLink>
+               ) : (
+                  <NavigationLink to='/account/personal'>Account</NavigationLink>
+               )}
             </li>
             <li>
                <ThemeSwitcher />
             </li>
-            <li>
-               <Notifications />
-            </li>
+            <li>{!isAdmin && <Notifications />}</li>
             <li>
                <Button onClick={logoutUser} className='btn btn--primary'>
                   Log out

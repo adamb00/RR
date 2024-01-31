@@ -1,9 +1,8 @@
 import { PropsWithChildren } from 'react';
-import { Controller, Control, RegisterOptions } from 'react-hook-form';
+import { Control, Controller, RegisterOptions } from 'react-hook-form';
 
 interface UserInputProps {
    placeholder?: string;
-   type?: string;
    name: string;
    control: Control;
    rules?: RegisterOptions;
@@ -11,10 +10,11 @@ interface UserInputProps {
    className?: string;
    fieldErrorClassname?: string;
    eError?: string;
+   defaultValue?: string;
    onChange?: () => void;
 }
 
-export default function UserInput({
+export default function UserTextArea({
    children,
    control,
    name,
@@ -22,7 +22,6 @@ export default function UserInput({
    placeholder,
    className,
    fieldErrorClassname,
-   type,
    onChange,
 }: PropsWithChildren<UserInputProps>) {
    return (
@@ -34,13 +33,13 @@ export default function UserInput({
             <div className='user-input'>
                {children}
                <label htmlFor='input'></label>
-               <input
-                  id='input'
+               <textarea
+                  id='text-area'
                   autoComplete='new-password'
                   autoFocus={false}
-                  type={type}
                   className={fieldError ? `${className}--error ${className}` : className}
                   placeholder={placeholder}
+                  aria-multiline={true}
                   onChange={e => {
                      if (onChange) {
                         onChange();
@@ -49,8 +48,7 @@ export default function UserInput({
                   }}
                   onBlur={onBlur}
                   lang='en-EN'
-                  defaultValue={type === 'date' ? new Date().toISOString().split('T')[0] : value}
-                  max={new Date().toISOString().split('T')[0]}
+                  defaultValue={value}
                />
                {fieldError && (
                   <p className={fieldErrorClassname}>
