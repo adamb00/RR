@@ -1,20 +1,20 @@
 import catchAsync from '../utils/catchAsync';
 import { NextFunction, Request, Response } from 'express';
 import User, { UserType } from '../models/UserModel';
-import mongoose, { MongooseError, mongo } from 'mongoose';
+import mongoose from 'mongoose';
 import Email from '../utils/email';
 import AppError from '../utils/appError';
 import { correctPassword } from '../middlewares/correctPassword';
 import { createAndSendToken } from '../middlewares/createAndSendToken';
 import { MongoError } from 'mongodb';
 
-// declare global {
-//    namespace Express {
-//       interface Request {
-//          user: UserType;
-//       }
-//    }
-// }
+declare global {
+   namespace Express {
+      interface Request {
+         user: UserType;
+      }
+   }
+}
 
 export default class AuthController {
    public signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -60,7 +60,6 @@ export default class AuthController {
                errors: errorMessages,
             });
          } else if ((err as MongoError).code === 11000) {
-            console.log((err as MongoError).message);
             res.status(400).json({
                status: 'error',
                message: 'Email address is already in use.',
@@ -96,41 +95,49 @@ export default class AuthController {
    });
 
    public signin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-      const { email, password } = req.body;
+      try {
+         const { email, password } = req.body;
 
-      if (!email || !password) {
-         res.status(400).json({
-            status: 'error',
-            message: 'Please provide us your email and password.',
-         });
-         return next(new AppError('Please provide us your email and password.', 400));
+         if (!email || !password) {
+            res.status(400).json({
+               status: 'error',
+               message: 'Please provide us your email and password.',
+            });
+            return next(new AppError('Please provide us your email and password.', 400));
+         }
+
+         const user = await User.findOne({ email }).select('+password');
+         if (!user) {
+            res.status(404).json({
+               status: 'error',
+               message: 'No user found with this email.',
+            });
+            return next(new AppError('No user found with this email.', 404));
+         }
+
+         if (!(await correctPassword(password, user.password))) {
+            res.status(401).json({
+               status: 'error',
+               message: 'Incorrect password',
+            });
+            return next(new AppError('Incorrect password.', 401));
+         }
+
+         await createAndSendToken(user, 200, req, res);
+         req.user = user;
+      } catch (err) {
+         console.log(err);
       }
-
-      const user = await User.findOne({ email }).select('+password');
-      if (!user) {
-         res.status(404).json({
-            status: 'error',
-            message: 'No user found with this email.',
-         });
-         return next(new AppError('No user found with this email.', 404));
-      }
-
-      if (!(await correctPassword(password, user.password))) {
-         res.status(401).json({
-            status: 'error',
-            message: 'Incorrect password',
-         });
-         return next(new AppError('Incorrect password.', 401));
-      }
-
-      await createAndSendToken(user, 200, req, res);
-      req.user = user;
    });
 
    public signout = (_req: Request, res: Response) => {
-      res.cookie('jwt', 'loggedout', {
-         expires: new Date(Date.now() + 10 * 1000),
-      });
-      res.status(200).json({ status: 'success' });
+      try {
+         res.cookie('jwt', 'loggedout', {
+            expires: new Date(Date.now() + 10 * 1000),
+         });
+         res.status(200).json({ status: 'success' });
+      } catch (err) {
+         console.log(err);
+      }
    };
 }

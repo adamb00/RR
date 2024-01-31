@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import INotification from './INotification';
 
 export default interface IUser extends Document {
    name: string;
@@ -20,6 +21,7 @@ export default interface IUser extends Document {
    photo: string;
    role: string;
    active: boolean;
-   notifications: string[];
+   notifications: INotification[];
    availablePoints: number;
+   accumulatedPoints: number;
 }

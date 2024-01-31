@@ -56,7 +56,6 @@ const userSchema: Schema = new Schema<IUser>({
    level: {
       type: Number,
    },
-
    parent: {
       type: String,
    },
@@ -76,8 +75,18 @@ const userSchema: Schema = new Schema<IUser>({
       type: Boolean,
       default: false,
    },
-   notifications: {
-      type: [String],
+   notifications: [
+      {
+         title: String,
+         message: String,
+         read: { type: Boolean, default: false },
+         created_at: { type: Date, default: Date.now() },
+         created_by: String,
+      },
+   ],
+   accumulatedPoints: {
+      type: Number,
+      default: 0,
    },
 });
 

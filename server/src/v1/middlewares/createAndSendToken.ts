@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import env from '../utils/validateEnv';
 import { UserType } from '../models/UserModel';
 
-const signToken = (id: string): string => {
+export const signToken = (id: string): string => {
    return jwt.sign({ id }, env.JWT_SECRET, { expiresIn: 7 * 60 * 60 * 1000 });
 };
 
@@ -13,6 +13,8 @@ export const createAndSendToken = async (user: UserType, statusCode: number, req
    const expires = new Date(Date.now() + 7 * 60 * 60 * 1000);
 
    if (!req.user) req.user = user;
+
+   res.clearCookie('jwt');
 
    res.cookie('jwt', token, {
       expires,

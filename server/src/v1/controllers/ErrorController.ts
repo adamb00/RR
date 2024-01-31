@@ -16,7 +16,7 @@ const handleDuplicateFieldsDB = (err: ICustomError) => {
 const handleValidationErrorDB = (err: ICustomError) => {
    const errors = Object.values(err.message).map((el: any) => el.message);
    const message = `Invalid input data. ${errors.join('. ')}`;
-   return new AppError('message', 400);
+   return new AppError(message, 400);
 };
 
 const handleJWTError = () => new AppError('Invalid token. Please log in again!', 401);

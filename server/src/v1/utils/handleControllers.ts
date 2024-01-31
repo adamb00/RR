@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import APIFeatures from './apiFeatures';
 import AppError from './appError';
 import { Model, Document } from 'mongoose';
+import { getCurrentUser } from '../controllers/UserController';
 export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Request) => object) => {
    return catchAsync(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
       let filter: object = {};
@@ -28,11 +29,11 @@ export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Req
 
 export const createOne = <T extends Document>(Model: Model<T>, customizeRequestBody?: (req: Request) => void) => {
    return catchAsync(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
-      if (customizeRequestBody) {
-         customizeRequestBody(req);
-      }
-
       try {
+         if (customizeRequestBody) {
+            customizeRequestBody(req);
+         }
+
          const doc = await Model.create(req.body);
 
          res.status(201).json({
@@ -48,6 +49,7 @@ export const createOne = <T extends Document>(Model: Model<T>, customizeRequestB
 export const updateOne = <T extends Document>(Model: Model<T>) => {
    return catchAsync(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
+         console.log(req.body);
          const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
@@ -71,29 +73,39 @@ export const updateOne = <T extends Document>(Model: Model<T>) => {
 
 export const getOne = <T extends Document>(Model: Model<T>) => {
    return catchAsync(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      let query = Model.findById(req.params.id);
+      try {
+         let query = Model.findById(req.params.id);
 
-      const doc = (await query.exec()) as T | null;
+         const doc = (await query.exec()) as T | null;
 
-      if (!doc) {
-         return next(new AppError('No document found with that ID', 404));
+         if (!doc) {
+            return next(new AppError('No document found with that ID', 404));
+         }
+
+         res.status(200).json({
+            status: 'success',
+            doc,
+         });
+      } catch (err) {
+         res.sendStatus(404);
       }
-      res.status(200).json({
-         status: 'success',
-         doc,
-      });
    });
 };
 
 export const deleteOne = <T extends Document>(Model: Model<T>) => {
    return catchAsync(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      const doc = await Model.findByIdAndDelete(req.params.id);
-      if (!doc) {
-         return next(new AppError('No document found with that ID', 404));
+      try {
+         const doc = await Model.findByIdAndDelete(req.params.id);
+         if (!doc) {
+            return next(new AppError('No document found with that ID', 404));
+         }
+
+         res.status(204).json({
+            status: 'success',
+            data: null,
+         });
+      } catch (err) {
+         console.log(err);
       }
-      res.status(204).json({
-         status: 'success',
-         data: null,
-      });
    });
 };

@@ -10,6 +10,13 @@ const linkSchema: Schema = new Schema<ILink>(
          type: Date,
          default: Date.now(),
       },
+      active: {
+         type: Boolean,
+         default: false,
+      },
+      title: {
+         type: String,
+      },
    },
    {
       versionKey: false,

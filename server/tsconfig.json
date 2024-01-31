@@ -7,6 +7,6 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true
    },
-   "include": ["src/**/*.ts", "src/public/activateAccount.js"],
+   "include": ["src/**/*.ts", "src/v1/public/activateAccount.js"],
    "exclude": ["node_modules"]
 }

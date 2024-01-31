@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { cleanEnv, str, port, num } from 'envalid';
 
 export default cleanEnv(process.env, {
