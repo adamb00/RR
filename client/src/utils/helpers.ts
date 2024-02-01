@@ -1,4 +1,4 @@
-import { UserData } from '../interfaces/AuthInterfaces';
+import INotification from '../interfaces/INotification';
 
 export const BASE_URL = 'http://192.168.0.33:8000/api/v1/';
 // export const BASE_URL = 'http://172.20.10.3:8000/api/v1/'; // MOBILNET
@@ -52,13 +52,18 @@ export const IS_VALID_NUMBER = (v: string) => {
 };
 
 export const formatDate = (dateStr: string) => {
+   const date = new Date(dateStr);
+
+   if (isNaN(date.getTime())) {
+      return 'Invalid Date';
+   }
    return new Intl.DateTimeFormat('hu', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-   }).format(new Date(dateStr));
+   }).format(new Date(date));
 };
 
 export const createMonogram = (fullName: string) => {
@@ -93,11 +98,12 @@ export const emptyInputField = (className: string) => {
    }
 };
 
-export const getSortedNotifications = async (user: UserData) => {
-   if (!user?.notifications) {
-      return [];
+export const getSortedNotifications = async (notifications: INotification[]) => {
+   if (!Array.isArray(notifications)) {
+      notifications = Array.from(notifications);
    }
-   return user?.notifications.slice().sort((a, b) => {
+
+   return notifications.slice().sort((a, b) => {
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
    });
 };

@@ -50,7 +50,7 @@ export const useGetAllLinks = () => {
       queryKey: ['link', page],
       queryFn: () => getAllLinksFn({ page }),
       staleTime: 5000,
-      refetchOnWindowFocus: true,
+      refetchInterval: 5000,
    });
 
    const count = links?.totalItems;

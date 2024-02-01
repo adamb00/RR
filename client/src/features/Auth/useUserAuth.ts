@@ -94,8 +94,6 @@ export const useGetCurrentUser = () => {
    } = useQuery({
       queryKey: ['user'],
       queryFn: getCurrentUserFn,
-      staleTime: 5000,
-      refetchInterval: 5000,
    });
 
    return { isLoading, currentUser, error };
@@ -126,8 +124,6 @@ export const useGetOneUser = (id: string) => {
    } = useQuery({
       queryKey: ['user', id],
       queryFn: () => getOneUserFn(id),
-      staleTime: 5000,
-      refetchInterval: 5000,
    });
 
    return { isLoading, currentUser, error };
@@ -160,26 +156,16 @@ export const useSendNotification = () => {
 };
 
 export const useMarkNotifications = () => {
-   const queryClient = useQueryClient();
-
    const { mutate: updateNotifications, isLoading: isUpdating } = useMutation({
       mutationFn: updateAllNotificiationsFn,
-      onSuccess: user => {
-         queryClient.setQueryData(['user'], user.data.data);
-      },
    });
 
    return { updateNotifications, isUpdating };
 };
 
 export const useMarkNotification = () => {
-   const queryClient = useQueryClient();
-
    const { mutate: updateOneNotification, isLoading: isUpdatingNotification } = useMutation({
       mutationFn: (id: string) => updateOneNotificationFn(id),
-      onSuccess: user => {
-         queryClient.setQueryData(['user'], user.data.data);
-      },
    });
 
    return { updateOneNotification, isUpdatingNotification };

@@ -1,10 +1,13 @@
 .account {
    display: grid;
-   grid-template-columns: 1fr 3.5fr;
+   grid-template-columns: 1fr 5fr;
    grid-template-areas: 'sidebar body';
    position: relative;
    height: 100vh;
 
+   @include respond(tab-land) {
+      grid-template-columns: 1fr 3fr;
+   }
    @include respond(tab-port) {
       grid-template-columns: 1.2fr 3fr;
    }
@@ -40,6 +43,7 @@
             &:hover {
                border-color: $color-primary-tint;
             }
+
             @include respond(tab-land) {
                &:hover {
                   border-color: transparent;
@@ -68,6 +72,11 @@
             }
 
             &--active {
+               border: 1px solid $color-primary-tint;
+               border-radius: $default-border-radius;
+            }
+
+            &.read--active {
                border: 1px solid $color-primary-tint;
                border-radius: $default-border-radius;
             }

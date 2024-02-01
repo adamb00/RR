@@ -8,10 +8,11 @@ interface LoaderProps {
 
 export default function Loader({ className, isLoading = true, size }: LoaderProps) {
    const theme = localStorage.getItem('theme');
+
    return (
       <div className={`loader ${className}`}>
          <PuffLoader
-            color={theme === 'light' ? ' #ed535b' : '#C0F4E5'}
+            color={JSON.parse(theme!) === 'light' ? ' #ed535b' : '#C0F4E5'}
             loading={isLoading}
             size={size}
             aria-label='Loading Spinner'

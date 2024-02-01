@@ -2,8 +2,6 @@ import { Dispatch, SetStateAction } from 'react';
 import { useMarkNotifications } from '../../features/Auth/useUserAuth';
 import NotificationsItem from './NotificationsItem';
 
-import { useAuth } from '../../context/AuthContext';
-import { UserData } from '../../interfaces/AuthInterfaces';
 import { useSortedNotifications } from '../../hooks/useSortedNotifications';
 
 interface NotificationsProps {
@@ -12,8 +10,7 @@ interface NotificationsProps {
 
 export default function NotificationsModal({ setShowModal }: NotificationsProps) {
    const { updateNotifications } = useMarkNotifications();
-   const { user } = useAuth();
-   const { sortedNotifications } = useSortedNotifications(user as UserData);
+   const { sortedNotifications } = useSortedNotifications();
 
    const handleOnClick = () => {
       updateNotifications();

@@ -1,23 +1,28 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import UserInput from '../../../ui/UserInteractions/UserInput';
-import UserTextArea from '../../../ui/UserInteractions/UserTextArea';
-import Button from '../../../ui/Buttons/Button';
+import UserInput from '../../ui/UserInteractions/UserInput';
+import UserTextArea from '../../ui/UserInteractions/UserTextArea';
+import Button from '../../ui/Buttons/Button';
 
-import { useSendNotification } from '../../Auth/useUserAuth';
-import { emptyInputField } from '../../../utils/helpers';
+// import { useSendNotification } from '../Auth/useUserAuth';
+import { emptyInputField } from '../../utils/helpers';
+import { useCreateNotification } from './useNotifications';
 // import NotificationsTable from './NotificationsTable';
 
 export default function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
-   const { sendNotification, isSending } = useSendNotification();
+
+   const { isCreating, createNotification } = useCreateNotification();
 
    const handleOnSubmit = (data: FieldValues) => {
       const messageWithPlaceholder = data.message.replace(/\n/g, '<br>');
 
       const notifications = {
-         notifications: { ...data, message: messageWithPlaceholder, created_at: Date.now() },
+         ...data,
+         message: messageWithPlaceholder,
+         created_at: Date.now(),
       };
-      sendNotification({ ...notifications });
+
+      createNotification({ ...notifications });
       emptyInputField('.notifications__admin--textarea');
       emptyInputField('.notifications__admin--input');
    };
@@ -55,7 +60,8 @@ export default function NotificationsAdmin() {
                />
                <Button
                   onClick={handleSubmit(handleOnSubmit)}
-                  disabled={isSending}
+                  // disabled={isSending}
+                  disabled={isCreating}
                   className='btn btn--primary notifications__admin--button'
                >
                   Submit

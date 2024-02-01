@@ -7,8 +7,9 @@ import { CiBellOn, CiLock, CiMenuKebab, CiUser } from 'react-icons/ci';
 import Icon from '../Icon';
 import MenuIsNotOpen from './MenuIsNotOpen';
 import useDeviceDetection from '../../hooks/useDetectDevice';
-import { UserData } from '../../interfaces/AuthInterfaces';
+
 import { useSortedNotifications } from '../../hooks/useSortedNotifications';
+import Loader from '../Loader';
 
 interface MenuProps {
    setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -18,7 +19,14 @@ interface MenuProps {
 export default function Menu({ isOpen, setIsOpen }: MenuProps) {
    const { user, isAdmin } = useAuth();
    const device = useDeviceDetection();
-   const { firstNotificationId } = useSortedNotifications(user as UserData);
+   const { firstNotificationId } = useSortedNotifications();
+
+   if (!firstNotificationId && !isAdmin)
+      return (
+         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Loader size={100} />
+         </div>
+      );
 
    if (device === 'Mobile')
       return (

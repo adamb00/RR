@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import INotification from '../../../interfaces/INotification';
-import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
-import { createMonogram } from '../../../utils/helpers';
-import Icon from '../../../ui/Icon';
+import INotification from '../../interfaces/INotification';
+import ButtonIcon from '../../ui/Buttons/ButtonIcon';
+import { createMonogram } from '../../utils/helpers';
+import Icon from '../../ui/Icon';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import { useAuth } from '../../../context/AuthContext';
-import NavigationLink from '../../../ui/Navigation/NavigationLink';
+import { useAuth } from '../../context/AuthContext';
+import NavigationLink from '../../ui/Navigation/NavigationLink';
 
 interface NotificationItemProps {
    notifications?: INotification[];

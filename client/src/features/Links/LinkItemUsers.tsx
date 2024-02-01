@@ -35,7 +35,9 @@ export default function LinkItem({ link, device }: LinkItemProps) {
       return view;
    };
 
-   if (!link.active) return <h1 className='heading-primary'>No active links yet</h1>;
+   console.log(link);
+
+   if (!link.active) return;
 
    return (
       <div className='links__container'>

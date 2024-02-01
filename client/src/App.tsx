@@ -9,7 +9,7 @@ import SignUp from './features/Auth/SignUp';
 import Links from './features/Links/Links';
 import Account from './features/Account/Account';
 
-import Notifications from './features/Account/Notifications/Notifications';
+import Notifications from './features/Notifications/Notifications';
 import PersonalInformation from './features/Account/PersonalInformation';
 import Security from './features/Account/Security';
 import EditLinks from './features/Account/EditLinks';
@@ -17,7 +17,7 @@ import Affiliate from './features/Affiliate/Affiliate';
 import FAQ from './features/FAQ/FAQ';
 import Contact from './features/Contact/Contact';
 import MyLink from './features/Links/MyLink';
-import NotificationItem from './features/Account/Notifications/NotificationItem';
+import NotificationItem from './features/Notifications/NotificationItem';
 
 const router = createBrowserRouter([
    {

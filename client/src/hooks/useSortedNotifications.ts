@@ -1,29 +1,77 @@
 import { useEffect, useState } from 'react';
 import { getSortedNotifications } from '../utils/helpers';
-import { UserData } from '../interfaces/AuthInterfaces';
-import INotification from '../interfaces/INotification';
 
-export const useSortedNotifications = (user: UserData) => {
-   const [firstNotificationId, setFirstNotificationId] = useState<string>();
-   const [sortedNotifications, setSortedNotification] = useState<INotification[]>();
+import INotification from '../interfaces/INotification';
+import { useFetchNotifications } from './useFetchNotifications';
+
+export const useSortedNotifications = () => {
+   const { notificationsFetched: notifications } = useFetchNotifications();
+
+   const [firstNotificationId, setFirstNotificationId] = useState<string | undefined>();
+   const [sortedNotifications, setSortedNotifications] = useState<INotification[] | undefined>();
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const sortedNotifications = await getSortedNotifications(user);
-            setSortedNotification(sortedNotifications);
+            const sortedNotifications = await getSortedNotifications(notifications);
+            setSortedNotifications(sortedNotifications);
+
             if (sortedNotifications.length > 0) {
-               setFirstNotificationId(sortedNotifications[0]?._id);
+               let latestNotification = sortedNotifications[0];
+               sortedNotifications.forEach(notification => {
+                  if (notification.created_at > latestNotification.created_at) {
+                     latestNotification = notification;
+                  }
+               });
+
+               setFirstNotificationId(latestNotification._id);
             }
          } catch (error) {
             console.error('Error fetching or sorting notifications:', error);
          }
       };
 
-      if (user) {
+      if (notifications) {
          fetchData();
       }
-   }, [user]);
+   }, [notifications]);
+
+   console.log(sortedNotifications);
 
    return { firstNotificationId, sortedNotifications };
 };
+// export const useSortedNotifications = (notifications: INotification[]) => {
+
+//    const [firstNotificationId, setFirstNotificationId] = useState<string | undefined>();
+//    const [sortedNotifications, setSortedNotifications] = useState<INotification[] | undefined>();
+
+//    useEffect(() => {
+//       const fetchData = async () => {
+//          try {
+//             const sortedNotifications = await getSortedNotifications(notifications);
+//             setSortedNotifications(sortedNotifications);
+
+//             if (sortedNotifications.length > 0) {
+//                let latestNotification = sortedNotifications[0];
+//                sortedNotifications.forEach(notification => {
+//                   if (notification.created_at > latestNotification.created_at) {
+//                      latestNotification = notification;
+//                   }
+//                });
+
+//                setFirstNotificationId(latestNotification._id);
+//             }
+//          } catch (error) {
+//             console.error('Error fetching or sorting notifications:', error);
+//          }
+//       };
+
+//       if (notifications) {
+//          fetchData();
+//       }
+//    }, [notifications]);
+
+//    console.log(sortedNotifications);
+
+//    return { firstNotificationId, sortedNotifications };
+// };

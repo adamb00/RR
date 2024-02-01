@@ -84,8 +84,8 @@ export const updateAllNotificiations = async () => {
 };
 
 export const updateOneNotification = async (id: string) => {
+   console.log(id);
    const userToken = await getUserToken();
-   console.log(userToken);
    const response = await fetch(
       BASE_URL + `user/mark-one-notification`,
       OPTIONS({ method: 'PATCH', userToken, data: { data: id } })

@@ -20,6 +20,12 @@ export default function Links() {
 
    useEffect(() => {
       if (links) {
+         setOrderedLinks(links.doc);
+      }
+   }, [links, setOrderedLinks]);
+
+   useEffect(() => {
+      if (links) {
          if (orderedLinks.length !== links.doc.length) {
             setOrderedLinks(links.doc);
          }
@@ -34,12 +40,16 @@ export default function Links() {
       setOrderedLinks(newOrderedLinks);
    };
 
-   if (isLoading || !links || !user)
+   if (isLoading || !user)
       return (
          <div className='links__loader'>
             <Loader size={250} />
          </div>
       );
+
+   const activeLinks = orderedLinks.filter((link: ILink) => link.active);
+   console.log(activeLinks);
+   if (!links || activeLinks.length === 0) return <h1 className='heading-primary'>No links yet</h1>;
 
    return (
       <div className='link'>

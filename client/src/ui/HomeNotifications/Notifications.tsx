@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import INotification from '../../interfaces/INotification';
 import ButtonIcon from '../Buttons/ButtonIcon';
 import { CiBellOn } from 'react-icons/ci';
 import NotificationsModal from './NotificationsModal';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import INotification from '../../interfaces/INotification';
 
 export default function Notifications() {
    const { user } = useAuth();

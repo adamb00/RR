@@ -1,33 +1,33 @@
 import { Dispatch, SetStateAction } from 'react';
 import NotificationsMenuIsNotOpen from './NotificationsMenuIsNotOpen';
-import useDeviceDetection from '../../../hooks/useDetectDevice';
-import { useAuth } from '../../../context/AuthContext';
-import Button from '../../../ui/Buttons/Button';
+import useDeviceDetection from '../../hooks/useDetectDevice';
+import { useAuth } from '../../context/AuthContext';
+import Button from '../../ui/Buttons/Button';
 import { RiOpenaiFill } from 'react-icons/ri';
 import NotificationsMenuItem from './NotificationsMenuItem';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 
-import Icon from '../../../ui/Icon';
+import Icon from '../../ui/Icon';
 
-import MenuIsNotOpen from '../../../ui/Menu/MenuIsNotOpen';
-import { useSortedNotifications } from '../../../hooks/useSortedNotifications';
-import { UserData } from '../../../interfaces/AuthInterfaces';
+import MenuIsNotOpen from '../../ui/Menu/MenuIsNotOpen';
+import { useSortedNotifications } from '../../hooks/useSortedNotifications';
 
 interface NotificationsMenuProps {
    setIsOpen: Dispatch<SetStateAction<boolean>>;
    isOpen: boolean;
 }
 export default function NotificationsMenu({ setIsOpen, isOpen }: NotificationsMenuProps) {
-   const { user, isAdmin } = useAuth();
+   const { isAdmin } = useAuth();
+   const { sortedNotifications } = useSortedNotifications();
    const device = useDeviceDetection();
    const navigation = useNavigate();
-
-   const { sortedNotifications } = useSortedNotifications(user as UserData);
 
    const handleGoBack = () => {
       isAdmin ? navigation('/account/edit-links') : navigation('/account/personal');
    };
+
+   if (!sortedNotifications) return;
 
    if (device === 'Mobile')
       return (
