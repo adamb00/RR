@@ -8,6 +8,7 @@ import path from 'path';
 
 import UserRouter from './routes/UserRoute';
 import LinkRouter from './routes/LinkRoute';
+import NotificationRouter from './routes/NotificationRoute';
 import AppError from './utils/appError';
 import { globalErrorHandler } from './controllers/ErrorController';
 
@@ -32,6 +33,7 @@ if (env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(`/api/${env.VERSION}/user`, UserRouter);
 app.use(`/api/${env.VERSION}/link`, LinkRouter);
+app.use(`/api/${env.VERSION}/notification`, NotificationRouter);
 
 app.all('*', (req: Request, _res: Response, next: NextFunction) => {
    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import catchAsync from '../utils/catchAsync';
 import User, { UserType } from '../models/UserModel';
 import * as handler from './../utils/handleControllers';
-import IUser from '../interfaces/IUser';
-import INotification from '../interfaces/INotification';
 
 export default class UserController {
    public getAllUsers = handler.getAll(User);
@@ -35,15 +33,6 @@ export const deleteUsersLink = catchAsync(async (req: Request, res: Response, ne
    await Promise.all(updatePromises);
 
    next();
-});
-
-export const sendNotification = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-   console.log('user', req.user);
-   await User.updateMany({}, { $push: { notifications: { ...req.body.notifications, created_by: req.user.name } } });
-
-   res.status(200).json({
-      status: 'success',
-   });
 });
 
 export const markNotifications = catchAsync(async (req: Request, res: Response, next: NextFunction) => {

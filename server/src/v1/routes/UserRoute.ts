@@ -2,7 +2,7 @@ import { Router } from 'express';
 import AuthController from '../controllers/AuthController';
 import UserController from '../controllers/UserController';
 
-import { getCurrentUser, sendNotification, markNotifications, markNotification } from '../controllers/UserController';
+import { getCurrentUser, markNotifications, markNotification } from '../controllers/UserController';
 import authenticateUser from '../middlewares/authenticateUser';
 import restrictTo from '../middlewares/restrictTo';
 
@@ -16,7 +16,6 @@ router.post('/signout', authController.signout);
 router.get('/getReferralCode/:referralCode', authController.getReferralCode);
 
 router.get('/current-user', authenticateUser, getCurrentUser);
-router.patch('/send-notification', authenticateUser, restrictTo('Admin'), sendNotification);
 router.patch('/mark-notifications', authenticateUser, markNotifications);
 router.patch('/mark-one-notification', authenticateUser, markNotification);
 

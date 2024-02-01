@@ -77,11 +77,7 @@ const userSchema: Schema = new Schema<IUser>({
    },
    notifications: [
       {
-         title: String,
-         message: String,
          read: { type: Boolean, default: false },
-         created_at: { type: Date, default: Date.now() },
-         created_by: String,
       },
    ],
    accumulatedPoints: {
