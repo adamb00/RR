@@ -1,21 +1,21 @@
 import INotification from '../../interfaces/INotification';
-import Loader from '../../ui/Loader';
+import { useAppDispatch } from '../../redux-hooks';
 import NavigationLink from '../../ui/Navigation/NavigationLink';
 import { truncateText } from '../../utils/helpers';
-import { useMarkNotification } from '../Auth/useUserAuth';
+import { useMarkNotificationMutation } from '../Auth/slices/user/userApiSlice';
+import { markNotificationAsRead } from '../Auth/slices/user/userSlice';
 
 interface NotificationItemProps {
    notification: INotification;
 }
 export default function NotificationsMenuItem({ notification }: NotificationItemProps) {
-   const { updateOneNotification } = useMarkNotification();
+   const { read, title, _id } = notification;
+   const dispatch = useAppDispatch();
+   const [markNotificationApi] = useMarkNotificationMutation();
 
-   if (!notification) return <Loader size={100} />;
-   const { title, read, _id } = notification;
-
-   const handleOnClick = () => {
-      updateOneNotification(_id);
-      console.log(_id);
+   const handleOnClick = async () => {
+      const res = await markNotificationApi({ id: _id }).unwrap();
+      dispatch(markNotificationAsRead({ ...res }));
    };
 
    return (

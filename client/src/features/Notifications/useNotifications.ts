@@ -14,7 +14,7 @@ export const useCreateNotification = () => {
    } = useMutation({
       mutationFn: createNotificationFn,
       onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ['notification'] });
+         queryClient.invalidateQueries(['notification']);
       },
    });
    return { createNotification, isCreating, error };
@@ -27,11 +27,12 @@ export const useGetAllNotifications = () => {
       error,
    } = useQuery({
       queryKey: ['notification'],
-      queryFn: () => getAllNotificationsFn,
-      staleTime: 5000,
-      refetchInterval: 5000,
+      queryFn: getAllNotificationsFn,
+      staleTime: 10000,
+      refetchInterval: 10000,
    });
 
+   console.log('refetched');
    return { isLoading, notifications, error };
 };
 

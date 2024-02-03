@@ -112,3 +112,9 @@ export const getSortedNotifications = async (notifications: INotification[]) => 
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
    });
 };
+
+export const sortNotifications = (notifications: INotification[]) => {
+   return notifications.slice().sort((a, b) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+   });
+};

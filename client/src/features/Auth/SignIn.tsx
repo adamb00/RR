@@ -6,14 +6,14 @@ import { IS_VALID_EMAIL } from '../../utils/helpers';
 import { NavLink, useNavigate } from 'react-router-dom';
 import IError from '../../interfaces/IError';
 import { useState } from 'react';
-import { setCredentials } from './slices/authSlice';
+import { login } from './slices/auth/authSlice';
 import { useAppDispatch } from '../../redux-hooks';
-import { useLoginMutation } from './slices/usersApiSlice';
+import { useLoginMutation } from './slices/auth/authApiSlice';
 
 export default function SignIn() {
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
-   const [login, { isLoading }] = useLoginMutation();
+   const [loginApi, { isLoading }] = useLoginMutation();
 
    const { control, handleSubmit } = useForm();
    const [error, setError] = useState<IError>();
@@ -22,10 +22,17 @@ export default function SignIn() {
       setError(undefined);
    };
    const handleSubmitForm = async (data: object) => {
-      const res = await login(data).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate('/');
+      try {
+         const res = await loginApi(data).unwrap();
+         dispatch(login({ ...res }));
+         navigate('/');
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+         setError(err.data);
+      }
    };
+
+   if (error) console.log(error);
 
    return (
       <div className='login'>
@@ -39,6 +46,7 @@ export default function SignIn() {
                name='email'
                onChange={handleInputChange}
                className='login__form--input'
+               eError={error?.item && error?.item === 'email' ? error?.message : ''}
                fieldErrorClassname='login__form--error'
                id='email'
                type='text'
@@ -55,7 +63,7 @@ export default function SignIn() {
             <UserInput
                control={control}
                id='password'
-               eError={error?.message}
+               eError={error?.item && error?.item === 'password' ? error?.message : ''}
                onChange={handleInputChange}
                name='password'
                className='login__form--input'
@@ -73,9 +81,9 @@ export default function SignIn() {
                <CiUnlock className='login__form--icon' />
             </UserInput>
 
-            {error && (
+            {/* {error && (
                <p className='login__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
-            )}
+            )} */}
             <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
                Log in now
             </Button>

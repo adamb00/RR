@@ -6,8 +6,9 @@ import { CiBellOn, CiLock, CiMenuKebab, CiUser } from 'react-icons/ci';
 import AdminMenuIsNotOpen from './AdminMenuIsNotOpen';
 import Button from '../Buttons/Button';
 import useDeviceDetection from '../../hooks/useDetectDevice';
+import { memo } from 'react';
 
-export default function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
+export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
    const device = useDeviceDetection();
 
    if (device === 'Mobile')
@@ -63,4 +64,4 @@ export default function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
          </Button>
       </nav>
    );
-}
+});

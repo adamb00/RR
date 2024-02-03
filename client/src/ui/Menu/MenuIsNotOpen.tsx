@@ -2,11 +2,11 @@ import { CiBellOn, CiLock, CiUser } from 'react-icons/ci';
 import ButtonIcon from '../Buttons/ButtonIcon';
 import NavigationLink from '../Navigation/NavigationLink';
 import { useMarkNotification } from '../../features/Auth/useUserAuth';
-import { useSortedNotifications } from '../../hooks/useSortedNotifications';
+import { useAppSelector } from '../../redux-hooks';
 
 export default function MenuIsNotOpen() {
    const { updateOneNotification } = useMarkNotification();
-   const { firstNotificationId } = useSortedNotifications();
+   const firstNotificationId = useAppSelector(state => state.user.notifications[0]._id);
 
    return (
       <>

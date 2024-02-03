@@ -1,30 +1,30 @@
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../../utils/helpers';
-import Loader from '../../ui/Loader';
-import { useGetNotification } from './useNotifications';
+
+import { useAppSelector } from '../../redux-hooks';
+import INotification from '../../interfaces/INotification';
 
 export default function NotificationItem() {
    const { id } = useParams();
+   const notifications = useAppSelector(
+      state => state.user.notifications.find(notification => notification?._id === id)! as INotification
+   );
 
-   const { notifications, isLoading } = useGetNotification(id as string);
-
-   if (isLoading || !notifications) return <Loader className='notifications__loader' size={250} />;
-
-   const createdAt = new Date(notifications.created_at).toString();
+   const createdAt = new Date(notifications?.created_at).toString();
 
    return (
       <div className='notifications__container'>
-         <h1 className='notifications__title'>{notifications.title}</h1>
+         <h1 className='notifications__title'>{notifications?.title}</h1>
          <div className='notifications__wrapper'>
             <div
                aria-multiline
                className='notifications__message'
                style={{ whiteSpace: 'pre-line' }}
-               dangerouslySetInnerHTML={{ __html: notifications.message }}
+               dangerouslySetInnerHTML={{ __html: notifications?.message }}
             ></div>
 
             <div className='notifications__created'>
-               <div className='notifications__created--by'>{notifications.created_by}</div>
+               <div className='notifications__created--by'>{notifications?.created_by}</div>
                <div className='notifications__created--at'>{formatDate(createdAt)}</div>
             </div>
          </div>

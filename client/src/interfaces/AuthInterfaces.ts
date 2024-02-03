@@ -1,13 +1,6 @@
-import { Dispatch } from 'react';
 import INotification from './INotification';
 
-export interface UserLinks {
-   title: string;
-   link: string;
-   active: boolean;
-}
-
-export interface UserData {
+export interface UserProfileData {
    name: string;
    email: string;
    role: 'Admin' | 'User';
@@ -26,39 +19,4 @@ export interface UserData {
    notifications: INotification[];
    passwordChangedAt: string;
    _id: string;
-   __v: number;
-   token: string;
-}
-
-export interface AppState {
-   data: UserData | undefined;
-   token: string | undefined;
-   status: string;
-   expired: Date;
-}
-
-export interface SigninAction {
-   type: 'SIGN_IN';
-   payload: {
-      user?: UserData;
-      token: string;
-      expires?: Date;
-   };
-}
-
-export interface SignoutAction {
-   type: 'SIGN_OUT';
-}
-
-export type AuthAction = SigninAction | SignoutAction;
-
-export interface AuthContextValue {
-   user: UserData | undefined;
-   isAuthenticated: boolean;
-   isFetchingUser: boolean;
-   isAdmin: boolean;
-   token: string | undefined;
-   dispatch: Dispatch<AuthAction>;
-   signin: (data: { expires: Date; token: string; data: UserData }) => void;
-   signout: () => void;
 }

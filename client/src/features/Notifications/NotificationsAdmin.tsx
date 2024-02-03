@@ -5,8 +5,9 @@ import Button from '../../ui/Buttons/Button';
 import { emptyInputField } from '../../utils/helpers';
 import { useCreateNotification } from './useNotifications';
 import RichText from '../../ui/UserInteractions/RichText';
+import { memo } from 'react';
 
-export default function NotificationsAdmin() {
+export default memo(function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
 
    const { isCreating, createNotification } = useCreateNotification();
@@ -68,4 +69,4 @@ export default function NotificationsAdmin() {
          {/* <NotificationsTable /> */}
       </>
    );
-}
+});

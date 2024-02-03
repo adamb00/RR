@@ -12,22 +12,6 @@ interface MutationParams {
    data: object;
 }
 
-// export const useGetReferalCode = () => {
-//    const queryClient = useQueryClient();
-//    const {
-//       isLoading,
-//       mutate: getReferralCode,
-//       error,
-//    } = useMutation({
-//       mutationFn: getReferralCodeFn,
-//       onSuccess: () => {
-//          queryClient.invalidateQueries({ queryKey: ['user'] });
-//       },
-//    });
-
-//    return { isLoading, getReferralCode, error };
-// };
-
 export const useGetOneUser = (id: string) => {
    const {
       isLoading,
@@ -69,8 +53,14 @@ export const useSendNotification = () => {
 };
 
 export const useMarkNotifications = () => {
+   const queryClient = useQueryClient();
+
    const { mutate: updateNotifications, isLoading: isUpdating } = useMutation({
       mutationFn: updateAllNotificiationsFn,
+      onSuccess: user => {
+         console.log(user);
+         queryClient.setQueryData(['user'], user.data.data);
+      },
    });
 
    return { updateNotifications, isUpdating };

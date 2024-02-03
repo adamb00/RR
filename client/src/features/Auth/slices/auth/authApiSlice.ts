@@ -1,43 +1,43 @@
-import { BASE_URL } from '../../../utils/helpers';
-import { apiSlice } from './apiSlice';
-const storedUser = sessionStorage.getItem('user');
+import { apiSlice } from '../apiSlice';
 
-export const userApiSlice = apiSlice.injectEndpoints({
+const storedUser = sessionStorage.getItem('user');
+export const authApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       login: builder.mutation({
          query: data => ({
-            url: `${BASE_URL}auth/signin`,
+            url: `auth/signin`,
             method: 'POST',
             body: data,
          }),
       }),
       logout: builder.mutation({
          query: () => ({
-            url: `${BASE_URL}auth/signout`,
+            url: `auth/signout`,
             method: 'POST',
          }),
       }),
       register: builder.mutation({
          query: data => ({
-            url: `${BASE_URL}auth/signup`,
+            url: `auth/signup`,
             method: 'POST',
             body: data,
          }),
       }),
+
+      getReferralCode: builder.mutation({
+         query: (referralCode: number) => ({
+            url: `auth/get-referralcode/${referralCode}`,
+            method: 'GET',
+         }),
+      }),
+
       getCurrentUser: builder.mutation({
          query: () => ({
-            url: `${BASE_URL}user/current-user`,
+            url: `user/current-user`,
             method: 'GET',
             headers: {
                Authorization: `Bearer ${storedUser}`,
             },
-         }),
-      }),
-      updateUser: builder.mutation({
-         query: data => ({
-            url: `${BASE_URL}user/current-user`,
-            method: 'PUT',
-            body: data,
          }),
       }),
    }),
@@ -47,6 +47,6 @@ export const {
    useLoginMutation,
    useLogoutMutation,
    useRegisterMutation,
-   useUpdateUserMutation,
+   useGetReferralCodeMutation,
    useGetCurrentUserMutation,
-} = userApiSlice;
+} = authApiSlice;

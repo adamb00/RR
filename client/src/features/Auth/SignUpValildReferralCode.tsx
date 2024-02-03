@@ -2,13 +2,15 @@ import { Control, useWatch } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
 import { CiUnlock, CiUser, CiMail, CiGlobe, CiCalendarDate } from 'react-icons/ci';
 import { IS_VALID_EMAIL } from '../../utils/helpers';
+import IError from '../../interfaces/IError';
 
 interface SignUpValidReferralCodeProps {
    control: Control;
    handleInputChange: () => void;
+   error?: IError;
 }
 
-export default function SignUpValildReferralCode({ control, handleInputChange }: SignUpValidReferralCodeProps) {
+export default function SignUpValildReferralCode({ control, handleInputChange, error }: SignUpValidReferralCodeProps) {
    const password = useWatch({ control, name: 'password' });
 
    return (
@@ -31,6 +33,7 @@ export default function SignUpValildReferralCode({ control, handleInputChange }:
                name='email'
                className='signup__form--input'
                fieldErrorClassname='signup__form--error'
+               eError={error && error.item === 'email' ? error.message : ''}
                type='text'
                onChange={handleInputChange}
                placeholder='Your e-mail address'

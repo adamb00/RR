@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, memo } from 'react';
 
 interface ButtonProps {
    onClick?: () => void;
@@ -6,10 +6,10 @@ interface ButtonProps {
    className?: string;
 }
 
-export default function Button({ children, onClick, disabled, className }: PropsWithChildren<ButtonProps>) {
+export default memo(function Button({ children, onClick, disabled, className }: PropsWithChildren<ButtonProps>) {
    return (
       <button onClick={onClick} disabled={disabled} className={className} aria-label='button'>
          {children}
       </button>
    );
-}
+});

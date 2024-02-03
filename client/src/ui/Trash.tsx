@@ -2,8 +2,9 @@ import TrashIcon from '../../assets/icons8-trash.svg';
 import TrashSound from '../../assets/crumple-03-40747.mp3';
 import { useDrop } from 'react-dnd';
 import { useDeleteOneLink } from '../features/Links/useLinks';
+import { memo } from 'react';
 
-export default function Trash() {
+export default memo(function Trash() {
    const { deleteLink } = useDeleteOneLink();
    const audio = new Audio(TrashSound);
 
@@ -34,4 +35,4 @@ export default function Trash() {
          />
       </div>
    );
-}
+});

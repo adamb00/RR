@@ -27,6 +27,7 @@ export default function UserInput({
    type,
    id,
    onChange,
+   eError,
 }: PropsWithChildren<UserInputProps>) {
    return (
       <Controller
@@ -60,6 +61,7 @@ export default function UserInput({
                      {fieldError.message || 'Something went wrong. Please try again.'}
                   </p>
                )}
+               {eError && <p className={fieldErrorClassname}>{eError}</p>}
             </div>
          )}
       />

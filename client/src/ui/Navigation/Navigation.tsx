@@ -2,8 +2,9 @@ import { closeMenu } from '../../utils/helpers';
 import NavigationLinkMobile from './NavigationLinkMobile';
 import SignOut from '../../features/Auth/SignOut';
 import { useAppSelector } from '../../redux-hooks';
+import { memo } from 'react';
 
-export default function Navigation() {
+export default memo(function Navigation() {
    const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
 
    return (
@@ -43,4 +44,4 @@ export default function Navigation() {
          </div>
       </div>
    );
-}
+});

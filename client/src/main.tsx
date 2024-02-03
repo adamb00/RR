@@ -15,8 +15,8 @@ import { Provider } from 'react-redux';
 const queryClient = new QueryClient({
    defaultOptions: {
       queries: {
-         staleTime: 0,
-         refetchInterval: 0,
+         staleTime: 10000,
+         refetchInterval: 10000,
       },
    },
 });

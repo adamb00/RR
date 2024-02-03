@@ -1,10 +1,11 @@
 import Button from '../../ui/Buttons/Button';
-import { logout } from './slices/authSlice';
+import { logout } from './slices/auth/authSlice';
 import { useAppDispatch } from '../../redux-hooks';
-import { useLogoutMutation } from './slices/usersApiSlice';
+import { useLogoutMutation } from './slices/auth/authApiSlice';
 import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
 
-export default function SignOut() {
+export default memo(function SignOut() {
    const dispatch = useAppDispatch();
    const [logoutApi] = useLogoutMutation();
    const navigate = useNavigate();
@@ -19,4 +20,4 @@ export default function SignOut() {
          Log out
       </Button>
    );
-}
+});

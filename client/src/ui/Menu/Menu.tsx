@@ -6,16 +6,15 @@ import Icon from '../Icon';
 import MenuIsNotOpen from './MenuIsNotOpen';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 
-import { useSortedNotifications } from '../../hooks/useSortedNotifications';
 import Loader from '../Loader';
 import { useIsNotification } from '../../hooks/useIsNotification';
 import NotificationsMenu from './NotificationsMenu';
 import { MenuProps } from '../../interfaces/MenuProps';
-
+import { useAppSelector } from '../../redux-hooks';
 export default function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
-   const { firstNotificationId } = useSortedNotifications();
    const { isNotification } = useIsNotification();
+   const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
 
    if (isNotification) return <NotificationsMenu isOpen={isOpen} setIsOpen={setIsOpen} />;
 

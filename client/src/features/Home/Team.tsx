@@ -4,7 +4,7 @@ import { AFFILIATE_DEPTH } from '../../utils/constants';
 import Loader from '../../ui/Loader';
 
 import { useAppSelector } from '../../redux-hooks';
-import { UserProfileData } from '../Auth/slices/authSlice';
+import { UserProfileData } from '../Auth/slices/auth/authSlice';
 
 export default function Team() {
    const user = useAppSelector(state => state.auth.user);

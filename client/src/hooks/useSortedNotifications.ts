@@ -1,39 +1,28 @@
-import { useEffect, useState } from 'react';
-import { getSortedNotifications } from '../utils/helpers';
-
 import INotification from '../interfaces/INotification';
-import { useFetchNotifications } from './useFetchNotifications';
+import { useAppSelector } from '../redux-hooks';
+import { sortNotifications } from '../utils/helpers';
 
 export const useSortedNotifications = () => {
-   const { notificationsFetched: notifications } = useFetchNotifications();
-   const [firstNotificationId, setFirstNotificationId] = useState<string | undefined>();
-   const [sortedNotifications, setSortedNotifications] = useState<INotification[] | undefined>();
+   const user = useAppSelector(state => state.auth.user);
+   if (!user) return;
+   const notifications = user.notifications;
 
-   useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const sortedNotifications = await getSortedNotifications(notifications);
-            setSortedNotifications(sortedNotifications);
+   const sortedNotifications = sortNotifications(notifications);
 
-            if (sortedNotifications.length > 0) {
-               let latestNotification = sortedNotifications[0];
-               sortedNotifications.forEach(notification => {
-                  if (notification.created_at > latestNotification.created_at) {
-                     latestNotification = notification;
-                  }
-               });
+   if (!sortNotifications) return [];
 
-               setFirstNotificationId(latestNotification._id);
-            }
-         } catch (error) {
-            console.error('Error fetching or sorting notifications:', error);
-         }
-      };
+   console.log(sortedNotifications);
 
-      if (notifications) {
-         fetchData();
-      }
-   }, [notifications]);
+   return { sortedNotifications };
+};
 
-   return { firstNotificationId, sortedNotifications };
+export const useGetFirstSortedNotification = () => {
+   const user = useAppSelector(state => state.auth.user);
+   const notifications = user?.notifications;
+
+   if (!user?.notifications) return;
+
+   const firstNotificationId = sortNotifications(notifications as INotification[])[0]._id;
+
+   return { firstNotificationId };
 };

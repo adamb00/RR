@@ -3,8 +3,9 @@ import NavbarNotAuth from './Navbar/NavbarNotAuth';
 import Logo from './Logo';
 
 import { useAppSelector } from '../redux-hooks';
+import { memo } from 'react';
 
-export default function Header() {
+export default memo(function Header() {
    const user = useAppSelector(state => state.auth.user);
 
    return (
@@ -13,4 +14,4 @@ export default function Header() {
          {user ? <Navbar /> : <NavbarNotAuth />}
       </header>
    );
-}
+});
