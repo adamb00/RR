@@ -31,6 +31,8 @@
       "nodemon": "^3.0.2",
       "pug": "^3.0.2",
       "slugify": "^1.6.6",
+      "socket.io": "^4.7.4",
+      "socket.io-client": "^4.7.4",
       "validator": "^13.11.0"
    },
    "devDependencies": {
@@ -45,6 +47,7 @@
       "@types/morgan": "^1.9.4",
       "@types/nodemailer": "^6.4.14",
       "@types/pug": "^2.0.10",
+      "@types/socket.io-client": "^3.0.0",
       "@types/supertest": "^6.0.2",
       "@types/validator": "^13.11.8",
       "eslint": "^5.16.0",

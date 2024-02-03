@@ -58,9 +58,7 @@ export const markNotifications = catchAsync(async (req: Request, res: Response, 
 
 export const markNotification = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const userId = req.user._id;
-   const notificationIdToUpdate = req.body.data;
-
-   console.log(notificationIdToUpdate);
+   const notificationIdToUpdate = req.body.id;
 
    const updatedUser = await User.findOneAndUpdate(
       { _id: userId, 'notifications._id': notificationIdToUpdate },
@@ -71,6 +69,7 @@ export const markNotification = catchAsync(async (req: Request, res: Response, n
    if (updatedUser) {
       res.status(200).json({
          status: 'success',
+         notificationIdToUpdate,
       });
    }
 });

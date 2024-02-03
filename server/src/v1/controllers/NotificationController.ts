@@ -27,23 +27,10 @@ export const createNotification = catchAsync(async (req: Request, res: Response,
       }
    }
 
-   // Update users' notifications (push the new notification)
    await User.updateMany(
       { role: { $ne: 'Admin' }, active: true },
       { $push: { notifications: { $each: [doc], $position: 0 } } }
    );
-
-   // await User.updateMany(
-   //    { role: { $ne: 'Admin' }, active: true },
-   //    {
-   //       $push: { notifications: { _id: doc.id, read: false } },
-   //       $set: {
-   //          notifications: {
-   //             $slice: 100,
-   //          },
-   //       },
-   //    }
-   // );
 
    res.status(201).json({
       status: 'success',

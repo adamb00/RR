@@ -19,16 +19,23 @@ declare global {
 export default class AuthController {
    public signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       try {
+         console.log(req.body);
          const highestReferralCode = await User.findOne({}, 'referralCode', { sort: { referralCode: -1 } }).lean();
+         console.log('highestReferral', highestReferralCode);
          const parentUser = await User.findOne({ _id: req.body.parent });
+         console.log('parent', parentUser);
          const grandparentUser = await User.findOne({ _id: parentUser?.parent });
+         console.log('grandparent', grandparentUser);
          const granderparentUser = await User.findOne({ _id: grandparentUser?.parent });
+         console.log('granderParent', granderparentUser);
 
          const newUser: UserType = await User.create({
             ...req.body,
             referralCode: highestReferralCode!.referralCode + 1,
-            level: parentUser!.level + 1,
+            level: parentUser ? parentUser.level + 1 : 1,
          });
+
+         console.log(newUser);
 
          if (parentUser) await User.updateOne({ _id: parentUser._id }, { $push: { children_level_1: newUser._id } });
 
@@ -39,9 +46,9 @@ export default class AuthController {
             await User.updateOne({ _id: granderparentUser._id }, { $push: { children_level_3: newUser._id } });
 
          // const url = `${req.protocol}://${req.get('host')}/signup?referralCode=${parentUser?.referralCode}`;
-         const url = `http://localhost:5173/signin`;
+         // const url = `http://localhost:5173/signin`;
 
-         await new Email(newUser, url).sendWelcome();
+         // await new Email(newUser, url).sendWelcome();
 
          res.status(201).json({
             status: 'success',
@@ -63,6 +70,7 @@ export default class AuthController {
             res.status(400).json({
                status: 'error',
                message: 'Email address is already in use.',
+               item: 'email',
             });
          } else {
             res.status(500).json({
@@ -83,12 +91,12 @@ export default class AuthController {
                status: 'error',
                message: 'Could not find user with this referral code.',
             });
+         } else {
+            res.status(201).json({
+               status: 'success',
+               user: user?.id,
+            });
          }
-
-         res.status(201).json({
-            status: 'success',
-            user: user?.id,
-         });
       } catch (err) {
          console.error(err);
       }
@@ -111,6 +119,7 @@ export default class AuthController {
             res.status(404).json({
                status: 'error',
                message: 'No user found with this email.',
+               item: 'email',
             });
             return next(new AppError('No user found with this email.', 404));
          }
@@ -119,6 +128,7 @@ export default class AuthController {
             res.status(401).json({
                status: 'error',
                message: 'Incorrect password',
+               item: 'password',
             });
             return next(new AppError('Incorrect password.', 401));
          }
