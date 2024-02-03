@@ -2,7 +2,7 @@ import { ILink } from '../../interfaces/ILink';
 import { CiMedicalClipboard, CiShare1 } from 'react-icons/ci';
 import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useAuth } from '../../context/AuthContext';
+
 import { useDeleteOneLink, useUpdateLink } from './useLinks';
 import { useDrag } from 'react-dnd';
 
@@ -14,19 +14,21 @@ import { emptyInputField, truncateText } from '../../utils/helpers';
 import useDetectOrientation from '../../hooks/useDetectOrientation';
 import { BallTriangle } from 'react-loader-spinner';
 
+import { useAppSelector } from '../../redux-hooks';
+
 interface LinkItemProps {
    link: ILink;
    device: string;
 }
 export default function LinkItemAdmin({ link, device }: LinkItemProps) {
    const { control, handleSubmit } = useForm();
-   const { user } = useAuth();
+   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+
    const { updateLink, isUpdating } = useUpdateLink();
    const { isDeleting, deleteLink } = useDeleteOneLink();
    const [isChecked, setIsChecked] = useState(false);
 
    const orientation = useDetectOrientation();
-   const isAdmin = user?.role === 'Admin';
 
    const [{ isDragging }, drag] = useDrag(() => ({
       type: 'BOX',

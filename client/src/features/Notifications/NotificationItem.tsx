@@ -11,15 +11,17 @@ export default function NotificationItem() {
    if (isLoading || !notifications) return <Loader className='notifications__loader' size={250} />;
 
    const createdAt = new Date(notifications.created_at).toString();
-   const messageWithNewline = notifications.message?.replace(/<br>/g, '\n') || '';
 
    return (
       <div className='notifications__container'>
          <h1 className='notifications__title'>{notifications.title}</h1>
          <div className='notifications__wrapper'>
-            <div aria-multiline className='notifications__message' style={{ whiteSpace: 'pre-line' }}>
-               {messageWithNewline}
-            </div>
+            <div
+               aria-multiline
+               className='notifications__message'
+               style={{ whiteSpace: 'pre-line' }}
+               dangerouslySetInnerHTML={{ __html: notifications.message }}
+            ></div>
 
             <div className='notifications__created'>
                <div className='notifications__created--by'>{notifications.created_by}</div>

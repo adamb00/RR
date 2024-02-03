@@ -5,7 +5,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import useDetectOrientation from '../../hooks/useDetectOrientation';
 import { truncateText } from '../../utils/helpers';
-import { useAuth } from '../../context/AuthContext';
+
+import { useAppSelector } from '../../redux-hooks';
 
 interface LinkItemProps {
    link: ILink;
@@ -13,7 +14,7 @@ interface LinkItemProps {
 }
 export default function LinkItem({ link, device }: LinkItemProps) {
    const orientation = useDetectOrientation();
-   const { user } = useAuth();
+   const user = useAppSelector(state => state.auth.user);
 
    const currentLinkTitle = () => link.title ?? '';
 
@@ -34,8 +35,6 @@ export default function LinkItem({ link, device }: LinkItemProps) {
 
       return view;
    };
-
-   console.log(link);
 
    if (!link.active) return;
 

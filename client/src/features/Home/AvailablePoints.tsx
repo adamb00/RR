@@ -1,7 +1,8 @@
-import { useAuth } from '../../context/AuthContext';
+import { useAppSelector } from '../../redux-hooks';
 
 export default function AvailablePoints() {
-   const { user } = useAuth();
+   const user = useAppSelector(state => state.auth.user);
+
    return (
       <div className='home__points'>
          You have <span className='home__points--point'>{user?.availablePoints} </span>available points of total

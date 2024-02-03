@@ -9,7 +9,7 @@ export function useSessionStorageState<T>(initialState: T, key: string): UseSess
    });
 
    useEffect(() => {
-      if (value === undefined) {
+      if (value === undefined || value === null) {
          sessionStorage.removeItem(key);
       } else {
          sessionStorage.setItem(key, JSON.stringify(value));

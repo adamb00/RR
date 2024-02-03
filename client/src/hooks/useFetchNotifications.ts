@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import INotification from '../interfaces/INotification';
 import { useGetOneNotification } from '../features/Notifications/useNotifications';
-import { useAuth } from '../context/AuthContext';
+import { useAppSelector } from '../redux-hooks';
 
 export const useFetchNotifications = () => {
+   const user = useAppSelector(state => state.auth.user);
+
    const [notificationsFetched, setNotificationsFetched] = useState<INotification[]>([]);
-   const { user } = useAuth();
    const userNotificationIDs = user?.notifications.map(notification => notification._id) || [];
    const { notifications, error } = useGetOneNotification(userNotificationIDs);
 

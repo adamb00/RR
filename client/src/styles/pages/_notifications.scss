@@ -29,7 +29,8 @@
    }
 
    &__container {
-      position: relative;
+      position: sticky;
+      top: 15rem;
    }
 
    &__wrapper {
@@ -159,6 +160,15 @@
          font-style: italic;
       }
    }
+
+   &__richtext {
+      background-color: $color-white;
+      width: 100%;
+      font-size: $default-font-size;
+      color: $color-black;
+      padding: 1rem;
+      border-radius: $default-border-radius;
+   }
    &__admin {
       padding: 1rem 3rem;
 
@@ -185,7 +195,7 @@
       }
 
       &--button {
-         margin: 25rem 0;
+         margin: 5rem 0;
          width: 50%;
       }
    }

@@ -1,17 +1,17 @@
-import Button from '../Buttons/Button';
 import NavigationLink from '../Navigation/NavigationLink';
 import ThemeSwitcher from '../ThemeSwitcher';
-import { useLogoutUser } from '../../features/Auth/useUserAuth';
 import Notifications from '../HomeNotifications/Notifications';
 import Navigation from '../Navigation/Navigation';
-import { useAuth } from '../../context/AuthContext';
+
 import NavigationNoAuth from '../Navigation/NavigationNoAuth';
 import useDeviceDetection from '../../hooks/useDetectDevice';
+import SignOut from '../../features/Auth/SignOut';
+import { useAppSelector } from '../../redux-hooks';
 
 export default function Navbar() {
-   const { user, isAdmin } = useAuth();
-   const { logoutUser } = useLogoutUser();
    const device = useDeviceDetection();
+   const user = useAppSelector(state => state.auth.user);
+   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
 
    if (device === 'Mobile')
       return (
@@ -49,9 +49,7 @@ export default function Navbar() {
             </li>
             <li>{!isAdmin && <Notifications />}</li>
             <li>
-               <Button onClick={logoutUser} className='btn btn--primary'>
-                  Log out
-               </Button>
+               <SignOut />
             </li>
          </ul>
       </nav>

@@ -1,4 +1,3 @@
-import { useAuth } from '../../context/AuthContext';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import ShareLinks from '../Links/ShareLinks';
 import { useGetAllLinks } from '../Links/useLinks';
@@ -9,9 +8,12 @@ import { ILink } from '../../interfaces/ILink';
 import Trash from '../../ui/Trash';
 import Loader from '../../ui/Loader';
 
+import { useAppSelector } from '../../redux-hooks';
+
 export default function EditLinks() {
    const { links, isLoading, count } = useGetAllLinks();
-   const { isAdmin } = useAuth();
+   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+
    const device = useDeviceDetection();
 
    if (isLoading)
@@ -25,7 +27,7 @@ export default function EditLinks() {
 
    return (
       <div>
-         {isAdmin ? <ShareLinks /> : <p>Regular user</p>}
+         <ShareLinks />
          <div className='links'>
             {links.doc.map((link: ILink) => (
                <LinkItemAdmin key={link._id} link={link} device={device} />

@@ -1,11 +1,13 @@
 import './styles/main.scss';
+
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import AppLayout from './ui/AppLayout';
 import Home from './features/Home/Home';
+import MyLink from './features/Links/MyLink';
 import About from './features/About/About';
 import SignIn from './features/Auth/SignIn';
-import SignUp from './features/Auth/SignUp';
+// import SignUp from './features/Auth/SignUp';
 import Links from './features/Links/Links';
 import Account from './features/Account/Account';
 
@@ -16,7 +18,6 @@ import EditLinks from './features/Account/EditLinks';
 import Affiliate from './features/Affiliate/Affiliate';
 import FAQ from './features/FAQ/FAQ';
 import Contact from './features/Contact/Contact';
-import MyLink from './features/Links/MyLink';
 import NotificationItem from './features/Notifications/NotificationItem';
 
 const router = createBrowserRouter([
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             element: <Contact />,
          },
          { path: '/signin', element: <SignIn /> },
-         { path: '/signup', element: <SignUp /> },
+         // { path: '/signup', element: <SignUp /> },
          { path: '/my-links', element: <Links /> },
          {
             path: '/account',

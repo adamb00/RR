@@ -9,11 +9,13 @@ import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 import { IoEyeOutline, IoSettingsOutline } from 'react-icons/io5';
 import Icon from '../../ui/Icon';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import Loader from '../../ui/Loader';
 
+import { useAppSelector } from '../../redux-hooks';
+
 export default function Links() {
-   const { user } = useAuth();
+   const user = useAppSelector(state => state.auth.user);
+
    const { links, isLoading, count } = useGetAllLinks();
    const [orderedLinks, setOrderedLinks] = useLocalStorageState<ILink[]>([], 'orderedLinks');
    const device = useDeviceDetection();

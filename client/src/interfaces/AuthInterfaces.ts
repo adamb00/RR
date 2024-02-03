@@ -31,13 +31,14 @@ export interface UserData {
 }
 
 export interface AppState {
-   user: UserData | undefined;
+   data: UserData | undefined;
    token: string | undefined;
-   isAuthenticated: boolean;
+   status: string;
+   expired: Date;
 }
 
 export interface SigninAction {
-   type: 'signin';
+   type: 'SIGN_IN';
    payload: {
       user?: UserData;
       token: string;
@@ -46,12 +47,7 @@ export interface SigninAction {
 }
 
 export interface SignoutAction {
-   type: 'signout';
-}
-
-export interface UpdateAction {
-   type: 'updateUser';
-   payload: UserData;
+   type: 'SIGN_OUT';
 }
 
 export type AuthAction = SigninAction | SignoutAction;

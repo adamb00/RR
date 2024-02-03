@@ -5,7 +5,7 @@ export const BASE_URL = 'http://192.168.0.33:8000/api/v1/';
 // export const BASE_URL = 'http://localhost:8000/api/v1/';
 
 export const getUserToken = async () => {
-   return document.cookie.includes('jwt') ? document.cookie.split('=')[1] : '';
+   return sessionStorage.getItem('user') as string;
 };
 
 export const OPTIONS = (options: {
@@ -89,6 +89,11 @@ export const truncateText = (text: string, maxLength: number) => {
       return text.substring(0, maxLength - 3) + '...';
    }
    return text;
+};
+
+export const stripHtmlTags = (htmlString: string): string => {
+   const doc = new DOMParser().parseFromString(htmlString, 'text/html');
+   return doc.body.textContent || '';
 };
 
 export const emptyInputField = (className: string) => {

@@ -25,7 +25,8 @@ export const useCreateLink = ({ onError }: Props) => {
       mutate: createLink,
       error,
       isLoading: isCreating,
-   } = useMutation(async (link: string) => createLinkFn(link), {
+   } = useMutation({
+      mutationFn: createLinkFn,
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ['link'] });
       },
@@ -35,6 +36,24 @@ export const useCreateLink = ({ onError }: Props) => {
    });
    return { createLink, error, isCreating };
 };
+
+// export const useCreateLink = ({ onError }: Props) => {
+//    const queryClient = useQueryClient();
+
+//    const {
+//       mutate: createLink,
+//       error,
+//       isLoading: isCreating,
+//    } = useMutation(async (link: string) => createLinkFn(link), {
+//       onSuccess: () => {
+//          queryClient.invalidateQueries({ queryKey: ['link'] });
+//       },
+//       onError: (error: IError) => {
+//          onError(error);
+//       },
+//    });
+//    return { createLink, error, isCreating };
+// };
 
 export const useGetAllLinks = () => {
    const queryClient = useQueryClient();
@@ -49,8 +68,6 @@ export const useGetAllLinks = () => {
    } = useQuery({
       queryKey: ['link', page],
       queryFn: () => getAllLinksFn({ page }),
-      staleTime: 5000,
-      refetchInterval: 5000,
    });
 
    const count = links?.totalItems;
@@ -60,14 +77,12 @@ export const useGetAllLinks = () => {
       queryClient.prefetchQuery({
          queryKey: ['link', page + 1],
          queryFn: () => getAllLinksFn({ page: page + 1 }),
-         staleTime: 5000,
       });
 
    if (page > 1)
       queryClient.prefetchQuery({
          queryKey: ['link', page - 1],
          queryFn: () => getAllLinksFn({ page: page - 1 }),
-         staleTime: 5000,
       });
 
    return { isLoading, error, links, count };

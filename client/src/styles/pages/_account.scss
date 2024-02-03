@@ -66,6 +66,10 @@
          margin-bottom: 7rem;
          animation: moveInLeft 0.8s forwards;
 
+         &__not-open {
+            margin-top: 5rem;
+         }
+
          &-link__not-open {
             &::after {
                background: none;

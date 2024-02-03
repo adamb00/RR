@@ -23,7 +23,6 @@ export const getAllLinks = async ({ page }: GetAllLinksParams) => {
 
    return responseData;
 };
-
 export const deleteOneLink = async (id: string) => {
    const userToken = await getUserToken();
    const response = await fetch(BASE_URL + `link/${id}`, OPTIONS({ method: 'DELETE', userToken }));

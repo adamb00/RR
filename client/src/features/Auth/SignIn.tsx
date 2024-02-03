@@ -4,40 +4,28 @@ import { useForm } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
 import { IS_VALID_EMAIL } from '../../utils/helpers';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useLoginUser } from './useUserAuth';
 import IError from '../../interfaces/IError';
 import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { setCredentials } from './slices/authSlice';
+import { useAppDispatch } from '../../redux-hooks';
+import { useLoginMutation } from './slices/usersApiSlice';
 
 export default function SignIn() {
    const navigate = useNavigate();
-   const { user } = useAuth();
+   const dispatch = useAppDispatch();
+   const [login, { isLoading }] = useLoginMutation();
+
    const { control, handleSubmit } = useForm();
-   const { loginUser, isLogging } = useLoginUser({
-      onError: (error: IError) => {
-         setError(error);
-      },
-   });
    const [error, setError] = useState<IError>();
 
    const handleInputChange = () => {
       setError(undefined);
    };
-
-   const handleSubmitForm = (data: object) => {
-      loginUser(
-         { ...data },
-         {
-            onSuccess: data => {
-               if (data.status === 'error') {
-                  setError(data);
-               }
-            },
-         }
-      );
+   const handleSubmitForm = async (data: object) => {
+      const res = await login(data).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate('/');
    };
-
-   if (user) navigate('/');
 
    return (
       <div className='login'>
@@ -52,6 +40,7 @@ export default function SignIn() {
                onChange={handleInputChange}
                className='login__form--input'
                fieldErrorClassname='login__form--error'
+               id='email'
                type='text'
                placeholder='Enter Your e-mail address'
                rules={{
@@ -65,6 +54,7 @@ export default function SignIn() {
             </UserInput>
             <UserInput
                control={control}
+               id='password'
                eError={error?.message}
                onChange={handleInputChange}
                name='password'
@@ -86,10 +76,10 @@ export default function SignIn() {
             {error && (
                <p className='login__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
             )}
-            <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLogging} className='btn btn--primary'>
+            <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
                Log in now
             </Button>
-            <Button onClick={() => navigate('/signup')} disabled={isLogging} className='btn btn--secondary'>
+            <Button onClick={() => navigate('/signup')} disabled={isLoading} className='btn btn--secondary'>
                Don't you have an account yet? Register now!
             </Button>
             <NavLink to='/' className='login__form--forgotPassword'>

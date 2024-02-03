@@ -9,7 +9,7 @@ interface ChildrenProps {
 export default function Children({ id }: ChildrenProps) {
    const { currentUser, isLoading: isLoadingUser } = useGetOneUser(id);
 
-   if (isLoadingUser) return <Loader />;
+   if (isLoadingUser) return <Loader size={100} />;
 
    const { doc: user } = currentUser;
 

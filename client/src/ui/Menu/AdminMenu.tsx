@@ -1,42 +1,34 @@
-import NavigationLink from '../Navigation/NavigationLink';
-import Button from '../Buttons/Button';
-import { RiOpenaiFill } from 'react-icons/ri';
-import { CiBellOn, CiLock, CiUser } from 'react-icons/ci';
+import { MenuProps } from '../../interfaces/MenuProps';
 import Icon from '../Icon';
-import MenuIsNotOpen from './MenuIsNotOpen';
+import NavigationLink from '../Navigation/NavigationLink';
+import { RiOpenaiFill } from 'react-icons/ri';
+import { CiBellOn, CiLock, CiMenuKebab, CiUser } from 'react-icons/ci';
+import AdminMenuIsNotOpen from './AdminMenuIsNotOpen';
+import Button from '../Buttons/Button';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 
-import { useSortedNotifications } from '../../hooks/useSortedNotifications';
-import Loader from '../Loader';
-import { useIsNotification } from '../../hooks/useIsNotification';
-import NotificationsMenu from './NotificationsMenu';
-import { MenuProps } from '../../interfaces/MenuProps';
-
-export default function Menu({ isOpen, setIsOpen }: MenuProps) {
+export default function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
    const device = useDeviceDetection();
-   const { firstNotificationId } = useSortedNotifications();
-   const { isNotification } = useIsNotification();
-
-   if (isNotification) return <NotificationsMenu isOpen={isOpen} setIsOpen={setIsOpen} />;
 
    if (device === 'Mobile')
       return (
          <nav className='account__sidebar'>
-            <MenuIsNotOpen />
+            <AdminMenuIsNotOpen />
          </nav>
       );
-
-   if (!firstNotificationId)
-      return (
-         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Loader size={100} />
-         </div>
-      );
-
    return (
       <nav className={`account__sidebar ${isOpen ? '' : 'hide-menu'}`}>
          {isOpen ? (
             <ul className='account__sidebar--navigation'>
+               <li>
+                  <NavigationLink to='edit-links'>
+                     <Icon className='account__sidebar--icon'>
+                        <CiMenuKebab />
+                     </Icon>
+                     Edit links
+                  </NavigationLink>
+               </li>
+
                <li>
                   <NavigationLink to='personal'>
                      <Icon className='account__sidebar--icon'>
@@ -46,13 +38,14 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
                   </NavigationLink>
                </li>
                <li>
-                  <NavigationLink to={`${firstNotificationId && 'notifications/' + firstNotificationId}`}>
+                  <NavigationLink to='notifications'>
                      <Icon className='account__sidebar--icon'>
                         <CiBellOn />
                      </Icon>
                      Notifications
                   </NavigationLink>
                </li>
+
                <li>
                   <NavigationLink to='security'>
                      <Icon className='account__sidebar--icon'>
@@ -63,7 +56,7 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
                </li>
             </ul>
          ) : (
-            <MenuIsNotOpen />
+            <AdminMenuIsNotOpen />
          )}
          <Button className='account__open-menu' onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>
             <RiOpenaiFill />

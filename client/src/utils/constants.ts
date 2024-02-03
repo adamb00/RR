@@ -1,2 +1,6 @@
 export const ITEM_PER_PAGE = 10;
 export const AFFILIATE_DEPTH = 3;
+export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
+export const USER_LOGOUT = 'USER_LOGOUT';

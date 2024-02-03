@@ -1,16 +1,18 @@
-import { useAuth } from '../../context/AuthContext';
 import Children from './Children';
-import { UserData } from '../../interfaces/AuthInterfaces';
+
 import { AFFILIATE_DEPTH } from '../../utils/constants';
 import Loader from '../../ui/Loader';
 
+import { useAppSelector } from '../../redux-hooks';
+import { UserProfileData } from '../Auth/slices/authSlice';
+
 export default function Team() {
-   const { user } = useAuth();
+   const user = useAppSelector(state => state.auth.user);
 
    if (!user) return <Loader size={100} />;
 
    const renderLevel = (level: number, index: number) => {
-      const childrenKey = `children_level_${index + 1}` as keyof UserData;
+      const childrenKey = `children_level_${index + 1}` as keyof UserProfileData;
 
       return (
          <div className='team__level' key={index}>

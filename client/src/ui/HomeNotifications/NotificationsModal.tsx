@@ -3,6 +3,7 @@ import { useMarkNotifications } from '../../features/Auth/useUserAuth';
 import NotificationsItem from './NotificationsItem';
 
 import { useSortedNotifications } from '../../hooks/useSortedNotifications';
+import INotification from '../../interfaces/INotification';
 
 interface NotificationsProps {
    setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -24,7 +25,7 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
             <span className='notifications__modal--mark' onClick={handleOnClick}>
                Mark all as read
             </span>
-            {sortedNotifications?.map(notification => (
+            {sortedNotifications?.map((notification: INotification) => (
                <NotificationsItem key={notification._id} notification={notification} setShowModal={setShowModal} />
             ))}
          </div>

@@ -9,6 +9,7 @@ interface UserInputProps {
    rules?: RegisterOptions;
    formError?: boolean;
    className?: string;
+   id?: string | undefined;
    fieldErrorClassname?: string;
    eError?: string;
    defaultValue?: string;
@@ -24,6 +25,7 @@ export default function UserInput({
    className,
    fieldErrorClassname,
    type,
+   id,
    onChange,
 }: PropsWithChildren<UserInputProps>) {
    return (
@@ -34,9 +36,9 @@ export default function UserInput({
          render={({ field: { value, onChange: onFieldChange, onBlur }, fieldState: { error: fieldError } }) => (
             <div className='user-input'>
                {children}
-               <label htmlFor='input'></label>
+               <label htmlFor={id}></label>
                <input
-                  id='input'
+                  id={id ? id : 'id'}
                   autoComplete='new-password'
                   autoFocus={false}
                   type={type}

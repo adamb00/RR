@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import INotification from '../../interfaces/INotification';
-import { truncateText } from '../../utils/helpers';
+import { stripHtmlTags, truncateText } from '../../utils/helpers';
 import { useMarkNotification } from '../../features/Auth/useUserAuth';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -14,18 +14,20 @@ export default function NotificationsItem({ notification, setShowModal }: Notifi
    const { updateOneNotification } = useMarkNotification();
    const navigation = useNavigate();
 
-   const messageWithNewline = message?.replace(/<br>/g, '\n') || '';
-
    const handleOnClick = () => {
       navigation(`/account/notifications/${_id}`);
       updateOneNotification(_id);
       setShowModal(false);
    };
 
+   const plainText = stripHtmlTags(message);
+   const truncatedMessage = truncateText(plainText, 55);
+
+   console.log(truncatedMessage);
    return (
       <div className={`notifications__modal--wrapper ${read && 'read'}`} onClick={handleOnClick}>
          <p className='notifications__modal--title'>{truncateText(title, 28)}</p>
-         <p className='notifications__modal--message'>{truncateText(messageWithNewline, 55)}</p>
+         <p className='notifications__modal--message'>{truncatedMessage}</p>
       </div>
    );
 }

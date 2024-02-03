@@ -1,12 +1,10 @@
-import { useAuth } from '../../context/AuthContext';
-import { useLogoutUser } from '../../features/Auth/useUserAuth';
 import { closeMenu } from '../../utils/helpers';
-import Button from '../Buttons/Button';
 import NavigationLinkMobile from './NavigationLinkMobile';
+import SignOut from '../../features/Auth/SignOut';
+import { useAppSelector } from '../../redux-hooks';
 
 export default function Navigation() {
-   const { logoutUser } = useLogoutUser();
-   const { user } = useAuth();
+   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
 
    return (
       <div className='navigation'>
@@ -28,7 +26,7 @@ export default function Navigation() {
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
-                  {user?.role === 'Admin' ? (
+                  {isAdmin ? (
                      <NavigationLinkMobile onClick={closeMenu} to='/account/edit-links'>
                         Account
                      </NavigationLinkMobile>
@@ -39,9 +37,7 @@ export default function Navigation() {
                   )}
                </li>
                <li className='navigation__item'>
-                  <Button className='btn btn--primary' onClick={logoutUser}>
-                     Log out
-                  </Button>
+                  <SignOut />
                </li>
             </ul>
          </div>

@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+
 import ButtonIcon from '../Buttons/ButtonIcon';
 import { CiBellOn } from 'react-icons/ci';
 import NotificationsModal from './NotificationsModal';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import INotification from '../../interfaces/INotification';
+import { useAppSelector } from '../../redux-hooks';
 
 export default function Notifications() {
-   const { user } = useAuth();
+   const user = useAppSelector(state => state.auth.user);
+
    const [showModal, setShowModal] = useState(false);
 
    const unreadNotifications: number =
@@ -20,7 +22,6 @@ export default function Notifications() {
    const handleCloseModal = () => {
       setShowModal(false);
    };
-
    const ref = useOutsideClick(handleCloseModal);
 
    return (

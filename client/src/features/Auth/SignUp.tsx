@@ -1,98 +1,97 @@
-import { FieldValues, useForm } from 'react-hook-form';
-import Button from '../../ui/Buttons/Button';
-import { useState } from 'react';
-import { useCreateUser, useGetReferalCode } from './useUserAuth';
-import IError from '../../interfaces/IError';
-import SignUpValildReferralCode from './SignUpValildReferralCode';
-import SignUpNoValidReferralCode from './SignUpNoValidReferralCode';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+// import { FieldValues, useForm } from 'react-hook-form';
+// import Button from '../../ui/Buttons/Button';
+// import { useState } from 'react';
+// import { useCreateUser, useGetReferalCode } from './useUserAuth';
+// import IError from '../../interfaces/IError';
+// import SignUpValildReferralCode from './SignUpValildReferralCode';
+// import SignUpNoValidReferralCode from './SignUpNoValidReferralCode';
+// import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
-   const { user } = useAuth();
-   const { control, handleSubmit } = useForm();
-   const { getReferralCode } = useGetReferalCode();
-   const [error, setError] = useState<IError>();
-   const [validReferralCode, setValidReferralCode] = useState();
-   const navigate = useNavigate();
+// export default function SignUp() {
 
-   const { createUser, isCreating } = useCreateUser({
-      onError: (error: IError) => {
-         setError(error);
-      },
-   });
+//    const { control, handleSubmit } = useForm();
+//    const { getReferralCode } = useGetReferalCode();
+//    const [error, setError] = useState<IError>();
+//    const [validReferralCode, setValidReferralCode] = useState();
+//    const navigate = useNavigate();
 
-   const handleInputChange = () => {
-      setError(undefined);
-   };
+//    const { createUser, isCreating } = useCreateUser({
+//       onError: (error: IError) => {
+//          setError(error);
+//       },
+//    });
 
-   const handleReferralAvailability = (data: FieldValues) => {
-      const { referralCode } = data;
-      getReferralCode(referralCode, {
-         onSuccess: data => {
-            setValidReferralCode(data.user);
-            if (data.status === 'error') {
-               setError(data);
-            }
-         },
-      });
-   };
+//    const handleInputChange = () => {
+//       setError(undefined);
+//    };
 
-   const handleSubmitForm = (data: object) => {
-      createUser(
-         { ...data, parent: validReferralCode },
-         {
-            onSuccess: data => {
-               if (data.status === 'error') {
-                  setError(data);
-               }
-            },
-         }
-      );
-   };
+//    const handleReferralAvailability = (data: FieldValues) => {
+//       const { referralCode } = data;
+//       getReferralCode(referralCode, {
+//          onSuccess: data => {
+//             setValidReferralCode(data.user);
+//             if (data.status === 'error') {
+//                setError(data);
+//             }
+//          },
+//       });
+//    };
 
-   if (user) navigate('/');
+//    const handleSubmitForm = (data: object) => {
+//       createUser(
+//          { ...data, parent: validReferralCode },
+//          {
+//             onSuccess: data => {
+//                if (data.status === 'error') {
+//                   setError(data);
+//                }
+//             },
+//          }
+//       );
+//    };
 
-   return (
-      <div className='signup'>
-         <form action='' autoComplete='off' className='signup__form'>
-            <div className='signup__form--welcome'>
-               {validReferralCode ? (
-                  <div className='heading-primary'>You are almost there!</div>
-               ) : (
-                  <div className='heading-primary'>Nice to meet you!</div>
-               )}
-               {!validReferralCode && (
-                  <div className='heading-secondary'>Please provide us Your referral code first.</div>
-               )}
-               {validReferralCode && <div className='heading-secondary'>Please fill the form below to register.</div>}
-            </div>
+//    if (user) navigate('/');
 
-            {!validReferralCode && (
-               <SignUpNoValidReferralCode control={control} handleInputChange={handleInputChange} />
-            )}
+//    return (
+//       <div className='signup'>
+//          <form action='' autoComplete='off' className='signup__form'>
+//             <div className='signup__form--welcome'>
+//                {validReferralCode ? (
+//                   <div className='heading-primary'>You are almost there!</div>
+//                ) : (
+//                   <div className='heading-primary'>Nice to meet you!</div>
+//                )}
+//                {!validReferralCode && (
+//                   <div className='heading-secondary'>Please provide us Your referral code first.</div>
+//                )}
+//                {validReferralCode && <div className='heading-secondary'>Please fill the form below to register.</div>}
+//             </div>
 
-            {validReferralCode && <SignUpValildReferralCode control={control} handleInputChange={handleInputChange} />}
+//             {!validReferralCode && (
+//                <SignUpNoValidReferralCode control={control} handleInputChange={handleInputChange} />
+//             )}
 
-            {error && (
-               <p className='signup__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
-            )}
+//             {validReferralCode && <SignUpValildReferralCode control={control} handleInputChange={handleInputChange} />}
 
-            {!validReferralCode && (
-               <Button onClick={handleSubmit(handleReferralAvailability)} className='btn btn--primary'>
-                  Continue to register
-               </Button>
-            )}
+//             {error && (
+//                <p className='signup__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
+//             )}
 
-            {validReferralCode && (
-               //TODO SET REGISTER TEXT TO SENDING EMAIL, EMAIL SENT WHILE SENDING EMAIL
-               <>
-                  <Button onClick={handleSubmit(handleSubmitForm)} disabled={isCreating} className='btn btn--primary'>
-                     Register now
-                  </Button>
-               </>
-            )}
-         </form>
-      </div>
-   );
-}
+//             {!validReferralCode && (
+//                <Button onClick={handleSubmit(handleReferralAvailability)} className='btn btn--primary'>
+//                   Continue to register
+//                </Button>
+//             )}
+
+//             {validReferralCode && (
+//                //TODO SET REGISTER TEXT TO SENDING EMAIL, EMAIL SENT WHILE SENDING EMAIL
+//                <>
+//                   <Button onClick={handleSubmit(handleSubmitForm)} disabled={isCreating} className='btn btn--primary'>
+//                      Register now
+//                   </Button>
+//                </>
+//             )}
+//          </form>
+//       </div>
+//    );
+// }

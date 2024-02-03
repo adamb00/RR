@@ -1,4 +1,3 @@
-import { useAuth } from '../../context/AuthContext';
 import INotification from '../../interfaces/INotification';
 import Loader from '../../ui/Loader';
 import NavigationLink from '../../ui/Navigation/NavigationLink';
@@ -9,7 +8,6 @@ interface NotificationItemProps {
    notification: INotification;
 }
 export default function NotificationsMenuItem({ notification }: NotificationItemProps) {
-   const { isAdmin } = useAuth();
    const { updateOneNotification } = useMarkNotification();
 
    if (!notification) return <Loader size={100} />;
@@ -22,7 +20,7 @@ export default function NotificationsMenuItem({ notification }: NotificationItem
 
    return (
       <NavigationLink
-         to={`${!isAdmin ? 'notifications/' + _id || '' : 'notifications'}`}
+         to={`${'notifications/' + _id}`}
          className={`account__sidebar--notifications__wrapper ${read && 'read'}`}
       >
          <p onClick={handleOnClick} className='account__sidebar--notifications__title'>

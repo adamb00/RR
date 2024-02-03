@@ -1,12 +1,10 @@
 import { FieldValues, useForm } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
-import UserTextArea from '../../ui/UserInteractions/UserTextArea';
 import Button from '../../ui/Buttons/Button';
 
-// import { useSendNotification } from '../Auth/useUserAuth';
 import { emptyInputField } from '../../utils/helpers';
 import { useCreateNotification } from './useNotifications';
-// import NotificationsTable from './NotificationsTable';
+import RichText from '../../ui/UserInteractions/RichText';
 
 export default function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
@@ -14,16 +12,13 @@ export default function NotificationsAdmin() {
    const { isCreating, createNotification } = useCreateNotification();
 
    const handleOnSubmit = (data: FieldValues) => {
-      const messageWithPlaceholder = data.message.replace(/\n/g, '<br>');
-
       const notifications = {
          ...data,
-         message: messageWithPlaceholder,
          created_at: Date.now(),
       };
 
       createNotification({ ...notifications });
-      emptyInputField('.notifications__admin--textarea');
+      emptyInputField('.notifications__richtext--input');
       emptyInputField('.notifications__admin--input');
    };
    return (
@@ -45,19 +40,21 @@ export default function NotificationsAdmin() {
                   }}
                />
 
-               <UserTextArea
-                  name='message'
-                  control={control}
-                  className='notifications__admin--textarea'
-                  fieldErrorClassname='notifications__admin--error'
-                  placeholder='You can type any message here'
-                  rules={{
-                     required: {
-                        value: true,
-                        message: 'Notifications must have a message',
-                     },
-                  }}
-               />
+               <div className='notifications__richtext'>
+                  <RichText
+                     control={control}
+                     name='message'
+                     className='notifications__richtext--input'
+                     fieldErrorClassname='notifications__richtext--error'
+                     placeholder='You can type any message here'
+                     rules={{
+                        required: {
+                           value: true,
+                           message: 'Notifications must have a message',
+                        },
+                     }}
+                  />
+               </div>
                <Button
                   onClick={handleSubmit(handleOnSubmit)}
                   // disabled={isSending}

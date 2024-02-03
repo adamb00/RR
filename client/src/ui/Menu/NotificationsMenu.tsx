@@ -1,27 +1,21 @@
-import { Dispatch, SetStateAction } from 'react';
 import NotificationsMenuIsNotOpen from './NotificationsMenuIsNotOpen';
-import useDeviceDetection from '../../hooks/useDetectDevice';
-import { useAuth } from '../../context/AuthContext';
-import Button from '../../ui/Buttons/Button';
+import Button from '../Buttons/Button';
 import { RiOpenaiFill } from 'react-icons/ri';
-import NotificationsMenuItem from './NotificationsMenuItem';
+import NotificationsMenuItem from '../../features/Notifications/NotificationsMenuItem';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 
-import Icon from '../../ui/Icon';
+import Icon from '../Icon';
 
-import MenuIsNotOpen from '../../ui/Menu/MenuIsNotOpen';
 import { useSortedNotifications } from '../../hooks/useSortedNotifications';
+import { MenuProps } from '../../interfaces/MenuProps';
+import { useAppSelector } from '../../redux-hooks';
+import INotification from '../../interfaces/INotification';
 
-interface NotificationsMenuProps {
-   setIsOpen: Dispatch<SetStateAction<boolean>>;
-   isOpen: boolean;
-}
-export default function NotificationsMenu({ setIsOpen, isOpen }: NotificationsMenuProps) {
-   const { isAdmin } = useAuth();
+export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
    const { sortedNotifications } = useSortedNotifications();
-   const device = useDeviceDetection();
    const navigation = useNavigate();
+   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
 
    const handleGoBack = () => {
       isAdmin ? navigation('/account/edit-links') : navigation('/account/personal');
@@ -29,12 +23,6 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: NotificationsMe
 
    if (!sortedNotifications) return;
 
-   if (device === 'Mobile')
-      return (
-         <nav className='account__sidebar'>
-            {!isAdmin ? <NotificationsMenuIsNotOpen notifications={sortedNotifications} /> : <MenuIsNotOpen />}
-         </nav>
-      );
    return (
       <nav className={`account__sidebar ${isOpen ? '' : 'hide-menu'}`}>
          {isOpen ? (
@@ -44,14 +32,12 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: NotificationsMe
                      <IoIosArrowRoundBack />
                   </Icon>
                </li>
-               {sortedNotifications?.map(notification => (
+               {sortedNotifications?.map((notification: INotification) => (
                   <NotificationsMenuItem key={notification._id} notification={notification} />
                ))}
             </ul>
-         ) : !isAdmin ? (
-            <NotificationsMenuIsNotOpen notifications={sortedNotifications} />
          ) : (
-            <MenuIsNotOpen />
+            <NotificationsMenuIsNotOpen notifications={sortedNotifications} />
          )}
          <Button className='account__open-menu' onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>
             <RiOpenaiFill />

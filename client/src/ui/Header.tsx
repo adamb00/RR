@@ -1,10 +1,11 @@
-import { useAuth } from '../context/AuthContext';
 import Navbar from './Navbar/Navbar';
 import NavbarNotAuth from './Navbar/NavbarNotAuth';
 import Logo from './Logo';
 
+import { useAppSelector } from '../redux-hooks';
+
 export default function Header() {
-   const { user } = useAuth();
+   const user = useAppSelector(state => state.auth.user);
 
    return (
       <header className='header'>
