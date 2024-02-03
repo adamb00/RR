@@ -15,10 +15,35 @@ export default class NotificationController {
 export const createNotification = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const doc = await Notification.create({ ...req.body, created_by: req.user.name });
 
+   const totalNotifications = await Notification.countDocuments();
+
+   if (totalNotifications > 35) {
+      const oldestNotification = await Notification.findOneAndDelete({}, { sort: { created_at: 1 } });
+      if (oldestNotification) {
+         await User.updateMany(
+            { role: { $ne: 'Admin' }, active: true },
+            { $pull: { notifications: { _id: oldestNotification._id } } }
+         );
+      }
+   }
+
+   // Update users' notifications (push the new notification)
    await User.updateMany(
       { role: { $ne: 'Admin' }, active: true },
-      { $push: { notifications: { _id: doc.id, read: false } } }
+      { $push: { notifications: { $each: [doc], $position: 0 } } }
    );
+
+   // await User.updateMany(
+   //    { role: { $ne: 'Admin' }, active: true },
+   //    {
+   //       $push: { notifications: { _id: doc.id, read: false } },
+   //       $set: {
+   //          notifications: {
+   //             $slice: 100,
+   //          },
+   //       },
+   //    }
+   // );
 
    res.status(201).json({
       status: 'success',
