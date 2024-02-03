@@ -21,15 +21,14 @@ const userSlice = createSlice({
             action.payload.filter((notification: INotification) => !notification.read).length || 0;
       },
       markNotificationAsRead: (state, action) => {
-         console.log(action);
          const notification = state.notifications.find(
             notification => notification._id === action.payload.notificationIdToUpdate
          );
 
-         if (notification) {
+         if (notification && !notification.read) {
             notification.read = true;
+            state.unreadNotifications > 0 && state.unreadNotifications--;
          }
-         state.unreadNotifications > 0 && state.unreadNotifications--;
          console.log(state.unreadNotifications);
       },
       markAllNotificationAsRead: state => {

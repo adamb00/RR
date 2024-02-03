@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import ButtonIcon from '../Buttons/ButtonIcon';
 import { CiBellOn } from 'react-icons/ci';
@@ -6,7 +6,7 @@ import NotificationsModal from './NotificationsModal';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { useAppSelector } from '../../redux-hooks';
 
-export default function Notifications() {
+export default memo(function Notifications() {
    const [showModal, setShowModal] = useState(false);
    const unreadNotifications = useAppSelector(state => state.user.unreadNotifications);
 
@@ -28,4 +28,4 @@ export default function Notifications() {
          {showModal && <NotificationsModal setShowModal={setShowModal} />}
       </div>
    );
-}
+});

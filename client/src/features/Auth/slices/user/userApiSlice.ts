@@ -20,6 +20,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                Authorization: `Bearer ${storedUser}`,
             },
          }),
+         invalidatesTags: ['Notification'],
       }),
       markNotification: builder.mutation({
          query: data => ({

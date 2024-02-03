@@ -54,6 +54,12 @@ export default function AppLayout() {
       };
 
       initializeApp();
+
+      const intervalId = setInterval(() => {
+         initializeApp();
+      }, 10000);
+
+      return () => clearInterval(intervalId);
    }, [dispatch, getUser, fetchNotificationsForUser]);
 
    return (

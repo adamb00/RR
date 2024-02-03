@@ -1,12 +1,12 @@
 import { CiBellOn, CiLock, CiUser } from 'react-icons/ci';
 import ButtonIcon from '../Buttons/ButtonIcon';
 import NavigationLink from '../Navigation/NavigationLink';
-import { useMarkNotification } from '../../features/Auth/useUserAuth';
 import { useAppSelector } from '../../redux-hooks';
+import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
 
 export default function MenuIsNotOpen() {
-   const { updateOneNotification } = useMarkNotification();
    const firstNotificationId = useAppSelector(state => state.user.notifications[0]._id);
+   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
 
    return (
       <>
@@ -20,15 +20,11 @@ export default function MenuIsNotOpen() {
             </li>
             <li>
                <NavigationLink
-                  to={`${firstNotificationId && 'notifications/' + firstNotificationId}`}
+                  to={`${'notifications/' + firstNotificationId}`}
                   className='account__sidebar--navigation-link__not-open'
+                  onClick={handleOnMarkOneNotificationAsRead}
                >
-                  <ButtonIcon
-                     className='account__sidebar--icon__not-open'
-                     onClick={() => {
-                        updateOneNotification(firstNotificationId!);
-                     }}
-                  >
+                  <ButtonIcon className='account__sidebar--icon__not-open' onClick={handleOnMarkOneNotificationAsRead}>
                      <CiBellOn />
                   </ButtonIcon>
                </NavigationLink>

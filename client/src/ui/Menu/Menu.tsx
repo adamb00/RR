@@ -11,10 +11,12 @@ import { useIsNotification } from '../../hooks/useIsNotification';
 import NotificationsMenu from './NotificationsMenu';
 import { MenuProps } from '../../interfaces/MenuProps';
 import { useAppSelector } from '../../redux-hooks';
+import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
 export default function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
    const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
+   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
 
    if (isNotification) return <NotificationsMenu isOpen={isOpen} setIsOpen={setIsOpen} />;
 
@@ -45,7 +47,10 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
                   </NavigationLink>
                </li>
                <li>
-                  <NavigationLink to={`${firstNotificationId && 'notifications/' + firstNotificationId}`}>
+                  <NavigationLink
+                     to={`${'notifications/' + firstNotificationId}`}
+                     onClick={handleOnMarkOneNotificationAsRead}
+                  >
                      <Icon className='account__sidebar--icon'>
                         <CiBellOn />
                      </Icon>

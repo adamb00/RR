@@ -37,24 +37,6 @@ export const useCreateLink = ({ onError }: Props) => {
    return { createLink, error, isCreating };
 };
 
-// export const useCreateLink = ({ onError }: Props) => {
-//    const queryClient = useQueryClient();
-
-//    const {
-//       mutate: createLink,
-//       error,
-//       isLoading: isCreating,
-//    } = useMutation(async (link: string) => createLinkFn(link), {
-//       onSuccess: () => {
-//          queryClient.invalidateQueries({ queryKey: ['link'] });
-//       },
-//       onError: (error: IError) => {
-//          onError(error);
-//       },
-//    });
-//    return { createLink, error, isCreating };
-// };
-
 export const useGetAllLinks = () => {
    const queryClient = useQueryClient();
    const [searchParams] = useSearchParams();
