@@ -12,10 +12,10 @@ import { Link } from 'react-router-dom';
 import Loader from '../../ui/Loader';
 
 import { useAppSelector } from '../../redux-hooks';
+import RestrictedRoute from '../../ui/RestrictedRoute';
 
 export default function Links() {
    const user = useAppSelector(state => state.auth.user);
-
    const { links, isLoading, count } = useGetAllLinks();
    const [orderedLinks, setOrderedLinks] = useLocalStorageState<ILink[]>([], 'orderedLinks');
    const device = useDeviceDetection();
@@ -42,7 +42,9 @@ export default function Links() {
       setOrderedLinks(newOrderedLinks);
    };
 
-   if (isLoading || !user)
+   if (!user) return <RestrictedRoute />;
+
+   if (isLoading || !links)
       return (
          <div className='links__loader'>
             <Loader size={250} />
@@ -50,7 +52,6 @@ export default function Links() {
       );
 
    const activeLinks = orderedLinks.filter((link: ILink) => link.active);
-   console.log(activeLinks);
    if (!links || activeLinks.length === 0) return <h1 className='heading-primary'>No links yet</h1>;
 
    return (

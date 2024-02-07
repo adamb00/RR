@@ -14,7 +14,7 @@ export default function NotificationItem() {
 
    return (
       <div className='notifications__container'>
-         <h1 className='notifications__title'>{notifications?.title}</h1>
+         <h1 className='heading-primary'>{notifications?.title}</h1>
          <div className='notifications__wrapper'>
             <div
                aria-multiline

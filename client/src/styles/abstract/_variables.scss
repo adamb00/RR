@@ -29,6 +29,8 @@ $color-secondary: var(--color-secondary);
 $color-secondary-tint: var(--color-secondary-tint);
 $color-secondary-shade: var(--color-secondary-shade);
 
+$color-tertiary: var(--color-tertiary);
+
 $default-font-size: 1.6rem;
 $default-border-radius: 0.8rem;
 
@@ -60,6 +62,8 @@ $hover-box-shadow: 0 0.5rem 2rem $color-hover-box-shadow !important;
    --color-primary-tint: rgb(192, 244, 229);
    --color-primary-shade: #80e9ca;
 
+   --color-tertiary: #afa1bd;
+
    --color-hover-box-shadow: #c0f4e533;
 }
 
@@ -87,7 +91,6 @@ $hover-box-shadow: 0 0.5rem 2rem $color-hover-box-shadow !important;
    --color-secondary: #8debcf;
    --color-secondary-tint: rgb(192, 244, 229);
    --color-secondary-shade: #80e9ca;
-}
 
-$default-font-size: 1.6rem;
-$default-border-radius: 0.8rem;
+   --color-tertiary: #36135a;
+}

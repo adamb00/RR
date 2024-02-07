@@ -41,6 +41,27 @@ export const userApiSlice = apiSlice.injectEndpoints({
             },
          }),
       }),
+
+      uploadUserImage: builder.mutation({
+         query: (body: FormData) => ({
+            url: `user/upload-image`,
+            method: 'POST',
+            body,
+            formData: true,
+            headers: {
+               Authorization: `Bearer ${storedUser}`,
+            },
+         }),
+      }),
+      getUserImage: builder.mutation({
+         query: key => ({
+            url: `user/get-image/${key}`,
+            method: 'GET',
+            headers: {
+               Authorization: `Bearer ${storedUser}`,
+            },
+         }),
+      }),
    }),
 });
 
@@ -49,4 +70,6 @@ export const {
    useFetchNotificationsMutation,
    useMarkAllNotificationsMutation,
    useMarkNotificationMutation,
+   useUploadUserImageMutation,
+   useGetUserImageMutation,
 } = userApiSlice;

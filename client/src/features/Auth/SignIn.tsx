@@ -2,37 +2,36 @@ import { CiUnlock, CiUser } from 'react-icons/ci';
 import Button from '../../ui/Buttons/Button';
 import { useForm } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
-import { IS_VALID_EMAIL } from '../../utils/helpers';
+import { IS_VALID_EMAIL, getErrorMessage, handleError } from '../../utils/helpers';
 import { NavLink, useNavigate } from 'react-router-dom';
 import IError from '../../interfaces/IError';
 import { useState } from 'react';
 import { login } from './slices/auth/authSlice';
 import { useAppDispatch } from '../../redux-hooks';
 import { useLoginMutation } from './slices/auth/authApiSlice';
+import PasswordVisible from '../../ui/PasswordVisible';
+import FormIcon from '../../ui/FormIcon';
 
 export default function SignIn() {
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
    const [loginApi, { isLoading }] = useLoginMutation();
-
    const { control, handleSubmit } = useForm();
-   const [error, setError] = useState<IError>();
+   const [error, setError] = useState<string | IError | null>(null);
+   const [isVisible, setIsVisible] = useState(false);
 
    const handleInputChange = () => {
-      setError(undefined);
+      setError(null);
    };
    const handleSubmitForm = async (data: object) => {
       try {
          const res = await loginApi(data).unwrap();
          dispatch(login({ ...res }));
          navigate('/');
-         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-         setError(err.data);
+      } catch (error) {
+         setError(() => getErrorMessage(error));
       }
    };
-
-   if (error) console.log(error);
 
    return (
       <div className='login'>
@@ -46,9 +45,8 @@ export default function SignIn() {
                name='email'
                onChange={handleInputChange}
                className='login__form--input'
-               eError={error?.item && error?.item === 'email' ? error?.message : ''}
+               eError={handleError(error, 'email')}
                fieldErrorClassname='login__form--error'
-               id='email'
                type='text'
                placeholder='Enter Your e-mail address'
                rules={{
@@ -58,17 +56,19 @@ export default function SignIn() {
                   },
                }}
             >
-               <CiUser className='login__form--icon' />
+               <FormIcon tooltip='Enter Your e-mail address'>
+                  <CiUser className='login__form--icon' />
+               </FormIcon>
             </UserInput>
             <UserInput
                control={control}
                id='password'
-               eError={error?.item && error?.item === 'password' ? error?.message : ''}
+               eError={handleError(error, 'password')}
                onChange={handleInputChange}
                name='password'
                className='login__form--input'
                fieldErrorClassname='login__form--error'
-               type='password'
+               type={isVisible ? 'text' : 'password'}
                placeholder='Enter Your password'
                rules={{
                   required: 'Password is required.',
@@ -78,12 +78,14 @@ export default function SignIn() {
                   },
                }}
             >
-               <CiUnlock className='login__form--icon' />
+               <FormIcon tooltip='Enter Your password'>
+                  <CiUnlock className='login__form--icon' />
+               </FormIcon>
+               <PasswordVisible className='login__form--icon' isVisible={isVisible} setIsVisible={setIsVisible} />
             </UserInput>
 
-            {/* {error && (
-               <p className='login__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
-            )} */}
+            {error && typeof error !== 'object' && <p className='login__form--error'>{error}</p>}
+
             <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
                Log in now
             </Button>

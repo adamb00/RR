@@ -1,4 +1,8 @@
 import INotification from '../interfaces/INotification';
+import IError from '../interfaces/IError';
+
+export const BASE_URL_SOCKET = 'http://192.168.0.33:8000';
+// export const BASE_URL_SOCKET = 'http://172.20.10.3:8000/'; // MOBILNET
 
 export const BASE_URL = 'http://192.168.0.33:8000/api/v1/';
 // export const BASE_URL = 'http://172.20.10.3:8000/api/v1/'; // MOBILNET
@@ -117,4 +121,30 @@ export const sortNotifications = (notifications: INotification[]) => {
    return notifications.slice().sort((a, b) => {
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
    });
+};
+
+export const getErrorMessage = (error: unknown): string | IError => {
+   let message: string;
+   let item: string;
+
+   if (error instanceof Error) message = error.message;
+   else if (error && typeof error === 'object' && 'message' in error) {
+      message = String(error.message);
+   } else if (typeof error === 'string') {
+      message = error;
+   } else if (error && typeof error === 'object' && 'data' in error) {
+      message = String((error.data as IError).message);
+      item = String((error.data as IError).item);
+      return { message, item } as IError;
+   } else {
+      message = 'Something went very wrong!';
+   }
+
+   return message;
+};
+export const handleError = (error: IError | string | null, item: string): string => {
+   if (!error) return '';
+   if (typeof error === 'string') return error;
+
+   return (error as IError).item === item ? (error as IError).message : '';
 };

@@ -2,15 +2,17 @@ import { FieldValues, useForm } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
 import Button from '../../ui/Buttons/Button';
 
-import { emptyInputField } from '../../utils/helpers';
-import { useCreateNotification } from './useNotifications';
+import { BASE_URL_SOCKET, emptyInputField } from '../../utils/helpers';
 import RichText from '../../ui/UserInteractions/RichText';
 import { memo } from 'react';
+import { io } from 'socket.io-client';
+import { useAppSelector } from '../../redux-hooks';
 
 export default memo(function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
 
-   const { isCreating, createNotification } = useCreateNotification();
+   const socket = io(BASE_URL_SOCKET);
+   const user = useAppSelector(state => state.auth.user);
 
    const handleOnSubmit = (data: FieldValues) => {
       const notifications = {
@@ -18,7 +20,7 @@ export default memo(function NotificationsAdmin() {
          created_at: Date.now(),
       };
 
-      createNotification({ ...notifications });
+      socket.emit('send_message', { ...notifications, created_by: user?.name });
       emptyInputField('.notifications__richtext--input');
       emptyInputField('.notifications__admin--input');
    };
@@ -56,12 +58,7 @@ export default memo(function NotificationsAdmin() {
                      }}
                   />
                </div>
-               <Button
-                  onClick={handleSubmit(handleOnSubmit)}
-                  // disabled={isSending}
-                  disabled={isCreating}
-                  className='btn btn--primary notifications__admin--button'
-               >
+               <Button onClick={handleSubmit(handleOnSubmit)} className='btn btn--primary notifications__admin--button'>
                   Submit
                </Button>
             </form>

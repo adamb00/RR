@@ -4,7 +4,7 @@ import { AFFILIATE_DEPTH } from '../../utils/constants';
 import Loader from '../../ui/Loader';
 
 import { useAppSelector } from '../../redux-hooks';
-import { UserProfileData } from '../Auth/slices/auth/authSlice';
+import { UserProfileData } from '../../interfaces/AuthInterfaces';
 
 export default function Team() {
    const user = useAppSelector(state => state.auth.user);
@@ -18,7 +18,7 @@ export default function Team() {
          <div className='team__level' key={index}>
             <div className='team__wrapper'>
                <span className='team__wrapper--level'>{`${level}. level`}</span>
-               <span className='team__wrapper--members'>
+               <span className={`team__wrapper--members team__wrapper--members-${level}`}>
                   MEMBERS
                   <span className='team__wrapper--members-num'>{(user[childrenKey] as string[])?.length}</span>
                </span>

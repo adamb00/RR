@@ -12,6 +12,7 @@ export interface UserProfileData {
    nationality: string;
    referralCode: number;
    level: number;
+   photo: string;
    children_level_1: string[];
    children_level_2: string[];
    children_level_3: string[];

@@ -6,10 +6,11 @@ import SignUpValildReferralCode from './SignUpValildReferralCode';
 import SignUpNoValidReferralCode from './SignUpNoValidReferralCode';
 import { useNavigate } from 'react-router-dom';
 import { useGetReferralCodeMutation, useRegisterMutation } from './slices/auth/authApiSlice';
+import { getErrorMessage } from '../../utils/helpers';
 
 export default function SignUp() {
    const { control, handleSubmit } = useForm();
-   const [error, setError] = useState<IError>();
+   const [error, setError] = useState<IError | string | null>(null);
    const [validReferralCode, setValidReferralCode] = useState();
    const [register, { isLoading }] = useRegisterMutation();
    const [getReferral] = useGetReferralCodeMutation();
@@ -17,29 +18,25 @@ export default function SignUp() {
    const navigate = useNavigate();
 
    const handleInputChange = () => {
-      setError(undefined);
+      setError(null);
    };
 
    const handleReferralAvailability = async (data: FieldValues) => {
       try {
          const { referralCode } = data;
          const res = await getReferral(referralCode).unwrap();
-         if (res.status === 'error') setError(res.message);
-         if (res.status === 'success') setValidReferralCode(res.user);
-
-         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-         setError(err.data);
+         setValidReferralCode(res.user);
+      } catch (error: unknown) {
+         setError(() => getErrorMessage(error));
       }
    };
 
    const handleSubmitForm = async (data: object) => {
       try {
-         await register({ ...data, parent: validReferralCode });
+         await register({ ...data, parent: validReferralCode }).unwrap();
          navigate('/');
-         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-         setError(err.data);
+      } catch (error: unknown) {
+         setError(() => getErrorMessage(error));
       }
    };
 
@@ -66,9 +63,7 @@ export default function SignUp() {
                <SignUpValildReferralCode control={control} error={error} handleInputChange={handleInputChange} />
             )}
 
-            {error && (
-               <p className='signup__form--error'>{error.message || 'Something went wrong. Please try again.'}</p>
-            )}
+            {error && typeof error !== 'object' && <p className='signup__form--error'>{error}</p>}
 
             {!validReferralCode && (
                <Button onClick={handleSubmit(handleReferralAvailability)} className='btn btn--primary'>

@@ -50,6 +50,14 @@
 
       &--icon {
          @include formIcon;
+         &__eye {
+            left: 43%;
+            @include respond(tab-land) {
+               left: 87%;
+            }
+            border: 0;
+            cursor: pointer;
+         }
       }
 
       &--input {

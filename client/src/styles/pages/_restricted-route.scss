@@ -1,0 +1,12 @@
+.restricted {
+   height: 80vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   &__container {
+      border-radius: $default-border-radius;
+      box-shadow: $default-box-shadow;
+      height: 50%;
+      width: 50%;
+   }
+}

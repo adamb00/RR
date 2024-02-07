@@ -1,13 +1,13 @@
 import { PropsWithChildren } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 
-interface NavigationLinkProps {
-   to: string;
-   className?: string;
-   onClick?: () => void;
-}
+// interface NavigationLinkProps extends NavLinkProps {
+//    // to: string;
+//    // className?: string;
+//    // onClick?: () => void;
+// }
 
-export default function NavigationLink({ children, to, className, onClick }: PropsWithChildren<NavigationLinkProps>) {
+export default function NavigationLink({ children, to, className, onClick }: PropsWithChildren<NavLinkProps>) {
    return (
       <NavLink
          onClick={onClick}

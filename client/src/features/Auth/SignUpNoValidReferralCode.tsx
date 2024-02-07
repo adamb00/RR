@@ -1,13 +1,14 @@
 import { CiBarcode } from 'react-icons/ci';
 import UserInput from '../../ui/UserInteractions/UserInput';
-import { IS_VALID_NUMBER } from '../../utils/helpers';
+import { IS_VALID_NUMBER, handleError } from '../../utils/helpers';
 import { Control } from 'react-hook-form';
 import IError from '../../interfaces/IError';
+import FormIcon from '../../ui/FormIcon';
 
 interface SignUpNoValidReferralCodeProps {
    control: Control;
    handleInputChange: () => void;
-   error?: IError;
+   error: IError | string | null;
 }
 
 export default function SignUpNoValidReferralCode({
@@ -24,7 +25,7 @@ export default function SignUpNoValidReferralCode({
             name='referralCode'
             placeholder='Referral code'
             fieldErrorClassname='signup__form--error'
-            eError={error && error.message}
+            eError={handleError(error, 'referralCode')}
             className='signup__form--input'
             rules={{
                required: 'Referral code is required.',
@@ -33,7 +34,9 @@ export default function SignUpNoValidReferralCode({
                },
             }}
          >
-            <CiBarcode className='signup__form--icon' />
+            <FormIcon tooltip='Enter Your referral code.'>
+               <CiBarcode className='signup__form--icon' />
+            </FormIcon>
          </UserInput>
       </>
    );

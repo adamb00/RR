@@ -51,6 +51,11 @@
 
       &--icon {
          @include formIcon;
+         &__eye {
+            right: 0;
+            border: 0;
+            cursor: pointer;
+         }
       }
 
       &--input {

@@ -1,19 +1,14 @@
 import { PropsWithChildren } from 'react';
 import { Controller, Control, RegisterOptions } from 'react-hook-form';
 
-interface UserInputProps {
-   placeholder?: string;
-   type?: string;
+interface UserInputProps extends React.ComponentPropsWithoutRef<'input'> {
    name: string;
    control: Control;
    rules?: RegisterOptions;
    formError?: boolean;
-   className?: string;
-   id?: string | undefined;
    fieldErrorClassname?: string;
    eError?: string;
-   defaultValue?: string;
-   onChange?: () => void;
+   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function UserInput({
@@ -21,11 +16,10 @@ export default function UserInput({
    control,
    name,
    rules,
-   placeholder,
    className,
+   placeholder,
    fieldErrorClassname,
    type,
-   id,
    onChange,
    eError,
 }: PropsWithChildren<UserInputProps>) {
@@ -37,20 +31,20 @@ export default function UserInput({
          render={({ field: { value, onChange: onFieldChange, onBlur }, fieldState: { error: fieldError } }) => (
             <div className='user-input'>
                {children}
-               <label htmlFor={id}></label>
+               <label htmlFor={name}></label>
                <input
-                  id={id ? id : 'id'}
                   autoComplete='new-password'
+                  id={name}
                   autoFocus={false}
                   type={type}
                   className={fieldError ? `${className}--error ${className}` : className}
-                  placeholder={placeholder}
                   onChange={e => {
                      if (onChange) {
-                        onChange();
+                        onChange(e);
                      }
                      onFieldChange(e);
                   }}
+                  placeholder={placeholder}
                   onBlur={onBlur}
                   lang='en-EN'
                   defaultValue={type === 'date' ? new Date().toISOString().split('T')[0] : value}

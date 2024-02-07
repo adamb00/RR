@@ -60,6 +60,14 @@
          background-color: $color-grey-light-2;
       }
    }
+
+   &--tertiary {
+      background-image: linear-gradient(to right, $color-primary-tint, $color-grey-light-3 100%);
+      color: $color-grey-light-1;
+      &::after {
+         background-image: linear-gradient(to right, $color-primary-tint, $color-grey-light-3);
+      }
+   }
    &--paginator {
       padding: 1rem;
       border-radius: 100%;

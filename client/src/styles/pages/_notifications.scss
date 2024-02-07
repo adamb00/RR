@@ -5,6 +5,11 @@
       &:hover {
          border: none;
       }
+
+      &.shake {
+         animation: shake 0.5s ease-in-out infinite;
+         // animation: shake 0.5s ease-in-out infinite, rotate 0.2s linear infinite;
+      }
    }
    &__indicator {
       position: absolute;
@@ -34,7 +39,7 @@
    }
 
    &__wrapper {
-      background-color: $color-grey-light-1;
+      background-color: $color-grey-light-3;
       border-radius: $default-border-radius;
       margin: 2rem 4rem;
       padding: 1rem;

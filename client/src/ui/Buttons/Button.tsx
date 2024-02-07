@@ -1,10 +1,6 @@
 import { PropsWithChildren, memo } from 'react';
 
-interface ButtonProps {
-   onClick?: () => void;
-   disabled?: boolean;
-   className?: string;
-}
+interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {}
 
 export default memo(function Button({ children, onClick, disabled, className }: PropsWithChildren<ButtonProps>) {
    return (

@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chivo:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+@import './abstract/variables';
 @import './abstract/animations';
 @import './abstract/mixins';
-@import './abstract/variables';
 
 @import './base/base';
 @import './base/typography';
@@ -19,6 +19,8 @@
 @import './components/trash';
 @import './components/navigation';
 @import './components/icon';
+@import './components/upload-image';
+@import './components/user-image';
 
 @import './pages/login';
 @import './pages/signup';
@@ -26,3 +28,4 @@
 @import './pages/links';
 @import './pages/account';
 @import './pages/notifications';
+@import './pages/restricted-route';

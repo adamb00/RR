@@ -2,3 +2,29 @@
    color: $color-grey-dark-2;
    font-size: $default-font-size;
 }
+
+.form-icon {
+   position: relative;
+   display: inline-block;
+
+   &::after {
+      content: attr(data-content);
+      position: absolute;
+      top: -2rem;
+      left: -1rem;
+      color: $color-tertiary;
+      border-radius: $default-border-radius;
+      font-size: 1.2rem;
+      background-color: transparent;
+      padding: 0.5rem 2rem 0.4rem;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+   }
+
+   &:hover::after {
+      opacity: 1;
+      visibility: visible;
+   }
+}

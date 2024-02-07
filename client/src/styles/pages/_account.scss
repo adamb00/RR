@@ -3,7 +3,7 @@
    grid-template-columns: 1fr 5fr;
    grid-template-areas: 'sidebar body';
    position: relative;
-   height: 100vh;
+   min-height: 100vh;
 
    @include respond(tab-land) {
       grid-template-columns: 1fr 3fr;
@@ -22,7 +22,8 @@
 
    &__sidebar {
       grid-area: 'sidebar';
-      background-color: $color-grey-light-2;
+      background-color: transparent;
+      border-right: 1px solid $color-grey-light-4;
       position: relative;
       padding-top: 4rem;
 
@@ -124,7 +125,8 @@
    }
    &__body {
       grid-area: 'body';
-      background: $color-grey-light-4;
+      // background: $color-grey-light-4;
+      background-color: transparent;
    }
 
    &__open-menu {

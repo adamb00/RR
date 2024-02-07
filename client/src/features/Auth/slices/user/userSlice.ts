@@ -4,11 +4,13 @@ import INotification from '../../../../interfaces/INotification';
 type InitialState = {
    notifications: INotification[];
    unreadNotifications: number;
+   image: string | null;
 };
 
 const initialState: InitialState = {
    notifications: [],
    unreadNotifications: 0,
+   image: null,
 };
 
 const userSlice = createSlice({
@@ -19,6 +21,13 @@ const userSlice = createSlice({
          state.notifications = action.payload;
          state.unreadNotifications =
             action.payload.filter((notification: INotification) => !notification.read).length || 0;
+      },
+      fetchSocketNotification: (state, action) => {
+         state.notifications = [...state.notifications, action.payload];
+         state.unreadNotifications =
+            state.notifications.filter((notification: INotification) => !notification.read).length || 0;
+
+         console.log(state.notifications);
       },
       markNotificationAsRead: (state, action) => {
          const notification = state.notifications.find(
@@ -38,5 +47,6 @@ const userSlice = createSlice({
    },
 });
 
-export const { fetchNotifications, markNotificationAsRead, markAllNotificationAsRead } = userSlice.actions;
+export const { fetchNotifications, fetchSocketNotification, markNotificationAsRead, markAllNotificationAsRead } =
+   userSlice.actions;
 export default userSlice.reducer;

@@ -1,10 +1,6 @@
-import { MouseEventHandler, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 
-interface ButtonProps {
-   onClick: MouseEventHandler;
-   disabled?: boolean;
-   className?: string;
-}
+interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {}
 
 export default function ButtonIcon({ children, onClick, disabled, className }: PropsWithChildren<ButtonProps>) {
    return (

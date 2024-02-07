@@ -6,12 +6,13 @@ import Icon from '../Icon';
 import MenuIsNotOpen from './MenuIsNotOpen';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 
-import Loader from '../Loader';
 import { useIsNotification } from '../../hooks/useIsNotification';
 import NotificationsMenu from './NotificationsMenu';
 import { MenuProps } from '../../interfaces/MenuProps';
 import { useAppSelector } from '../../redux-hooks';
 import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
+
+import UserImage from '../UserImage';
 export default function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
@@ -27,17 +28,14 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
          </nav>
       );
 
-   if (!firstNotificationId)
-      return (
-         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Loader size={100} />
-         </div>
-      );
-
    return (
       <nav className={`account__sidebar ${isOpen ? '' : 'hide-menu'}`}>
          {isOpen ? (
             <ul className='account__sidebar--navigation'>
+               <li>
+                  <UserImage />
+               </li>
+
                <li>
                   <NavigationLink to='personal'>
                      <Icon className='account__sidebar--icon'>
@@ -48,7 +46,7 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
                </li>
                <li>
                   <NavigationLink
-                     to={`${'notifications/' + firstNotificationId}`}
+                     to={`${firstNotificationId ? 'notifications/' + firstNotificationId : 'notifications'}`}
                      onClick={handleOnMarkOneNotificationAsRead}
                   >
                      <Icon className='account__sidebar--icon'>

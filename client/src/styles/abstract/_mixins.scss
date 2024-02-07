@@ -93,7 +93,8 @@
    color: $color-grey-dark-4;
    font-size: 1.2rem;
    font-family: 'Chivo', sans-serif;
-   background: -webkit-linear-gradient(left, $color-primary-tint, $color-grey-dark-3);
+   background-image: linear-gradient(left, $color-primary-tint, $color-grey-dark-1);
+   background-image: -webkit-linear-gradient(left, $color-primary-tint, $color-grey-dark-1);
    background-clip: text;
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;

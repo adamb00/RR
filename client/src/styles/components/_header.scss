@@ -6,9 +6,14 @@
    position: sticky;
    top: 0;
    width: 100%;
-   background-color: $color-grey-light-1;
+   background-color: transparent;
+   border-bottom: 1px solid $color-grey-light-4;
 
    z-index: 1000;
+
+   &.transparent {
+      background-image: linear-gradient(to bottom left, $color-grey-light-1 40%, $color-grey-light-6);
+   }
 
    &-nav {
       @include respond(tab-land) {

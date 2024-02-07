@@ -21,7 +21,10 @@ export default memo(function Notifications() {
 
    return (
       <div ref={ref}>
-         <ButtonIcon onClick={handleOnClick} className='notifications__icon'>
+         <ButtonIcon
+            onClick={handleOnClick}
+            className={`notifications__icon ${unreadNotifications > 0 ? 'shake' : ''}`}
+         >
             <CiBellOn />
             {unreadNotifications > 0 && <span className='notifications__indicator'>{unreadNotifications}</span>}
          </ButtonIcon>

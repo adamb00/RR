@@ -19,6 +19,8 @@ import Affiliate from './features/Affiliate/Affiliate';
 import FAQ from './features/FAQ/FAQ';
 import Contact from './features/Contact/Contact';
 import NotificationItem from './features/Notifications/NotificationItem';
+import ActivateAccount from './ui/ActivateAccount';
+import { memo } from 'react';
 
 const router = createBrowserRouter([
    {
@@ -46,6 +48,7 @@ const router = createBrowserRouter([
             element: <Contact />,
          },
          { path: '/signin', element: <SignIn /> },
+         { path: '/activate-account/:token', element: <ActivateAccount /> },
          { path: '/signup', element: <SignUp /> },
          { path: '/my-links', element: <Links /> },
          {
@@ -77,6 +80,6 @@ const router = createBrowserRouter([
       ],
    },
 ]);
-export default function App() {
+export default memo(function App() {
    return <RouterProvider router={router} />;
-}
+});

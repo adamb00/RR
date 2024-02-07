@@ -1,0 +1,59 @@
+.upload-image {
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   gap: 1rem;
+   padding: 1rem 3rem;
+
+   input[type='file'] {
+      display: none;
+      z-index: 200000;
+   }
+   &__input {
+      background-image: linear-gradient(to right, $color-primary-tint, transparent);
+      color: $color-grey-light-3;
+      display: inline-block;
+      cursor: pointer;
+      width: 100%;
+      padding: 1rem 3rem;
+      border-radius: $default-border-radius;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      @include respond(phone) {
+         background-color: $color-primary-tint;
+      }
+   }
+
+   &__filename {
+      font-size: 2rem;
+      margin-left: 2rem;
+      color: $color-grey-dark-3;
+      cursor: default;
+   }
+   &__span {
+      font-size: 2rem;
+      padding: 1.5rem 3rem;
+      width: 30%;
+      border-radius: $default-border-radius;
+      transition: all 200ms ease-in-out;
+      border: 1px solid transparent;
+      &:hover {
+         background-size: 450%;
+         color: $color-white;
+         border: 1px solid $color-white;
+      }
+
+      &:active,
+      &:focus {
+         outline: none;
+         transform: translateY(-0.1rem);
+         box-shadow: $default-box-shadow;
+      }
+   }
+   button {
+      margin-top: 2rem;
+      align-self: center;
+   }
+}

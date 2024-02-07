@@ -1,7 +1,6 @@
 import PuffLoader from 'react-spinners/PuffLoader';
 
-interface LoaderProps {
-   className?: string;
+interface LoaderProps extends React.ComponentPropsWithoutRef<'div'> {
    isLoading?: boolean;
    size: number;
 }

@@ -5,7 +5,7 @@ import { useAppSelector } from '../../redux-hooks';
 import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
 
 export default function MenuIsNotOpen() {
-   const firstNotificationId = useAppSelector(state => state.user.notifications[0]._id);
+   const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
 
    return (
@@ -20,7 +20,7 @@ export default function MenuIsNotOpen() {
             </li>
             <li>
                <NavigationLink
-                  to={`${'notifications/' + firstNotificationId}`}
+                  to={`${firstNotificationId ? 'notifications/' + firstNotificationId : 'notifications'}`}
                   className='account__sidebar--navigation-link__not-open'
                   onClick={handleOnMarkOneNotificationAsRead}
                >
