@@ -75,6 +75,9 @@ const userSchema: Schema = new Schema<IUser>({
       type: Boolean,
       default: false,
    },
+   activationToken: {
+      type: String,
+   },
    notifications: [
       {
          read: { type: Boolean, default: false },

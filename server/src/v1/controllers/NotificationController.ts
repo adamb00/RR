@@ -37,3 +37,26 @@ export const createNotification = catchAsync(async (req: Request, res: Response,
       doc,
    });
 });
+
+export const handleSocketNotification = async (data: object) => {
+   const doc = await Notification.create({ ...data });
+
+   const totalNotifications = await Notification.countDocuments();
+
+   if (totalNotifications > 35) {
+      const oldestNotification = await Notification.findOneAndDelete({}, { sort: { created_at: 1 } });
+      if (oldestNotification) {
+         await User.updateMany(
+            { role: { $ne: 'Admin' }, active: true },
+            { $pull: { notifications: { _id: oldestNotification._id } } }
+         );
+      }
+   }
+
+   await User.updateMany(
+      { role: { $ne: 'Admin' }, active: true },
+      { $push: { notifications: { $each: [doc], $position: 0 } } }
+   );
+
+   return doc;
+};

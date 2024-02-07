@@ -21,6 +21,7 @@ export default interface IUser extends Document {
    photo: string;
    role: string;
    active: boolean;
+   activationToken?: string;
    notifications: INotification[];
    availablePoints: number;
    accumulatedPoints: number;

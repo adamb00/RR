@@ -1,21 +1,16 @@
-//TODO CREATE FUNCTION FOR ACTIVATE ACCOUNT
-async function activateAccount() {
-   const userId = document.querySelector('.activate__account').id;
+document.addEventListener('DOMContentLoaded', () => {
+   const uploadPhotoLink = document.getElementById('activationLink');
 
-   console.log(userId);
-   document.addEventListener('DOMContentLoaded', function () {
-      document.querySelector('.activate__account').addEventListener('click', async function () {
-         try {
-            const response = await fetch(`/api/v1/${userId}/activate-account`, {
-               method: 'PATCH',
-               data: { active: true },
-            });
-            const responseData = await response.json();
+   if (uploadPhotoLink) {
+      uploadPhotoLink.addEventListener('click', async event => {
+         event.preventDefault();
 
-            console.log(responseData);
-         } catch (err) {
-            console.log(err);
-         }
+         const userId = uploadPhotoLink.dataset.userId;
+
+         await fetch(`http://192.168.0.33:8000/api/v1/user/${userId}/activate-account`, {
+            method: 'PATCH',
+            body: { active: true },
+         });
       });
-   });
-}
+   }
+});
