@@ -1,4 +1,5 @@
-import { BASE_URL, OPTIONS, getUserToken } from '../utils/helpers';
+import { OPTIONS, getUserToken } from '../utils/helpers';
+import { BASE_URL } from '../utils/constants';
 
 export const getOneUser = async (id: string) => {
    const response = await fetch(BASE_URL + `user/${id}`, OPTIONS({ method: 'GET' }));
@@ -23,6 +24,13 @@ export const getUserImage = async (key: string) => {
 
 export const activateUser = async (token: string) => {
    const response = await fetch(BASE_URL + `auth/activate-account/${token}`, OPTIONS({ method: 'GET' }));
+   const responseData = await response.json();
+
+   return responseData;
+};
+
+export const forgotPassword = async (data: object) => {
+   const response = await fetch(BASE_URL + `auth/forgot-password`, OPTIONS({ method: 'POST', data }));
    const responseData = await response.json();
 
    return responseData;

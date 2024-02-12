@@ -1,0 +1,84 @@
+.overlay {
+   z-index: 2000;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0, 0, 0, 0.3);
+   backdrop-filter: blur(1rem);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.sharemodal {
+   z-index: 2001;
+   padding: 2rem;
+   border-radius: $default-border-radius;
+   width: 50vw;
+   height: 50vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: relative;
+   background-color: $color-grey-light-3;
+   border-radius: $default-border-radius;
+   box-shadow: $default-box-shadow;
+
+   &__container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3rem;
+      width: 50%;
+      height: 70%;
+
+      &__wrapper {
+         display: flex;
+         gap: 3rem;
+      }
+
+      &__link {
+         padding: 1rem;
+         background-color: $color-grey-light-4;
+         font-size: 1.4rem;
+         border-radius: $default-border-radius;
+         box-shadow: $default-box-shadow;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+
+         &.copied {
+            color: $color-primary-tint;
+            background-color: $color-grey-light-6;
+         }
+
+         &--button {
+            &:hover {
+               color: $color-primary-tint;
+            }
+         }
+         &--copied {
+            color: $color-primary-tint;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: normal;
+            font-style: italic;
+         }
+      }
+   }
+}
+
+.close {
+   position: absolute;
+   right: 4rem;
+   top: 3rem;
+   cursor: pointer;
+   font-size: $default-font-size;
+   color: $color-grey-dark-1;
+}
+
+.close:hover {
+   color: $color-primary-tint;
+}

@@ -8,5 +8,17 @@
       box-shadow: $default-box-shadow;
       height: 50%;
       width: 50%;
+      text-align: center;
+   }
+
+   &__counter {
+      margin-top: 3rem;
+      font-size: $default-font-size;
+      color: $color-tertiary;
+
+      &--count {
+         color: $color-grey-dark-3;
+         font-weight: 700;
+      }
    }
 }

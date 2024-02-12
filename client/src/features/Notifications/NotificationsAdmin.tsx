@@ -2,17 +2,19 @@ import { FieldValues, useForm } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
 import Button from '../../ui/Buttons/Button';
 
-import { BASE_URL_SOCKET, emptyInputField } from '../../utils/helpers';
+import { emptyInputField } from '../../utils/helpers';
 import RichText from '../../ui/UserInteractions/RichText';
 import { memo } from 'react';
 import { io } from 'socket.io-client';
-import { useAppSelector } from '../../redux-hooks';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
+import { BASE_URL_SOCKET } from '../../utils/constants';
 
 export default memo(function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
 
    const socket = io(BASE_URL_SOCKET);
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
 
    const handleOnSubmit = (data: FieldValues) => {
       const notifications = {
@@ -20,7 +22,7 @@ export default memo(function NotificationsAdmin() {
          created_at: Date.now(),
       };
 
-      socket.emit('send_message', { ...notifications, created_by: user?.name });
+      socket.emit('send_message', { ...notifications, created_by: user.name });
       emptyInputField('.notifications__richtext--input');
       emptyInputField('.notifications__admin--input');
    };

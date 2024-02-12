@@ -6,7 +6,7 @@ import { IS_VALID_EMAIL, getErrorMessage, handleError } from '../../utils/helper
 import { NavLink, useNavigate } from 'react-router-dom';
 import IError from '../../interfaces/IError';
 import { useState } from 'react';
-import { login } from './slices/auth/authSlice';
+import { setCredentials } from './slices/auth/authSlice';
 import { useAppDispatch } from '../../redux-hooks';
 import { useLoginMutation } from './slices/auth/authApiSlice';
 import PasswordVisible from '../../ui/PasswordVisible';
@@ -26,7 +26,8 @@ export default function SignIn() {
    const handleSubmitForm = async (data: object) => {
       try {
          const res = await loginApi(data).unwrap();
-         dispatch(login({ ...res }));
+         dispatch(setCredentials({ ...res }));
+
          navigate('/');
       } catch (error) {
          setError(() => getErrorMessage(error));
@@ -92,7 +93,7 @@ export default function SignIn() {
             <Button onClick={() => navigate('/signup')} disabled={isLoading} className='btn btn--secondary'>
                Don't you have an account yet? Register now!
             </Button>
-            <NavLink to='/' className='login__form--forgotPassword'>
+            <NavLink to='/forgot-password' className='login__form--forgotPassword'>
                Forgot my password 😞
             </NavLink>
          </form>

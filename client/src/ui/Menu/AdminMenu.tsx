@@ -2,7 +2,7 @@ import { MenuProps } from '../../interfaces/MenuProps';
 import Icon from '../Icon';
 import NavigationLink from '../Navigation/NavigationLink';
 import { RiOpenaiFill } from 'react-icons/ri';
-import { CiBellOn, CiLock, CiMenuKebab, CiUser } from 'react-icons/ci';
+import { CiBellOn, CiLock, CiMenuKebab } from 'react-icons/ci';
 import AdminMenuIsNotOpen from './AdminMenuIsNotOpen';
 import Button from '../Buttons/Button';
 import useDeviceDetection from '../../hooks/useDetectDevice';
@@ -30,14 +30,6 @@ export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
                   </NavigationLink>
                </li>
 
-               <li>
-                  <NavigationLink to='personal'>
-                     <Icon className='account__sidebar--icon'>
-                        <CiUser />
-                     </Icon>
-                     Personal information
-                  </NavigationLink>
-               </li>
                <li>
                   <NavigationLink to='notifications'>
                      <Icon className='account__sidebar--icon'>

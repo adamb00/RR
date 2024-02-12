@@ -1,6 +1,6 @@
 import ButtonIcon from '../Buttons/ButtonIcon';
 import NavigationLink from '../Navigation/NavigationLink';
-import { CiBellOn, CiLock, CiMenuKebab, CiUser } from 'react-icons/ci';
+import { CiBellOn, CiLock, CiMenuKebab } from 'react-icons/ci';
 
 export default function AdminMenuIsNotOpen() {
    return (
@@ -9,13 +9,6 @@ export default function AdminMenuIsNotOpen() {
             <NavigationLink to='edit-links' className='account__sidebar--navigation-link__not-open'>
                <ButtonIcon className='account__sidebar--icon__not-open' onClick={() => {}}>
                   <CiMenuKebab />
-               </ButtonIcon>
-            </NavigationLink>
-         </li>
-         <li>
-            <NavigationLink to='personal' className='account__sidebar--navigation-link__not-open'>
-               <ButtonIcon className='account__sidebar--icon__not-open' onClick={() => {}}>
-                  <CiUser />
                </ButtonIcon>
             </NavigationLink>
          </li>

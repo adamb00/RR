@@ -71,7 +71,7 @@
       background-color: transparent;
       transition: background-color 5000s;
       -webkit-text-fill-color: $color-grey-dark-2 !important;
-      font-size: inherit;
+      font-size: 2rem;
       width: 100%;
    }
 }
@@ -114,5 +114,42 @@
    }
    &.read::before {
       background-color: transparent;
+   }
+}
+
+@mixin openMenu {
+   position: absolute;
+   // background-color:  $color-primary-tint;
+   background-image: radial-gradient($color-primary-tint, $color-tertiary);
+   padding: 1rem;
+   right: -2.2rem;
+   align-items: center;
+   justify-content: center;
+   display: flex;
+   border-radius: 100%;
+   top: 5%;
+   overflow: visible !important;
+   z-index: 2;
+   font-size: 2.5rem;
+   border: none;
+   color: $color-grey-light-6;
+
+   &:hover {
+      animation: spin 2s linear infinite;
+      cursor: pointer;
+      color: $color-grey-light-4;
+   }
+   &__icon {
+      color: $color-secondary-tint;
+      z-index: 2;
+      font-size: 5rem;
+   }
+
+   &--open {
+      right: -2.2rem;
+   }
+
+   &--close {
+      right: -2.3rem;
    }
 }

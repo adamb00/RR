@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import NavigationNoAuth from '../Navigation/NavigationNoAuth';
 import useDeviceDetection from '../../hooks/useDetectDevice';
-import { useAppSelector } from '../../redux-hooks';
+
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
 
 export default function NavbarNotAuth() {
    const device = useDeviceDetection();
    const navigate = useNavigate();
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
    if (device === 'Mobile')
       return (
          <nav className='header-nav'>

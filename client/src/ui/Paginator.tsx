@@ -49,7 +49,7 @@ export default function Paginator({ count }: PaginatorProps) {
    useNavigateToFirtsPage(count, currentPage, pageCount);
 
    if (pageCount <= 1) {
-      return null;
+      return;
    }
 
    return (

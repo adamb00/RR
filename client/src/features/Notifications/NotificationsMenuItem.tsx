@@ -8,14 +8,21 @@ interface NotificationItemProps {
 }
 export default function NotificationsMenuItem({ notification }: NotificationItemProps) {
    const { read, title, _id } = notification;
+
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(_id);
+
+   const handleClick = () => {
+      if (!read) {
+         handleOnMarkOneNotificationAsRead();
+      }
+   };
 
    return (
       <NavigationLink
          to={`${'notifications/' + _id}`}
          className={`account__sidebar--notifications__wrapper ${read && 'read'}`}
       >
-         <p onClick={handleOnMarkOneNotificationAsRead} className='account__sidebar--notifications__title'>
+         <p onClick={handleClick} className='account__sidebar--notifications__title'>
             {truncateText(title, 32)}
          </p>
       </NavigationLink>

@@ -1,11 +1,12 @@
 import { closeMenu } from '../../utils/helpers';
 import NavigationLinkMobile from './NavigationLinkMobile';
 import SignOut from '../../features/Auth/SignOut';
-import { useAppSelector } from '../../redux-hooks';
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
 
 export default memo(function Navigation() {
-   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+   const isAdmin = useSelector(selectIsAdmin);
 
    return (
       <div className='navigation'>

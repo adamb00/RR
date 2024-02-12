@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import INotification from '../interfaces/INotification';
-import { useAppSelector } from '../redux-hooks';
+
 import { sortNotifications } from '../utils/helpers';
+import { selectCurrentUser } from '../features/Auth/slices/auth/authSlice';
 
 export const useSortedNotifications = () => {
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
+
    if (!user) return;
    const notifications = user.notifications;
 
@@ -17,7 +20,7 @@ export const useSortedNotifications = () => {
 };
 
 export const useGetFirstSortedNotification = () => {
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
    const notifications = user?.notifications;
 
    if (!user?.notifications) return;

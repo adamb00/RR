@@ -1,7 +1,8 @@
-import { useAppSelector } from '../../redux-hooks';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 
 export default function AvailablePoints() {
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
 
    return (
       <div className='home__points'>

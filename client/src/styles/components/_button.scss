@@ -62,10 +62,10 @@
    }
 
    &--tertiary {
-      background-image: linear-gradient(to right, $color-primary-tint, $color-grey-light-3 100%);
+      background-image: linear-gradient(to right, $color-primary-tint, $color-tertiary 100%);
       color: $color-grey-light-1;
       &::after {
-         background-image: linear-gradient(to right, $color-primary-tint, $color-grey-light-3);
+         background-image: linear-gradient(to right, $color-primary-tint, $color-tertiary);
       }
    }
    &--paginator {
@@ -87,6 +87,7 @@
    padding: 0.6rem;
    justify-content: center;
    border-radius: $default-border-radius;
+
    border: 1px solid transparent;
    transition: all 1s;
    -webkit-transition: all 1s;

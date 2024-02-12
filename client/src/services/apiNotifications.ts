@@ -1,4 +1,5 @@
-import { BASE_URL, OPTIONS, getUserToken } from '../utils/helpers';
+import { BASE_URL } from '../utils/constants';
+import { OPTIONS, getUserToken } from '../utils/helpers';
 
 export const createNotification = async (data: object) => {
    const userToken = await getUserToken();

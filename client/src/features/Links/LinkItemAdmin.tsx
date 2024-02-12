@@ -13,8 +13,8 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { emptyInputField, truncateText } from '../../utils/helpers';
 import useDetectOrientation from '../../hooks/useDetectOrientation';
 import { BallTriangle } from 'react-loader-spinner';
-
-import { useAppSelector } from '../../redux-hooks';
+import { useSelector } from 'react-redux';
+import { selectIsAdmin } from '../Auth/slices/auth/authSlice';
 
 interface LinkItemProps {
    link: ILink;
@@ -22,7 +22,7 @@ interface LinkItemProps {
 }
 export default function LinkItemAdmin({ link, device }: LinkItemProps) {
    const { control, handleSubmit } = useForm();
-   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+   const isAdmin = useSelector(selectIsAdmin);
 
    const { updateLink, isUpdating } = useUpdateLink();
    const { isDeleting, deleteLink } = useDeleteOneLink();

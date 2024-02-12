@@ -1,35 +1,31 @@
-import { Outlet, useNavigation, useParams } from 'react-router-dom';
-import Loader from './Loader';
+import { Outlet, useParams } from 'react-router-dom';
+
 import Header from './Header';
 import { useIsNotification } from '../hooks/useIsNotification';
-import { useAppDispatch, useAppSelector } from '../redux-hooks';
-import { useCallback, useEffect } from 'react';
-import { setUser } from '../features/Auth/slices/auth/authSlice';
-import { useGetCurrentUserMutation } from '../features/Auth/slices/auth/authApiSlice';
+import { useAppDispatch } from '../redux-hooks';
+import { memo, useCallback, useEffect } from 'react';
 import { fetchNotifications, fetchSocketNotification } from '../features/Auth/slices/user/userSlice';
 
 import io from 'socket.io-client';
 import INotification from '../interfaces/INotification';
 import { useFetchNotificationsMutation } from '../features/Auth/slices/user/userApiSlice';
 import { UserProfileData } from '../interfaces/AuthInterfaces';
-import { BASE_URL_SOCKET } from '../utils/helpers';
+import { BASE_URL_SOCKET } from '../utils/constants';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../features/Auth/slices/auth/authSlice';
 
 const socket = io(BASE_URL_SOCKET);
 
-export default function AppLayout() {
-   const navigation = useNavigation();
-   const isLoading = navigation.state === 'loading';
+export default memo(function AppLayout() {
    const { id } = useParams();
    const { isNotification } = useIsNotification();
-   const [getUser] = useGetCurrentUserMutation();
    const hasDynamicId = !!id;
    const dispatch = useAppDispatch();
    const [fetchNotificationsApi] = useFetchNotificationsMutation();
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
 
    const handleNotificationCreated = useCallback(
       (data: INotification) => {
-         console.log(data);
          dispatch(fetchSocketNotification({ ...data, read: false }));
       },
       [dispatch]
@@ -59,43 +55,12 @@ export default function AppLayout() {
       };
    }, [fetchNotificationsForUser, handleNotificationCreated, user]);
 
-   useEffect(() => {
-      const initializeApp = async () => {
-         try {
-            const storedUser = sessionStorage.getItem('user');
-
-            if (storedUser) {
-               const user = await getUser({}).unwrap();
-
-               if (user.currentUser && user.currentUser.notifications) {
-                  dispatch(setUser(user.currentUser));
-               } else {
-                  console.error('User data is incomplete:', user);
-               }
-            }
-         } catch (error) {
-            console.error('Error initializing the app:', error);
-         }
-      };
-
-      initializeApp();
-
-      const intervalId = setInterval(() => {
-         initializeApp();
-      }, 10000);
-
-      return () => {
-         clearInterval(intervalId);
-      };
-   }, [dispatch, getUser]);
-
    return (
       <>
-         {isLoading && <Loader size={250} />}
          <main>
             {(!hasDynamicId || isNotification) && <Header />}
             <Outlet />
          </main>
       </>
    );
-}
+});

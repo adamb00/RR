@@ -6,12 +6,13 @@ import Navigation from '../Navigation/Navigation';
 import NavigationNoAuth from '../Navigation/NavigationNoAuth';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import SignOut from '../../features/Auth/SignOut';
-import { useAppSelector } from '../../redux-hooks';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser, selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
 
 export default function Navbar() {
    const device = useDeviceDetection();
-   const user = useAppSelector(state => state.auth.user);
-   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+   const isAdmin = useSelector(selectIsAdmin);
+   const user = useSelector(selectCurrentUser);
 
    if (device === 'Mobile')
       return (

@@ -1,5 +1,5 @@
-import { ITEM_PER_PAGE } from '../utils/constants';
-import { BASE_URL, OPTIONS, getUserToken } from '../utils/helpers';
+import { BASE_URL, ITEM_PER_PAGE } from '../utils/constants';
+import { OPTIONS, getUserToken } from '../utils/helpers';
 
 export const createLink = async (link: string) => {
    const userToken = await getUserToken();
@@ -15,6 +15,7 @@ interface GetAllLinksParams {
 
 export const getAllLinks = async ({ page }: GetAllLinksParams) => {
    const userToken = await getUserToken();
+   console.log(userToken);
    const response = await fetch(
       BASE_URL + `link?page=${page}&limit=${ITEM_PER_PAGE}`,
       OPTIONS({ method: 'GET', userToken })
@@ -43,6 +44,5 @@ export const updateOneLink = async ({ id, data }: { id: string; data: object }) 
 
    const responseData = await response.json();
 
-   console.log(responseData);
    return responseData;
 };

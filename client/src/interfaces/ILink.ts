@@ -4,4 +4,5 @@ export interface ILink {
    createdAt: Date;
    active: boolean;
    title: string;
+   order: number;
 }

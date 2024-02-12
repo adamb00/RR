@@ -10,10 +10,12 @@ import Icon from '../Icon';
 import { MenuProps } from '../../interfaces/MenuProps';
 import { useAppSelector } from '../../redux-hooks';
 import INotification from '../../interfaces/INotification';
+import { useSelector } from 'react-redux';
+import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
 
 export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
    const navigation = useNavigate();
-   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+   const isAdmin = useSelector(selectIsAdmin);
    const notifications = useAppSelector(state => state.user.notifications);
 
    const handleGoBack = () => {
@@ -45,7 +47,10 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
                ))}
             </ul>
          )}
-         <Button className='account__open-menu' onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>
+         <Button
+            className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
+            onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}
+         >
             <RiOpenaiFill />
          </Button>
       </nav>

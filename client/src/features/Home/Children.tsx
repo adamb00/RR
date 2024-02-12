@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Loader from '../../ui/Loader';
 import { createMonogram } from '../../utils/helpers';
 import { useGetOneUser } from '../Auth/useUserAuth';
@@ -6,7 +7,7 @@ interface ChildrenProps {
    id: string;
 }
 
-export default function Children({ id }: ChildrenProps) {
+export default memo(function Children({ id }: ChildrenProps) {
    const { currentUser, isLoading: isLoadingUser } = useGetOneUser(id);
 
    if (!currentUser) return;
@@ -19,4 +20,4 @@ export default function Children({ id }: ChildrenProps) {
          {createMonogram(user.name)}
       </div>
    );
-}
+});

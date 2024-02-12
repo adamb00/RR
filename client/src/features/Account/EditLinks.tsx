@@ -3,18 +3,23 @@ import ShareLinks from '../Links/ShareLinks';
 import { useGetAllLinks } from '../Links/useLinks';
 
 import LinkItemAdmin from '../Links/LinkItemAdmin';
-import Paginator from '../../ui/Paginator';
+// import Paginator from '../../ui/Paginator';
 import { ILink } from '../../interfaces/ILink';
 import Trash from '../../ui/Trash';
 import Loader from '../../ui/Loader';
-
-import { useAppSelector } from '../../redux-hooks';
+import RestrictedRoute from '../../ui/RestrictedRoute';
+import { useSelector } from 'react-redux';
+import { selectIsAdmin } from '../Auth/slices/auth/authSlice';
 
 export default function EditLinks() {
-   const { links, isLoading, count } = useGetAllLinks();
-   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
+   const { links, isLoading } = useGetAllLinks();
+   const isAdmin = useSelector(selectIsAdmin);
 
    const device = useDeviceDetection();
+
+   console.log(links);
+
+   if (!isAdmin) return <RestrictedRoute />;
 
    if (isLoading)
       return (
@@ -23,17 +28,18 @@ export default function EditLinks() {
          </div>
       );
 
-   if (!links) return <h1 className='heading-primary'>No links yet</h1>;
-
+   //TODO IF NO LINK CREATED YET IN THE ADMIN ACOCUNT MENU AUTOMATICALLY REDIRECTS TO MY-LINKS PAGE
    return (
       <div>
          <ShareLinks />
          <div className='links'>
-            {links.doc.map((link: ILink) => (
-               <LinkItemAdmin key={link._id} link={link} device={device} />
-            ))}
+            {links.doc
+               .sort((a: ILink, b: ILink) => a.order - b.order)
+               .map((link: ILink) => (
+                  <LinkItemAdmin key={link._id} link={link} device={device} />
+               ))}
          </div>
-         <Paginator count={count} />
+         {/* <Paginator count={count} /> */}
          {device === 'Desktop' && isAdmin && <Trash />}
       </div>
    );

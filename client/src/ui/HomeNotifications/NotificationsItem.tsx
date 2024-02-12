@@ -1,10 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import INotification from '../../interfaces/INotification';
 import { stripHtmlTags, truncateText } from '../../utils/helpers';
-import { markNotificationAsRead } from '../../features/Auth/slices/user/userSlice.ts';
 import { Dispatch, SetStateAction } from 'react';
-import { useAppDispatch } from '../../redux-hooks';
-import { useMarkNotificationMutation } from '../../features/Auth/slices/user/userApiSlice.ts';
+import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead.ts';
 
 interface NotificationItemProps {
    notification: INotification;
@@ -13,21 +11,30 @@ interface NotificationItemProps {
 
 export default function NotificationsItem({ notification, setShowModal }: NotificationItemProps) {
    const navigation = useNavigate();
-   const dispatch = useAppDispatch();
-   const [markNotificationApi] = useMarkNotificationMutation();
    const { read, _id, title, message } = notification;
 
-   const handleOnClick = async () => {
+   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(_id);
+
+   const handleOnClick = () => {
       try {
-         const res = await markNotificationApi({ id: _id }).unwrap();
-         dispatch(markNotificationAsRead({ ...res }));
+         if (!read) handleOnMarkOneNotificationAsRead();
          navigation(`/account/notifications/${_id}`);
-      } catch (err) {
-         console.log(err);
       } finally {
          setShowModal(false);
       }
    };
+
+   // const handleOnClick = async () => {
+   //    try {
+   //       const res = await markNotificationApi({ id: _id }).unwrap();
+   //       dispatch(markNotificationAsRead({ ...res }));
+   //       navigation(`/account/notifications/${_id}`);
+   //    } catch (err) {
+   //       console.log(err);
+   //    } finally {
+   //       setShowModal(false);
+   //    }
+   // };
 
    const plainText = stripHtmlTags(message);
    const truncatedMessage = truncateText(plainText, 55);

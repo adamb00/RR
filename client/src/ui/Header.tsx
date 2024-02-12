@@ -2,11 +2,12 @@ import Navbar from './Navbar/Navbar';
 import NavbarNotAuth from './Navbar/NavbarNotAuth';
 import Logo from './Logo';
 
-import { useAppSelector } from '../redux-hooks';
 import { memo, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../features/Auth/slices/auth/authSlice';
 
 export default memo(function Header() {
-   const user = useAppSelector(state => state.auth.user);
+   const user = useSelector(selectCurrentUser);
 
    const [isScrolled, setIsScrolled] = useState(false);
 

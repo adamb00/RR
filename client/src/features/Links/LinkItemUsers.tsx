@@ -6,15 +6,18 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import useDetectOrientation from '../../hooks/useDetectOrientation';
 import { truncateText } from '../../utils/helpers';
 
-import { useAppSelector } from '../../redux-hooks';
+import { UserProfileData } from '../../interfaces/AuthInterfaces';
+import { Dispatch, SetStateAction } from 'react';
 
 interface LinkItemProps {
    link: ILink;
    device: string;
+   user: UserProfileData | null;
+   setIsOpen: Dispatch<SetStateAction<boolean>>;
+   setUrl: Dispatch<SetStateAction<string>>;
 }
-export default function LinkItem({ link, device }: LinkItemProps) {
+export default function LinkItem({ link, device, user, setIsOpen, setUrl }: LinkItemProps) {
    const orientation = useDetectOrientation();
-   const user = useAppSelector(state => state.auth.user);
 
    const currentLinkTitle = () => link.title ?? '';
 
@@ -36,19 +39,24 @@ export default function LinkItem({ link, device }: LinkItemProps) {
       return view;
    };
 
+   const handleOpenModal = () => {
+      setIsOpen(open => !open);
+      setUrl(() => updatedLink);
+   };
+
    if (!link.active) return;
 
    return (
-      <div className='links__container'>
-         <div className='links__wrapper'>
-            <div className='links__wrapper--group'>
-               <div className='links__item'>{handleIfLinkHasTitle()}</div>
-               <div className='links__item--link'>{handlePhoneView(`(${updatedLink})`, 60)}</div>
+      <div className='link__links'>
+         <div className='link__wrapper'>
+            <div className='link__wrapper--group'>
+               <div className='link__item'>{handleIfLinkHasTitle()}</div>
+               <div className='link__item--link'>{handlePhoneView(`(${updatedLink})`, 60)}</div>
             </div>
 
-            <div className='links__group'>
+            <div className='link__group'>
                <CopyToClipboard text={updatedLink}>
-                  <ButtonIcon onClick={() => {}} className='links__icon'>
+                  <ButtonIcon className='link__icon' onClick={handleOpenModal}>
                      <PiDotsThree />
                   </ButtonIcon>
                </CopyToClipboard>

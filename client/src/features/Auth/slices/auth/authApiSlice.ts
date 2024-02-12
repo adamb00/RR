@@ -1,19 +1,19 @@
-import { apiSlice } from '../apiSlice';
+import { apiSlice } from '../../../../app/api/apiSlice';
 
-const storedUser = sessionStorage.getItem('user');
 export const authApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       login: builder.mutation({
          query: data => ({
-            url: `auth/signin`,
+            url: `/auth/signin`,
             method: 'POST',
             body: data,
          }),
       }),
-      logout: builder.mutation({
-         query: () => ({
-            url: `auth/signout`,
-            method: 'POST',
+      updateUser: builder.mutation({
+         query: ({ id, data }) => ({
+            url: `user/${id}`,
+            method: 'PATCH',
+            body: data,
          }),
       }),
       register: builder.mutation({
@@ -30,14 +30,17 @@ export const authApiSlice = apiSlice.injectEndpoints({
             method: 'GET',
          }),
       }),
-
-      getCurrentUser: builder.mutation({
+      logout: builder.mutation({
          query: () => ({
-            url: `user/current-user`,
-            method: 'GET',
-            headers: {
-               Authorization: `Bearer ${storedUser}`,
-            },
+            url: `auth/signout`,
+            method: 'POST',
+         }),
+      }),
+      resetPassword: builder.mutation({
+         query: ({ data, token }) => ({
+            url: `auth/reset-password/${token}`,
+            method: 'PATCH',
+            body: data,
          }),
       }),
    }),
@@ -45,8 +48,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
 export const {
    useLoginMutation,
-   useLogoutMutation,
+   useUpdateUserMutation,
    useRegisterMutation,
    useGetReferralCodeMutation,
-   useGetCurrentUserMutation,
+   useResetPasswordMutation,
+   useLogoutMutation,
 } = authApiSlice;

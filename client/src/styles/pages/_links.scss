@@ -1,42 +1,31 @@
 .link {
+   position: relative;
    &__preview {
       display: flex;
       align-items: center;
+      position: absolute;
       left: 3rem;
-      top: 3rem;
+      top: -5rem;
       gap: 2rem;
       flex-direction: row;
-      position: relative;
+      &:focus,
+      &:active {
+         color: $color-grey-dark-4;
+      }
    }
    &__icon {
       cursor: pointer;
       font-size: 3rem;
+      color: $color-grey-dark-4;
 
       &:hover {
          color: $color-primary-tint;
       }
-   }
-}
 
-.links {
-   display: flex;
-   position: relative;
-   flex-direction: column;
-   justify-content: center;
-   gap: 3rem;
-   margin: 4rem auto;
-
-   @include respond(phone) {
-      padding: 0 0.5rem;
-      gap: 2rem;
-   }
-
-   &__loader {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100vw;
-      height: 100vh;
+      &:focus,
+      &:active {
+         color: $color-grey-dark-4;
+      }
    }
 
    &__item {
@@ -58,63 +47,57 @@
          font-size: 2rem;
       }
    }
+
    &__container {
-      display: flex;
+      grid-area: 'body';
+      position: relative;
       flex-direction: column;
+      width: 100%;
       justify-content: center;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: $default-font-size;
-      border-radius: $default-border-radius;
-      background-color: $color-grey-light-3;
-      width: 80%;
-      padding: 0.5rem 10rem;
-      cursor: grab;
+      border: transparent;
+      margin: 8rem auto;
 
-      border: none;
-      box-shadow: $default-box-shadow;
-
-      &:hover {
-         top: -0.3rem;
-         box-shadow: $hover-box-shadow;
-      }
-
-      @include respond(tab-land) {
-         padding: 0.5rem 5rem;
-         cursor: default;
-      }
-
-      @include respond(tab-port) {
-         padding: 0.5rem 1rem;
-      }
       @include respond(phone) {
-         padding: 0.5rem 1rem;
-         width: 100%;
+         padding: 0 0.5rem;
+         gap: 2rem;
       }
-   }
 
-   &__title {
-      position: relative;
+      &__title {
+         position: relative;
 
-      &--input {
-         height: 4rem;
-         border-radius: 2rem;
-         outline: none;
-         border: none;
-         font-size: inherit;
-         padding: 1rem 2rem;
+         &--input {
+            height: 4rem;
+            border-radius: 2rem;
+            outline: none;
+            border: none;
+            font-size: inherit;
+            padding: 1rem 2rem;
+         }
+         &--icon {
+            position: absolute;
+            right: 2rem;
+            top: 2.1rem;
+            fill: $color-red-main !important;
+            color: $color-red-main !important;
+
+            @include respond(tab-land) {
+               font-size: 2rem;
+               top: 2.2rem;
+            }
+
+            &:hover {
+               border: 1px solid $color-red-main !important;
+            }
+         }
       }
-      &--icon {
-         position: absolute;
-         right: 2rem;
-         top: 2.1rem;
+
+      &__icon {
+         font-size: 2.5rem;
          fill: $color-red-main !important;
          color: $color-red-main !important;
 
-         @include respond(tab-land) {
-            font-size: 2rem;
-            top: 2.2rem;
+         &--remove {
+            font-size: 2.4rem;
          }
 
          &:hover {
@@ -148,18 +131,40 @@
          padding: 0.5rem;
       }
    }
+   &__links {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: $default-font-size;
+      border-radius: $default-border-radius;
+      background-color: $color-grey-light-3;
+      width: 80%;
+      padding: 0.5rem 10rem;
+      cursor: grab;
 
-   &__icon {
-      font-size: 2.5rem;
-      fill: $color-red-main !important;
-      color: $color-red-main !important;
-
-      &--remove {
-         font-size: 2.4rem;
-      }
+      border: none;
+      box-shadow: $default-box-shadow;
 
       &:hover {
-         border: 1px solid $color-red-main !important;
+         top: -0.3rem;
+         box-shadow: $hover-box-shadow;
+      }
+
+      @include respond(tab-land) {
+         padding: 0.5rem 5rem;
+         cursor: default;
+      }
+
+      @include respond(tab-port) {
+         padding: 0.5rem 1rem;
+      }
+      @include respond(phone) {
+         padding: 0.5rem 1rem;
+         width: 100%;
       }
    }
 }

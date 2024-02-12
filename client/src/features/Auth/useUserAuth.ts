@@ -3,6 +3,7 @@ import {
    getOneUser as getOneUserFn,
    getUserImage as getUserImageFn,
    activateUser as activateUserFn,
+   forgotPassword as forgotPasswordFn,
 } from '../../services/apiUser';
 
 export const useGetOneUser = (id: string) => {
@@ -23,17 +24,16 @@ export const useGetUserImage = (key: string) => {
       isLoading,
       data: image,
       error,
+      refetch,
    } = useQuery({
       queryKey: ['user', key],
       queryFn: () => getUserImageFn(key),
-      staleTime: 1000,
-      refetchInterval: 1000,
    });
 
    if (!key) {
       return { isLoading: false, image: null, error: null };
    }
-   return { isLoading, image, error };
+   return { isLoading, image, error, refetch };
 };
 
 export const useActivateUser = () => {
@@ -49,4 +49,14 @@ export const useActivateUser = () => {
       },
    });
    return { activateUser, isActivating, error };
+};
+
+export const useForgotPassword = () => {
+   // const queryClient = useQueryClient();
+
+   const { mutate: forgotPassword, isLoading } = useMutation({
+      mutationFn: forgotPasswordFn,
+   });
+
+   return { forgotPassword, isLoading };
 };

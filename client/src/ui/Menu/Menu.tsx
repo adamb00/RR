@@ -11,13 +11,16 @@ import NotificationsMenu from './NotificationsMenu';
 import { MenuProps } from '../../interfaces/MenuProps';
 import { useAppSelector } from '../../redux-hooks';
 import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
-
 import UserImage from '../UserImage';
-export default function Menu({ isOpen, setIsOpen }: MenuProps) {
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
+export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
    const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
+   const user = useSelector(selectCurrentUser);
 
    if (isNotification) return <NotificationsMenu isOpen={isOpen} setIsOpen={setIsOpen} />;
 
@@ -33,7 +36,9 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
          {isOpen ? (
             <ul className='account__sidebar--navigation'>
                <li>
-                  <UserImage />
+                  <div className='user-image'>
+                     <UserImage user={user} />
+                  </div>
                </li>
 
                <li>
@@ -67,9 +72,13 @@ export default function Menu({ isOpen, setIsOpen }: MenuProps) {
          ) : (
             <MenuIsNotOpen />
          )}
-         <Button className='account__open-menu' onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>
+         <Button
+            className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
+            onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}
+         >
+            {/* //TODO CHANGE THIS TO CHEVRONS DEPENDS ON IF OPEN OR CLOSE */}
             <RiOpenaiFill />
          </Button>
       </nav>
    );
-}
+});

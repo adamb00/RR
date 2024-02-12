@@ -1,3 +1,4 @@
+import { ILink } from './ILink';
 import INotification from './INotification';
 
 export interface UserProfileData {
@@ -20,4 +21,6 @@ export interface UserProfileData {
    notifications: INotification[];
    passwordChangedAt: string;
    _id: string;
+   availableLinks: ILink[];
+   refreshToken: string;
 }

@@ -6,6 +6,7 @@
 .form-icon {
    position: relative;
    display: inline-block;
+   color: $color-primary-tint;
 
    &::after {
       content: attr(data-content);
