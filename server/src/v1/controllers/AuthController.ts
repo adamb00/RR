@@ -5,8 +5,12 @@ import mongoose from 'mongoose';
 import Email from '../utils/email';
 import AppError from '../utils/appError';
 import { correctPassword } from '../middlewares/correctPassword';
-import { createAndSendToken, signToken } from '../middlewares/createAndSendToken';
+import { createAndSendToken } from '../middlewares/createAndSendToken';
 import { MongoError } from 'mongodb';
+import IUser from '../interfaces/IUser';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import env from '../utils/validateEnv';
+import crypto from 'crypto';
 
 declare global {
    namespace Express {
@@ -40,6 +44,7 @@ export default class AuthController {
 
          // const url = `${req.protocol}://${req.get('host')}/signup?referralCode=${parentUser?.referralCode}`;
          const url = `http://192.168.0.33:5173/activate-account/${newUser._id}`;
+         // const url = `http://172.20.10.3:5173/activate-account/${newUser._id}`; // MOBILNET
 
          await new Email(newUser, url).sendWelcome();
 
@@ -54,7 +59,6 @@ export default class AuthController {
                   errorMessages.push(`${field}: ${err.errors[field].message}`);
                }
             }
-            console.log('error');
             res.status(400).json({
                status: 'error',
                errors: errorMessages,
@@ -149,6 +153,33 @@ export default class AuthController {
       }
    });
 
+   public handleRefreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      const refreshToken = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
+      if (!refreshToken) {
+         res.status(401).json({ message: 'No token found', status: 'error' });
+         return next(new AppError('No token found', 404));
+      }
+
+      res.clearCookie('jwt');
+
+      const user = (await User.findOne({ refreshToken }).exec()) as IUser;
+
+      if (!user) {
+         const decoded: JwtPayload = jwt.verify(refreshToken, env.JWT_SECRET) as JwtPayload;
+         const currentUser = await User.findById(decoded.id);
+
+         if (currentUser) {
+            currentUser.refreshToken = '';
+            await currentUser.save();
+         }
+
+         res.sendStatus(403);
+      }
+
+      await createAndSendToken(user, 200, req, res);
+      req.user = user;
+   });
+
    public signout = (_req: Request, res: Response) => {
       try {
          res.cookie('jwt', 'loggedout', {
@@ -159,4 +190,60 @@ export default class AuthController {
          console.log(err);
       }
    };
+
+   public forgotPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      const { email } = req.body;
+
+      const user = await User.findOne({ email });
+
+      if (!user) {
+         res.status(404).json({
+            status: 'error',
+            message: 'No user found with this email.',
+            item: 'email',
+         });
+         return next(new AppError('No user found with this email.', 404));
+      }
+
+      const resetToken = user.createPasswordResetToken();
+      await user.save({ validateBeforeSave: false });
+
+      try {
+         const url = `http://192.168.0.33:5173/reset-password/${resetToken}`;
+         await new Email(user, url).sendPasswordReset();
+
+         res.status(200).json({
+            status: 'success',
+            message: 'Token sent to email!',
+         });
+      } catch (err) {
+         user.passwordResetToken = undefined;
+         user.passwordResetExpires = undefined;
+         await user.save({ validateBeforeSave: false });
+
+         return next(new AppError('There was an error sending the email. Try again later!', 500));
+      }
+   });
+
+   public resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+      console.log(hashedToken);
+
+      const user = await User.findOne({
+         passwordResetToken: hashedToken,
+         passwordResetExpires: { $gt: Date.now() },
+      });
+
+      if (!user) {
+         return next(new AppError('Token is invalid or has expired', 400));
+      }
+      user.password = req.body.password;
+      user.passwordConfirm = req.body.passwordConfirm;
+      user.passwordResetToken = undefined;
+      user.passwordResetExpires = undefined;
+      await user.save();
+
+      createAndSendToken(user, 200, req, res);
+   });
 }

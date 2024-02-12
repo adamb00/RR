@@ -5,6 +5,7 @@ import APIFeatures from './apiFeatures';
 import AppError from './appError';
 import { Model, Document } from 'mongoose';
 import { getCurrentUser } from '../controllers/UserController';
+import { generateString } from './helpers';
 export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Request) => object) => {
    return catchAsync(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
       let filter: object = {};
@@ -49,7 +50,6 @@ export const createOne = <T extends Document>(Model: Model<T>, customizeRequestB
 export const updateOne = <T extends Document>(Model: Model<T>) => {
    return catchAsync(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
-         console.log(req.body);
          const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,

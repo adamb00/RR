@@ -5,4 +5,5 @@ export default interface ILink extends Document {
    createdAt: Date;
    title?: string;
    active: boolean;
+   order: number;
 }

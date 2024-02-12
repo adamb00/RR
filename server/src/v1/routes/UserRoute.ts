@@ -4,7 +4,6 @@ import UserController, {
    getCurrentUser,
    markNotifications,
    markNotification,
-   activateUser,
    getUserImage,
    updateMe,
 } from '../controllers/UserController';
@@ -22,5 +21,5 @@ router.route('/').get(userController.getAllUsers).post(userController.createUser
 router.route('/:id').get(userController.getOneUser).patch(userController.updateOneUser);
 
 router.post('/upload-image', userController.uploadImage, resizeImage(300), authenticateUser, updateMe);
-router.get('/get-image/:key', authenticateUser, getUserImage);
+router.get('/get-image/:key', getUserImage);
 export default router;

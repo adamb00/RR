@@ -1,7 +1,7 @@
 import { InferSchemaType, Schema, model } from 'mongoose';
 import ILink from '../interfaces/ILink';
 
-const linkSchema: Schema = new Schema<ILink>(
+export const linkSchema: Schema = new Schema<ILink>(
    {
       link: {
          type: String,
@@ -17,7 +17,12 @@ const linkSchema: Schema = new Schema<ILink>(
       title: {
          type: String,
       },
+      order: {
+         type: Number,
+         default: 0,
+      },
    },
+
    {
       versionKey: false,
    }
@@ -25,4 +30,5 @@ const linkSchema: Schema = new Schema<ILink>(
 
 const Link = model<ILink>('Link', linkSchema);
 export type LinkType = InferSchemaType<typeof linkSchema>;
+
 export default Link;

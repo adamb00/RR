@@ -7,6 +7,7 @@ import { upload as s3Upload, download as s3Download } from '../s3';
 import AppError from '../utils/appError';
 import fs from 'fs';
 import util from 'util';
+import Link from '../models/LinkModel';
 
 const unlinkFile = util.promisify(fs.unlink);
 
@@ -25,8 +26,13 @@ export const activateUser = catchAsync(async (req: Request, res: Response, next:
    if (!token) {
       return next(new AppError('Invalid token.', 401));
    }
+   const activeLinks = await Link.find({ active: true });
 
-   const user = await User.findOneAndUpdate({ _id: token }, { active: true });
+   if (!activeLinks) {
+      return next(new AppError('No active links found.', 404));
+   }
+
+   const user = await User.findOneAndUpdate({ _id: token }, { active: true, availableLinks: activeLinks });
 
    res.status(201).json({
       status: 'success',
@@ -123,8 +129,6 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
    if (req.file) {
       filteredBody.photo = uploadImage.Key;
       await unlinkFile(req.file.path);
-
-      console.log(uploadImage.Key);
    }
    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
       new: true,

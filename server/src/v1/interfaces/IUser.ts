@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 import INotification from './INotification';
+import ILink from './ILink';
 
 export default interface IUser extends Document {
    name: string;
@@ -25,4 +26,8 @@ export default interface IUser extends Document {
    notifications: INotification[];
    availablePoints: number;
    accumulatedPoints: number;
+   availableLinks: ILink[];
+   refreshToken: string;
+
+   createPasswordResetToken: () => string;
 }

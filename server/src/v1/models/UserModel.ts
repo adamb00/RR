@@ -2,6 +2,8 @@ import { InferSchemaType, Schema, CallbackError, model } from 'mongoose';
 import IUser from '../interfaces/IUser';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
+import { linkSchema } from './LinkModel';
+import crypto from 'crypto';
 
 const userSchema: Schema = new Schema<IUser>({
    name: {
@@ -87,6 +89,10 @@ const userSchema: Schema = new Schema<IUser>({
       type: Number,
       default: 0,
    },
+   availableLinks: {
+      type: [linkSchema],
+   },
+   refreshToken: String,
 });
 
 userSchema.pre<UserType>('save', async function (this: UserType, next: (err?: CallbackError) => void): Promise<void> {
@@ -98,6 +104,16 @@ userSchema.pre<UserType>('save', async function (this: UserType, next: (err?: Ca
    this.passwordConfirm = undefined;
    next();
 });
+
+userSchema.methods.createPasswordResetToken = function (this: UserType): string {
+   const resetToken = crypto.randomBytes(32).toString('hex');
+
+   this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+   return resetToken;
+};
 
 const User = model<IUser>('User', userSchema);
 export type UserType = InferSchemaType<typeof userSchema>;
