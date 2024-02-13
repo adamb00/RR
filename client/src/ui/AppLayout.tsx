@@ -2,7 +2,7 @@ import { Outlet, useParams } from 'react-router-dom';
 
 import Header from './Header';
 import { useIsNotification } from '../hooks/useIsNotification';
-import { useAppDispatch } from '../redux-hooks';
+import { useAppDispatch, useAppSelector } from '../redux-hooks';
 import { memo, useCallback, useEffect } from 'react';
 import { fetchNotifications, fetchSocketNotification } from '../features/Auth/slices/user/userSlice';
 
@@ -24,6 +24,8 @@ export default memo(function AppLayout() {
    const [fetchNotificationsApi] = useFetchNotificationsMutation();
    const user = useSelector(selectCurrentUser);
 
+   const isNotificationsFetched = useAppSelector(state => state.user.isNotificationsFetched);
+
    const handleNotificationCreated = useCallback(
       (data: INotification) => {
          dispatch(fetchSocketNotification({ ...data, read: false }));
@@ -34,6 +36,7 @@ export default memo(function AppLayout() {
    const fetchNotificationsForUser = useCallback(
       async (user: { notifications: { read: boolean; _id: string }[] }) => {
          if (user) {
+            console.log(user);
             const fetchedNotifications = await Promise.all(
                user.notifications.map(async (notification: { read: boolean; _id: string }) => {
                   const res = await fetchNotificationsApi(notification._id).unwrap();
@@ -48,12 +51,24 @@ export default memo(function AppLayout() {
 
    useEffect(() => {
       socket.on('notification_created', handleNotificationCreated);
-      fetchNotificationsForUser(user as UserProfileData);
+
+      if (!isNotificationsFetched && user) {
+         fetchNotificationsForUser(user as UserProfileData);
+      }
 
       return () => {
          socket.off('notification_created', handleNotificationCreated);
       };
-   }, [fetchNotificationsForUser, handleNotificationCreated, user]);
+   }, [dispatch, fetchNotificationsForUser, handleNotificationCreated, isNotificationsFetched, user]);
+
+   // useEffect(() => {
+   //    socket.on('notification_created', handleNotificationCreated);
+   //    fetchNotificationsForUser(user as UserProfileData);
+
+   //    return () => {
+   //       socket.off('notification_created', handleNotificationCreated);
+   //    };
+   // }, [fetchNotificationsForUser, handleNotificationCreated, user]);
 
    return (
       <>

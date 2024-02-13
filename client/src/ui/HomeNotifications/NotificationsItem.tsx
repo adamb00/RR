@@ -24,18 +24,6 @@ export default function NotificationsItem({ notification, setShowModal }: Notifi
       }
    };
 
-   // const handleOnClick = async () => {
-   //    try {
-   //       const res = await markNotificationApi({ id: _id }).unwrap();
-   //       dispatch(markNotificationAsRead({ ...res }));
-   //       navigation(`/account/notifications/${_id}`);
-   //    } catch (err) {
-   //       console.log(err);
-   //    } finally {
-   //       setShowModal(false);
-   //    }
-   // };
-
    const plainText = stripHtmlTags(message);
    const truncatedMessage = truncateText(plainText, 55);
 

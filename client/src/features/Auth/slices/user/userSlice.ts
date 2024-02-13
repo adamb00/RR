@@ -6,6 +6,7 @@ type InitialState = {
    unreadNotifications: number;
    image: string | null;
    status: 'idle' | 'loading' | 'error';
+   isNotificationsFetched: boolean;
 };
 
 const initialState: InitialState = {
@@ -13,6 +14,7 @@ const initialState: InitialState = {
    unreadNotifications: 0,
    image: null,
    status: 'idle',
+   isNotificationsFetched: false,
 };
 
 const userSlice = createSlice({
@@ -25,6 +27,7 @@ const userSlice = createSlice({
          state.unreadNotifications =
             action.payload.filter((notification: INotification) => !notification.read).length || 0;
          state.status = 'idle';
+         state.isNotificationsFetched = true;
       },
       fetchSocketNotification: (state, action) => {
          state.status = 'loading';
@@ -44,6 +47,11 @@ const userSlice = createSlice({
             state.unreadNotifications > 0 && state.unreadNotifications--;
          }
       },
+
+      deleteAllNotifications: state => {
+         state.notifications = [];
+         console.log(state.notifications);
+      },
       markAllNotificationAsRead: state => {
          state.notifications.map(notification => (notification.read = true));
          state.unreadNotifications = 0;
@@ -59,6 +67,7 @@ export const {
    fetchSocketNotification,
    markNotificationAsRead,
    markAllNotificationAsRead,
+   deleteAllNotifications,
    setImage,
 } = userSlice.actions;
 export default userSlice.reducer;

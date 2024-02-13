@@ -112,6 +112,26 @@
          text-decoration: underline;
       }
 
+      &--clear {
+         position: fixed;
+         top: 5%;
+         left: 7%;
+         margin: 0.5rem 0;
+         cursor: pointer;
+         color: $color-grey-light-3;
+         z-index: 1002;
+         text-decoration: underline;
+      }
+
+      &--empty {
+         position: fixed;
+         left: 50%;
+         top: 50%;
+         transform: translate(-50%, -90%);
+         font-size: 1.2rem;
+         color: $color-grey-light-3;
+      }
+
       &--content {
          background-image: linear-gradient($color-primary-tint, transparent);
          border: none;

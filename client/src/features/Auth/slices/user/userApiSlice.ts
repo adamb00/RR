@@ -29,7 +29,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
             method: 'PATCH',
          }),
       }),
-
+      deleteAllNotifications: builder.mutation({
+         query: () => ({
+            url: `user/delete-notifications`,
+            method: 'PATCH',
+         }),
+      }),
       uploadUserImage: builder.mutation({
          query: (body: FormData) => ({
             url: `user/upload-image`,
@@ -62,4 +67,5 @@ export const {
    useUploadUserImageMutation,
    useUpdatePasswordMutation,
    useGetUserImageMutation,
+   useDeleteAllNotificationsMutation,
 } = userApiSlice;
