@@ -80,8 +80,8 @@ export default function ResetPassword() {
                </FormIcon>
             </UserInput>
 
-            {error && typeof error !== 'object' && <p className='login__form--error'>{error}</p>}
-            <Button onSubmit={handleSubmit(handleResetPassword)} disabled={isLoading} className='btn btn--primary'>
+            {error && typeof error !== 'object' && <p className='reset-password__form--error'>{error}</p>}
+            <Button type='submit' disabled={isLoading} className='btn btn--primary'>
                Reset Password
             </Button>
          </form>

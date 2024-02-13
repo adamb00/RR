@@ -1,10 +1,6 @@
 import INotification from '../interfaces/INotification';
 import IError from '../interfaces/IError';
 
-export const getUserToken = async () => {
-   return sessionStorage.getItem('user') as string;
-};
-
 export const OPTIONS = (options: {
    method: string;
    data?: FormData | string | object;
@@ -98,16 +94,6 @@ export const emptyInputField = (className: string) => {
    if (inputElement) {
       inputElement.value = '';
    }
-};
-
-export const getSortedNotifications = async (notifications: INotification[]) => {
-   if (!Array.isArray(notifications)) {
-      notifications = Array.from(notifications);
-   }
-
-   return notifications.slice().sort((a, b) => {
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-   });
 };
 
 export const sortNotifications = (notifications: INotification[]) => {

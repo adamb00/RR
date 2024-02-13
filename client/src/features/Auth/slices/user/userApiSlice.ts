@@ -1,7 +1,5 @@
 import { apiSlice } from '../../../../app/api/apiSlice';
 
-// const storedUser = sessionStorage.getItem('user');
-
 export const userApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       updateUser: builder.mutation({
@@ -44,9 +42,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
          query: key => ({
             url: `user/get-image/${key}`,
             method: 'GET',
-            // headers: {
-            //    Authorization: `Bearer ${storedUser}`,
-            // },
+         }),
+      }),
+      updatePassword: builder.mutation({
+         query: data => ({
+            url: `user/update-password`,
+            method: 'PATCH',
+            body: data,
          }),
       }),
    }),
@@ -58,5 +60,6 @@ export const {
    useMarkAllNotificationsMutation,
    useMarkNotificationMutation,
    useUploadUserImageMutation,
+   useUpdatePasswordMutation,
    useGetUserImageMutation,
 } = userApiSlice;

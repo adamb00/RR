@@ -8,8 +8,6 @@ export default function MenuIsNotOpen() {
    const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
 
-   console.log(firstNotificationId);
-
    return (
       <>
          <ul className='account__sidebar--navigation__not-open'>

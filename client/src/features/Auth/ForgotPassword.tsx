@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UserInput from '../../ui/UserInteractions/UserInput';
 import { FieldValues, useForm } from 'react-hook-form';
 import { IS_VALID_EMAIL, handleError } from '../../utils/helpers';
@@ -38,7 +38,6 @@ export default function ForgotPassword() {
             <UserInput
                control={control}
                name='email'
-               // onChange={handleInputChange}
                className='forgot-password__form--input'
                eError={handleError(error, 'email')}
                fieldErrorClassname='login__form--error'
@@ -55,7 +54,7 @@ export default function ForgotPassword() {
                   <CiUser className='forgot-password__form--icon' />
                </FormIcon>
             </UserInput>
-            <Button onSubmit={handleSubmit(handleForgotPassword)} className='btn btn--primary'>
+            <Button type='submit' className='btn btn--primary'>
                {isLoading}
             </Button>
          </form>

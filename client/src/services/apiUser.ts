@@ -1,4 +1,4 @@
-import { OPTIONS, getUserToken } from '../utils/helpers';
+import { OPTIONS } from '../utils/helpers';
 import { BASE_URL } from '../utils/constants';
 
 export const getOneUser = async (id: string) => {
@@ -11,11 +11,7 @@ export const getOneUser = async (id: string) => {
 };
 
 export const getUserImage = async (key: string) => {
-   const userToken = await getUserToken();
-   const response = await fetch(
-      BASE_URL + `user/get-image/${key}`,
-      OPTIONS({ method: 'GET', userToken, header: 'image/png' })
-   );
+   const response = await fetch(BASE_URL + `user/get-image/${key}`, OPTIONS({ method: 'GET', header: 'image/png' }));
 
    const imageBlob = await response.blob();
 

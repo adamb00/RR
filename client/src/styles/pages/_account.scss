@@ -128,4 +128,32 @@
    &__open-menu {
       @include openMenu;
    }
+
+   &__change-password__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 8rem 6rem;
+      position: relative;
+      &--error {
+         color: $color-error;
+         font-size: 1.2rem;
+      }
+
+      &--icon {
+         @include formIcon;
+         position: absolute;
+         &__eye {
+            right: 0;
+            border: 0;
+            cursor: pointer;
+            color: $color-primary-tint;
+         }
+      }
+
+      &--input {
+         @include defaultBorderlessInput;
+      }
+      @include webkitAutofill;
+   }
 }
