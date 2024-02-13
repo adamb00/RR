@@ -3,7 +3,6 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import env from '../utils/validateEnv';
 import AppError from '../utils/appError';
 import User from '../models/UserModel';
-import { getErrorMessage } from '../utils/helpers';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
    const token = req.headers.cookie?.split('=')[1] || req.headers.authorization?.split(' ')[1] || req.cookies.jwt;

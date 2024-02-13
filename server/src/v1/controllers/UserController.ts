@@ -8,6 +8,8 @@ import AppError from '../utils/appError';
 import fs from 'fs';
 import util from 'util';
 import Link from '../models/LinkModel';
+import { correctPassword } from '../middlewares/correctPassword';
+import { createAndSendToken } from '../middlewares/createAndSendToken';
 
 const unlinkFile = util.promisify(fs.unlink);
 
@@ -159,4 +161,32 @@ export const getUserImage = catchAsync(async (req: Request, res: Response, next:
       console.error(error);
       res.status(500).send('Internal Server Error');
    }
+});
+
+export const updatePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const user = await User.findById(req.user._id).select('+password');
+
+   if (!user) {
+      res.status(404).json({
+         status: 'error',
+         message: 'No user found...',
+         item: 'email',
+      });
+      return next(new AppError('No user found...', 404));
+   }
+
+   if (!(await correctPassword(req.body.passwordCurrent, user?.password))) {
+      res.status(401).json({
+         status: 'error',
+         message: 'Your current password is wrong',
+         item: 'passwordCurrent',
+      });
+      return next(new AppError('Your current password is wrong.', 401));
+   }
+
+   user.password = req.body.password;
+   user.passwordConfirm = req.body.passwordConfirm;
+   await user.save();
+
+   createAndSendToken(user, 200, req, res);
 });
