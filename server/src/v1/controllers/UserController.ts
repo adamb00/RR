@@ -190,3 +190,15 @@ export const updatePassword = catchAsync(async (req: Request, res: Response, nex
 
    createAndSendToken(user, 200, req, res);
 });
+export const deleteAllNotifications = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const user = req.user;
+
+   user.notifications = [];
+
+   await user.save();
+
+   res.status(201).json({
+      status: 'success',
+      message: 'All notifications deleted successfully.',
+   });
+});
