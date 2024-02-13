@@ -9,8 +9,6 @@ const multerStore = multer.memoryStorage();
 const filter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
    req.file = file;
 
-   console.log(file);
-
    if (file.mimetype.startsWith('image')) {
       cb(null, true);
    } else {
@@ -23,8 +21,6 @@ export const resizeImage = (resize: number) =>
       if (!req.file) return next();
 
       req.file.filename = `image_${Date.now()}.png`;
-
-      console.log(req.file);
 
       const outputPath = path.join(__dirname, '../uploads', req.file.filename);
       req.file.path = outputPath;
