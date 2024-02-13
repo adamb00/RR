@@ -52,8 +52,6 @@ export const useActivateUser = () => {
 };
 
 export const useForgotPassword = () => {
-   // const queryClient = useQueryClient();
-
    const { mutate: forgotPassword, isLoading } = useMutation({
       mutationFn: forgotPasswordFn,
    });

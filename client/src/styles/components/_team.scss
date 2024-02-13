@@ -17,14 +17,14 @@
       justify-content: space-between;
       &--level {
          color: $color-primary-tint !important;
-         position: fixed;
+         position: absolute;
       }
       &--members {
          display: inline-block;
          align-items: center;
          font-size: 0.8rem;
          color: $color-grey-dark-2;
-         position: fixed;
+         position: absolute;
          right: 5rem;
 
          &-1 {

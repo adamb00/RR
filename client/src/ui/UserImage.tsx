@@ -1,23 +1,29 @@
-import { memo, useEffect, useState } from 'react';
-import { useGetUserImage } from '../features/Auth/useUserAuth';
+import { memo, useEffect } from 'react';
 import Loader from './Loader';
+import { useAppDispatch, useAppSelector } from '../redux-hooks';
+import { setImage } from '../features/Auth/slices/user/userSlice';
+import { getUserImage } from '../services/apiUser';
 import { UserProfileData } from '../interfaces/AuthInterfaces';
 
 interface UserImageProps {
-   user: UserProfileData | null;
+   user: UserProfileData;
 }
 
 export default memo(function UserImage({ user }: UserImageProps) {
-   const { image, isLoading } = useGetUserImage((user && user.photo) || '');
-   const [userImage, setUserImage] = useState<string>();
+   const dispatch = useAppDispatch();
+   const userImage = useAppSelector(state => state.user.image);
 
    useEffect(() => {
-      if (image) setUserImage(image);
-   }, [image, user]);
+      if (!userImage) {
+         const fetchUserImage = async () => {
+            const image = await getUserImage(user.photo);
+            dispatch(setImage(image));
+         };
+         fetchUserImage();
+      }
+   }, [dispatch, user.photo, userImage]);
 
-   if (isLoading) return <Loader size={100} />;
-
-   if (!image) return;
+   if (!userImage) return <Loader size={100} />;
 
    return <img src={userImage} alt='User image' />;
 });

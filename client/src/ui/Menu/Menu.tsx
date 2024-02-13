@@ -18,9 +18,15 @@ import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
 export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
-   const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
-   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
+   const firstNotificationId = useAppSelector(state => state.user.notifications[0]);
+   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId._id);
    const user = useSelector(selectCurrentUser);
+
+   const handleClick = () => {
+      if (!firstNotificationId.read) {
+         handleOnMarkOneNotificationAsRead();
+      }
+   };
 
    if (isNotification) return <NotificationsMenu isOpen={isOpen} setIsOpen={setIsOpen} />;
 
@@ -51,8 +57,8 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
                </li>
                <li>
                   <NavigationLink
-                     to={`${firstNotificationId ? 'notifications/' + firstNotificationId : 'notifications'}`}
-                     onClick={handleOnMarkOneNotificationAsRead}
+                     to={`${firstNotificationId._id ? 'notifications/' + firstNotificationId._id : 'notifications'}`}
+                     onClick={handleClick}
                   >
                      <Icon className='account__sidebar--icon'>
                         <CiBellOn />

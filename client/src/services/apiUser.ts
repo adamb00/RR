@@ -14,8 +14,9 @@ export const getUserImage = async (key: string) => {
    const response = await fetch(BASE_URL + `user/get-image/${key}`, OPTIONS({ method: 'GET', header: 'image/png' }));
 
    const imageBlob = await response.blob();
+   const imageURL = URL.createObjectURL(imageBlob);
 
-   return URL.createObjectURL(imageBlob);
+   return imageURL;
 };
 
 export const activateUser = async (token: string) => {
