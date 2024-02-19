@@ -22,26 +22,6 @@ export default class UserController {
    public deleteOneUser = handler.deleteOne(User);
 }
 
-export const activateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-   const { token } = req.params;
-
-   if (!token) {
-      return next(new AppError('Invalid token.', 401));
-   }
-   const activeLinks = await Link.find({ active: true });
-
-   if (!activeLinks) {
-      return next(new AppError('No active links found.', 404));
-   }
-
-   const user = await User.findOneAndUpdate({ _id: token }, { active: true, availableLinks: activeLinks });
-
-   res.status(201).json({
-      status: 'success',
-      doc: user,
-   });
-});
-
 export const getCurrentUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const currentUser = req.user;
    res.status(200).json({

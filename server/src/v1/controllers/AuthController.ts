@@ -11,6 +11,8 @@ import IUser from '../interfaces/IUser';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import env from '../utils/validateEnv';
 import crypto from 'crypto';
+import Link from '../models/LinkModel';
+import { jwtVerifyPromisified } from '../middlewares/verifyJwt';
 
 declare global {
    namespace Express {
@@ -21,6 +23,27 @@ declare global {
 }
 
 export default class AuthController {
+   public activateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+      const activeLinks = await Link.find({ active: true });
+
+      const user = await User.findOne({
+         activationToken: hashedToken,
+         activationTokenExpires: { $gt: Date.now() },
+      });
+
+      if (!user) {
+         return next(new AppError('Token is invalid or has expired', 400));
+      }
+      user.activationToken = undefined;
+      user.activationTokenExpires = undefined;
+      user.availableLinks = activeLinks || [];
+      user.active = true;
+      await user.save();
+
+      createAndSendToken(user, 200, req, res);
+   });
+
    public signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       try {
          const highestReferralCode = await User.findOne({}, 'referralCode', { sort: { referralCode: -1 } }).lean();
@@ -42,9 +65,13 @@ export default class AuthController {
          if (granderparentUser)
             await User.updateOne({ _id: granderparentUser._id }, { $push: { children_level_3: newUser._id } });
 
+         const resetToken = newUser.createActivationToken();
+         await newUser.save({ validateBeforeSave: false });
+
          // const url = `${req.protocol}://${req.get('host')}/signup?referralCode=${parentUser?.referralCode}`;
-         const url = `http://192.168.0.33:5173/activate-account/${newUser._id}`;
-         // const url = `http://172.20.10.3:5173/activate-account/${newUser._id}`; // MOBILNET
+         const url = `http://192.168.0.33:5173/activate-account/${resetToken}`;
+         // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
+         // const url = `http://172.20.10.3:5173/activate-account/${resetToken}`; // MOBILNET
 
          await new Email(newUser, url).sendWelcome();
 
@@ -128,7 +155,11 @@ export default class AuthController {
          }
 
          if (!user.active) {
-            const url = `http://192.168.0.33:5173/activate-account/${user._id}`;
+            const resetToken = user.createPasswordResetToken();
+            await user.save({ validateBeforeSave: false });
+            const url = `http://192.168.0.33:5173/activate-account/${resetToken}}`;
+            // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
+
             await new Email(user, url).sendWelcome();
             res.status(401).json({
                status: 'error',
@@ -155,6 +186,9 @@ export default class AuthController {
 
    public handleRefreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       const refreshToken = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
+
+      console.log('handleRefreshToken', refreshToken);
+
       if (!refreshToken) {
          res.status(401).json({ message: 'No token found', status: 'error' });
          return next(new AppError('No token found', 404));
@@ -165,7 +199,7 @@ export default class AuthController {
       const user = (await User.findOne({ refreshToken }).exec()) as IUser;
 
       if (!user) {
-         const decoded: JwtPayload = jwt.verify(refreshToken, env.JWT_SECRET) as JwtPayload;
+         const decoded: JwtPayload = (await jwtVerifyPromisified(refreshToken, env.JWT_SECRET, res)) as JwtPayload;
          const currentUser = await User.findById(decoded.id);
 
          if (currentUser) {

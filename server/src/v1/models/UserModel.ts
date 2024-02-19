@@ -81,6 +81,9 @@ const userSchema: Schema = new Schema<IUser>(
       activationToken: {
          type: String,
       },
+      activationTokenExpires: {
+         type: Date,
+      },
       notifications: [
          {
             read: { type: Boolean, default: false },
@@ -116,6 +119,16 @@ userSchema.methods.createPasswordResetToken = function (this: UserType): string 
    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
    return resetToken;
+};
+
+userSchema.methods.createActivationToken = function (this: UserType): string {
+   const activationToken = crypto.randomBytes(32).toString('hex');
+
+   this.activationToken = crypto.createHash('sha256').update(activationToken).digest('hex');
+
+   this.activationTokenExpires = Date.now() + 10 * 60 * 1000;
+
+   return activationToken;
 };
 
 const User = model<IUser>('User', userSchema);

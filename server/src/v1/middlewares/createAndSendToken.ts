@@ -5,7 +5,7 @@ import env from '../utils/validateEnv';
 import User, { UserType } from '../models/UserModel';
 
 export const signToken = (id: string): string => {
-   return jwt.sign({ id }, env.JWT_SECRET, { expiresIn: '4h' });
+   return jwt.sign({ id }, env.JWT_SECRET, { expiresIn: '30m' });
 };
 
 export const createAndSendToken = async (user: UserType, statusCode: number, req: Request, res: Response) => {

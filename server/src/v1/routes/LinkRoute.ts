@@ -7,8 +7,6 @@ import { deleteUsersLink, getCurrentUser } from '../controllers/UserController';
 const router: Router = Router();
 const linkController = new LinkController();
 
-router.use(authenticateUser);
-
 router.route('/').get(linkController.getAllLinks).post(restrictTo('Admin'), linkController.createLink);
 router
    .route('/:id')

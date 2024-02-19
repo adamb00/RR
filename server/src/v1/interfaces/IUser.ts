@@ -23,6 +23,7 @@ export default interface IUser extends Document {
    role: string;
    active: boolean;
    activationToken?: string;
+   activationTokenExpires?: Date;
    notifications: INotification[];
    availablePoints: number;
    accumulatedPoints: number;
@@ -30,4 +31,5 @@ export default interface IUser extends Document {
    refreshToken: string;
 
    createPasswordResetToken: () => string;
+   createActivationToken: () => string;
 }

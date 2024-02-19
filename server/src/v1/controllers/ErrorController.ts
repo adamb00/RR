@@ -75,6 +75,7 @@ export const globalErrorHandler = (err: AppError, req: Request, res: Response, _
 
    if (env.NODE_ENV === ' development') {
       sendErrorDev(err, req, res);
+      console.log('ErrorController', err);
    } else if (env.NODE_ENV === 'production') {
       let error = { ...err };
       error.message = err.message;
