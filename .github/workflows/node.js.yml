@@ -39,14 +39,3 @@ jobs:
               export AWS_BUCKET_REGION=$AWS_BUCKET_REGION
               export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
               export AWS_SECRET_KEY=$AWS_SECRET_KEY
-
-         - name: Build and Push Docker Image
-           uses: mr-smithers-excellent/docker-build-push@v4
-           with:
-              image: rr-app
-              registry: docker.io
-              username: DOCKER_USERNAME=$DOCKER_USERNAME
-              password: DOCKER_PASSWORD=$DOCKER_PASSWORD
-              run: |
-                 export DOCKER_USERNAME=$DOCKER_USERNAME
-                 export DOCKER_PASSWORD=$DOCKER_PASSWORD
