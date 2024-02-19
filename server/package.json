@@ -7,6 +7,7 @@
    "scripts": {
       "start": "nodemon src/v1/server.ts",
       "start:prod": "NODE_ENV=production nodemon src/v1/server.ts",
+      "build": "npm install",
       "build:js": "parcel build ./src/v1/public/activateAccount.js --dist-dir ./public",
       "test": "jest"
    },
