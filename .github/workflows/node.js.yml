@@ -1,0 +1,48 @@
+name: node.js CI
+
+on:
+   push:
+      branches: [master, main]
+
+jobs:
+   build:
+      runs-on: ubuntu-latest
+
+      strategy:
+         matrix:
+            node-version: [12.x, 14.x, 16.x]
+
+            steps:
+               - name: Checkout code
+                 uses: actions/checkout@v3
+
+               - name: Install and Run
+                 working-directory: ./client
+                 run: |
+                    npm install
+                    npm run dev
+
+               - name: Install and Run
+                 working-directory: ./server
+                 run: |
+                    npm install
+                    export VERSION=$VERSION
+                    export PORT=$PORT
+                    export MONGO_DB=$MONGO_DB
+                    export MONGO_PASSWORD=$MONGO_PASSWORD
+
+                    export EMAIL_USERNAME=$EMAIL_USERNAME
+                    export EMAIL_PASSWORD=$EMAIL_PASSWORD
+                    export EMAIL_FROM=$EMAIL_FROM
+                    export EMAIL_HOST=$EMAIL_HOST
+                    export EMAIL_PORT=$EMAIL_PORT
+
+                    export JWT_SECRET=$JWT_SECRET
+                    export JWT_EXPIRES_IN=$JWT_EXPIRES_IN
+
+                    export AWS_BUCKET_NAME=$AWS_BUCKET_NAME
+                    export AWS_BUCKET_REGION=$AWS_BUCKET_REGION
+                    export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+                    export AWS_SECRET_KEY=$AWS_SECRET_KEY
+
+                    npm run start
