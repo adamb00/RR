@@ -17,6 +17,11 @@ jobs:
            run: |
               npm install
 
+              pm2 stop 0
+              pm2 start 0
+              pm2 save
+              sudo service nginx restart
+
          - name: Install and Run
            working-directory: ./server
            run: |
@@ -39,3 +44,8 @@ jobs:
               export AWS_BUCKET_REGION=$AWS_BUCKET_REGION
               export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
               export AWS_SECRET_KEY=$AWS_SECRET_KEY
+
+              pm2 stop 0
+              pm2 start 0
+              pm2 save
+              sudo service nginx restart
