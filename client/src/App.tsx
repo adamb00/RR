@@ -1,4 +1,5 @@
 import './styles/main.scss';
+import '../node_modules/flag-icon-css/css/flag-icons.min.css';
 
 import AppLayout from './ui/AppLayout';
 import MyLink from './features/Links/MyLink';
@@ -25,6 +26,28 @@ import Home from './features/Home/Home';
 import Links from './features/Links/Links';
 import ForgotPassword from './features/Auth/ForgotPassword';
 import ResetPassword from './features/Auth/ResetPassword';
+
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpApi from 'i18next-http-backend';
+
+i18n
+   .use(initReactI18next)
+   .use(LanguageDetector)
+   .use(HttpApi)
+   .init({
+      supportedLngs: ['en', 'hu', 'fr', 'it'],
+      fallbackLng: 'en',
+      detection: {
+         order: ['cookie', 'localStorage', 'htmlTag', 'path', 'subdomain'],
+         caches: ['cookie', 'localStorage'],
+      },
+      backend: {
+         loadPath: '../assets/locales/{{lng}}/translation.json',
+      },
+      react: { useSuspense: false },
+   });
 
 export default function App() {
    return (

@@ -4,11 +4,13 @@ import { useAppDispatch } from '../../redux-hooks';
 import { useLogoutMutation } from './slices/auth/authApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default memo(function SignOut() {
    const dispatch = useAppDispatch();
    const [logoutApi] = useLogoutMutation();
    const navigate = useNavigate();
+   const { t } = useTranslation();
 
    const handleLogout = async () => {
       await logoutApi({}).unwrap();
@@ -17,7 +19,7 @@ export default memo(function SignOut() {
    };
    return (
       <Button onClick={handleLogout} className='btn btn--primary'>
-         Log out
+         {t('Log out')}
       </Button>
    );
 });

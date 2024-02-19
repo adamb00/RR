@@ -4,6 +4,7 @@ import { IS_VALID_NUMBER, handleError } from '../../utils/helpers';
 import { Control } from 'react-hook-form';
 import IError from '../../interfaces/IError';
 import FormIcon from '../../ui/FormIcon';
+import { useTranslation } from 'react-i18next';
 
 interface SignUpNoValidReferralCodeProps {
    control: Control;
@@ -16,6 +17,7 @@ export default function SignUpNoValidReferralCode({
    handleInputChange,
    error,
 }: SignUpNoValidReferralCodeProps) {
+   const { t } = useTranslation();
    return (
       <>
          <UserInput
@@ -23,18 +25,19 @@ export default function SignUpNoValidReferralCode({
             onChange={handleInputChange}
             control={control}
             name='referralCode'
-            placeholder='Referral code'
+            placeholder={t('Referral code')}
             fieldErrorClassname='signup__form--error'
             eError={handleError(error, 'referralCode')}
             className='signup__form--input'
             rules={{
-               required: 'Referral code is required.',
+               required: t('Referral code is required.'),
                validate: {
+                  //TODO JELSZO ERROR FORDITASA
                   matchPattern: IS_VALID_NUMBER,
                },
             }}
          >
-            <FormIcon tooltip='Enter Your referral code.'>
+            <FormIcon tooltip={t('Enter Your referral code.')}>
                <CiBarcode className='signup__form--icon' />
             </FormIcon>
          </UserInput>

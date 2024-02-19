@@ -57,7 +57,7 @@ export default function LinkItemAdmin({ link, device }: LinkItemProps) {
       updateLink({ id: link._id, data: { title: data.title } });
 
       setIsChecked(true);
-      emptyInputField('.links__title--input');
+      emptyInputField('.link__title--input');
    };
 
    const handleOnDelete = async (linkId: string) => {
@@ -78,14 +78,14 @@ export default function LinkItemAdmin({ link, device }: LinkItemProps) {
    };
 
    return (
-      <div className='links__container' ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
-         <div className='links__wrapper'>
-            <div className='links__wrapper--group'>
-               <div className='links__item'>{handleIfLinkHasTitle()}</div>
-               <div className='links__item--link'>{currentLinkTitle() && handlePhoneView(`(${link.link})`, 60)}</div>
+      <div className='link__links' ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
+         <div className='link__wrapper'>
+            <div className='link__wrapper--group'>
+               <div className='link__item'>{handleIfLinkHasTitle()}</div>
+               <div className='link__item--link'>{currentLinkTitle() && handlePhoneView(`(${link.link})`, 60)}</div>
             </div>
 
-            <div className='links__group'>
+            <div className='link__group'>
                <Switch
                   onChange={handleOnChange}
                   checked={isChecked}
@@ -95,10 +95,10 @@ export default function LinkItemAdmin({ link, device }: LinkItemProps) {
                   checkedIcon={false}
                   boxShadow='0px 1px 5px rgba(0, 0, 0, 0.6)'
                   activeBoxShadow='0px 0px 1px 10px rgba(0, 0, 0, 0.2)'
-                  className='links__switch'
+                  className='link__switch'
                />
                <CopyToClipboard text={link.link}>
-                  <ButtonIcon onClick={() => {}} className='links__icon'>
+                  <ButtonIcon onClick={() => {}} className='link__icon'>
                      <CiMedicalClipboard />
                   </ButtonIcon>
                </CopyToClipboard>
@@ -107,7 +107,7 @@ export default function LinkItemAdmin({ link, device }: LinkItemProps) {
                   <ButtonIcon
                      onClick={() => handleOnDelete(link._id)}
                      disabled={isDeleting}
-                     className='links__icon links__icon--remove'
+                     className='link__icon link__icon--remove'
                   >
                      &#10005;
                   </ButtonIcon>
@@ -115,14 +115,14 @@ export default function LinkItemAdmin({ link, device }: LinkItemProps) {
             </div>
          </div>
          {isChecked && (
-            <form className='links__title' onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className='link__title' onSubmit={handleSubmit(handleOnSubmit)}>
                <UserInput
                   name='title'
                   control={control}
                   placeholder={link.title ? 'You can easily modify the title' : 'Please add a title for the link'}
-                  className='links__title--input'
+                  className='link__title--input'
                >
-                  <ButtonIcon className='btn--icon links__title--icon' onClick={handleSubmit(handleOnSubmit)}>
+                  <ButtonIcon className='btn--icon link__title--icon' onClick={handleSubmit(handleOnSubmit)}>
                      {isUpdating ? <BallTriangle height={20} width={20} color='#ed535b' /> : <CiShare1 />}
                   </ButtonIcon>
                </UserInput>

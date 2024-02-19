@@ -6,6 +6,7 @@ import IError from '../../interfaces/IError';
 import { useState } from 'react';
 import PasswordVisible from '../../ui/PasswordVisible';
 import FormIcon from '../../ui/FormIcon';
+import { useTranslation } from 'react-i18next';
 
 interface SignUpValidReferralCodeProps {
    control: Control;
@@ -16,6 +17,7 @@ interface SignUpValidReferralCodeProps {
 export default function SignUpValildReferralCode({ control, handleInputChange, error }: SignUpValidReferralCodeProps) {
    const password = useWatch({ control, name: 'password' });
    const [isVisible, setIsVisible] = useState(false);
+   const { t } = useTranslation();
 
    return (
       <>
@@ -26,14 +28,14 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
                name='name'
                id='name'
                control={control}
-               placeholder='Full name'
+               placeholder={t('Full name')}
                className='signup__form--input'
                fieldErrorClassname='signup__form--error'
                rules={{
-                  required: 'Please tell us Your full name.',
+                  required: t('Please tell us Your full name.'),
                }}
             >
-               <FormIcon tooltip='Enter Your full name'>
+               <FormIcon tooltip={t('Please tell us Your full name.')}>
                   <CiUser className='signup__form--icon' />
                </FormIcon>
             </UserInput>
@@ -47,15 +49,17 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
                eError={handleError(error, 'email')}
                type='text'
                onChange={handleInputChange}
-               placeholder='Your e-mail address'
+               placeholder={t('Your e-mail address')}
                rules={{
-                  required: 'Email address is required.',
+                  required: t('Email address is required.'),
+
+                  //TODO ERROR FORDITASA
                   validate: {
                      matchPattern: IS_VALID_EMAIL,
                   },
                }}
             >
-               <FormIcon tooltip='Enter Your e-mail address'>
+               <FormIcon tooltip={t('Enter Your e-mail address')}>
                   <CiMail className='signup__form--icon' />
                </FormIcon>
             </UserInput>
@@ -69,16 +73,16 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
                fieldErrorClassname='signup__form--error'
                type={isVisible ? 'text' : 'password'}
                onChange={handleInputChange}
-               placeholder='Your password'
+               placeholder={t('Your password')}
                rules={{
-                  required: 'Password is required.',
+                  required: t('Password is required'),
                   minLength: {
                      value: 8,
-                     message: 'Password needs a minimum of 8 characters',
+                     message: t('Password needs a minimum of 8 characters'),
                   },
                }}
             >
-               <FormIcon tooltip='Enter Your password'>
+               <FormIcon tooltip={t('Enter Your password')}>
                   <CiUnlock className='signup__form--icon' />
                </FormIcon>
                <PasswordVisible className='signup__form--icon' isVisible={isVisible} setIsVisible={setIsVisible} />
@@ -91,10 +95,10 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
                fieldErrorClassname='signup__form--error'
                type={isVisible ? 'text' : 'password'}
                onChange={handleInputChange}
-               placeholder='Your password again'
+               placeholder={t('Your password again')}
                rules={{
-                  required: 'Please confirm your password',
-                  validate: (value: string) => value === password || 'The passwords do not match',
+                  required: t('Please confirm your password'),
+                  validate: (value: string) => value === password || t('The passwords do not match'),
                }}
             >
                <FormIcon tooltip='Confirm Your password'>
@@ -111,12 +115,12 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
                fieldErrorClassname='signup__form--error'
                type='text'
                onChange={handleInputChange}
-               placeholder='Your country'
+               placeholder={t('Your country')}
                rules={{
-                  required: 'Please provide us where are you from.',
+                  required: t('Please provide us where are you from.'),
                }}
             >
-               <FormIcon tooltip='Enter where are you from'>
+               <FormIcon tooltip={t('Enter where are you from')}>
                   <CiGlobe className='signup__form--icon' />
                </FormIcon>
             </UserInput>
@@ -129,7 +133,7 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
                fieldErrorClassname='signup__form--error'
                type='date'
             >
-               <FormIcon tooltip='Please provide us when did You born'>
+               <FormIcon tooltip={t('Please provide us when did You born')}>
                   <CiCalendarDate className='signup__form--icon' />
                </FormIcon>
             </UserInput>

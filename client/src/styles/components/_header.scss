@@ -17,11 +17,22 @@
 
    &-nav {
       @include respond(tab-land) {
+         margin-right: 8rem;
+      }
+      @include respond(tab-port) {
+         margin-right: 3rem;
+      }
+      @include respond(phone) {
          margin-right: 5rem;
       }
       &__list {
          display: flex;
          gap: 3rem;
+
+         @include respond(tab-port) {
+            gap: 2rem;
+         }
+
          align-items: center;
          list-style-type: none;
          padding: 0 2rem;
@@ -36,7 +47,6 @@
          position: relative;
          display: flex;
          gap: 0.5rem;
-
          &::after {
             content: '';
             display: block;

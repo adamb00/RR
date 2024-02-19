@@ -12,6 +12,8 @@ interface RichTextProps {
    fieldErrorClassname?: string;
 }
 
+//TODO TRANSLATE IF POSSIBLE
+
 export default function RichText({ control, name, rules, fieldErrorClassname, className, placeholder }: RichTextProps) {
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const quill = useRef<any>(null);

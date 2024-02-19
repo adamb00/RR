@@ -8,6 +8,7 @@ import {
    useDeleteAllNotificationsMutation,
    useMarkAllNotificationsMutation,
 } from '../../features/Auth/slices/user/userApiSlice';
+import { useTranslation } from 'react-i18next';
 
 interface NotificationsProps {
    setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +19,7 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
    const [markAllNotifications] = useMarkAllNotificationsMutation();
    const [deleteAllNotificationsApi] = useDeleteAllNotificationsMutation();
    const dispatch = useAppDispatch();
+   const { t } = useTranslation();
 
    const handleOnClick = async () => {
       const res = await markAllNotifications({}).unwrap();
@@ -33,19 +35,18 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
 
    return (
       <div className='notifications__modal'>
-         <div className='notifications__modal--overlay'></div>
          <div className='notifications__modal--content'>
             {notifications.length > 0 ? (
-               <>
+               <div className='notifications__modal--header'>
                   <span className='notifications__modal--clear' onClick={handleOnClear}>
-                     Clear
+                     {t('Clear')}
                   </span>
                   <span className='notifications__modal--mark' onClick={handleOnClick}>
-                     Mark all as read
+                     {t('Mark all as read')}
                   </span>
-               </>
+               </div>
             ) : (
-               <span className='notifications__modal--empty'>No notifications currently</span>
+               <span className='notifications__modal--empty'>{t('No notifications currently')}</span>
             )}
 
             {notifications.map((notification: INotification) => (

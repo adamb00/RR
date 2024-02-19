@@ -10,29 +10,36 @@ import Loader from '../../ui/Loader';
 import RestrictedRoute from '../../ui/RestrictedRoute';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '../Auth/slices/auth/authSlice';
+import { useTranslation } from 'react-i18next';
 
 export default function EditLinks() {
    const { links, isLoading } = useGetAllLinks();
    const isAdmin = useSelector(selectIsAdmin);
+   const { t } = useTranslation();
 
    const device = useDeviceDetection();
 
-   console.log(links);
-
    if (!isAdmin) return <RestrictedRoute />;
 
-   if (isLoading)
+   if (!links)
       return (
-         <div className='links__loader'>
-            <Loader size={100} />
+         <div className='link'>
+            <h1 className='heading-primary'>{t('No links created yet')}</h1>
+            <ShareLinks />
          </div>
       );
 
+   if (isLoading)
+      return (
+         <div className='link__loader'>
+            <Loader size={100} />
+         </div>
+      );
    //TODO IF NO LINK CREATED YET IN THE ADMIN ACOCUNT MENU AUTOMATICALLY REDIRECTS TO MY-LINKS PAGE
    return (
-      <div>
+      <>
          <ShareLinks />
-         <div className='links'>
+         <div className='link'>
             {links.doc
                .sort((a: ILink, b: ILink) => a.order - b.order)
                .map((link: ILink) => (
@@ -41,6 +48,6 @@ export default function EditLinks() {
          </div>
          {/* <Paginator count={count} /> */}
          {device === 'Desktop' && isAdmin && <Trash />}
-      </div>
+      </>
    );
 }

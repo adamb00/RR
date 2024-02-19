@@ -67,6 +67,8 @@ export const useGetAllLinks = () => {
          queryFn: () => getAllLinksFn({ page: page - 1 }),
       });
 
+   console.log(links);
+
    return { isLoading, error, links, count };
 };
 

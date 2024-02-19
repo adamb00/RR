@@ -6,7 +6,8 @@ import { logout, setCredentials } from '../../features/Auth/slices/auth/authSlic
 
 const baseQuery = fetchBaseQuery({
    baseUrl: BASE_URL,
-   // credentials: 'include',
+   credentials: 'same-origin',
+   mode: 'cors',
    prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
 
@@ -22,6 +23,9 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
 
    if (result?.error?.status === 'FETCH_ERROR' || result.error?.status === 'PARSING_ERROR') {
       const refreshResult = await baseQuery('auth/refresh', api, extraOptions);
+
+      console.log(refreshResult);
+
       if (refreshResult?.data) {
          const user = (api.getState() as RootState).auth.user;
          api.dispatch(setCredentials({ ...refreshResult.data, user }));

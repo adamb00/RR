@@ -6,9 +6,11 @@ import Loader from '../../ui/Loader';
 import { useAppSelector } from '../../redux-hooks';
 import { UserProfileData } from '../../interfaces/AuthInterfaces';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default memo(function Team() {
    const user = useAppSelector(state => state.auth.user);
+   const { t } = useTranslation();
 
    if (!user) return <Loader size={100} />;
 
@@ -18,9 +20,9 @@ export default memo(function Team() {
       return (
          <div className='team__level' key={index}>
             <div className='team__wrapper'>
-               <span className='team__wrapper--level'>{`${level}. level`}</span>
+               <span className='team__wrapper--level'>{`${level}. ${t('Level')}`}</span>
                <span className={`team__wrapper--members team__wrapper--members-${level}`}>
-                  MEMBERS
+                  {t('Members')}
                   <span className='team__wrapper--members-num'>{(user[childrenKey] as string[])?.length}</span>
                </span>
             </div>

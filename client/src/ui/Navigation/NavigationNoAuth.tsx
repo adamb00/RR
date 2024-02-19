@@ -2,9 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../Buttons/Button';
 import NavigationLinkMobile from './NavigationLinkMobile';
 import { closeMenu } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export default function NavigationNoAuth() {
    const navigate = useNavigate();
+   const { t } = useTranslation();
 
    const handleNavigateToLogin = () => {
       navigate('/signin');
@@ -22,32 +24,32 @@ export default function NavigationNoAuth() {
             <ul className='navigation__list'>
                <li className='navigation__item'>
                   <NavigationLinkMobile to='/' onClick={closeMenu}>
-                     Home
+                     {t('Home')}
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
                   <NavigationLinkMobile to='/about' onClick={closeMenu}>
-                     About us
+                     {t('About us')}
                   </NavigationLinkMobile>
                </li>
                <li>
                   <NavigationLinkMobile to='/affiliate' onClick={closeMenu}>
-                     Affiliate
+                     {t('Affiliate')}
                   </NavigationLinkMobile>
                </li>
                <li>
                   <NavigationLinkMobile to='/faq' onClick={closeMenu}>
-                     FAQ
+                     {t('FAQ')}
                   </NavigationLinkMobile>
                </li>
                <li>
                   <NavigationLinkMobile to='/contact' onClick={closeMenu}>
-                     Contact us
+                     {t('Contact us')}
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
                   <Button className='btn btn--primary' onClick={handleNavigateToLogin}>
-                     Log in
+                     {t('Log in')}
                   </Button>
                </li>
             </ul>

@@ -4,9 +4,11 @@ import SignOut from '../../features/Auth/SignOut';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
+import { useTranslation } from 'react-i18next';
 
 export default memo(function Navigation() {
    const isAdmin = useSelector(selectIsAdmin);
+   const { t } = useTranslation();
 
    return (
       <div className='navigation'>
@@ -19,22 +21,22 @@ export default memo(function Navigation() {
             <ul className='navigation__list'>
                <li className='navigation__item'>
                   <NavigationLinkMobile to='/' onClick={closeMenu}>
-                     Home
+                     {t('Home')}
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
                   <NavigationLinkMobile to='/my-links' onClick={closeMenu}>
-                     Links
+                     {t('Links')}
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
                   {isAdmin ? (
                      <NavigationLinkMobile onClick={closeMenu} to='/account/edit-links'>
-                        Account
+                        {t('Account')}
                      </NavigationLinkMobile>
                   ) : (
                      <NavigationLinkMobile onClick={closeMenu} to='/account/personal'>
-                        Account
+                        {t('Account')}
                      </NavigationLinkMobile>
                   )}
                </li>

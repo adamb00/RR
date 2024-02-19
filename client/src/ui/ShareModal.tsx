@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { truncateText } from '../utils/helpers';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { FACEBOOK_APP_ID } from '../utils/constants';
+import { useTranslation } from 'react-i18next';
 
 interface ShareModalProps extends MenuProps {
    url: string;
@@ -26,6 +27,7 @@ interface ShareModalProps extends MenuProps {
 export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) {
    const iconSize = 44;
    const [isCopied, setIsCopied] = useState(false);
+   const { t } = useTranslation();
 
    const handleCopy = () => {
       setIsCopied(true);
@@ -44,9 +46,9 @@ export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) 
                &#10005;
             </div>
 
-            <h1 className='heading-primary'>Share your link</h1>
+            <h1 className='heading-primary'>{t('Share your link')}</h1>
             <div className='sharemodal__container'>
-               <h2 className='heading-secondary heading-secondary--left'>Share this link via:</h2>
+               <h2 className='heading-secondary heading-secondary--left'>{t('Share this link via')}</h2>
                <div className='sharemodal__container__wrapper'>
                   <div className='sharemodal__container--item'>
                      <FacebookShareButton url={url}>
@@ -75,7 +77,8 @@ export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) 
                   </div>
                </div>
                <h2 className='heading-secondary heading-secondary--left'>
-                  Or copy link<span className='sharemodal__container__link--copied'></span>
+                  {t('Or copy link')}
+                  <span className='sharemodal__container__link--copied'></span>
                </h2>
                <div className={`sharemodal__container__link ${isCopied && 'copied'}`}>
                   <div className='sharemodal__container__link--link'>{truncateText(url, 50)}</div>

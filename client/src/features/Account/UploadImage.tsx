@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getUserImage } from '../../services/apiUser';
 import { useAppDispatch } from '../../redux-hooks';
 import { setImage } from '../Auth/slices/user/userSlice';
+import { useTranslation } from 'react-i18next';
 
 export default function UploadImage() {
    const { control, handleSubmit } = useForm();
@@ -13,6 +14,7 @@ export default function UploadImage() {
    const [fileName, setFilename] = useState<string | null>(null);
    const dispatch = useAppDispatch();
    const [userImage, setUserImage] = useState();
+   const { t } = useTranslation();
 
    const handleUploadImage = async (data: FieldValues) => {
       const formData = new FormData();
@@ -45,16 +47,16 @@ export default function UploadImage() {
 
    return (
       <div className='upload-image'>
-         <h2 className='heading-secondary'>Choose a profile picture</h2>
+         <h2 className='heading-secondary'>{t('Choose a profile picture')}</h2>
 
          <label htmlFor='image' className='upload-image__input'>
-            <span className='upload-image__span'>Choose a profile picture</span>
+            <span className='upload-image__span'>{t('Choose a profile picture')}</span>
             <UserImageInput control={control} name='image' onChange={handleImageChange} />
             <span className='upload-image__filename'>{fileName}</span>
          </label>
 
          <Button className='btn btn--tertiary' onClick={handleSubmit(handleUploadImage)}>
-            Upload
+            {t('Upload')}
          </Button>
       </div>
    );

@@ -12,15 +12,33 @@ import { useAppSelector } from '../../redux-hooks';
 import INotification from '../../interfaces/INotification';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
+import useDeviceDetection from '../../hooks/useDetectDevice';
 
 export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
    const navigation = useNavigate();
    const isAdmin = useSelector(selectIsAdmin);
    const notifications = useAppSelector(state => state.user.notifications);
+   const device = useDeviceDetection();
 
    const handleGoBack = () => {
       isAdmin ? navigation('/account/edit-links') : navigation('/account/personal');
    };
+
+   if (device !== 'Desktop')
+      return (
+         <nav className='account__sidebar'>
+            <ul className='account__sidebar--navigation__not-open'>
+               <li className='account__sidebar--navigation__goback' onClick={handleGoBack}>
+                  <Icon className='account__sidebar--navigation__goback--icon'>
+                     <IoIosArrowRoundBack />
+                  </Icon>
+               </li>
+               {notifications.map((notification: INotification) => (
+                  <NotificationsMenuIsNotOpen key={notification._id} notification={notification} />
+               ))}
+            </ul>
+         </nav>
+      );
 
    return (
       <nav className={`account__sidebar ${isOpen ? '' : 'hide-menu'}`}>

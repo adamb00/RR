@@ -6,6 +6,8 @@ interface UploadImageProps extends React.ComponentPropsWithoutRef<'input'> {
    name: string;
 }
 
+//TODO TRANSLATE IF POSSIBLE
+
 export default function UserImageInput({ control, name, onChange }: UploadImageProps) {
    return (
       <Controller

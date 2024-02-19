@@ -15,12 +15,14 @@ import UserImage from '../UserImage';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
+import { useTranslation } from 'react-i18next';
 export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
    const firstNotificationId = useAppSelector(state => state.user.notifications[0]);
-   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId._id);
+   const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId?._id);
    const user = useSelector(selectCurrentUser);
+   const { t } = useTranslation();
 
    const handleClick = () => {
       if (!firstNotificationId.read) {
@@ -30,7 +32,7 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
 
    if (isNotification) return <NotificationsMenu isOpen={isOpen} setIsOpen={setIsOpen} />;
 
-   if (device === 'Mobile')
+   if (device !== 'Desktop')
       return (
          <nav className='account__sidebar'>
             <MenuIsNotOpen />
@@ -52,18 +54,18 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
                      <Icon className='account__sidebar--icon'>
                         <CiUser />
                      </Icon>
-                     Personal information
+                     {t('Personal information')}
                   </NavigationLink>
                </li>
                <li>
                   <NavigationLink
-                     to={`${firstNotificationId._id ? 'notifications/' + firstNotificationId._id : 'notifications'}`}
+                     to={`${firstNotificationId?._id ? 'notifications/' + firstNotificationId?._id : 'notifications'}`}
                      onClick={handleClick}
                   >
                      <Icon className='account__sidebar--icon'>
                         <CiBellOn />
                      </Icon>
-                     Notifications
+                     {t('Notifications')}
                   </NavigationLink>
                </li>
                <li>
@@ -71,7 +73,7 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
                      <Icon className='account__sidebar--icon'>
                         <CiLock />
                      </Icon>
-                     Security
+                     {t('Security')}
                   </NavigationLink>
                </li>
             </ul>

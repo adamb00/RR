@@ -6,6 +6,8 @@ interface DropdownProps {
    control: Control;
 }
 
+//TODO TRANSLATE IF NEEDED
+
 export default function Dropdown({ dropList, control, name }: DropdownProps) {
    return (
       <div className='dropdown'>

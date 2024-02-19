@@ -4,22 +4,14 @@ import Menu from '../../ui/Menu/Menu';
 import { Outlet } from 'react-router-dom';
 
 import AdminMenu from '../../ui/Menu/AdminMenu';
-import { useAppSelector } from '../../redux-hooks';
 import RestrictedRoute from '../../ui/RestrictedRoute';
-import Loader from '../../ui/Loader';
+import { selectCurrentUser, selectIsAdmin } from '../Auth/slices/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 export default function Account() {
    const [isOpen, setIsOpen] = useState<boolean>(true);
-   const isAdmin = useAppSelector(state => state.auth.user?.role === 'Admin');
-   const user = useAppSelector(state => !!state.auth.user);
-   const isLoading = useAppSelector(state => state.auth.isLoading);
-
-   if (isLoading)
-      return (
-         <div className='main'>
-            <Loader size={250} />;
-         </div>
-      );
+   const isAdmin = useSelector(selectIsAdmin);
+   const user = useSelector(selectCurrentUser);
 
    if (!user) return <RestrictedRoute />;
 

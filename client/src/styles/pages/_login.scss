@@ -12,6 +12,7 @@
    padding: 2rem;
 
    @include respond(tab-land) {
+      margin-top: 5rem;
       width: 80%;
       transform: translate(-50%, -50%);
    }

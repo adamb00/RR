@@ -8,17 +8,23 @@ import useDeviceDetection from '../../hooks/useDetectDevice';
 
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
+import { useTranslation } from 'react-i18next';
+import LanguageChanger from '../Languages/LanguageChanger';
 
 export default function NavbarNotAuth() {
    const device = useDeviceDetection();
    const navigate = useNavigate();
    const user = useSelector(selectCurrentUser);
+   const { t } = useTranslation();
    if (device === 'Mobile')
       return (
          <nav className='header-nav'>
             <ul className='header-nav__list'>
                <li>
                   <ThemeSwitcher />
+               </li>
+               <li>
+                  <LanguageChanger />
                </li>
 
                {user ? <Navigation /> : <NavigationNoAuth />}
@@ -29,29 +35,32 @@ export default function NavbarNotAuth() {
       <nav className='header-nav'>
          <ul className='header-nav__list'>
             <li>
-               <NavigationLink to='/'>Home</NavigationLink>
+               <NavigationLink to='/'>{t('Home')}</NavigationLink>
             </li>
 
             <li>
-               <NavigationLink to='about'>About us</NavigationLink>
+               <NavigationLink to='about'>{t('About us')}</NavigationLink>
             </li>
             <li>
-               <NavigationLink to='affiliate'>Affiliate</NavigationLink>
+               <NavigationLink to='affiliate'>{t('Affiliate')}</NavigationLink>
             </li>
             <li>
-               <NavigationLink to='faq'>FAQ</NavigationLink>
+               <NavigationLink to='faq'>{t('FAQ')}</NavigationLink>
             </li>
             <li>
-               <NavigationLink to='contact'>Contact us</NavigationLink>
+               <NavigationLink to='contact'>{t('Contact us')}</NavigationLink>
             </li>
 
             <li>
                <ThemeSwitcher />
             </li>
+            <li>
+               <LanguageChanger />
+            </li>
 
             <li>
                <Button onClick={() => navigate('/signin')} className='btn btn--primary'>
-                  Login
+                  {t('Login')}
                </Button>
             </li>
          </ul>

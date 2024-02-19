@@ -13,8 +13,8 @@ interface LinkItemProps {
    link: ILink;
    device: string;
    user: UserProfileData | null;
-   setIsOpen: Dispatch<SetStateAction<boolean>>;
-   setUrl: Dispatch<SetStateAction<string>>;
+   setIsOpen?: Dispatch<SetStateAction<boolean>>;
+   setUrl?: Dispatch<SetStateAction<string>>;
 }
 export default function LinkItem({ link, device, user, setIsOpen, setUrl }: LinkItemProps) {
    const orientation = useDetectOrientation();
@@ -40,8 +40,8 @@ export default function LinkItem({ link, device, user, setIsOpen, setUrl }: Link
    };
 
    const handleOpenModal = () => {
-      setIsOpen(open => !open);
-      setUrl(() => updatedLink);
+      if (setIsOpen) setIsOpen(open => !open);
+      if (setUrl) setUrl(() => updatedLink);
    };
 
    if (!link.active) return;

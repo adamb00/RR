@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 export default function RestrictedRoute() {
    const [count, setCount] = useState(5);
    const navigate = useNavigate();
+   const { t } = useTranslation();
+   const [first, second] = t('We are redirecting you to home page in').split('$$');
 
    useEffect(() => {
       const timer = setInterval(() => {
@@ -25,17 +28,19 @@ export default function RestrictedRoute() {
       }
    }, [count, navigate]);
 
+   //TODO TRANSLATE
+
    return (
       <div className='restricted'>
          <div className='restricted__container'>
-            <span className='heading-primary'>Uh-oh! Something went wrong!</span>
+            <span className='heading-primary'>{t('Uh-oh! Something went wrong!')}</span>
             <span className='emoji'>🤯</span>
 
             <div className='restricted__counter'>
-               We are redirecting you to home page in <span className='restricted__counter--count'>{count}</span>
-               {count > 1 ? ' seconds' : ' second'}
+               {first} <span className='restricted__counter--count'>{count}</span>
+               {second}
             </div>
-            <div className='restricted__message'>Please log in again</div>
+            <div className='restricted__message'>{t('Please log in again')}</div>
          </div>
       </div>
    );

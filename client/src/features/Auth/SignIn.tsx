@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../redux-hooks';
 import { useLoginMutation } from './slices/auth/authApiSlice';
 import PasswordVisible from '../../ui/PasswordVisible';
 import FormIcon from '../../ui/FormIcon';
+import { useTranslation } from 'react-i18next';
 
 export default function SignIn() {
    const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function SignIn() {
    const { control, handleSubmit } = useForm();
    const [error, setError] = useState<string | IError | null>(null);
    const [isVisible, setIsVisible] = useState(false);
+   const { t } = useTranslation();
 
    const handleInputChange = () => {
       setError(null);
@@ -38,26 +40,28 @@ export default function SignIn() {
       <div className='login'>
          <form action='' onSubmit={handleSubmit(handleSubmitForm)} className='login__form' autoComplete='new-password'>
             <div className='login__form--welcome'>
-               <div className='heading-primary'>Welcome back!</div>
-               <div className='heading-secondary'>We are really happy to see you again!</div>
+               <div className='heading-primary'>{t('Welcome back!')}</div>
+               <div className='heading-secondary'>{t('We are really happy to see you again!')}</div>
             </div>
             <UserInput
                control={control}
                name='email'
                onChange={handleInputChange}
                className='login__form--input'
+               // TODO EMAIL ERROR FORDITASA
                eError={handleError(error, 'email')}
                fieldErrorClassname='login__form--error'
                type='text'
-               placeholder='Enter Your e-mail address'
+               placeholder={t('Enter Your e-mail address')}
                rules={{
-                  required: 'Email address is required.',
+                  required: t('Email address is required.'),
                   validate: {
+                     // TODO EMAIL VALIDALAS FORDITASA
                      matchPattern: IS_VALID_EMAIL,
                   },
                }}
             >
-               <FormIcon tooltip='Enter Your e-mail address'>
+               <FormIcon tooltip={t('Enter Your e-mail address')}>
                   <CiUser className='login__form--icon' />
                </FormIcon>
             </UserInput>
@@ -70,16 +74,16 @@ export default function SignIn() {
                className='login__form--input'
                fieldErrorClassname='login__form--error'
                type={isVisible ? 'text' : 'password'}
-               placeholder='Enter Your password'
+               placeholder={t('Enter Your password')}
                rules={{
-                  required: 'Password is required.',
+                  required: t('Password is required'),
                   minLength: {
                      value: 8,
-                     message: 'Password needs a minimum of 8 characters',
+                     message: t('Password needs a minimum of 8 characters'),
                   },
                }}
             >
-               <FormIcon tooltip='Enter Your password'>
+               <FormIcon tooltip={t('Enter Your password')}>
                   <CiUnlock className='login__form--icon' />
                </FormIcon>
                <PasswordVisible className='login__form--icon' isVisible={isVisible} setIsVisible={setIsVisible} />
@@ -88,13 +92,13 @@ export default function SignIn() {
             {error && typeof error !== 'object' && <p className='login__form--error'>{error}</p>}
 
             <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
-               Log in now
+               {t('Log in now')}
             </Button>
             <Button onClick={() => navigate('/signup')} disabled={isLoading} className='btn btn--secondary'>
-               Don't you have an account yet? Register now!
+               {t("Don't you have an account yet? Register now!")}
             </Button>
             <NavLink to='/forgot-password' className='login__form--forgotPassword'>
-               Forgot my password 😞
+               {t('Forgot my password')} 😞
             </NavLink>
          </form>
       </div>

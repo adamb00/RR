@@ -10,6 +10,7 @@ import { useUpdatePasswordMutation } from '../Auth/slices/user/userApiSlice';
 import { useAppDispatch } from '../../redux-hooks';
 import { setCredentials } from '../Auth/slices/auth/authSlice';
 import { emptyInputField, getErrorMessage, handleError } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export default function Security() {
    const { control, handleSubmit } = useForm();
@@ -18,6 +19,7 @@ export default function Security() {
    const [error, setError] = useState<string | IError | null>(null);
    const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
    const dispatch = useAppDispatch();
+   const { t } = useTranslation();
 
    const handleResetPassword = async (data: FieldValues) => {
       try {
@@ -28,7 +30,6 @@ export default function Security() {
          emptyInputField('.newConfirm');
          setError(null);
       } catch (err) {
-         console.log(err);
          setError(() => getErrorMessage(err));
       }
    };
@@ -36,26 +37,27 @@ export default function Security() {
    const [isVisible, setIsVisible] = useState(false);
    return (
       <div>
-         <h1 className='heading-primary'>Update your password</h1>
+         <h1 className='heading-primary'>{t('Update your password')}</h1>
          <form action='' className='account__change-password__form' onSubmit={handleSubmit(handleResetPassword)}>
             <UserInput
                control={control}
                name='passwordCurrent'
                id='passwordCurrent'
+               //TODO TRANSLATE THE ERROR COME FROM THE SERVER
                eError={handleError(error, 'passwordCurrent')}
                className='account__change-password__form--input current'
                fieldErrorClassname='account__change-password__form--error'
                type={isVisible ? 'text' : 'password'}
-               placeholder='Your current password'
+               placeholder={t('Your current password')}
                rules={{
-                  required: 'Password is required.',
+                  required: t('Password is required'),
                   minLength: {
                      value: 8,
-                     message: 'Password needs a minimum of 8 characters',
+                     message: t('Password needs a minimum of 8 characters'),
                   },
                }}
             >
-               <FormIcon tooltip='Enter Your current password'>
+               <FormIcon tooltip={t('Enter Your current password')}>
                   <CiUnlock className='account__change-password__form--icon' />
                </FormIcon>
                <PasswordVisible
@@ -71,18 +73,17 @@ export default function Security() {
                className='account__change-password__form--input new'
                fieldErrorClassname='account__change-password__form--error'
                type={isVisible ? 'text' : 'password'}
-               placeholder='Your new password'
+               placeholder={t('Your new password')}
                rules={{
-                  required: 'Password is required.',
+                  required: t('Password is required'),
                   minLength: {
                      value: 8,
-                     message: 'Password needs a minimum of 8 characters',
+                     message: t('Password needs a minimum of 8 characters'),
                   },
-                  validate: (value: string) =>
-                     value !== currentPassword || 'New password cannot be the same as the current password...',
+                  validate: (value: string) => value !== currentPassword || t('New password cannot be the same'),
                }}
             >
-               <FormIcon tooltip='Enter Your new password'>
+               <FormIcon tooltip={t('Enter Your new password')}>
                   <CiUnlock className='account__change-password__form--icon' />
                </FormIcon>
             </UserInput>
@@ -93,20 +94,20 @@ export default function Security() {
                className='account__change-password__form--input newConfirm'
                fieldErrorClassname='account__change-password__form--error'
                type={isVisible ? 'text' : 'password'}
-               placeholder='Your new password again'
+               placeholder={t('Your new password again')}
                rules={{
-                  required: 'Please confirm your password',
-                  validate: (value: string) => value === password || 'The passwords do not match',
+                  required: t('Please confirm your password'),
+                  validate: (value: string) => value === password || t('The passwords do not match'),
                }}
             >
-               <FormIcon tooltip='Confirm Your new password'>
+               <FormIcon tooltip={t('Confirm Your new password')}>
                   <CiUnlock className='account__change-password__form--icon' />
                </FormIcon>
             </UserInput>
 
             {error && typeof error !== 'object' && <p className='account__change-password__form--error'>{error}</p>}
             <Button type='submit' disabled={isLoading} className='btn btn--primary'>
-               Reset Password
+               {t('Reset Password')}
             </Button>
          </form>
       </div>

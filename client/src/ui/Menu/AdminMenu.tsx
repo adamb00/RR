@@ -7,9 +7,11 @@ import AdminMenuIsNotOpen from './AdminMenuIsNotOpen';
 import Button from '../Buttons/Button';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
    const device = useDeviceDetection();
+   const { t } = useTranslation();
 
    if (device === 'Mobile')
       return (
@@ -26,7 +28,7 @@ export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
                      <Icon className='account__sidebar--icon'>
                         <CiMenuKebab />
                      </Icon>
-                     Edit links
+                     {t('Edit links')}
                   </NavigationLink>
                </li>
 
@@ -35,7 +37,7 @@ export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
                      <Icon className='account__sidebar--icon'>
                         <CiBellOn />
                      </Icon>
-                     Notifications
+                     {t('Notifications')}
                   </NavigationLink>
                </li>
 
@@ -44,7 +46,7 @@ export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
                      <Icon className='account__sidebar--icon'>
                         <CiLock />
                      </Icon>
-                     Security
+                     {t('Security')}
                   </NavigationLink>
                </li>
             </ul>

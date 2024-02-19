@@ -7,6 +7,7 @@ import SignUpNoValidReferralCode from './SignUpNoValidReferralCode';
 import { useNavigate } from 'react-router-dom';
 import { useGetReferralCodeMutation, useRegisterMutation } from './slices/auth/authApiSlice';
 import { getErrorMessage } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export default function SignUp() {
    const { control, handleSubmit } = useForm();
@@ -14,7 +15,7 @@ export default function SignUp() {
    const [validReferralCode, setValidReferralCode] = useState();
    const [register, { isLoading }] = useRegisterMutation();
    const [getReferral] = useGetReferralCodeMutation();
-
+   const { t } = useTranslation();
    const navigate = useNavigate();
 
    const handleInputChange = () => {
@@ -45,14 +46,16 @@ export default function SignUp() {
          <form action='' autoComplete='off' className='signup__form'>
             <div className='signup__form--welcome'>
                {validReferralCode ? (
-                  <div className='heading-primary'>You are almost there!</div>
+                  <div className='heading-primary'>{t('You are almost there!')}</div>
                ) : (
-                  <div className='heading-primary'>Nice to meet you!</div>
+                  <div className='heading-primary'>{t('Nice to meet you!')}</div>
                )}
                {!validReferralCode && (
-                  <div className='heading-secondary'>Please provide us Your referral code first.</div>
+                  <div className='heading-secondary'>{t('Please provide us Your referral code first.')}</div>
                )}
-               {validReferralCode && <div className='heading-secondary'>Please fill the form below to register.</div>}
+               {validReferralCode && (
+                  <div className='heading-secondary'>{t('Please fill the form below to register.')}</div>
+               )}
             </div>
 
             {!validReferralCode && (
@@ -67,7 +70,7 @@ export default function SignUp() {
 
             {!validReferralCode && (
                <Button onClick={handleSubmit(handleReferralAvailability)} className='btn btn--primary'>
-                  Continue to register
+                  {t('Continue to register')}
                </Button>
             )}
 
@@ -75,7 +78,7 @@ export default function SignUp() {
                //TODO SET REGISTER TEXT TO SENDING EMAIL, EMAIL SENT WHILE SENDING EMAIL
                <>
                   <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
-                     Register now
+                     {t('Register now')}
                   </Button>
                </>
             )}
