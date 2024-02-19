@@ -10,7 +10,7 @@ jobs:
 
       strategy:
          matrix:
-            node-version: [12.x, 14.x, 16.x]
+            node-version: [16.x, 18.x]
 
       steps:
          - name: Checkout code
@@ -20,7 +20,6 @@ jobs:
            working-directory: ./client
            run: |
               npm install
-              npm run dev
 
          - name: Install and Run
            working-directory: ./server
@@ -44,5 +43,3 @@ jobs:
               export AWS_BUCKET_REGION=$AWS_BUCKET_REGION
               export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
               export AWS_SECRET_KEY=$AWS_SECRET_KEY
-
-              npm run start
