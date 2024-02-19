@@ -5,7 +5,11 @@
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "rootDir": "./src/v1",
+      "moduleResolution": "node",
+      "outDir": "./dist/v1",
+      "sourceMap": true
    },
    "include": ["src/**/*.ts", "src/v1/public/activateAccount.js"],
    "exclude": ["node_modules"]
