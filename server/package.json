@@ -6,8 +6,9 @@
    "main": "./src/v1/public/bundle.js",
    "scripts": {
       "build": "tsc",
+      "start": "nodemon dist/v1/server.js",
+      "prod": "node dist/server.js",
       "dev": "nodemon --watch src --exec 'ts-node' src/v1/server.ts",
-      "prod": "node dist/v1/server.js",
       "test": "jest"
    },
    "author": "",
