@@ -22,7 +22,7 @@ jobs:
               node-version: '14'
 
          - name: Copy .env file
-           run: cp ../server/.env /home/runner/work/RR/RR/server/
+           run: cp ../../server/.env /home/runner/work/RR/RR/server/
 
    build-and-push:
       needs: prepare
