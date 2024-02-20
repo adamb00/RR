@@ -16,11 +16,13 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
-         - name: Upload .env file
-           uses: actions/upload-artifact@v2
+         - name: Setup Node.js
+           uses: actions/setup-node@v2
            with:
-              name: env-file
-              path: ./server/.env
+              node-version: '14'
+
+         - name: Copy .env file
+           run: cp server/.env /home/runner/work/RR/RR/server/
 
    build-and-push:
       needs: prepare
