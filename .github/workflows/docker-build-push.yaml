@@ -10,7 +10,20 @@ env:
    IMAGE_TAG: latest
 
 jobs:
+   prepare:
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout repository
+           uses: actions/checkout@v2
+
+         - name: Upload .env file
+           uses: actions/upload-artifact@v2
+           with:
+              name: env-file
+              path: ./server/.env
+
    build-and-push:
+      needs: prepare
       runs-on: ubuntu-latest
 
       steps:
