@@ -1,6 +1,6 @@
 
 
-FROM node:lts as builder
+FROM node:lts-alpine as builder
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -14,7 +14,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:lts-slim
+FROM node:lts-alpine
 
 ENV NODE_ENV production
 USER node
@@ -27,7 +27,7 @@ COPY package*.json ./
 
 RUN npm ci --production
 
-COPY --from=builder /usr/src/app/dist/v1/ ./dist
+COPY --from=builder /usr/src/app/dist/ ./dist
 
 EXPOSE 8000
 

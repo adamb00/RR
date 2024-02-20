@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+   react-app:
+      image: react-app
+      ports:
+         - '5173:80'
+      restart: unless-stopped
+      volumes:
+         - ./react-app:/app
+      networks:
+         - mern-app
+
+   node-app:
+      image: api-server
+      ports:
+         - '8000:8000'
+      restart: unless-stopped
+      env_file:
+         - ./server/.env
+      volumes:
+         - ./node-app:/app/dist/
+      networks:
+         - mern-app
+
+networks:
+   mern-app:
+      driver: bridge

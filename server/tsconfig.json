@@ -6,11 +6,11 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "rootDir": "./src/v1",
+      "rootDir": "./src",
       "moduleResolution": "node",
-      "outDir": "./dist/v1",
+      "outDir": "./dist",
       "sourceMap": true
    },
-   "include": ["src/**/*.ts", "src/v1/public/activateAccount.js"],
+   "include": ["src/**/*.ts", "src/public/activateAccount.js"],
    "exclude": ["node_modules"]
 }
