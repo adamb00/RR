@@ -77,3 +77,25 @@ jobs:
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
               docker build -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
+
+   deploy-to-digitalocean:
+      runs-on: ubuntu-latest
+
+      steps:
+         - name: Checkout repository
+           uses: actions/checkout@v2
+
+         - name: SSH into DigitalOcean droplet
+           uses: appleboy/ssh-action@master
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+
+              # Commands to run on the droplet
+              script: |
+                 docker pull $IMAGE_NAME_SERVER:$TAG_NAME
+                 docker pull $IMAGE_NAME_CLIENT:$TAG_NAME
+                 docker run -d -p 8000:8000 $IMAGE_NAME_SERVER:$TAG_NAME
+                 docker run -d -p 5173:80 $IMAGE_NAME_CLIENT:$TAG_NAME
