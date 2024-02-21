@@ -93,6 +93,7 @@ jobs:
               username: ${{ secrets.DROPLET_USERNAME }}
               key: ${{ secrets.DROPLET_SSH_KEY }}
               port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
 
               # Commands to run on the droplet
               script: |
