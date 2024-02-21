@@ -30,6 +30,8 @@ jobs:
 
          - name: Build and push Docker images
            run: |
+              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
+
               docker-compose -f docker-compose.yaml build
               docker-compose -f docker-compose.yaml push
 
