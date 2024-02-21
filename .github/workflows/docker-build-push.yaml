@@ -94,7 +94,6 @@ jobs:
 
          - name: Build container image
            run: |
-              cd docker
               docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
 
          - name: Install doctl
