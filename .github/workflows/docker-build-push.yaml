@@ -48,7 +48,8 @@ on:
          - main
 
 env:
-   IMAGE_NAME: adamb00/rr-repository
+   IMAGE_NAME_SERVER: adamb00/rr-server
+   IMAGE_NAME_CLIENT: adamb00/rr-client
    TAG_NAME: latest
 
 jobs:
@@ -65,8 +66,14 @@ jobs:
               username: ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-         - name: Build and push Docker images
+         - name: Build and push Docker images for server
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build -t $IMAGE_NAME:$TAG_NAME .
-              docker push $IMAGE_NAME:$TAG_NAME
+              docker build -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
+              docker push $IMAGE_NAME_SERVER:$TAG_NAME
+
+         - name: Build and push Docker images for client
+           run: |
+              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
+              docker build -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              docker push $IMAGE_NAME_CLIENT:$TAG_NAME
