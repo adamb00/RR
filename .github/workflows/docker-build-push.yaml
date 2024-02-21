@@ -30,7 +30,7 @@ jobs:
 
          - name: Build and push Docker images
            run: |
-              docker-compose -f docker-compose.yaml build
+              docker-compose -f docker-compose.yaml --env-file /home/runner/work/RR/RR/server/.env build
               docker-compose -f docker-compose.yaml push
 
               # Tag the images
