@@ -16,8 +16,7 @@ services:
       ports:
          - '8000:8000'
       restart: unless-stopped
-      env_file:
-         - path: './server/.env'
+      env_file: './server/.env'
       volumes:
          - ./node-app:/app/dist/
       networks:
