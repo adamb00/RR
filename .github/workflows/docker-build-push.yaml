@@ -65,7 +65,7 @@ jobs:
                  docker pull $IMAGE_NAME_SERVER:$TAG_NAME
                  docker pull $IMAGE_NAME_CLIENT:$TAG_NAME
 
-                 echo docker ps
+                 echo "docker images"
 
-                 docker run -d -p 8000:8000 $IMAGE_NAME_SERVER:$TAG_NAME
-                 docker run -d -p 5173:80 $IMAGE_NAME_CLIENT:$TAG_NAME
+                 docker run -d $IMAGE_NAME_SERVER:$TAG_NAME
+                 docker run -d $IMAGE_NAME_CLIENT:$TAG_NAME
