@@ -17,7 +17,7 @@ services:
          - '8000:8000'
       restart: unless-stopped
       env_file:
-         - ./server/.env
+         - /app/server/.env
       volumes:
          - ./node-app:/app/dist/
       networks:
