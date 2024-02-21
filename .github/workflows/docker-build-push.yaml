@@ -58,10 +58,8 @@ jobs:
               key: ${{ secrets.DROPLET_SSH_KEY }}
               port: ${{ secrets.DROPLET_SSH_PORT }}
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
-
-              # Commands to run on the droplet
               script: |
-                 docker pull $IMAGE_NAME_SERVER
-                 docker pull $IMAGE_NAME_CLIENT
-                 docker run -d -p 8000:8000 $IMAGE_NAME_SERVER
-                 docker run -d -p 5173:80 $IMAGE_NAME_CLIENT
+                 docker pull $IMAGE_NAME_SERVER:$TAG_NAME
+                 docker pull $IMAGE_NAME_CLIENT:$TAG_NAME
+                 docker run -d -p 8000:8000 $IMAGE_NAME_SERVER:$TAG_NAME
+                 docker run -d -p 5173:80 $IMAGE_NAME_CLIENT:$TAG_NAME
