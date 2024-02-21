@@ -27,9 +27,13 @@ jobs:
               username: ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-         - name: Build and push Docker images
+         - name: Build Docker image
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
+              docker build -t $IMAGE_NAME:$TAG_NAME .
+
+         - name: Build and push Docker images
+           run: |
 
               docker-compose -f docker-compose.yaml build
               docker-compose -f docker-compose.yaml push
@@ -38,4 +42,4 @@ jobs:
               docker tag $IMAGE_NAME $IMAGE_NAME
 
               # Push the tagged images
-              docker push $IMAGE_NAME
+              docker push $IMAGE_NAME:$TAG_NAME
