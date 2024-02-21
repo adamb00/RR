@@ -59,13 +59,12 @@ jobs:
               port: ${{ secrets.DROPLET_SSH_PORT }}
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
-
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker pull $IMAGE_NAME_SERVER:$TAG_NAME
-                 docker pull $IMAGE_NAME_CLIENT:$TAG_NAME
+                 docker pull adamb00/rr-server:latest
+                 docker pull adamb00/rr-client:latest
 
-                 echo "docker images"
+                 echo docker images
 
                  docker run -d $IMAGE_NAME_SERVER:$TAG_NAME
                  docker run -d $IMAGE_NAME_CLIENT:$TAG_NAME
