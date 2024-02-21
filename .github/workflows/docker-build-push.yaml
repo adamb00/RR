@@ -7,7 +7,6 @@ on:
 
 env:
    IMAGE_NAME: adamb00/rr-repository
-   IMAGE_TAG: latest
 
 jobs:
    build-and-push:
@@ -36,7 +35,7 @@ jobs:
               docker-compose -f docker-compose.yaml push
 
               # Tag the images
-              docker tag $IMAGE_NAME $IMAGE_NAME:$IMAGE_TAG
+              docker tag $IMAGE_NAME $IMAGE_NAME
 
               # Push the tagged images
-              docker push $IMAGE_NAME:$IMAGE_TAG
+              docker push $IMAGE_NAME
