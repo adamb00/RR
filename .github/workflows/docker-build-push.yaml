@@ -46,27 +46,29 @@ env:
 #               docker push $IMAGE_NAME:$TAG_NAME
 
 jobs:
-   build-and-deploy:
-      # This is telling GitHub to run the workflow on the latest version of Ubuntu.
+   build-and-push:
       runs-on: ubuntu-latest
+
       steps:
-         # Checkout the code from the GitHub repository
-         - name: Checkout code
+         - name: Checkout repository
            uses: actions/checkout@v2
 
-         - name: Login to Docker Hub
-           uses: docker/login-action@v1
-           with:
-              username: ${{ secrets.DOCKERHUB_USERNAME }}
-              password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+         # Build and push client Docker image
+         - name: Build and push client Docker image
+           run: |
+              docker build -t $IMAGE_NAME:$TAG_NAME ./react-app
+              docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+              docker push $IMAGE_NAME:$TAG_NAME
 
-         - name: Push Docker Images to Docker Hub
+         # Build and push server Docker image
+         - name: Build and push server Docker image
+           run: |
+              docker build -t $IMAGE_NAME:$TAG_NAME ./server
+              docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+              docker push $IMAGE_NAME:$TAG_NAME
+
+         # Build and push Docker Compose
+         - name: Build and push Docker Compose
            run: |
               docker-compose -f docker-compose.yaml build
               docker-compose -f docker-compose.yaml push
-
-              # Tag the images
-              docker tag $IMAGE_NAME $IMAGE_NAME
-
-              # Push the tagged images
-              docker push $IMAGE_NAME:$TAG_NAME
