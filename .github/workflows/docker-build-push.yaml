@@ -49,7 +49,7 @@ name: Build and Push Docker Image
 on:
    push:
       branches:
-         - 'deploy'
+         - main
 jobs:
    deploy:
       name: build && push image to docker hub
