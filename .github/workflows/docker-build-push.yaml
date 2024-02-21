@@ -50,40 +50,18 @@ jobs:
               echo "IMAGE_NAME_CLIENT: $IMAGE_NAME_CLIENT"
               echo "TAG_NAME: $TAG_NAME"
 
-         - name: Deploy
-           uses: digitalocean/app_action@main
+         - name: SSH into DigitalOcean droplet
+           uses: appleboy/ssh-action@master
            with:
-              app_name: sea-lion-app
-              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-              images: '[{
-                 "name": "",
-                 "image": {
-                 "registry_type": "DOCR"
-                 "repository": $IMAGE_NAME_SERVER
-                 "tag": $TAG_NAME
-                 },
-                 },
-                 {
-                 "name":"",
-                 "image":{
-                 "registry_type": "DOCR"
-                 "repository": $IMAGE_NAME_CLIENT
-                 "tag": $TAG_NAME
-                 }
-                 }]'
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
 
-         # - name: SSH into DigitalOcean droplet
-         #   uses: appleboy/ssh-action@master
-         #   with:
-         #      host: ${{ secrets.DROPLET_HOST }}
-         #      username: ${{ secrets.DROPLET_USERNAME }}
-         #      key: ${{ secrets.DROPLET_SSH_KEY }}
-         #      port: ${{ secrets.DROPLET_SSH_PORT }}
-         #      passphrase: ${{ secrets.SSH_PASSPHRASE }}
-
-         #      # Commands to run on the droplet
-         #      script: |
-         #         docker pull $IMAGE_NAME_SERVER:$TAG_NAME
-         #         docker pull $IMAGE_NAME_CLIENT:$TAG_NAME
-         #         docker run -d -p -v 8000:8000 $IMAGE_NAME_SERVER:$TAG_NAME
-         #         docker run -d -p -v 5173:80 $IMAGE_NAME_CLIENT:$TAG_NAME
+              # Commands to run on the droplet
+              script: |
+                 docker pull $IMAGE_NAME_SERVER
+                 docker pull $IMAGE_NAME_CLIENT
+                 docker run -d -p 8000:8000 $IMAGE_NAME_SERVER
+                 docker run -d -p 5173:80 $IMAGE_NAME_CLIENT
