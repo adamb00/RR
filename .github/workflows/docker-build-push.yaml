@@ -17,19 +17,11 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
-         # Upload .env file as an artifact
-         - name: Upload .env file
-           uses: actions/upload-artifact@v2
+         - name: Expand env file
+           uses: cardinalby/export-env-action@v1
            with:
-              name: .env
-              path: /server/
-
-         # Download .env file artifact
-         - name: Download .env file
-           uses: actions/download-artifact@v2
-           with:
-              name: .env
-              path: /home/runner/work/RR/RR/server/
+              envFile: '../../server/.env'
+              expand: 'true'
 
          - name: Login to Docker Hub
            uses: docker/login-action@v2
