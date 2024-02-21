@@ -7,6 +7,7 @@ on:
 
 env:
    IMAGE_NAME: adamb00/rr-repository
+   TAG_NAME: latest
 
 jobs:
    build-and-push:
