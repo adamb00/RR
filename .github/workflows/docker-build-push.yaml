@@ -26,7 +26,8 @@ jobs:
          - name: Build Docker image
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build -t $IMAGE_NAME:$TAG_NAME .
+              docker build -t $IMAGE_NAME:$TAG_NAME ./server/Dockerfile
+              docker build -t $IMAGE_NAME:$TAG_NAME ./client/Dockerfile
 
          - name: Build and push Docker images
            run: |
