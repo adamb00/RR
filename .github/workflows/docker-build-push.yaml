@@ -64,5 +64,5 @@ jobs:
                  docker pull adamb00/rr-server:latest
                  docker pull adamb00/rr-client:latest
 
-                 docker run -d adamb00/rr-server:latest
-                 docker run -d adamb00/rr-client:latest
+                 docker run -d -p 8000:8000 adamb00/rr-server:latest
+                 docker run -d -p 5173:80 adamb00/rr-client:latest
