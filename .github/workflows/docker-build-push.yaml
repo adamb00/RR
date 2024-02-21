@@ -1,4 +1,46 @@
-name: Build and Push Docker Compose
+# name: Build and Push Docker Compose
+
+# on:
+#    push:
+#       branches:
+#          - main
+
+# env:
+#    IMAGE_NAME: adamb00/rr-repository
+#    TAG_NAME: latest
+
+# jobs:
+#    build-and-push:
+#       runs-on: ubuntu-latest
+
+#       steps:
+#          - name: Checkout repository
+#            uses: actions/checkout@v2
+
+#          - name: Login to Docker Hub
+#            uses: docker/login-action@v2
+#            with:
+#               username: ${{ secrets.DOCKERHUB_USERNAME }}
+#               password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+#          - name: Build Docker image
+#            run: |
+#               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
+#               docker build -t $IMAGE_NAME:$TAG_NAME .
+
+#          - name: Build and push Docker images
+#            run: |
+
+#               docker-compose -f docker-compose.yaml build
+#               docker-compose -f docker-compose.yaml push
+
+#               # Tag the images
+#               docker tag $IMAGE_NAME $IMAGE_NAME
+
+#               # Push the tagged images
+#               docker push $IMAGE_NAME:$TAG_NAME
+
+name: Build and Push Docker Images
 
 on:
    push:
@@ -23,20 +65,8 @@ jobs:
               username: ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-         - name: Build Docker image
-           run: |
-              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build -t $IMAGE_NAME:$TAG_NAME ./server/Dockerfile
-              docker build -t $IMAGE_NAME:$TAG_NAME ./client/Dockerfile
-
          - name: Build and push Docker images
            run: |
-
-              docker-compose -f docker-compose.yaml build
-              docker-compose -f docker-compose.yaml push
-
-              # Tag the images
-              docker tag $IMAGE_NAME $IMAGE_NAME
-
-              # Push the tagged images
+              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
+              docker build -t $IMAGE_NAME:$TAG_NAME .
               docker push $IMAGE_NAME:$TAG_NAME
