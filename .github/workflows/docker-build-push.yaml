@@ -93,6 +93,10 @@ jobs:
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
               docker-compose -f ./docker-compose.yaml build
 
+         - name: Tag container image
+           run: |
+              docker tag $(docker-compose -f ./docker-compose.yaml images -q) $IMAGE_NAME:$TAG_NAME
+
          - name: Push container image to Docker Hub
            run: |
               echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
