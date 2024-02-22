@@ -77,6 +77,10 @@ on:
       branches:
          - main
 
+env:
+   IMAGE_NAME: adamb00/rr-container
+   TAG_NAME: latest
+
 jobs:
    build:
       runs-on: ubuntu-latest
@@ -86,5 +90,5 @@ jobs:
 
          - name: Build container image
            run: |
-              docker-compose -f docker-compose.yaml build
-              docker-compose -f docker-compose.yaml push
+              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
+              docker-compose -f $IMAGE_NAME:$TAG_NAME build ./ |
