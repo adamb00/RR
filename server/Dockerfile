@@ -29,6 +29,8 @@ RUN npm ci --production
 
 COPY --from=builder /usr/src/app/dist/ ./dist
 
+COPY --from=builder /usr/src/app/.env  ./
+
 EXPOSE 8000
 
 CMD [ "npm", "run", "prod" ]

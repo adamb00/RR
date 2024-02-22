@@ -61,10 +61,6 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 echo "${{secrets.ENV_FILE}}"
-
-                 scp /server/.env root@164.92.188.164:/root/
-
                  docker stop $(docker ps -q)   
                  docker rm $(docker ps -a -q)
 
