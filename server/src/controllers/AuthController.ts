@@ -68,8 +68,10 @@ export default class AuthController {
          const resetToken = newUser.createActivationToken();
          await newUser.save({ validateBeforeSave: false });
 
+         console.log(req.get('host'));
          // const url = `${req.protocol}://${req.get('host')}/signup?referralCode=${parentUser?.referralCode}`;
-         const url = `http://192.168.0.33:5173/activate-account/${resetToken}`;
+         const url = `http://164.90.183.71:5173/activate-account/${resetToken}`;
+         // const url = `http://192.168.0.33:5173/activate-account/${resetToken}`;
          // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
          // const url = `http://172.20.10.3:5173/activate-account/${resetToken}`; // MOBILNET
 
