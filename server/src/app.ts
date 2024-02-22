@@ -29,8 +29,7 @@ app.use(cookieParser());
 app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE'] }));
 app.options('*', cors());
 
-// const io = new Server(server, { cors: { origin: 'http://192.168.20.189:5173' } }); // BANDULA
-const io = new Server(server, { cors: { origin: 'http://192.168.0.33:5173' } });
+const io = new Server(server, { cors: { origin: 'http://164.92.188.164:5173' } });
 
 io.on('connection', socket => {
    socket.on('send_message', async data => {
@@ -48,21 +47,20 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(
-   helmet({
-      contentSecurityPolicy: {
-         directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "'strict-dynamic'", `'nonce-${nonce}'`, 'http:', 'https:'],
-            objectSrc: ["'none'"],
-            baseUri: ["'none'"],
-            requireTrustedTypesFor: ["'script'"],
-         },
-      },
-   })
-);
+// app.use(
+//    helmet({
+//       contentSecurityPolicy: {
+//          directives: {
+//             defaultSrc: ["'self'"],
+//             scriptSrc: ["'self'", "'unsafe-inline'", "'strict-dynamic'", `'nonce-${nonce}'`, 'http:', 'https:'],
+//             objectSrc: ["'none'"],
+//             baseUri: ["'none'"],
+//             requireTrustedTypesFor: ["'script'"],
+//          },
+//       },
+//    })
+// );
 
 if (env.NODE_ENV === 'development') app.use(morgan('dev'));
 
