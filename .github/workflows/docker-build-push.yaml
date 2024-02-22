@@ -80,24 +80,28 @@ on:
 env:
    IMAGE_NAME: adamb00/rr-container
    TAG_NAME: latest
+   REGISTRY: registry.digitalocean.com/rr-registry
 
 jobs:
-   build:
+   build_and_push:
       runs-on: ubuntu-latest
       steps:
-         - name: Checkout repository
+         - name: Checkout the repo
            uses: actions/checkout@v2
 
          - name: Build container image
-           run: |
-              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker-compose -f ./docker-compose.yaml build
+           run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
 
-         - name: Tag container image
-           run: |
-              docker tag $(docker-compose -f ./docker-compose.yaml images -q) $IMAGE_NAME:$TAG_NAME
+         - name: Install doctl
+           uses: digitalocean/action-doctl@v2
+           with:
+              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-         - name: Push container image to Docker Hub
-           run: |
-              echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-              docker push $IMAGE_NAME:$TAG_NAME
+         - name: Log in to DigitalOcean Container Registry with short-lived credentials
+           run: doctl registry login --expiry-seconds 600
+
+         - name: Remove all old images
+           run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
+
+         - name: Push image to DigitalOcean Container Registry
+           run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
