@@ -91,4 +91,10 @@ jobs:
          - name: Build container image
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker-compose -f $IMAGE_NAME:$TAG_NAME build ./ |
+              docker-compose -f path/to/your/docker-compose.yaml build
+
+         - name: Push container image to Docker Hub
+           run: |
+              echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+              docker tag path/to/your/docker-compose.yaml $IMAGE_NAME:$TAG_NAME
+              docker push $IMAGE_NAME:$TAG_NAME
