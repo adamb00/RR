@@ -40,7 +40,7 @@ export default function LinkItem({ link, device, user, setIsOpen, setUrl }: Link
    };
 
    const handleOpenModal = () => {
-      if (setIsOpen) setIsOpen(open => !open);
+      if (setIsOpen) setIsOpen(true);
       if (setUrl) setUrl(() => updatedLink);
    };
 

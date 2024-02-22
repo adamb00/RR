@@ -12,6 +12,9 @@
       @include respond(tab-land) {
          top: 2.3rem;
       }
+      @include respond(tab-port) {
+         top: 4.3rem;
+      }
       fill: $color-red-main !important;
       color: $color-red-main !important;
 

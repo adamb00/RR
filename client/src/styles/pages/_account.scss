@@ -25,9 +25,10 @@
       background-color: transparent;
       border-right: 1px solid $color-grey-light-4;
       position: relative;
-      padding-top: 4rem;
+      padding-top: 2rem;
 
       &--notifications {
+         overflow-y: scroll;
          &__wrapper {
             @include readPoint;
          }
@@ -123,6 +124,7 @@
    &__body {
       grid-area: 'body';
       background-color: transparent;
+      margin-top: 2rem;
    }
 
    &__open-menu {
@@ -138,6 +140,10 @@
       &--error {
          color: $color-error;
          font-size: 1.2rem;
+      }
+
+      @include respond(phone) {
+         margin: 6rem 2rem;
       }
 
       &--icon {

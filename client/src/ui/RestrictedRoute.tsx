@@ -28,13 +28,13 @@ export default function RestrictedRoute() {
       }
    }, [count, navigate]);
 
-   //TODO TRANSLATE
-
    return (
       <div className='restricted'>
          <div className='restricted__container'>
-            <span className='heading-primary'>{t('Uh-oh! Something went wrong!')}</span>
-            <span className='emoji'>🤯</span>
+            <div className='restricted__header'>
+               <span className='heading-primary'>{t('Uh-oh! Something went wrong!')}</span>
+               <span className='emoji'>🤯</span>
+            </div>
 
             <div className='restricted__counter'>
                {first} <span className='restricted__counter--count'>{count}</span>

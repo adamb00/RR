@@ -18,7 +18,6 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { handleSocketNotification } from './controllers/NotificationController';
 
-const nonce = crypto.randomBytes(16).toString('hex');
 const app: Application = express();
 export const server = createServer(app);
 
@@ -26,10 +25,13 @@ app.enable('trust proxy');
 
 app.use(cookieParser());
 
+app.use(helmet());
+
 app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE'] }));
 app.options('*', cors());
 
-const io = new Server(server, { cors: { origin: 'http://164.92.188.164:5173' } });
+const io = new Server(server, { cors: { origin: 'http://192.168.0.33:5173' } });
+// const io = new Server(server, { cors: { origin: 'http://164.92.188.164:5173' } });
 
 io.on('connection', socket => {
    socket.on('send_message', async data => {
@@ -47,20 +49,6 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-
-// app.use(
-//    helmet({
-//       contentSecurityPolicy: {
-//          directives: {
-//             defaultSrc: ["'self'"],
-//             scriptSrc: ["'self'", "'unsafe-inline'", "'strict-dynamic'", `'nonce-${nonce}'`, 'http:', 'https:'],
-//             objectSrc: ["'none'"],
-//             baseUri: ["'none'"],
-//             requireTrustedTypesFor: ["'script'"],
-//          },
-//       },
-//    })
-// );
 
 if (env.NODE_ENV === 'development') app.use(morgan('dev'));
 

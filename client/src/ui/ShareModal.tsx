@@ -46,8 +46,8 @@ export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) 
                &#10005;
             </div>
 
-            <h1 className='heading-primary'>{t('Share your link')}</h1>
             <div className='sharemodal__container'>
+               <h1 className='heading-primary'>{t('Share your link')}</h1>
                <h2 className='heading-secondary heading-secondary--left'>{t('Share this link via')}</h2>
                <div className='sharemodal__container__wrapper'>
                   <div className='sharemodal__container--item'>

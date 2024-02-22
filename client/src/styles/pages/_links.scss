@@ -91,35 +91,6 @@
          gap: 2rem;
       }
 
-      // &__title {
-      //    position: relative;
-
-      //    &--input {
-      //       height: 4rem;
-      //       border-radius: 2rem;
-      //       outline: none;
-      //       border: none;
-      //       font-size: inherit;
-      //       padding: 1rem 2rem;
-      //    }
-      //    &--icon {
-      //       position: absolute;
-      //       right: 11rem;
-      //       top: 7.2rem;
-      //       fill: $color-red-main !important;
-      //       color: $color-red-main !important;
-
-      //       @include respond(tab-land) {
-      //          font-size: 2rem;
-      //          top: 2.2rem;
-      //       }
-
-      //       &:hover {
-      //          border: 1px solid $color-red-main !important;
-      //       }
-      //    }
-      // }
-
       &__icon {
          font-size: 2.5rem;
          fill: $color-red-main !important;
@@ -193,7 +164,7 @@
       }
       @include respond(phone) {
          padding: 0.5rem 1rem;
-         width: 100%;
+         width: 90%;
       }
    }
 }

@@ -5,10 +5,11 @@ import { ILink } from '../../interfaces/ILink';
 import LinkItem from './LinkItemUsers';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import UserImage from '../../ui/UserImage';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux-hooks';
 import { getUserImage } from '../../services/apiUser';
 import { setImage } from '../Auth/slices/user/userSlice';
+import ShareModal from '../../ui/ShareModal';
 
 export default function MyLink() {
    const { id } = useParams();
@@ -16,6 +17,8 @@ export default function MyLink() {
    const userImage = useAppSelector(state => state.user.image);
    const dispatch = useAppDispatch();
    const user = currentUser?.doc;
+   const [isOpen, setIsOpen] = useState(false);
+   const [url, setUrl] = useState('');
 
    const fetchUserImage = useCallback(async () => {
       if (!userImage && user) {
@@ -39,12 +42,14 @@ export default function MyLink() {
 
    return (
       <div className='my-link__container'>
+         <ShareModal isOpen={isOpen} setIsOpen={setIsOpen} url={url} />
+
          <div className='user-image'>
             <UserImage user={user} />
          </div>
          <div className='links'>
             {user.availableLinks.map((link: ILink) => (
-               <LinkItem key={link._id} link={link} device={device} user={user} />
+               <LinkItem key={link._id} link={link} device={device} user={user} setIsOpen={setIsOpen} setUrl={setUrl} />
             ))}
          </div>
       </div>

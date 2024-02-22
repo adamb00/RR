@@ -1,6 +1,6 @@
 .overlay {
    z-index: 2000;
-   position: absolute;
+   position: fixed;
    top: 0;
    left: 0;
    width: 100vw;
@@ -10,6 +10,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   overflow: hidden;
 }
 
 .sharemodal {
@@ -21,22 +22,39 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: center;
    position: relative;
    background-color: $color-grey-light-3;
    border-radius: $default-border-radius;
    box-shadow: $default-box-shadow;
 
+   @include respond(tab-port) {
+      height: 50vh;
+      width: 70vw;
+   }
+   @include respond(phone) {
+      height: 60vh;
+      width: 90%;
+   }
    &__container {
       display: flex;
-      justify-content: center;
       flex-direction: column;
+      justify-content: center;
       gap: 3rem;
-      width: 50%;
+      width: 70%;
       height: 70%;
+
+      @include respond(phone) {
+         width: 100%;
+         height: 60vh;
+      }
 
       &__wrapper {
          display: flex;
          gap: 3rem;
+         @include respond(phone) {
+            gap: 2rem;
+         }
       }
 
       &__link {
@@ -77,6 +95,11 @@
    cursor: pointer;
    font-size: $default-font-size;
    color: $color-grey-dark-1;
+
+   @include respond(phone) {
+      right: 2rem;
+      top: 3rem;
+   }
 }
 
 .close:hover {

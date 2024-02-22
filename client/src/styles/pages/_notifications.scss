@@ -136,6 +136,9 @@
          border-radius: $default-border-radius;
          padding: 2rem 1.5rem 2rem 1.5rem;
          width: 30rem;
+         @include respond(phone) {
+            width: 20rem;
+         }
          margin-top: 1rem;
          max-height: 40rem;
          z-index: 1000;

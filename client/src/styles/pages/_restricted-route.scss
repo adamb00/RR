@@ -9,6 +9,13 @@
       height: 50%;
       width: 50%;
       text-align: center;
+
+      @include respond(phone) {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         width: 90%;
+      }
    }
 
    &__counter {
