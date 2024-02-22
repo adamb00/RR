@@ -27,7 +27,7 @@ COPY package*.json ./
 
 RUN npm ci --production
 
-COPY .env ./
+COPY /.env ./
 
 COPY --from=builder /usr/src/app/dist/ ./dist
 
