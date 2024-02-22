@@ -28,7 +28,6 @@ COPY package*.json ./
 RUN npm ci --production
 
 COPY --from=builder /usr/src/app/dist/ ./dist
-COPY server/ ./
 
 EXPOSE 8000
 
