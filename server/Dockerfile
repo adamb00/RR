@@ -8,6 +8,8 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package*.json ./
 
+COPY /.env ./
+
 RUN npm ci
 
 COPY . .
@@ -26,8 +28,6 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm ci --production
-
-COPY /.env ./
 
 COPY --from=builder /usr/src/app/dist/ ./dist
 
