@@ -96,5 +96,4 @@ jobs:
          - name: Push container image to Docker Hub
            run: |
               echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-              docker tag $(docker-compose -f ./docker-compose.yaml images -q) $IMAGE_NAME:$TAG_NAME
               docker push $IMAGE_NAME:$TAG_NAME
