@@ -63,7 +63,7 @@ jobs:
                  docker pull adamb00/rr-server:latest
                  docker pull adamb00/rr-client:latest
 
-                 docker run -d -p 8000:8000 --env-file ${{secrets.ENV_FILE}} adamb00/rr-server:latest
+                 docker run -d -p 8000:8000 adamb00/rr-server:latest
                  docker run -d -p 5174:80 adamb00/rr-client:latest
 
               #   docker stop $(docker ps -q)
