@@ -27,9 +27,9 @@ COPY package*.json ./
 
 RUN npm ci --production
 
-COPY --from=builder /usr/src/app/dist/ ./dist
+COPY .env ./
 
-COPY --from=builder /usr/src/app/.env  ./
+COPY --from=builder /usr/src/app/dist/ ./dist
 
 EXPOSE 8000
 
