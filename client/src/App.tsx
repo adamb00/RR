@@ -44,7 +44,7 @@ i18n
          caches: ['cookie', 'localStorage'],
       },
       backend: {
-         loadPath: '../assets/locales/{{lng}}/translation.json',
+         loadPath: './assets/locales/{{lng}}/translation.json',
       },
       react: { useSuspense: false },
    });

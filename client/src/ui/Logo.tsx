@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import LogoImage from '../../assets/logo.png';
+import LogoImage from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 
 export default memo(function Logo() {

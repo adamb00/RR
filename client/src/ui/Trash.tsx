@@ -1,5 +1,5 @@
-import TrashIcon from '../../assets/icons8-trash.svg';
-import TrashSound from '../../assets/crumple-03-40747.mp3';
+import TrashIcon from '../assets/icons8-trash.svg';
+import TrashSound from '../assets/crumple-03-40747.mp3';
 import { useDrop } from 'react-dnd';
 import { useDeleteOneLink } from '../features/Links/useLinks';
 import { memo } from 'react';
