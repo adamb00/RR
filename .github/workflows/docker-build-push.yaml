@@ -44,10 +44,6 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
-         - name: Create .env file
-           run: |
-              scp -i ${{ secrets.DROPLET_SSH_KEY }} ./server/.env ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }}:/root/.env
-
          - name: SSH into DigitalOcean droplet
            uses: appleboy/ssh-action@master
            with:
