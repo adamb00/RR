@@ -31,7 +31,7 @@ app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH',
 app.options('*', cors());
 
 // const io = new Server(server, { cors: { origin: 'http://192.168.0.33:5173' } });
-const io = new Server(server, { cors: { origin: 'http://164.90.183.71:5173' } });
+const io = new Server(server, { cors: { origin: 'http://167.99.131.21:5173' } });
 
 io.on('connection', socket => {
    socket.on('send_message', async data => {
