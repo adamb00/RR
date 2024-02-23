@@ -44,6 +44,13 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
+         - name: Create .env file
+           run: |
+              echo "VARIABLE1=value1" > /tmp/env_file
+              echo "VARIABLE2=value2" >> /tmp/env_file
+              # Add more environment variables as needed
+              scp -i ${{ secrets.ENV_FILE }} ./server/.env ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }}:/root/.env
+
          - name: SSH into DigitalOcean droplet
            uses: appleboy/ssh-action@master
            with:
@@ -62,4 +69,4 @@ jobs:
                  docker pull adamb00/rr-client:latest
 
                  docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
-                 docker run -d -p 80:443 adamb00/rr-client:latest
+                 docker run -d -p 5173:80 adamb00/rr-client:latest

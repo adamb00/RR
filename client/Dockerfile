@@ -24,7 +24,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
-EXPOSE 443
+EXPOSE 5173
 
 # Start nginx server
 CMD ["nginx", "-g", "daemon off;"]
