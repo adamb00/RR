@@ -4,6 +4,10 @@ FROM node:lts-alpine AS builder
 # Set working directory
 WORKDIR /app
 
+ARG NODE_ENV
+
+ENV ENV_FILE=.env.$NODE_ENV
+
 # Copy package.json and package-lock.json if available
 COPY package*.json ./
 
@@ -13,7 +17,7 @@ RUN npm install
 # Copy the entire project
 COPY . .
 
-COPY .env.production /app/.env
+COPY $ENV_FILE /app/.env
 
 # Build the project
 RUN npm run build
