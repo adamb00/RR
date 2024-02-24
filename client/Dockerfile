@@ -4,9 +4,6 @@ FROM node:lts-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-ARG NODE_ENV
-
-ENV ENV_FILE=.env.$NODE_ENV
 
 # Copy package.json and package-lock.json if available
 COPY package*.json ./
@@ -17,8 +14,6 @@ RUN npm install
 # Copy the entire project
 COPY . .
 
-COPY $ENV_FILE /app/.env
-
 # Build the project
 RUN npm run build
 
@@ -26,6 +21,7 @@ ENV NODE_ENV=production
 
 # Stage 2: Serve the built files with a lightweight HTTP server
 FROM nginx:alpine
+
 
 # Copy the built files from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
@@ -36,7 +32,6 @@ COPY --from=builder /app/assets /usr/share/nginx/html/assets
 EXPOSE 80
 EXPOSE 5173
 
-ENV NODE_ENV=production
 
 # Start nginx server
 CMD ["nginx", "-g", "daemon off;"]
