@@ -13,6 +13,8 @@ RUN npm install
 # Copy the entire project
 COPY . .
 
+COPY .env.production /app/.env
+
 # Build the project
 RUN npm run build
 
@@ -31,7 +33,6 @@ EXPOSE 80
 EXPOSE 5173
 
 ENV NODE_ENV=production
-
 
 # Start nginx server
 CMD ["nginx", "-g", "daemon off;"]
