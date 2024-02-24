@@ -7,7 +7,7 @@ export default function Home() {
    const user = useSelector(selectCurrentUser);
 
    console.log(import.meta.env.BASE_URL);
-   console.log('vite', import.meta.env.VITE0_BASE_URL);
+   console.log('vite', import.meta.env.VITE_BASE_URL);
 
    return <div className='home'>{user ? <HomeAuth /> : <HomeNoAuth />}</div>;
 }
