@@ -11,6 +11,9 @@
       "outDir": "./dist",
       "sourceMap": true
    },
-   "include": ["src/**/*.ts", "src/public/activateAccount.js"],
+   "include": [
+      "src/**/*.ts",
+      "src/views/email/*.pug" // Include Pug files
+   ],
    "exclude": ["node_modules"]
 }

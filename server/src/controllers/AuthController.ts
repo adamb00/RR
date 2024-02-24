@@ -69,8 +69,8 @@ export default class AuthController {
          await newUser.save({ validateBeforeSave: false });
 
          // const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
-         const url = `http://165.227.173.40:5173/activate-account/${resetToken}`;
-         // const url = `http://192.168.0.33:5173/activate-account/${resetToken}`;
+         // const url = `http://165.227.173.40:5173/activate-account/${resetToken}`;
+         const url = `http://192.168.0.33:5173/activate-account/${resetToken}`;
          // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
 
          await new Email(newUser, url).sendWelcome();
@@ -158,9 +158,9 @@ export default class AuthController {
             const resetToken = user.createPasswordResetToken();
             await user.save({ validateBeforeSave: false });
             // const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
-            const url = `http://165.227.173.40:5174/activate-account/${resetToken}`;
+            // const url = `http://165.227.173.40:5174/activate-account/${resetToken}`;
 
-            // const url = `http://192.168.0.33:5173/activate-account/${resetToken}}`;
+            const url = `http://192.168.0.33:5173/activate-account/${resetToken}}`;
             // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
 
             await new Email(user, url).sendWelcome();
@@ -244,9 +244,9 @@ export default class AuthController {
       await user.save({ validateBeforeSave: false });
 
       try {
-         // const url = `http://192.168.0.33:5173/reset-password/${resetToken}`;
+         const url = `http://192.168.0.33:5174/reset-password/${resetToken}`;
          // const url = `http://172.20.10.3:5174/reset-password/${resetToken}`;
-         const url = `http://165.227.173.40:5174/reset-password/${resetToken}`;
+         // const url = `http://165.227.173.40:5174/reset-password/${resetToken}`;
 
          await new Email(user, url).sendPasswordReset();
 
