@@ -50,7 +50,6 @@ i18n
    });
 
 export default function App() {
-   console.log(import.meta.env.VITE_NODE_ENV);
    return (
       <Routes>
          <Route path='/' element={<AppLayout />}>
