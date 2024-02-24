@@ -12,7 +12,6 @@ import NotificationRouter from './routes/NotificationRoute';
 import AuthRouter from './routes/AuthRoute';
 import AppError from './utils/appError';
 import { globalErrorHandler } from './controllers/ErrorController';
-import crypto from 'crypto';
 
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -30,9 +29,8 @@ app.use(helmet());
 app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE'] }));
 app.options('*', cors());
 
-const io = new Server(server, { cors: { origin: 'http://192.168.0.33:5174' } });
+const io = new Server(server, { cors: { origin: env.BASE_URL } });
 // const io = new Server(server, { cors: { origin: 'http://172.20.10.3:5174' } }); // MOBILNET
-// const io = new Server(server, { cors: { origin: 'http://165.227.173.40:5173' } }); // LIVE
 
 io.on('connection', socket => {
    socket.on('send_message', async data => {
@@ -51,7 +49,7 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-if (env.NODE_ENV === 'development') app.use(morgan('dev'));
+if (env.NODE_ENV === 'dev') app.use(morgan('dev'));
 
 app.use(`/api/${env.VERSION}/auth`, AuthRouter);
 app.use(`/api/${env.VERSION}/user`, UserRouter);

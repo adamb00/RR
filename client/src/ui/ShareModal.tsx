@@ -17,7 +17,7 @@ import { IoCopyOutline } from 'react-icons/io5';
 import { useState } from 'react';
 import { truncateText } from '../utils/helpers';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { FACEBOOK_APP_ID } from '../utils/constants';
+// import { FACEBOOK_APP_ID } from '../utils/constants';
 import { useTranslation } from 'react-i18next';
 
 interface ShareModalProps extends MenuProps {
@@ -56,7 +56,7 @@ export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) 
                      </FacebookShareButton>
                   </div>
                   <div className='sharemodal__container--item'>
-                     <FacebookMessengerShareButton url={url} appId={FACEBOOK_APP_ID}>
+                     <FacebookMessengerShareButton url={url} appId={import.meta.env.VITE_FACEBOOK_APP_ID}>
                         <FacebookMessengerIcon size={iconSize} round />
                      </FacebookMessengerShareButton>
                   </div>

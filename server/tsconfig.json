@@ -13,7 +13,8 @@
    },
    "include": [
       "src/**/*.ts",
-      "src/views/email/*.pug" // Include Pug files
+      "src/views/email/*.pug", // Include Pug files
+      "src/app.ts"
    ],
    "exclude": ["node_modules"]
 }

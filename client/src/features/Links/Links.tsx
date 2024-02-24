@@ -15,14 +15,14 @@ import { IoCopyOutline, IoEyeOutline } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import ShareModal from '../../ui/ShareModal';
-import { BASE_URL_LINK } from '../../utils/constants';
+// import { BASE_URL_LINK } from '../../utils/constants';
 
 export default function Links() {
    const user = useSelector(selectCurrentUser);
    const device = useDeviceDetection();
    const { isLoading, sortedLinks, handlePosChange } = useUpdateLinkPosition({ user });
    const [isOpen, setIsOpen] = useState(false);
-   const [url, setUrl] = useState(BASE_URL_LINK + user._id);
+   const [url, setUrl] = useState(import.meta.env.VITE_BASE_URL_LINK + user._id);
    const handleOpenModal = () => setIsOpen(open => !open);
 
    if (isLoading)

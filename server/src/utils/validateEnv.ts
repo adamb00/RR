@@ -1,5 +1,8 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { cleanEnv, str, port, num } from 'envalid';
+
+const envFile = process.env.NODE_ENV === 'prod' ? '.env.prod' : '.env.dev';
+dotenv.config({ path: envFile });
 
 export default cleanEnv(process.env, {
    PORT: port(),
@@ -30,4 +33,6 @@ export default cleanEnv(process.env, {
    AWS_BUCKET_REGION: str(),
    AWS_ACCESS_KEY: str(),
    AWS_SECRET_KEY: str(),
+
+   BASE_URL: str(),
 });

@@ -10,12 +10,12 @@ import io from 'socket.io-client';
 import INotification from '../interfaces/INotification';
 import { useFetchNotificationsMutation } from '../features/Auth/slices/user/userApiSlice';
 import { UserProfileData } from '../interfaces/AuthInterfaces';
-import { BASE_URL_SOCKET } from '../utils/constants';
+// import { BASE_URL_SOCKET } from '../utils/constants';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../features/Auth/slices/auth/authSlice';
 import { getUserImage } from '../services/apiUser';
 
-const socket = io(BASE_URL_SOCKET);
+const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
 
 export default memo(function AppLayout() {
    const { id } = useParams();

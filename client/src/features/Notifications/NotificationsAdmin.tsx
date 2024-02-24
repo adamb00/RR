@@ -8,12 +8,12 @@ import { memo } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
-import { BASE_URL_SOCKET } from '../../utils/constants';
+// import { BASE_URL_SOCKET } from '../../utils/constants';
 
 export default memo(function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
 
-   const socket = io(BASE_URL_SOCKET);
+   const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
    const user = useSelector(selectCurrentUser);
 
    const handleOnSubmit = (data: FieldValues) => {

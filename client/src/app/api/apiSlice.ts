@@ -1,11 +1,11 @@
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { BASE_URL } from '../../utils/constants';
+// import { BASE_URL } from '../../utils/constants';
 import { RootState } from '../store';
 import { logout, setCredentials } from '../../features/Auth/slices/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-   baseUrl: BASE_URL,
+   baseUrl: import.meta.env.VITE_BASE_URL,
    credentials: 'same-origin',
    mode: 'cors',
    prepareHeaders: (headers, { getState }) => {
