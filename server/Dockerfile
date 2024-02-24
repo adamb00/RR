@@ -12,9 +12,9 @@ RUN npm ci
 
 COPY . .
 
-RUN npm run build
-
 ENV NODE_ENV=prod
+
+RUN npm run build
 
 FROM node:lts-alpine
 
