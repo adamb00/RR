@@ -25,9 +25,13 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY --from=builder /app/assets /usr/share/nginx/html/assets
 
+
 # Expose port 80
 EXPOSE 80
 EXPOSE 5173
+
+ENV NODE_ENV=production
+
 
 # Start nginx server
 CMD ["nginx", "-g", "daemon off;"]
