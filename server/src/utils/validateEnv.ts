@@ -14,6 +14,11 @@ export default cleanEnv(process.env, {
    EMAIL_HOST: str(),
    EMAIL_PORT: num(),
 
+   EMAIL_CLIENT_ID: str(),
+   EMAIL_CLIENT_SECRET: str(),
+   EMAIL_REFRESH_TOKEN: str(),
+   EMAIL_ACCESS_TOKEN: str(),
+
    JWT_SECRET: str(),
    JWT_EXPIRES_IN: str(),
 

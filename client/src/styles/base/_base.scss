@@ -27,7 +27,8 @@ body {
    background-repeat: no-repeat;
    min-height: 100vh;
    overflow-x: hidden;
-   overflow-y: hidden;
+   // overflow-y: hidden;
+   margin-bottom: 10rem;
    scroll-behavior: smooth;
 }
 

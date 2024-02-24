@@ -68,11 +68,10 @@ export default class AuthController {
          const resetToken = newUser.createActivationToken();
          await newUser.save({ validateBeforeSave: false });
 
-         const url = `${req.protocol}://${req.get('host')}/activate-account/${resetToken}`;
+         const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
          // const url = `http://164.90.183.71:5173/activate-account/${resetToken}`;
          // const url = `http://192.168.0.33:5173/activate-account/${resetToken}`;
          // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
-         // const url = `http://172.20.10.3:5173/activate-account/${resetToken}`; // MOBILNET
 
          await new Email(newUser, url).sendWelcome();
 
@@ -158,7 +157,7 @@ export default class AuthController {
          if (!user.active) {
             const resetToken = user.createPasswordResetToken();
             await user.save({ validateBeforeSave: false });
-            const url = `${req.protocol}://${req.get('host')}/activate-account/${resetToken}`;
+            const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
 
             // const url = `http://192.168.0.33:5173/activate-account/${resetToken}}`;
             // const url = `http://192.168.20.189:5173/activate-account/${resetToken}`; // BANDULA SYSTEM
@@ -189,8 +188,6 @@ export default class AuthController {
 
    public handleRefreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       const refreshToken = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
-
-      console.log('handleRefreshToken', refreshToken);
 
       if (!refreshToken) {
          res.status(401).json({ message: 'No token found', status: 'error' });
@@ -247,7 +244,7 @@ export default class AuthController {
 
       try {
          // const url = `http://192.168.0.33:5173/reset-password/${resetToken}`;
-         const url = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
+         const url = `http://172.20.10.3:5174/reset-password/${resetToken}`;
 
          await new Email(user, url).sendPasswordReset();
 
@@ -266,8 +263,6 @@ export default class AuthController {
 
    public resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
-
-      console.log(hashedToken);
 
       const user = await User.findOne({
          passwordResetToken: hashedToken,

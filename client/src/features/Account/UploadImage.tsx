@@ -53,7 +53,7 @@ export default function UploadImage() {
          <label htmlFor='image' className='upload-image__input'>
             <span className='upload-image__span'>{t('Choose a profile picture')}</span>
             <UserImageInput control={control} name='image' onChange={handleImageChange} />
-            <span className='upload-image__filename'>{fileName && truncateText(fileName, 40)}</span>
+            <span className='upload-image__filename'>{fileName && truncateText(fileName, 25)}</span>
          </label>
 
          <Button className='btn btn--tertiary' onClick={handleSubmit(handleUploadImage)}>
