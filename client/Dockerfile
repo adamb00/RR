@@ -16,7 +16,7 @@ COPY . .
 # Build the project
 RUN npm run build
 
-ENV NODE_ENV=prod
+ENV NODE_ENV=production
 
 # Stage 2: Serve the built files with a lightweight HTTP server
 FROM nginx:alpine
