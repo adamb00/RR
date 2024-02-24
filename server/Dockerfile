@@ -14,9 +14,10 @@ COPY . .
 
 RUN npm run build
 
+ENV NODE_ENV=prod
+
 FROM node:lts-alpine
 
-ENV NODE_ENV production
 USER node
 
 # Create app directory
