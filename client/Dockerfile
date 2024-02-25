@@ -13,11 +13,14 @@ RUN npm install
 # Copy the entire project
 COPY . .
 
-ARG ENV_FILE_CLIENT
-RUN echo "$ENV_FILE_CLIENT" > .env
+RUN echo "Contents of .env.production before build:"
+RUN cat .env.production
 
 # Build the project
 RUN npm run build
+
+RUN echo "Contents of .env.production after build:"
+RUN cat .env.production
 
 # Stage 2: Serve the built files with a lightweight HTTP server
 FROM nginx:alpine

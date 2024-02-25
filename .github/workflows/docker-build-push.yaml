@@ -33,9 +33,7 @@ jobs:
          - name: Build and push Docker images for client
            run: |
               echo "${{ secrets.ENV_FILE_CLIENT }}" >> $GITHUB_ENV
-              docker build \
-               --build-arg ENV_FILE=${{secrets.ENV_FILE_CLIENT}}
-               -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              docker build -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
    deploy-to-digitalocean:
