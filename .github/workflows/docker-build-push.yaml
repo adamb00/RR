@@ -27,13 +27,13 @@ jobs:
          - name: Build and push Docker images for server
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
+              docker build --build-arg NODE_ENV=production -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
               docker push $IMAGE_NAME_SERVER:$TAG_NAME
 
          - name: Build and push Docker images for client
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              docker build -t --build-arg NODE_ENV=production $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
    deploy-to-digitalocean:
@@ -62,4 +62,4 @@ jobs:
                  docker pull adamb00/rr-client:latest
 
                  docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
-                 docker run -d -p 5173:80 --env-file /root/.env.client adamb00/rr-client:latest
+                 docker run -d -p 5173:80 --env-file /root/.env adamb00/rr-client:latest
