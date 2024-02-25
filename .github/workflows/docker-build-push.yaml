@@ -33,7 +33,7 @@ jobs:
          - name: Build and push Docker images for client
            run: |
               echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build -t --build-arg NODE_ENV=production $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              docker build --build-arg NODE_ENV=production -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
    deploy-to-digitalocean:
