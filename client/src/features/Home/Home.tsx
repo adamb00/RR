@@ -6,8 +6,8 @@ import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 export default function Home() {
    const user = useSelector(selectCurrentUser);
 
-   console.log(import.meta.env.BASE_URL);
-   console.log('vite', import.meta.env.VITE_BASE_URL);
+   console.log(process.env.BASE_URL);
+   console.log('vite', process.env.NODE_ENV);
 
    return <div className='home'>{user ? <HomeAuth /> : <HomeNoAuth />}</div>;
 }
