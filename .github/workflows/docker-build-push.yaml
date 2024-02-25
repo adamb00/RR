@@ -32,14 +32,8 @@ jobs:
 
          - name: Build and push Docker images for client
            run: |
-              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build \
-               --build-arg VITE_NODE_ENV=production \
-               --build-arg VITE_FACEBOOK_APP_ID=3092655644205329 \
-               --build-arg VITE_BASE_URL_SOCKET=http://165.227.173.40:8000 \
-               --build-arg VITE_BASE_URL=http://165.227.173.40:8000/api/v1/ \
-               --build-arg VITE_BASE_URL_LINK=http://165.227.173.40:5173/ \
-               -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              echo "${{ secrets.ENV_FILE_CLIENT }}" >> $GITHUB_ENV
+              docker build -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
    deploy-to-digitalocean:
