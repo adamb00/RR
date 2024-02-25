@@ -43,4 +43,5 @@ EXPOSE 5173
 
 
 # Start nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
+CMD [ "npm", "run", "dev" ]
