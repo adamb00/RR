@@ -8,8 +8,8 @@ export default function Home() {
 
    console.log(import.meta.env.REACT_APP_NODE_ENV);
 
-   console.log('try', process.env.REACT_APP_BASE_URL);
-   console.log('try', process.env.REACT_APP_NODE_ENV);
+   console.log('try', import.meta.env.REACT_APP_BASE_URL);
+   console.log('try', import.meta.env.REACT_APP_NODE_ENV);
 
    return <div className='home'>{user ? <HomeAuth /> : <HomeNoAuth />}</div>;
 }
