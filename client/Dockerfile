@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 RUN echo "Contents of .env.production before build:"
-RUN cat .env.production
+RUN cat ./.env.production
 
 # Build the project
 RUN npm run build
