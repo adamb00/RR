@@ -5,16 +5,11 @@ export default defineConfig({
    plugins: [react()],
    define: {
       'process.env': {
-         NODE_ENV: process.env.NODE_ENV,
-         FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
-         BASE_URL_SOCKET: process.env.BASE_URL_SOCKET,
-         BASE_URL: process.env.BASE_URL,
-         BASE_URL_LINK: process.env.BASE_URL_LINK,
+         NODE_ENV: JSON.stringify('production'),
+         FACEBOOK_APP_ID: JSON.stringify(process.env.FACEBOOK_APP_ID),
+         BASE_URL_SOCKET: JSON.stringify(process.env.BASE_URL_SOCKET),
+         BASE_URL: JSON.stringify(process.env.BASE_URL),
+         BASE_URL_LINK: JSON.stringify(process.env.BASE_URL_LINK),
       },
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.FACEBOOK_APP_ID': JSON.stringify(process.env.FACEBOOK_APP_ID),
-      'process.env.BASE_URL_SOCKET': JSON.stringify(process.env.BASE_URL_SOCKET),
-      'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
-      'process.env.BASE_URL_LINK': JSON.stringify(process.env.BASE_URL_LINK),
    },
 });

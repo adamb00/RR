@@ -26,8 +26,6 @@ FROM nginx:alpine
 # Copy the built files from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY --from=builder /app/assets /usr/share/nginx/html/assets
-COPY .env.production /usr/share/nginx/html/.env.production
-
 
 # Expose port 80
 EXPOSE 80
