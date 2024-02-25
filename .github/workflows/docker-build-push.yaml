@@ -34,11 +34,7 @@ jobs:
            run: |
               echo "${{ secrets.ENV_FILE_CLIENT }}" >> $GITHUB_ENV
               docker build \
-               --build-arg VITE_NODE_ENV=${{ secrets.ENV_FILE_CLIENT.VITE_NODE_ENV }} \
-               --build-arg VITE_FACEBOOK_APP_ID=${{ secrets.ENV_FILE_CLIENT.VITE_FACEBOOK_APP_ID }} \
-               --build-arg VITE_BASE_URL_SOCKET=${{ secrets.ENV_FILE_CLIENT.VITE_BASE_URL_SOCKET }} \
-               --build-arg VITE_BASE_URL=${{ secrets.ENV_FILE_CLIENT.VITE_BASE_URL }} \
-               --build-arg VITE_BASE_URL_LINK=${{ secrets.ENV_FILE_CLIENT.VITE_BASE_URL_LINK }} \
+               --build-arg ENV_FILE=${{secrets.ENV_FILE_CLIENT}}
                -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
