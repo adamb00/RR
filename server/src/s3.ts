@@ -26,3 +26,12 @@ export const download = (file: string) => {
 
    return s3.getObject(donwloadParams).createReadStream();
 };
+
+export const remove = (file: string) => {
+   const removeParams = {
+      Key: file,
+      Bucket: env.AWS_BUCKET_NAME,
+   };
+
+   return s3.deleteObject(removeParams).promise();
+};

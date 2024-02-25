@@ -56,9 +56,6 @@ const userSlice = createSlice({
          state.notifications.map(notification => (notification.read = true));
          state.unreadNotifications = 0;
       },
-      setImage(state, action) {
-         state.image = action.payload;
-      },
    },
 });
 
@@ -68,6 +65,5 @@ export const {
    markNotificationAsRead,
    markAllNotificationAsRead,
    deleteAllNotifications,
-   setImage,
 } = userSlice.actions;
 export default userSlice.reducer;

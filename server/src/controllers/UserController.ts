@@ -3,7 +3,7 @@ import catchAsync from '../utils/catchAsync';
 import User from '../models/UserModel';
 import * as handler from './../utils/handleControllers';
 import { upload as multerUpload } from '../middlewares/uploadImage';
-import { upload as s3Upload, download as s3Download } from '../s3';
+import { upload as s3Upload, download as s3Download, remove as s3Delete } from '../s3';
 import AppError from '../utils/appError';
 import fs from 'fs';
 import util from 'util';
@@ -105,6 +105,12 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
       return next(new AppError('This route is not for password updates. Please use /updateMyPassword.', 400));
    }
 
+   if (req.user.photo && typeof req.user.photo === 'string') {
+      await s3Delete(req.user.photo);
+
+      console.log('Image deleted');
+   }
+
    const uploadImage = await s3Upload(req.file as Express.Multer.File);
 
    const filteredBody = filterObj(req.body, 'name', 'email');
@@ -128,6 +134,8 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
 export const getUserImage = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const key = req.params.key;
 
+   if (!key) res.status(404).send('Image not found');
+
    try {
       const readStream = s3Download(key);
 
@@ -138,7 +146,6 @@ export const getUserImage = catchAsync(async (req: Request, res: Response, next:
          res.status(404).send('Image not found');
       });
    } catch (error) {
-      console.error(error);
       res.status(500).send('Internal Server Error');
    }
 });

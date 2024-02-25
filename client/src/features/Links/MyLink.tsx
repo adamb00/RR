@@ -5,31 +5,16 @@ import { ILink } from '../../interfaces/ILink';
 import LinkItem from './LinkItemUsers';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import UserImage from '../../ui/UserImage';
-import { useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux-hooks';
-import { getUserImage } from '../../services/apiUser';
-import { setImage } from '../Auth/slices/user/userSlice';
+import { useState } from 'react';
 import ShareModal from '../../ui/ShareModal';
 
 export default function MyLink() {
    const { id } = useParams();
    const { currentUser, isLoading } = useGetOneUser(id as string);
-   const userImage = useAppSelector(state => state.user.image);
-   const dispatch = useAppDispatch();
+
    const user = currentUser?.doc;
    const [isOpen, setIsOpen] = useState(false);
    const [url, setUrl] = useState('');
-
-   const fetchUserImage = useCallback(async () => {
-      if (!userImage && user) {
-         const image = await getUserImage(user?.photo);
-         dispatch(setImage(image));
-      }
-   }, [user, dispatch, userImage]);
-
-   useEffect(() => {
-      if (user) fetchUserImage();
-   }, [fetchUserImage, user]);
 
    const device = useDeviceDetection();
 

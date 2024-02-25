@@ -30,8 +30,6 @@ app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH',
 app.options('*', cors());
 
 const io = new Server(server, { cors: { origin: env.BASE_URL } });
-
-console.log(env.NODE_ENV);
 // const io = new Server(server, { cors: { origin: 'http://172.20.10.3:5174' } }); // MOBILNET
 
 io.on('connection', socket => {

@@ -2,39 +2,27 @@ import { FieldValues, useForm } from 'react-hook-form';
 import Button from '../../ui/Buttons/Button';
 import UserImageInput from '../../ui/UserInteractions/UserImageInput';
 import { useUploadUserImageMutation } from '../Auth/slices/user/userApiSlice';
-import { useEffect, useState } from 'react';
-import { getUserImage } from '../../services/apiUser';
+import { useState } from 'react';
 import { useAppDispatch } from '../../redux-hooks';
-import { setImage } from '../Auth/slices/user/userSlice';
 import { useTranslation } from 'react-i18next';
 import { truncateText } from '../../utils/helpers';
+import { updateUser } from '../Auth/slices/auth/authSlice';
 
 export default function UploadImage() {
    const { control, handleSubmit } = useForm();
    const [uploadUserImageApi] = useUploadUserImageMutation();
    const [fileName, setFilename] = useState<string | null>(null);
    const dispatch = useAppDispatch();
-   const [userImage, setUserImage] = useState();
    const { t } = useTranslation();
 
    const handleUploadImage = async (data: FieldValues) => {
       const formData = new FormData();
       formData.append('image', data.image);
       const res = await uploadUserImageApi(formData).unwrap();
-      setUserImage(res.data.user.photo);
+      dispatch(updateUser({ ...res.data.user }));
 
       setFilename(null);
    };
-
-   useEffect(() => {
-      if (userImage) {
-         const fetchUserImage = async () => {
-            const image = await getUserImage(userImage);
-            dispatch(setImage(image));
-         };
-         fetchUserImage();
-      }
-   }, [dispatch, userImage]);
 
    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files && e.target.files[0];
