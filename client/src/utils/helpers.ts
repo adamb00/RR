@@ -7,15 +7,15 @@ export const OPTIONS = (options: {
    userToken?: string;
    header?: string;
 }) => {
-   const { method, data, userToken, header = 'application/json' } = options;
+   const { method, data, header = 'application/json' } = options;
 
    let headers: Record<string, string> = { 'Content-Type': 'application/json' };
 
    let body: BodyInit | null | undefined;
 
-   if (userToken) {
-      headers['Authorization'] = `Bearer ${userToken}`;
-   }
+   const token = JSON.parse(JSON.parse(localStorage.getItem('persist:root') as string).auth).token;
+
+   headers['Authorization'] = `Bearer ${token}`;
 
    if (header === 'multipart/form-data') {
       headers = {};

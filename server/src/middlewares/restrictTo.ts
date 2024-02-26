@@ -4,6 +4,7 @@ import IUser from '../interfaces/IUser';
 
 export default (...roles: string[]) => {
    return async (req: Request, res: Response, next: NextFunction) => {
+      console.log(req);
       const { role } = req.user as IUser;
 
       if (!roles.includes(role)) {

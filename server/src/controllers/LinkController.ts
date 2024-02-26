@@ -44,6 +44,8 @@ export default class UserController {
       // Create the new link with order 0
       const link = await Link.create({ ...req.body, order: 0 });
 
+      console.log(link);
+
       res.status(201).json({
          status: 'success',
          link,
