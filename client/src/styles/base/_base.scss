@@ -25,10 +25,8 @@ body {
    background-image: linear-gradient(to bottom left, $color-grey-light-1 40%, $color-grey-light-6);
    background-size: cover;
    background-repeat: no-repeat;
-   min-height: 100vh;
+   height: 100vh;
    overflow-x: hidden;
-   // overflow-y: hidden;
-   margin-bottom: 10rem;
    scroll-behavior: smooth;
 }
 
@@ -36,5 +34,4 @@ body {
    display: flex;
    align-items: center;
    justify-content: center;
-   height: 100vh;
 }

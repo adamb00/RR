@@ -2,23 +2,24 @@ import { Dispatch, SetStateAction } from 'react';
 import NotificationsItem from './NotificationsItem';
 import INotification from '../../interfaces/INotification';
 
-import { useAppDispatch, useAppSelector } from '../../redux-hooks';
-import { deleteAllNotifications, markAllNotificationAsRead } from '../../features/Auth/slices/user/userSlice';
+import { useAppSelector } from '../../redux-hooks';
 import {
    useDeleteAllNotificationsMutation,
    useMarkAllNotificationsMutation,
 } from '../../features/Auth/slices/user/userApiSlice';
 import { useTranslation } from 'react-i18next';
+import { deleteAllNotifications, markAllNotificationAsRead } from '../../features/Auth/slices/auth/authSlice';
+import { useDispatch } from 'react-redux';
 
 interface NotificationsProps {
    setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function NotificationsModal({ setShowModal }: NotificationsProps) {
-   const notifications = useAppSelector(state => state.user.notifications);
+   const notifications = useAppSelector(state => state.auth.user?.notifications);
    const [markAllNotifications] = useMarkAllNotificationsMutation();
    const [deleteAllNotificationsApi] = useDeleteAllNotificationsMutation();
-   const dispatch = useAppDispatch();
+   const dispatch = useDispatch();
    const { t } = useTranslation();
 
    const handleOnClick = async () => {
@@ -33,23 +34,28 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
       setShowModal(false);
    };
 
+   if (!notifications || notifications.length < 1)
+      return (
+         <div className='notifications__modal'>
+            <div className='notifications__modal--content'>
+               <span className='notifications__modal--empty'>{t('No notifications currently')}</span>
+            </div>
+         </div>
+      );
+
    return (
       <div className='notifications__modal'>
          <div className='notifications__modal--content'>
-            {notifications.length > 0 ? (
-               <div className='notifications__modal--header'>
-                  <span className='notifications__modal--clear' onClick={handleOnClear}>
-                     {t('Clear')}
-                  </span>
-                  <span className='notifications__modal--mark' onClick={handleOnClick}>
-                     {t('Mark all as read')}
-                  </span>
-               </div>
-            ) : (
-               <span className='notifications__modal--empty'>{t('No notifications currently')}</span>
-            )}
+            <div className='notifications__modal--header'>
+               <span className='notifications__modal--clear' onClick={handleOnClear}>
+                  {t('Clear')}
+               </span>
+               <span className='notifications__modal--mark' onClick={handleOnClick}>
+                  {t('Mark all as read')}
+               </span>
+            </div>
 
-            {notifications.map((notification: INotification) => (
+            {notifications?.map((notification: INotification) => (
                <NotificationsItem key={notification._id} notification={notification} setShowModal={setShowModal} />
             ))}
          </div>

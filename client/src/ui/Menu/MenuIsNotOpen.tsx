@@ -5,7 +5,7 @@ import { useAppSelector } from '../../redux-hooks';
 import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
 
 export default function MenuIsNotOpen() {
-   const firstNotificationId = useAppSelector(state => state.user.notifications[0]?._id);
+   const firstNotificationId = useAppSelector(state => state.auth.user?.notifications[0]?._id);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId);
 
    return (

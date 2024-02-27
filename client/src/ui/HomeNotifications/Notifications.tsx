@@ -4,11 +4,12 @@ import ButtonIcon from '../Buttons/ButtonIcon';
 import { CiBellOn } from 'react-icons/ci';
 import NotificationsModal from './NotificationsModal';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { useAppSelector } from '../../redux-hooks';
+import { useSelector } from 'react-redux';
+import { selectUnreadNotifications } from '../../features/Auth/slices/auth/authSlice';
 
 export default memo(function Notifications() {
    const [showModal, setShowModal] = useState(false);
-   const unreadNotifications = useAppSelector(state => state.user.unreadNotifications);
+   const unreadNotifications = useSelector(selectUnreadNotifications);
 
    const handleOnClick = () => {
       setShowModal(prev => !prev);

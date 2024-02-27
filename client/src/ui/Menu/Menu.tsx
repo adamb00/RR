@@ -19,13 +19,13 @@ import { useTranslation } from 'react-i18next';
 export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
-   const firstNotificationId = useAppSelector(state => state.user.notifications[0]);
+   const firstNotificationId = useAppSelector(state => state.auth.user?.notifications[0]);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId?._id);
    const user = useSelector(selectCurrentUser);
    const { t } = useTranslation();
 
    const handleClick = () => {
-      if (!firstNotificationId.read) {
+      if (!firstNotificationId?.read) {
          handleOnMarkOneNotificationAsRead();
       }
    };

@@ -8,7 +8,6 @@ import { memo } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
-// import { BASE_URL_SOCKET } from '../../utils/constants';
 
 export default memo(function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
@@ -17,12 +16,12 @@ export default memo(function NotificationsAdmin() {
    const user = useSelector(selectCurrentUser);
 
    const handleOnSubmit = (data: FieldValues) => {
-      const notifications = {
+      const notification = {
          ...data,
          created_at: Date.now(),
+         created_by: user.name,
       };
-
-      socket.emit('send_message', { ...notifications, created_by: user.name });
+      socket.emit('send_message', { ...notification });
       emptyInputField('.notifications__richtext--input');
       emptyInputField('.notifications__admin--input');
    };

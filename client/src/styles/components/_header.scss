@@ -8,6 +8,7 @@
    width: 100%;
    background-color: transparent;
    border-bottom: 1px solid $color-grey-light-4;
+   max-height: 15vh;
 
    z-index: 1000;
 
@@ -92,7 +93,7 @@
       }
 
       &__image {
-         width: 200%;
+         min-width: 200%;
          border-radius: 50%;
          z-index: 2000;
          cursor: pointer;

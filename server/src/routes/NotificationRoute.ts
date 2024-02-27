@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import NotificationController, { createNotification } from '../controllers/NotificationController';
+import NotificationController from '../controllers/NotificationController';
 import authenticateUser from '../middlewares/authenticateUser';
 import restrictTo from '../middlewares/restrictTo';
 

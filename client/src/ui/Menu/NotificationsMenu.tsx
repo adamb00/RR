@@ -17,7 +17,7 @@ import useDeviceDetection from '../../hooks/useDetectDevice';
 export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
    const navigation = useNavigate();
    const isAdmin = useSelector(selectIsAdmin);
-   const notifications = useAppSelector(state => state.user.notifications);
+   const notifications = useAppSelector(state => state.auth.user?.notifications);
    const device = useDeviceDetection();
 
    const handleGoBack = () => {
@@ -33,7 +33,7 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
                      <IoIosArrowRoundBack />
                   </Icon>
                </li>
-               {notifications.map((notification: INotification) => (
+               {notifications?.map((notification: INotification) => (
                   <NotificationsMenuIsNotOpen key={notification._id} notification={notification} />
                ))}
             </ul>
@@ -49,7 +49,7 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
                      <IoIosArrowRoundBack />
                   </Icon>
                </li>
-               {notifications.map((notification: INotification) => (
+               {notifications?.map((notification: INotification) => (
                   <NotificationsMenuItem key={notification._id} notification={notification} />
                ))}
             </ul>
@@ -60,7 +60,7 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
                      <IoIosArrowRoundBack />
                   </Icon>
                </li>
-               {notifications.map((notification: INotification) => (
+               {notifications?.map((notification: INotification) => (
                   <NotificationsMenuIsNotOpen key={notification._id} notification={notification} />
                ))}
             </ul>

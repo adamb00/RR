@@ -12,34 +12,38 @@ export default class NotificationController {
    public deleteOneNotification = handler.deleteOne(Notification);
 }
 
-export const createNotification = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-   const doc = await Notification.create({ ...req.body, created_by: req.user.name });
+// export const createNotification = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+//    const doc = await Notification.create({ ...req.body, created_by: req.user.name });
 
-   const totalNotifications = await Notification.countDocuments();
+//    console.log(doc);
 
-   if (totalNotifications > 35) {
-      const oldestNotification = await Notification.findOneAndDelete({}, { sort: { created_at: 1 } });
-      if (oldestNotification) {
-         await User.updateMany(
-            { role: { $ne: 'Admin' }, active: true },
-            { $pull: { notifications: { _id: oldestNotification._id } } }
-         );
-      }
-   }
+//    const totalNotifications = await Notification.countDocuments();
 
-   await User.updateMany(
-      { role: { $ne: 'Admin' }, active: true },
-      { $push: { notifications: { $each: [doc], $position: 0 } } }
-   );
+//    if (totalNotifications > 35) {
+//       const oldestNotification = await Notification.findOneAndDelete({}, { sort: { created_at: 1 } });
+//       if (oldestNotification) {
+//          await User.updateMany(
+//             { role: { $ne: 'Admin' }, active: true },
+//             { $pull: { notifications: { _id: oldestNotification._id } } }
+//          );
+//       }
+//    }
 
-   res.status(201).json({
-      status: 'success',
-      doc,
-   });
-});
+//    await User.updateMany(
+//       { role: { $ne: 'Admin' }, active: true },
+//       { $push: { notifications: { $each: [doc], $position: 0 } } }
+//    );
+
+//    res.status(201).json({
+//       status: 'success',
+//       doc,
+//    });
+// });
 
 export const handleSocketNotification = async (data: object) => {
    const doc = await Notification.create({ ...data });
+
+   console.log(doc);
 
    const totalNotifications = await Notification.countDocuments();
 

@@ -76,6 +76,7 @@ export const markNotification = catchAsync(async (req: Request, res: Response, n
       { $set: { 'notifications.$.read': true } },
       { new: true }
    );
+   console.log(req.body.id);
 
    if (updatedUser) {
       res.status(200).json({

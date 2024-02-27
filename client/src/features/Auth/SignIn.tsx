@@ -19,6 +19,7 @@ export default function SignIn() {
    const [loginApi, { isLoading }] = useLoginMutation();
    const { control, handleSubmit } = useForm();
    const [error, setError] = useState<string | IError | null>(null);
+
    const [isVisible, setIsVisible] = useState(false);
    const { t } = useTranslation();
 

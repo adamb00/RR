@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import env from './utils/validateEnv';
 
-import { server as AppServer } from './app';
+import { server as Server } from './app';
 
 process.on('uncaughtException', err => {
    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
@@ -14,7 +14,7 @@ mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 
 const port = env.PORT || 3000;
 
-const server = AppServer.listen(port, () => {
+const server = Server.listen(port, () => {
    console.log(`App running on port ${port}...`);
 });
 
