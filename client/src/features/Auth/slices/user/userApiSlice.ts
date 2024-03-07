@@ -36,12 +36,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
          }),
       }),
       uploadUserImage: builder.mutation({
-         query: (body: FormData) => ({
-            url: `user/upload-image`,
-            method: 'POST',
-            body,
-            formData: true,
-         }),
+         query: (body: FormData) => (
+            console.log(body),
+            {
+               url: `user/upload-image`,
+               method: 'POST',
+               body,
+               formData: true,
+            }
+         ),
       }),
       getUserImage: builder.mutation({
          query: key => ({

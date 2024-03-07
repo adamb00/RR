@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import catchAsync from '../utils/catchAsync';
 import User from '../models/UserModel';
 import * as handler from './../utils/handleControllers';
@@ -76,7 +76,6 @@ export const markNotification = catchAsync(async (req: Request, res: Response, n
       { $set: { 'notifications.$.read': true } },
       { new: true }
    );
-   console.log(req.body.id);
 
    if (updatedUser) {
       res.status(200).json({

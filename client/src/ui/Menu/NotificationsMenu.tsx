@@ -65,12 +65,12 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
                ))}
             </ul>
          )}
-         <Button
+         {/* <Button
             className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
             onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}
          >
             <RiOpenaiFill />
-         </Button>
+         </Button> */}
       </nav>
    );
 }

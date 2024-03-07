@@ -24,62 +24,31 @@ export default function RichText({ control, name, rules, fieldErrorClassname, cl
       'italic',
       'underline',
       'strike',
-      'blockquote',
+      // 'blockquote',
       'list',
       'bullet',
-      'indent',
+      // 'indent',
       'link',
-      // 'image',
       'color',
       'clean',
    ];
-
-   // const imageHandler = useCallback(() => {
-   //    if (quill.current) {
-   //       const input = document.createElement('input');
-   //       input.setAttribute('type', 'file');
-   //       input.setAttribute('accept', 'image/*');
-   //       input.click();
-
-   //       input.onchange = () => {
-   //          if (input.files && input.files.length > 0) {
-   //             const file = input.files[0];
-   //             const reader = new FileReader();
-
-   //             reader.onload = () => {
-   //                const imageUrl = reader.result;
-   //                const quillEditor = quill.current!.getEditor();
-   //                const range = quillEditor.getSelection(true);
-   //                quillEditor.insertEmbed(range.index, 'image', imageUrl, 'user');
-   //             };
-
-   //             reader.readAsDataURL(file);
-   //          }
-   //       };
-   //    }
-   // }, []);
 
    const modules = useMemo(
       () => ({
          toolbar: {
             container: [
                [{ header: [1, 2, 3, 4, 5, 6, false] }],
-               ['bold', 'italic', 'underline', 'blockquote'],
+               ['bold', 'italic', 'underline'],
                [{ color: [] }],
-               [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+               [{ list: 'bullet' }],
                ['link'],
-               // ['link', 'image'],
             ],
-            // handlers: {
-            //    image: imageHandler,
-            // },
          },
          clipboard: {
             matchVisual: true,
          },
       }),
       []
-      // [imageHandler]
    );
 
    return (

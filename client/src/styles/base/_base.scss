@@ -23,9 +23,10 @@ html {
 body {
    box-sizing: border-box;
    background-image: linear-gradient(to bottom left, $color-grey-light-1 40%, $color-grey-light-6);
+
    background-size: cover;
    background-repeat: no-repeat;
-   height: 100vh;
+   min-height: 100vh;
    overflow-x: hidden;
    scroll-behavior: smooth;
 }

@@ -1,13 +1,13 @@
 import { MenuProps } from '../../interfaces/MenuProps';
 import Icon from '../Icon';
 import NavigationLink from '../Navigation/NavigationLink';
-import { RiOpenaiFill } from 'react-icons/ri';
 import { CiBellOn, CiLock, CiMenuKebab } from 'react-icons/ci';
 import AdminMenuIsNotOpen from './AdminMenuIsNotOpen';
 import Button from '../Buttons/Button';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
    const device = useDeviceDetection();
@@ -53,8 +53,17 @@ export default memo(function AdminMenu({ setIsOpen, isOpen }: MenuProps) {
          ) : (
             <AdminMenuIsNotOpen />
          )}
-         <Button className='account__open-menu' onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>
-            <RiOpenaiFill />
+         <Button
+            className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
+            onClick={() => {
+               setIsOpen(prevIsOpen => !prevIsOpen);
+            }}
+         >
+            {isOpen ? (
+               <FaChevronLeft className='account__open-menu__icon' />
+            ) : (
+               <FaChevronRight className='account__open-menu__icon' />
+            )}
          </Button>
       </nav>
    );

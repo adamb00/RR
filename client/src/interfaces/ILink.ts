@@ -5,4 +5,8 @@ export interface ILink {
    active: boolean;
    title: string;
    order: number;
+   image: string;
+   isPreview: boolean;
+   description: string;
+   createdBy: string;
 }

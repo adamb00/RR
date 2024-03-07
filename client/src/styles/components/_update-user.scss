@@ -1,0 +1,50 @@
+.update-user {
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   gap: 2rem;
+   padding: 1rem 3rem;
+   margin-top: 5rem;
+   @include respond(phone) {
+      padding: 1rem;
+   }
+
+   &__form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      &--error {
+         color: $color-error;
+         font-size: 1.2rem;
+         margin-left: 1rem;
+         margin-top: 0.5rem;
+      }
+   }
+
+   &__input {
+      @include defaultInput;
+      background-color: transparent;
+      background-image: linear-gradient(to right, $color-primary-tint, transparent);
+      color: $color-grey-light-6;
+      border: none;
+      padding: 3rem 4rem;
+
+      &::placeholder {
+         color: $color-grey-light-3;
+      }
+
+      @include respond(phone) {
+         background-color: $color-primary-tint;
+      }
+   }
+
+   &__btn {
+      margin-top: 2rem;
+      align-self: center;
+      justify-self: center;
+   }
+   &__header {
+      align-self: self-start;
+      margin: 1rem;
+   }
+}

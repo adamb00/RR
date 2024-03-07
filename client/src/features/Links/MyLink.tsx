@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetOneUser } from '../Auth/useUserAuth';
 import Loader from '../../ui/Loader';
 import { ILink } from '../../interfaces/ILink';
-import LinkItem from './LinkItemUsers';
+import LinkItem from './LinkUser/LinkUser';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 import UserImage from '../../ui/UserImage';
 import { useState } from 'react';
@@ -26,13 +26,13 @@ export default function MyLink() {
       );
 
    return (
-      <div className='my-link__container'>
+      <div className='shared-link'>
          <ShareModal isOpen={isOpen} setIsOpen={setIsOpen} url={url} />
 
-         <div className='user-image'>
+         <div className='shared-link__image'>
             <UserImage user={user} />
          </div>
-         <div className='links'>
+         <div className='shared-link__container'>
             {user.availableLinks.map((link: ILink) => (
                <LinkItem key={link._id} link={link} device={device} user={user} setIsOpen={setIsOpen} setUrl={setUrl} />
             ))}

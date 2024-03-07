@@ -7,6 +7,7 @@ import { useState } from 'react';
 import PasswordVisible from '../../ui/PasswordVisible';
 import FormIcon from '../../ui/FormIcon';
 import { useTranslation } from 'react-i18next';
+import { GiPhone } from 'react-icons/gi';
 
 interface SignUpValidReferralCodeProps {
    control: Control;
@@ -126,18 +127,35 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
             </UserInput>
             <UserInput
                control={control}
-               name='birthday'
-               id='birthday'
-               onChange={handleInputChange}
-               className='signup__form--input signup__form--input__date'
+               name='phone'
+               id='phone'
+               className='signup__form--input'
                fieldErrorClassname='signup__form--error'
-               type='date'
+               type='text'
+               onChange={handleInputChange}
+               placeholder={t('Your phone number')}
+               rules={{
+                  required: t('Please provide us Your phone number.'),
+               }}
             >
-               <FormIcon tooltip={t('Please provide us when did You born')}>
-                  <CiCalendarDate className='signup__form--icon' />
+               <FormIcon tooltip={t('Enter Your phone number')}>
+                  <GiPhone className='signup__form--icon' />
                </FormIcon>
             </UserInput>
          </div>
+         <UserInput
+            control={control}
+            name='birthday'
+            id='birthday'
+            onChange={handleInputChange}
+            className='signup__form--input signup__form--input__date'
+            fieldErrorClassname='signup__form--error'
+            type='date'
+         >
+            <FormIcon tooltip={t('Please provide us when did You born')}>
+               <CiCalendarDate className='signup__form--icon' />
+            </FormIcon>
+         </UserInput>
       </>
    );
 }

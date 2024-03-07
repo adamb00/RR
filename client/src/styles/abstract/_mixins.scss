@@ -119,37 +119,33 @@
 
 @mixin openMenu {
    position: absolute;
-   // background-color:  $color-primary-tint;
-   background-image: radial-gradient($color-primary-tint, $color-tertiary);
-   padding: 1rem;
-   right: -2.2rem;
+   width: 4rem;
+   height: 4rem;
+   background-color: $color-grey-light-1;
+   font-size: 2rem;
+   display: flex;
    align-items: center;
    justify-content: center;
-   display: flex;
    border-radius: 100%;
-   top: 5%;
-   overflow: visible !important;
-   z-index: 2;
-   font-size: 2.5rem;
    border: none;
-   color: $color-grey-light-6;
+   color: $color-primary-tint;
+   right: -2rem;
+   top: 3%;
+
+   @include respond(tab-port) {
+      top: 50%;
+   }
 
    &:hover {
-      animation: spin 2s linear infinite;
-      cursor: pointer;
-      color: $color-grey-light-4;
+      animation: waves 2s linear infinite;
    }
-   &__icon {
-      color: $color-secondary-tint;
-      z-index: 2;
-      font-size: 5rem;
-   }
+}
 
-   &--open {
-      right: -2.2rem;
-   }
-
-   &--close {
-      right: -2.3rem;
-   }
+@mixin richText {
+   background-color: $color-white;
+   width: 100%;
+   font-size: $default-font-size;
+   color: $color-black;
+   padding: 1rem;
+   border-radius: $default-border-radius;
 }

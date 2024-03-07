@@ -20,6 +20,7 @@ export default function UserInput({
    className,
    placeholder,
    fieldErrorClassname,
+   defaultValue,
    type,
    onChange,
    eError,
@@ -28,11 +29,11 @@ export default function UserInput({
       <Controller
          control={control}
          name={name}
+         defaultValue={defaultValue}
          rules={rules}
          render={({ field: { value, onChange: onFieldChange, onBlur }, fieldState: { error: fieldError } }) => (
             <div className='user-input'>
                {children}
-               <label htmlFor={name}></label>
                <input
                   autoComplete='new-password'
                   id={name}

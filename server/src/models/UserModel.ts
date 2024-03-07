@@ -96,6 +96,10 @@ const userSchema: Schema = new Schema<IUser>(
       availableLinks: {
          type: [linkSchema],
       },
+      phone: {
+         type: String,
+      },
+
       refreshToken: String,
    },
    { validateBeforeSave: false }

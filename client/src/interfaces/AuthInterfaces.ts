@@ -23,4 +23,5 @@ export interface UserProfileData {
    _id: string;
    availableLinks: ILink[];
    refreshToken: string;
+   phone: string;
 }

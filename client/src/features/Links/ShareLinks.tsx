@@ -2,30 +2,18 @@ import { FieldValues, useForm } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
 import { CiShare1 } from 'react-icons/ci';
 import ButtonIcon from '../../ui/Buttons/ButtonIcon';
-import { useCreateLink } from './useLinks';
-import IError from '../../interfaces/IError';
-import { useState } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import { emptyInputField } from '../../utils/helpers';
+import { useCreateLinkMutation } from './linkApiSlice';
+import { useLinks } from '../../context/LinkContext';
 
 export default function ShareLinks() {
-   const [error, setError] = useState<IError>();
-
    const { control, handleSubmit } = useForm();
-   const { createLink, isCreating } = useCreateLink({
-      onError: (error: IError) => {
-         setError(error);
-      },
-   });
-   const handleOnSubmit = (data: FieldValues) => {
-      const { link } = data;
-      createLink(link, {
-         onSuccess: data => {
-            if (data.status === 'error') {
-               setError(data);
-            }
-         },
-      });
+   const [createLink, { isLoading: isCreating }] = useCreateLinkMutation();
+   const { setLinks } = useLinks();
+   const handleOnSubmit = async (data: FieldValues) => {
+      const res = await createLink(data).unwrap();
+      setLinks(prevlink => [res.link, ...prevlink]);
       emptyInputField('.share-links__input');
    };
    return (
@@ -45,7 +33,6 @@ export default function ShareLinks() {
                },
             }}
          />
-         {error && <p className='share-links__error'>{error.message || 'Something went wrong. Please try again.'}</p>}
          <ButtonIcon className='btn--icon share-links__icon' onClick={handleSubmit(handleOnSubmit)}>
             {isCreating ? <BallTriangle height={20} width={20} color='#ed535b' /> : <CiShare1 />}
          </ButtonIcon>

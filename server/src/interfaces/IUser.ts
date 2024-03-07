@@ -29,6 +29,7 @@ export default interface IUser extends Document {
    accumulatedPoints: number;
    availableLinks: ILink[];
    refreshToken: string;
+   phone: string;
 
    createPasswordResetToken: () => string;
    createActivationToken: () => string;

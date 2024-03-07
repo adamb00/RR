@@ -2,7 +2,10 @@ import { ITEM_PER_PAGE } from '../utils/constants';
 import { OPTIONS } from '../utils/helpers';
 
 export const createLink = async (link: string) => {
-   const response = await fetch(import.meta.env.VITE_BASE_URL + 'link', OPTIONS({ method: 'POST', data: { link } }));
+   const response = await fetch(
+      import.meta.env.VITE_BASE_URL + 'link',
+      await OPTIONS({ method: 'POST', data: { link } })
+   );
    const responseData = await response.json();
 
    return responseData;
@@ -15,14 +18,14 @@ interface GetAllLinksParams {
 export const getAllLinks = async ({ page }: GetAllLinksParams) => {
    const response = await fetch(
       import.meta.env.VITE_BASE_URL + `link?page=${page}&limit=${ITEM_PER_PAGE}`,
-      OPTIONS({ method: 'GET' })
+      await OPTIONS({ method: 'GET' })
    );
    const responseData = await response.json();
 
    return responseData;
 };
 export const deleteOneLink = async (id: string) => {
-   const response = await fetch(import.meta.env.VITE_BASE_URL + `link/${id}`, OPTIONS({ method: 'DELETE' }));
+   const response = await fetch(import.meta.env.VITE_BASE_URL + `link/${id}`, await OPTIONS({ method: 'DELETE' }));
 
    if (response.ok) {
       return;
@@ -32,12 +35,24 @@ export const deleteOneLink = async (id: string) => {
 };
 
 export const updateOneLink = async ({ id, data }: { id: string; data: object }) => {
-   const response = await fetch(import.meta.env.VITE_BASE_URL + `link/${id}`, OPTIONS({ method: 'PATCH', data }));
+   const response = await fetch(import.meta.env.VITE_BASE_URL + `link/${id}`, await OPTIONS({ method: 'PATCH', data }));
    if (!response.ok) {
-      throw new Error(`Failed to update user. Status: ${response.status}`);
+      throw new Error(`Failed to update link. Status: ${response.status}`);
    }
 
    const responseData = await response.json();
 
    return responseData;
+};
+
+export const getLinkImage = async (key: string) => {
+   const response = await fetch(
+      import.meta.env.VITE_BASE_URL + `link/get-image/${key}`,
+      await OPTIONS({ method: 'GET', header: 'image/png' })
+   );
+
+   const imageBlob = await response.blob();
+   const imageURL = URL.createObjectURL(imageBlob);
+
+   return imageURL;
 };

@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App.tsx';
 import { ThemeProvider } from './context/ThemeContext.tsx';
+import { LinkProvider } from './context/LinkContext.tsx';
 
 import { StrictMode } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -25,20 +26,22 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
    <StrictMode>
       <BrowserRouter>
-         <ThemeProvider>
-            <QueryClientProvider client={queryClient}>
-               <ReactQueryDevtools initialIsOpen={false} />
-               <DndProvider backend={HTML5Backend}>
-                  <Provider store={store}>
-                     <PersistGate loading={null} persistor={persistor}>
-                        <Routes>
-                           <Route path='/*' element={<App />} />
-                        </Routes>
-                     </PersistGate>
-                  </Provider>
-               </DndProvider>
-            </QueryClientProvider>
-         </ThemeProvider>
+         <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+               <LinkProvider>
+                  <ThemeProvider>
+                     <ReactQueryDevtools initialIsOpen={false} />
+                     <DndProvider backend={HTML5Backend}>
+                        <PersistGate loading={null} persistor={persistor}>
+                           <Routes>
+                              <Route path='/*' element={<App />} />
+                           </Routes>
+                        </PersistGate>
+                     </DndProvider>
+                  </ThemeProvider>
+               </LinkProvider>
+            </Provider>
+         </QueryClientProvider>
       </BrowserRouter>
    </StrictMode>
 );

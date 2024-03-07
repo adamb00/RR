@@ -6,4 +6,8 @@ export default interface ILink extends Document {
    title?: string;
    active: boolean;
    order: number;
+   image: string;
+   isPreview: boolean;
+   description: string;
+   createdBy: string;
 }

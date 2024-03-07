@@ -13,9 +13,14 @@ export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Req
          filter = filterFn(req);
       }
 
-      const totalItems = (await Model.find()).length;
+      const totalItems = await Model.countDocuments();
+      let query = Model.find(filter);
 
-      const features = new APIFeatures(Model.find(filter), req.query).filter().sort().limitFields().paginate();
+      if (Model.schema.obj.hasOwnProperty('order')) {
+         query = query.sort('order');
+      }
+
+      const features = new APIFeatures(query, req.query).filter().sort().limitFields().paginate();
 
       const doc = await features.query;
 

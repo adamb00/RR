@@ -188,12 +188,7 @@
    }
 
    &__richtext {
-      background-color: $color-white;
-      width: 100%;
-      font-size: $default-font-size;
-      color: $color-black;
-      padding: 1rem;
-      border-radius: $default-border-radius;
+      @include richText;
    }
    &__admin {
       padding: 1rem 3rem;

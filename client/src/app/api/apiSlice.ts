@@ -1,6 +1,4 @@
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-// import { BASE_URL } from '../../utils/constants';
 import { RootState } from '../store';
 import { logout, setCredentials } from '../../features/Auth/slices/auth/authSlice';
 
@@ -24,8 +22,6 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
    if (result?.error?.status === 'FETCH_ERROR' || result.error?.status === 'PARSING_ERROR') {
       const refreshResult = await baseQuery('auth/refresh', api, extraOptions);
 
-      console.log(refreshResult);
-
       if (refreshResult?.data) {
          const user = (api.getState() as RootState).auth.user;
          api.dispatch(setCredentials({ ...refreshResult.data, user }));
@@ -41,4 +37,5 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
 export const apiSlice = createApi({
    baseQuery: baseQueryWithReauth,
    endpoints: () => ({}),
+   tagTypes: ['Link', 'User'],
 });

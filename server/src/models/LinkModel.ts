@@ -21,6 +21,18 @@ export const linkSchema: Schema = new Schema<ILink>(
          type: Number,
          default: 0,
       },
+      createdBy: {
+         type: String,
+      },
+      description: {
+         type: String,
+      },
+      isPreview: {
+         type: Boolean,
+      },
+      image: {
+         type: String,
+      },
    },
 
    {

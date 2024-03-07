@@ -1,6 +1,6 @@
 import NavigationLink from '../Navigation/NavigationLink';
 import Button from '../Buttons/Button';
-import { RiOpenaiFill } from 'react-icons/ri';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { CiBellOn, CiLock, CiUser } from 'react-icons/ci';
 import Icon from '../Icon';
 import MenuIsNotOpen from './MenuIsNotOpen';
@@ -16,6 +16,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
+
 export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
@@ -82,10 +83,15 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
          )}
          <Button
             className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
-            onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}
+            onClick={() => {
+               setIsOpen(prevIsOpen => !prevIsOpen);
+            }}
          >
-            {/* //TODO CHANGE THIS TO CHEVRONS DEPENDS ON IF OPEN OR CLOSE */}
-            <RiOpenaiFill />
+            {isOpen ? (
+               <FaChevronLeft className='account__open-menu__icon' />
+            ) : (
+               <FaChevronRight className='account__open-menu__icon' />
+            )}
          </Button>
       </nav>
    );

@@ -1,0 +1,22 @@
+.shared-link {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 2rem;
+   width: 100%;
+   margin-top: 10rem;
+
+   &__image img {
+      border-radius: 100%;
+      width: 20rem;
+      height: 20rem;
+      object-fit: cover;
+   }
+   &__container {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+   }
+}

@@ -17,7 +17,6 @@ import { IoCopyOutline } from 'react-icons/io5';
 import { useState } from 'react';
 import { truncateText } from '../utils/helpers';
 import CopyToClipboard from 'react-copy-to-clipboard';
-// import { FACEBOOK_APP_ID } from '../utils/constants';
 import { useTranslation } from 'react-i18next';
 
 interface ShareModalProps extends MenuProps {

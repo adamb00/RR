@@ -26,6 +26,7 @@
 @import './components/forgotPassword';
 @import './components/resetPassword';
 @import './components/language';
+@import './components/update-user';
 
 @import './pages/login';
 @import './pages/signup';
@@ -34,3 +35,5 @@
 @import './pages/account';
 @import './pages/notifications';
 @import './pages/restricted-route';
+@import './pages/my-links';
+@import './pages/shared-links';

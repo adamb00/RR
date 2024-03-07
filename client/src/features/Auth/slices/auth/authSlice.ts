@@ -25,6 +25,7 @@ const authSlice = createSlice({
       updateUser: (state, action) => {
          state.user = action.payload;
       },
+
       markAllNotificationAsRead: state => {
          state.user?.notifications.map((notification: INotification) => (notification.read = true));
       },
