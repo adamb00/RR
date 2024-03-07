@@ -1,6 +1,4 @@
 import NotificationsMenuIsNotOpen from './NotificationsMenuIsNotOpen';
-import Button from '../Buttons/Button';
-import { RiOpenaiFill } from 'react-icons/ri';
 import NotificationsMenuItem from '../../features/Notifications/NotificationsMenuItem';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from 'react-icons/io';
@@ -14,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
 import useDeviceDetection from '../../hooks/useDetectDevice';
 
-export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
+export default function NotificationsMenu({ isOpen }: MenuProps) {
    const navigation = useNavigate();
    const isAdmin = useSelector(selectIsAdmin);
    const notifications = useAppSelector(state => state.auth.user?.notifications);
@@ -65,12 +63,6 @@ export default function NotificationsMenu({ setIsOpen, isOpen }: MenuProps) {
                ))}
             </ul>
          )}
-         {/* <Button
-            className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
-            onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}
-         >
-            <RiOpenaiFill />
-         </Button> */}
       </nav>
    );
 }
