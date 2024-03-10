@@ -8,8 +8,6 @@ services:
       build:
          context: ./client
          dockerfile: Dockerfile
-      env_file:
-         - ./client/.env.production
       volumes:
          - ./react-app:/app
       networks:
@@ -22,8 +20,6 @@ services:
       build:
          context: ./server
          dockerfile: Dockerfile
-      env_file:
-         - ./server/.env
       volumes:
          - ./node-app:/app/dist/
       networks:
