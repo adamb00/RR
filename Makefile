@@ -1,6 +1,8 @@
-build:
-	cd client && $(MAKE) build
-	cd server && $(MAKE) build
+
+# run:
+# 	docker-compose -f docker-compose.yaml up
+
 
 run:
-	docker-compose -f docker-compose.yaml up
+	docker-compose down && docker-compose build --no-cache && docker-compose up
+
