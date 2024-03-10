@@ -5,15 +5,11 @@ services:
       image: adamb00/r2byou:react-app
       restart: unless-stopped
       container_name: react-app
-      env_file:
-         - client/.env.production
       ports:
          - '5173:5173'
       build:
          context: ./client
          dockerfile: Dockerfile
-      # volumes:
-      #    - ./react-app:/app
       networks:
          - mern-app
 
@@ -26,8 +22,6 @@ services:
       build:
          context: ./server
          dockerfile: Dockerfile
-      volumes:
-         - ./node-app:/app/dist/
       networks:
          - mern-app
 
