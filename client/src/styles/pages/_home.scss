@@ -1,6 +1,19 @@
 .home {
    padding: 2rem;
    margin-top: 2rem;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+
+   &__invite {
+      margin: 4rem;
+      align-self: end;
+      animation: moveInRight 2s ease-in-out;
+      @include respond(phone) {
+         margin: 4rem 0rem;
+      }
+   }
 
    &__points {
       background-image: linear-gradient(to right, $color-primary-tint 5%, transparent);
@@ -14,7 +27,7 @@
       border-radius: $default-border-radius;
       box-shadow: -0.5rem 0.5rem 0.3rem -0.3rem rgba(transparent, 0.2);
 
-      margin-bottom: 4rem;
+      margin: 2rem 0;
       color: $color-grey-light-3;
 
       @include respond(phone) {

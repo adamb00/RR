@@ -1,10 +1,10 @@
 import { FieldValues, useForm } from 'react-hook-form';
 import Button from '../../ui/Buttons/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IError from '../../interfaces/IError';
 import SignUpValildReferralCode from './SignUpValildReferralCode';
 import SignUpNoValidReferralCode from './SignUpNoValidReferralCode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetReferralCodeMutation, useRegisterMutation } from './slices/auth/authApiSlice';
 import { getErrorMessage } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,21 @@ export default function SignUp() {
    const [getReferral] = useGetReferralCodeMutation();
    const { t } = useTranslation();
    const navigate = useNavigate();
+   const { refCode } = useParams();
+
+   useEffect(() => {
+      const reference = async () => {
+         if (refCode) {
+            try {
+               const res = await getReferral(+refCode).unwrap();
+               setValidReferralCode(res.user);
+            } catch (err) {
+               setError(() => getErrorMessage(err));
+            }
+         }
+      };
+      reference();
+   }, [getReferral, refCode]);
 
    const handleInputChange = () => {
       setError(null);
@@ -27,6 +42,7 @@ export default function SignUp() {
          const { referralCode } = data;
          const res = await getReferral(referralCode).unwrap();
          setValidReferralCode(res.user);
+         navigate(`/signup/${referralCode}`);
       } catch (error: unknown) {
          setError(() => getErrorMessage(error));
       }
@@ -76,11 +92,10 @@ export default function SignUp() {
 
             {validReferralCode && (
                //TODO SET REGISTER TEXT TO SENDING EMAIL, EMAIL SENT WHILE SENDING EMAIL
-               <>
-                  <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
-                     {t('Register now')}
-                  </Button>
-               </>
+
+               <Button onClick={handleSubmit(handleSubmitForm)} disabled={isLoading} className='btn btn--primary'>
+                  {t('Register now')}
+               </Button>
             )}
          </form>
       </div>

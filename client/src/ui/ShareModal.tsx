@@ -23,7 +23,7 @@ interface ShareModalProps extends MenuProps {
    url: string;
 }
 
-export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) {
+export default function ShareModal({ isOpen, setIsOpen, url, setOutterModal }: ShareModalProps) {
    const iconSize = 44;
    const [isCopied, setIsCopied] = useState(false);
    const { t } = useTranslation();
@@ -34,7 +34,10 @@ export default function ShareModal({ isOpen, setIsOpen, url }: ShareModalProps) 
          setIsCopied(false);
       }, 5000);
    };
-   const handleCloseModal = () => setIsOpen(open => !open);
+   const handleCloseModal = () => {
+      if (setOutterModal) setOutterModal(open => !open);
+      setIsOpen(open => !open);
+   };
    const ref = useOutsideClick(handleCloseModal);
 
    if (!isOpen) return;

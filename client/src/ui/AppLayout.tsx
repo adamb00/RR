@@ -85,7 +85,7 @@ export default memo(function AppLayout() {
 
    return (
       <>
-         <main>
+         <main className='main'>
             {(!hasDynamicId || isNotification) && <Header />}
             <Outlet />
          </main>

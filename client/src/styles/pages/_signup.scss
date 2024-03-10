@@ -1,23 +1,20 @@
 .signup {
    border-radius: $default-border-radius;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -40%);
    width: 50%;
    font-size: $default-font-size;
    box-shadow: $default-box-shadow;
    padding: 2rem;
    overflow-y: scroll;
+   margin-top: 5rem;
 
    @include respond(tab-land) {
       width: 80%;
-      transform: translate(-50%, -50%);
    }
    @include respond(phone) {
-      width: 100%;
       box-shadow: none;
-      transform: translate(-50%, -35%);
+      padding: 0;
+      width: 100%;
+      margin-bottom: 10rem;
    }
 
    &__form {
@@ -25,17 +22,19 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      height: 100%;
       gap: 2rem;
+
       @include respond(phone) {
          padding: 0rem 1rem;
+         position: relative;
       }
 
       & button {
          width: 70%;
          align-self: center;
          @include respond(phone) {
-            width: 100%;
+            margin-top: 2rem;
+            width: 80%;
          }
       }
 
@@ -55,9 +54,12 @@
       &--icon {
          @include formIcon;
          &__eye {
-            left: 43%;
+            left: 47%;
             @include respond(tab-land) {
-               left: 87%;
+               left: 85%;
+            }
+            @include respond(phone) {
+               left: 92%;
             }
             border: 0;
             cursor: pointer;
@@ -66,6 +68,7 @@
 
       &--input {
          @include defaultBorderlessInput;
+         padding-right: 0;
       }
 
       @include webkitAutofill;

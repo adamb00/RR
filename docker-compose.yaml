@@ -2,20 +2,28 @@ version: '3.8'
 
 services:
    react-app:
-      image: react-app
-      ports:
-         - '80:443'
+      image: adamb00/react-app
       restart: unless-stopped
+      container_name: react-app
+      build:
+         context: ./client
+         dockerfile: Dockerfile
+      env_file:
+         - ./client/.env.production
       volumes:
          - ./react-app:/app
       networks:
          - mern-app
 
    node-app:
-      image: api-server
-      ports:
-         - '8000:8000'
+      image: adamb00/api-server
       restart: unless-stopped
+      container_name: api-server
+      build:
+         context: ./server
+         dockerfile: Dockerfile
+      env_file:
+         - ./server/.env
       volumes:
          - ./node-app:/app/dist/
       networks:

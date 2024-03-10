@@ -4,6 +4,7 @@
    grid-template-areas: 'sidebar body';
    position: relative;
    min-height: 85vh;
+   width: 100%;
    background-color: transparent;
    @include respond(tab-land) {
       grid-template-columns: minmax(auto, 1.8fr) 5fr;

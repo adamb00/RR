@@ -62,6 +62,7 @@ export default function App() {
             <Route path='contact' element={<Contact />} />
             <Route path='signin' element={<SignIn />} />
             <Route path='signup' element={<SignUp />} />
+            <Route path='signup/:refCode' element={<SignUp />} />
             <Route path='activate-account/:token' element={<ActivateAccount />} />
             <Route path='unauthorized' element={<RestrictedRoute />} />
             <Route path='forgot-password' element={<ForgotPassword />} />

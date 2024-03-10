@@ -118,7 +118,7 @@ export default class AuthController {
                message: 'Could not find user with this referral code.',
                item: 'referralCode',
             });
-            return next(new AppError('Could not find user with this referral code.', 404));
+            return next(new AppError('Could not find user with this referral code. Please provid a valid one.', 404));
          } else {
             res.status(201).json({
                status: 'success',
