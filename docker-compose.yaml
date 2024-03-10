@@ -17,8 +17,6 @@ services:
       image: adamb00/r2byou:api-server
       restart: unless-stopped
       container_name: api-server
-      env_file:
-         - server/.env
       build:
          context: ./server
          dockerfile: Dockerfile
