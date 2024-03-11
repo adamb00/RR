@@ -61,7 +61,8 @@ jobs:
                   docker stop $(docker ps -aq)
                   docker rm $(docker ps -aq)
 
-                  docker pull adamb00/r2byou
+                  docker pull adamb00/r2byou:react-app
+                  docker pull adamb00/r2byou:api-server
 
                   docker-compose up -d
 
