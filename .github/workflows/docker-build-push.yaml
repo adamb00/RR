@@ -61,12 +61,15 @@ jobs:
                   docker stop $(docker ps -aq)
                   docker rm $(docker ps -aq)
 
-                  docker pull adamb00/r2byou:react-app
-                  docker pull adamb00/r2byou:api-server
+                  docker pull adamb00/r2byou
 
-                  docker run -d adamb00/r2byou:react-app
-                  docker run -d --env-file /root/.env adamb00/r2byou:api-server
+                  docker-compose up -d
 
+         # docker pull adamb00/r2byou:react-app
+         # docker pull adamb00/r2byou:api-server
+
+         # docker run -d adamb00/r2byou:react-app
+         # docker run -d --env-file /root/.env adamb00/r2byou:api-server
          # - name: Build and push Docker images for server
          #   run: |
          #      echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
