@@ -86,4 +86,4 @@ jobs:
               username: r2byouFTPUs3r24@r2byou.com
               port: 21
               password: ${{ secrets.FTP_PASSWORD }}
-              local-dir: ../../client/dist/
+              local-dir: ../../../client/dist/
