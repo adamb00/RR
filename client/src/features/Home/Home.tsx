@@ -6,7 +6,5 @@ import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 export default function Home() {
    const user = useSelector(selectCurrentUser);
 
-   console.log(import.meta.env.NODE_ENV);
-
    return <div className='home'>{user ? <HomeAuth /> : <HomeNoAuth />}</div>;
 }
