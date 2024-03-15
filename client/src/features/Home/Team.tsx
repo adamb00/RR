@@ -5,11 +5,11 @@ import Loader from '../../ui/Loader';
 
 import { useAppSelector } from '../../redux-hooks';
 import { UserProfileData } from '../../interfaces/AuthInterfaces';
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export default memo(function Team() {
+export default function Team() {
    const user = useAppSelector(state => state.auth.user);
+
    const { t } = useTranslation();
 
    if (!user) return <Loader size={100} />;
@@ -38,4 +38,4 @@ export default memo(function Team() {
    return (
       <div className='team'>{Array.from({ length: AFFILIATE_DEPTH }, (_, index) => renderLevel(index + 1, index))}</div>
    );
-});
+}

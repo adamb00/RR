@@ -5,6 +5,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import compression from 'compression';
 
 import UserRouter from './routes/UserRoute';
 import LinkRouter from './routes/LinkRoute';
@@ -25,6 +26,7 @@ export const server = createServer(app);
 app.enable('trust proxy');
 
 app.use(cookieParser());
+app.use(compression());
 
 app.use(helmet());
 

@@ -93,7 +93,8 @@
       }
 
       &__image {
-         min-width: 200%;
+         width: 12rem;
+         height: 12rem;
          border-radius: 50%;
          z-index: 2000;
          cursor: pointer;

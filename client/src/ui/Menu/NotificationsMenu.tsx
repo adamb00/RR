@@ -11,8 +11,10 @@ import INotification from '../../interfaces/INotification';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
 import useDeviceDetection from '../../hooks/useDetectDevice';
+import Button from '../Buttons/Button';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-export default function NotificationsMenu({ isOpen }: MenuProps) {
+export default function NotificationsMenu({ isOpen, setIsOpen }: MenuProps) {
    const navigation = useNavigate();
    const isAdmin = useSelector(selectIsAdmin);
    const notifications = useAppSelector(state => state.auth.user?.notifications);
@@ -63,6 +65,18 @@ export default function NotificationsMenu({ isOpen }: MenuProps) {
                ))}
             </ul>
          )}
+         <Button
+            className={`account__open-menu account__open-menu--${isOpen ? 'open' : 'close'}`}
+            onClick={() => {
+               setIsOpen(prevIsOpen => !prevIsOpen);
+            }}
+         >
+            {isOpen ? (
+               <FaChevronLeft className='account__open-menu__icon' />
+            ) : (
+               <FaChevronRight className='account__open-menu__icon' />
+            )}
+         </Button>
       </nav>
    );
 }

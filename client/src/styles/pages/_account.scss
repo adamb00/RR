@@ -52,6 +52,7 @@
             font-size: 3rem;
             @include respond(tab-port) {
                font-size: 2rem;
+               padding: 0.5rem 1rem;
             }
             &:hover {
                border-color: $color-primary-tint;

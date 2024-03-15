@@ -6,7 +6,7 @@ export default memo(function Logo() {
    const navigate = useNavigate();
    return (
       <div className='header-icon'>
-         <img src={LogoImage} className='header-icon__image' onClick={() => navigate('/')} alt='Logo' />
+         <img src={LogoImage} className='header-icon__image' loading='lazy' onClick={() => navigate('/')} alt='Logo' />
       </div>
    );
 });

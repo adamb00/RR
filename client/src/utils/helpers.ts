@@ -47,13 +47,13 @@ export const IS_VALID_NUMBER = (v: string) => {
 export const IS_VALID_PHONE_NUMBER = (phoneNumber: string) =>
    /^\+?[1-9][0-9]{7,14}$/.test(phoneNumber) || 'Phone number must be a valid phone number';
 
-export const formatDate = (dateStr: string) => {
+export const formatDate = (dateStr: string, lang: string) => {
    const date = new Date(dateStr);
 
    if (isNaN(date.getTime())) {
       return 'Invalid Date';
    }
-   return new Intl.DateTimeFormat('hu', {
+   return new Intl.DateTimeFormat(lang, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',

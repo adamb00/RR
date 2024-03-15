@@ -76,5 +76,13 @@
       &--inactive::after {
          background-color: $color-red-main;
       }
+
+      &--image {
+         & img {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 100%;
+         }
+      }
    }
 }

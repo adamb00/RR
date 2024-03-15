@@ -3,7 +3,7 @@ import { Control, Controller } from 'react-hook-form';
 
 interface UploadImageProps extends React.ComponentPropsWithoutRef<'input'> {
    control: Control;
-   onChange?: (e: ChangeEvent<HTMLInputElement>) => void; // Change the type here
+   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
    name: string;
    label?: string;
 }

@@ -1,12 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-
-// export default defineConfig({
-//    plugins: [react()],
-// });
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
-   plugins: [react()],
+   plugins: [react(), viteCompression()],
    server: {
       watch: {
          usePolling: true,

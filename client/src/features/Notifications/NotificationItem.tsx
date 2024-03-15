@@ -2,17 +2,21 @@ import { useParams } from 'react-router-dom';
 import { formatDate } from '../../utils/helpers';
 
 import { useAppSelector } from '../../redux-hooks';
+import { useEffect, useState } from 'react';
 
 export default function NotificationItem() {
    const { id } = useParams();
+   const lang = localStorage.getItem('i18nextLng') as string;
+   const [createdAt, setCreatedAt] = useState<string | undefined>(undefined);
    const notifications = useAppSelector(state =>
       state.auth.user?.notifications.find(notification => notification._id === id)
    );
 
-   let createdAt: string | undefined;
-   if (notifications && notifications.created_at) {
-      createdAt = new Date(notifications.created_at).toString();
-   }
+   useEffect(() => {
+      if (notifications && notifications.created_at) {
+         setCreatedAt(formatDate(new Date(notifications.created_at).toString(), lang));
+      }
+   }, [lang, notifications]);
 
    return (
       <div className='notifications__container'>
@@ -27,7 +31,7 @@ export default function NotificationItem() {
 
             <div className='notifications__created'>
                <div className='notifications__created--by'>{notifications?.created_by}</div>
-               <div className='notifications__created--at'>{createdAt && formatDate(createdAt)}</div>
+               <div className='notifications__created--at'>{createdAt}</div>
             </div>
          </div>
       </div>

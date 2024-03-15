@@ -1,6 +1,6 @@
 import { Control, useWatch } from 'react-hook-form';
 import UserInput from '../../ui/UserInteractions/UserInput';
-import { CiUnlock, CiUser, CiMail, CiGlobe, CiCalendarDate } from 'react-icons/ci';
+import { CiUnlock, CiUser, CiMail, CiCalendarDate } from 'react-icons/ci';
 import { IS_VALID_EMAIL, handleError } from '../../utils/helpers';
 import IError from '../../interfaces/IError';
 import { useState } from 'react';
@@ -8,6 +8,7 @@ import PasswordVisible from '../../ui/PasswordVisible';
 import FormIcon from '../../ui/FormIcon';
 import { useTranslation } from 'react-i18next';
 import { GiPhone } from 'react-icons/gi';
+import SelectCountry from '../../ui/UserInteractions/SelectCountry';
 
 interface SignUpValidReferralCodeProps {
    control: Control;
@@ -108,23 +109,14 @@ export default function SignUpValildReferralCode({ control, handleInputChange, e
             </UserInput>
          </div>
          <div className='signup__form--group signup__form--group__date'>
-            <UserInput
-               control={control}
-               name='nationality'
-               id='nationality'
-               className='signup__form--input'
-               fieldErrorClassname='signup__form--error'
-               type='text'
-               onChange={handleInputChange}
-               placeholder={t('Your country')}
-               rules={{
-                  required: t('Please provide us where are you from.'),
-               }}
-            >
-               <FormIcon tooltip={t('Enter where are you from')}>
-                  <CiGlobe className='signup__form--icon' />
-               </FormIcon>
-            </UserInput>
+            <div className='signup__form--country'>
+               <SelectCountry
+                  className='signup__form--country__input'
+                  control={control}
+                  name='nationality'
+                  id='nationality'
+               />
+            </div>
             <UserInput
                control={control}
                name='phone'

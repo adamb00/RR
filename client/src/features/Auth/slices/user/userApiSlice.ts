@@ -10,6 +10,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
          }),
       }),
 
+      getOneUser: builder.mutation({
+         query: id => ({
+            url: `user/${id}`,
+            method: 'GET',
+         }),
+      }),
+
       fetchNotifications: builder.mutation({
          query: id => ({
             url: `notification/${id}`,
@@ -71,4 +78,5 @@ export const {
    useUpdatePasswordMutation,
    useGetUserImageMutation,
    useDeleteAllNotificationsMutation,
+   useGetOneUserMutation,
 } = userApiSlice;
