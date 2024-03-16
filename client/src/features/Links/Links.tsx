@@ -49,7 +49,7 @@ export default function Links() {
                <IoCopyOutline
                   className='my-link__icon'
                   onClick={() => {
-                     setUrl(import.meta.env.VITE_BASE_URL_LINK + user.referralCode);
+                     setUrl(import.meta.env.VITE_BASE_URL_LINK + user._id);
                      handleOpenModal();
                   }}
                />
