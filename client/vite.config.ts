@@ -10,6 +10,6 @@ export default defineConfig({
       },
       host: true,
       strictPort: true,
-      port: 80 | 443,
+      port: 4173,
    },
 });
