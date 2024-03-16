@@ -16,6 +16,7 @@ COPY . .
 RUN npm run build
 
 COPY ./assets ./dist/assets
+COPY robots.txt ./dist/
 
 CMD [ "npm", "run", "dev" ]
 
