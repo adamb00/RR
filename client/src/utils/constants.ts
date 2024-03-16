@@ -3,3 +3,5 @@ import { io } from 'socket.io-client';
 export const ITEM_PER_PAGE = 10;
 export const AFFILIATE_DEPTH = 3;
 export const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
+
+console.log(import.meta.env.VITE_BASE_URL_SOCKET);
