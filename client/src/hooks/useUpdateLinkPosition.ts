@@ -34,7 +34,6 @@ export const useUpdateLinkPosition = ({ user }: UpdateLinkPositionProps) => {
                if (link._id === data.id) {
                   const updatedLink = { ...link, ...data.data };
 
-                  console.log(updatedLink);
                   dispatch(
                      updateUser({
                         ...user,

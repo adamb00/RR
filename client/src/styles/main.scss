@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import './abstract/variables';
 @import './abstract/animations';
 @import './abstract/mixins';

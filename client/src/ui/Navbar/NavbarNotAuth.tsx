@@ -59,7 +59,7 @@ export default function NavbarNotAuth() {
             </li>
 
             <li>
-               <Button onClick={() => navigate('/signin')} className='btn btn--primary'>
+               <Button onClick={() => navigate('/signin')} className='btn btn--conic-border'>
                   {t('Login')}
                </Button>
             </li>

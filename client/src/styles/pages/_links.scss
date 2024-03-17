@@ -253,7 +253,7 @@
       }
       @include respond(phone) {
          flex-direction: column-reverse;
-         align-items: start;
+         align-items: flex-start;
          justify-content: center;
       }
    }

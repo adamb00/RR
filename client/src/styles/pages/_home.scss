@@ -6,6 +6,25 @@
    flex-direction: column;
    width: 100%;
 
+   &__no-auth {
+      height: 40rem;
+      position: relative;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: $default-border-radius;
+
+      &--container {
+         width: 100%;
+         position: absolute;
+         inset: 0;
+         height: 100%;
+      }
+   }
+
    &__invite {
       margin: 4rem;
       align-self: end;

@@ -40,6 +40,7 @@ export default memo(function AppLayout() {
 
                const newUser = { ...user, notifications: updatedNotifications };
                dispatch(updateUser(newUser));
+               setNotificationsFetched(true);
             } catch (error) {
                console.error('Error fetching notifications:', error);
             }

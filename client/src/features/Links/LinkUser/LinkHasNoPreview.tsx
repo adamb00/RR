@@ -15,6 +15,7 @@ interface LinkHasNoPreviewProps {
    setIsOpenDropdown: Dispatch<SetStateAction<boolean>>;
    isOpenDropdown: boolean;
    updatedLink: string;
+
    handleOpenModal: () => void;
 }
 

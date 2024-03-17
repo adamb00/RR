@@ -78,6 +78,31 @@
       align-items: center;
       background-color: $color-primary-tint;
    }
+   &--conic-border {
+      position: relative;
+      border-radius: $default-border-radius;
+      color: $color-grey-light-1;
+
+      &::before,
+      &::after {
+         border-radius: $default-border-radius + 2rem;
+         content: '';
+         position: absolute;
+         left: -2px;
+         top: -2px;
+         background: linear-gradient(45deg, $color-tertiary, $color-primary-tint, $color-tertiary);
+         background-size: 400%;
+         width: calc(100% + 4px);
+         height: calc(100% + 4px);
+         z-index: -1;
+         animation: steam 20s linear infinite;
+      }
+   }
+}
+@property --border-angle {
+   syntax: '<angle>';
+   inherits: true;
+   initial-value: 0turn;
 }
 
 .btn-icon {

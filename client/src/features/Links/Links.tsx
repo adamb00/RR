@@ -24,12 +24,13 @@ export default function Links() {
    const [url, setUrl] = useState<string>('');
    const handleOpenModal = () => setIsOpen(open => !open);
 
-   if (isLoading)
+   if (isLoading) {
       return (
          <div className='main'>
             <Loader size={250} />
          </div>
       );
+   }
 
    if (!user) return <RestrictedRoute />;
 
