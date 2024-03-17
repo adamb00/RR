@@ -20,16 +20,16 @@ export default class Email {
       this.from = `Adam Borsodi <${env.EMAIL_FROM}`;
    }
 
-   // private newTransport() {
-   // return nodemailer.createTransport({
-   //    host: env.EMAIL_HOST,
-   //    port: env.EMAIL_PORT,
-   //    auth: {
-   //       user: env.EMAIL_USERNAME,
-   //       pass: env.EMAIL_PASSWORD,
-   //    },
-   // });
-   // }
+   private newTransportDev() {
+      return nodemailer.createTransport({
+         host: env.EMAIL_HOST,
+         port: env.EMAIL_PORT,
+         auth: {
+            user: env.EMAIL_USERNAME,
+            pass: env.EMAIL_PASSWORD,
+         },
+      });
+   }
 
    private async newTransport(): Promise<Transporter> {
       const OAuth2 = google.auth.OAuth2;
@@ -81,7 +81,7 @@ export default class Email {
             subject,
          });
 
-         console.log('lol1');
+         console.log(this.url);
 
          const mailOptions = {
             from: this.from,
@@ -91,8 +91,8 @@ export default class Email {
             text: htmlToText(html),
          };
 
-         await (await this.newTransport()).sendMail(mailOptions);
-         console.log('lol');
+         if (env.NODE_ENV === 'dev') await this.newTransportDev().sendMail(mailOptions);
+         else await (await this.newTransport()).sendMail(mailOptions);
       } catch (err) {
          console.log(err);
       }

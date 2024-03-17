@@ -69,7 +69,7 @@ export default class AuthController {
          await newUser.save({ validateBeforeSave: false });
 
          // const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
-         const url = `http://${env.BASE_URL}/activate-account/${resetToken}`;
+         const url = `${env.BASE_URL}/activate-account/${resetToken}`;
 
          await new Email(newUser, url).sendWelcome();
 
