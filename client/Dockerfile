@@ -22,9 +22,6 @@ COPY robots.txt ./dist/
 FROM nginx:alpine
 
 
-# Copy built files to Nginx HTML directory
-COPY dist /usr/share/nginx/html
-
 # Expose port 80
 EXPOSE 80
 
