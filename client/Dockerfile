@@ -23,6 +23,7 @@ FROM nginx:alpine
 
 
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /etc/nginx/sites-enabled/r2byou.com
 # Expose port 80
 EXPOSE 80
 EXPOSE 443

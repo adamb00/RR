@@ -29,19 +29,12 @@ jobs:
 
          - name: Build and push Docker images for server
            run: |
-              echo "${{ secrets.ENV_FILE }}" >> $GITHUB_ENV
-              docker build --build-arg NODE_ENV=production -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
+              docker build -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
               docker push $IMAGE_NAME_SERVER:$TAG_NAME
 
          - name: Build and push Docker images for client
            run: |
-              docker build \
-               --build-arg VITE_NODE_ENV=production \
-               --build-arg VITE_FACEBOOK_APP_ID=${{secrets.VITE_FACEBOOK_APP_ID}} \
-               --build-arg VITE_BASE_URL_SOCKET=${{secrets.VITE_BASE_URL_SOCKET}} \
-               --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} \
-               --build-arg VITE_BASE_URL_LINK=${{secrets.VITE_BASE_URL_LINK}} \
-               -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              docker build -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
    deploy-to-digitalocean:
@@ -71,21 +64,28 @@ jobs:
 
                  docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
                  docker run -d --env-file /root/.env.client adamb00/rr-client:latest
-              #   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
-              #   docker run -d -p 80:4173 -p 443:4173 --env-file /root/.env.client adamb00/rr-client:latest
-              #   docker run -d -p 80:4173 --env-file /root/.env.client adamb00/rr-client:latest
-   web-deploy:
-      name: 🎉 Deploy
-      runs-on: ubuntu-latest
-      needs: build-and-push
-      steps:
-         - name: 🚚 Get latest code
-           uses: actions/checkout@v4
 
-         - name: 📂 Sync files
-           uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-           with:
-              server: ftp.r2fittshop.hu
-              username: r2byouFTPUs3r24@r2byou.com
-              port: 21
-              password: ${{ secrets.FTP_PASSWORD }}
+# web-deploy:
+#    name: 🎉 Deploy
+#    runs-on: ubuntu-latest
+#    needs: build-and-push
+#    steps:
+#       - name: 🚚 Get latest code
+#         uses: actions/checkout@v4
+
+#       - name: 📂 Sync files
+#         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+#         with:
+#            server: ftp.r2fittshop.hu
+#            username: r2byouFTPUs3r24@r2byou.com
+#            port: 21
+#            password: ${{ secrets.FTP_PASSWORD }}
+
+# --build-arg VITE_NODE_ENV=production \
+# --build-arg VITE_FACEBOOK_APP_ID=${{secrets.VITE_FACEBOOK_APP_ID}} \
+# --build-arg VITE_BASE_URL_SOCKET=${{secrets.VITE_BASE_URL_SOCKET}} \
+# --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} \
+# --build-arg VITE_BASE_URL_LINK=${{secrets.VITE_BASE_URL_LINK}} \
+#   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
+#   docker run -d -p 80:4173 -p 443:4173 --env-file /root/.env.client adamb00/rr-client:latest
+#   docker run -d -p 80:4173 --env-file /root/.env.client adamb00/rr-client:latest
