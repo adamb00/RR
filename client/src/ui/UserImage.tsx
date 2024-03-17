@@ -12,6 +12,8 @@ export default function UserImage({ user }: UserImageProps) {
    const [userImage, setUserImage] = useState<string | undefined>(userPhoto);
    const [isLoading, setIsLoading] = useState<boolean>(false);
 
+   console.log(userPhoto);
+
    useEffect(() => {
       const fetchUserImage = async () => {
          try {

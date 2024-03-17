@@ -68,7 +68,6 @@ export default class AuthController {
          const resetToken = newUser.createActivationToken();
          await newUser.save({ validateBeforeSave: false });
 
-         // const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
          const url = `${env.BASE_URL}/activate-account/${resetToken}`;
 
          await new Email(newUser, url).sendWelcome();
@@ -90,7 +89,6 @@ export default class AuthController {
             });
             return next(new AppError('Something went wrong.', 404));
          } else if ((err as MongoError).code === 11000) {
-            console.log('error');
             res.status(400).json({
                status: 'error',
                message: 'Email address is already in use.',
@@ -108,79 +106,70 @@ export default class AuthController {
    });
 
    public getReferralCode = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-      try {
-         const { referralCode } = req.params;
-         const user = await User.findOne({ referralCode });
+      const { referralCode } = req.params;
+      const user = await User.findOne({ referralCode });
 
-         if (!user) {
-            res.status(404).json({
-               status: 'error',
-               message: 'Could not find user with this referral code.',
-               item: 'referralCode',
-            });
-            return next(new AppError('Could not find user with this referral code. Please provid a valid one.', 404));
-         } else {
-            res.status(201).json({
-               status: 'success',
-               user: user?.id,
-            });
-         }
-      } catch (err) {
-         console.error(err);
+      if (!user) {
+         res.status(404).json({
+            status: 'error',
+            message: 'Could not find user with this referral code.',
+            item: 'referralCode',
+         });
+         return next(new AppError('Could not find user with this referral code. Please provid a valid one.', 404));
+      } else {
+         res.status(201).json({
+            status: 'success',
+            user: user?.id,
+         });
       }
    });
 
    public signin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-      try {
-         const { email, password } = req.body;
+      const { email, password } = req.body;
 
-         if (!email || !password) {
-            res.status(400).json({
-               status: 'error',
-               message: 'Please provide us your email and password.',
-            });
-            return next(new AppError('Please provide us your email and password.', 400));
-         }
-
-         const user = await User.findOne({ email }).select('+password');
-         if (!user) {
-            res.status(404).json({
-               status: 'error',
-               message: 'No user found with this email.',
-               item: 'email',
-            });
-            return next(new AppError('No user found with this email.', 404));
-         }
-
-         if (!user.active) {
-            const resetToken = user.createPasswordResetToken();
-            await user.save({ validateBeforeSave: false });
-
-            // const url = `http://172.20.10.3:5174/activate-account/${resetToken}`;
-            const url = `${env.BASE_URL}/activate-account/${resetToken}}`;
-
-            await new Email(user, url).sendWelcome();
-            res.status(401).json({
-               status: 'error',
-               message: 'Please activate your account first. We just sent an activation email.',
-            });
-            return next(new AppError('Please activate your account first. We just sent an activation email.', 401));
-         }
-
-         if (!(await correctPassword(password, user.password))) {
-            res.status(401).json({
-               status: 'error',
-               message: 'Incorrect password',
-               item: 'password',
-            });
-            return next(new AppError('Incorrect password.', 401));
-         }
-
-         await createAndSendToken(user, 200, req, res);
-         req.user = user;
-      } catch (err) {
-         console.log(err);
+      if (!email || !password) {
+         res.status(400).json({
+            status: 'error',
+            message: 'Please provide us your email and password.',
+         });
+         return next(new AppError('Please provide us your email and password.', 400));
       }
+
+      const user = await User.findOne({ email }).select('+password');
+      if (!user) {
+         res.status(404).json({
+            status: 'error',
+            message: 'No user found with this email.',
+            item: 'email',
+         });
+         return next(new AppError('No user found with this email.', 404));
+      }
+
+      if (!user.active) {
+         const resetToken = user.createPasswordResetToken();
+         await user.save({ validateBeforeSave: false });
+
+         const url = `${env.BASE_URL}/activate-account/${resetToken}}`;
+
+         await new Email(user, url).sendWelcome();
+         res.status(401).json({
+            status: 'error',
+            message: 'Please activate your account first. We just sent an activation email.',
+         });
+         return next(new AppError('Please activate your account first. We just sent an activation email.', 401));
+      }
+
+      if (!(await correctPassword(password, user.password))) {
+         res.status(401).json({
+            status: 'error',
+            message: 'Incorrect password',
+            item: 'password',
+         });
+         return next(new AppError('Incorrect password.', 401));
+      }
+
+      await createAndSendToken(user, 200, req, res);
+      req.user = user;
    });
 
    public handleRefreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -212,14 +201,10 @@ export default class AuthController {
    });
 
    public signout = (_req: Request, res: Response) => {
-      try {
-         res.cookie('jwt', 'loggedout', {
-            expires: new Date(Date.now() + 10 * 1000),
-         });
-         res.status(200).json({ status: 'success' });
-      } catch (err) {
-         console.log(err);
-      }
+      res.cookie('jwt', 'loggedout', {
+         expires: new Date(Date.now() + 10 * 1000),
+      });
+      res.status(200).json({ status: 'success' });
    };
 
    public forgotPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -241,7 +226,6 @@ export default class AuthController {
 
       try {
          const url = `${env.BASE_URL}/reset-password/${resetToken}`;
-         // const url = `http://172.20.10.3:5174/reset-password/${resetToken}`;
 
          await new Email(user, url).sendPasswordReset();
 

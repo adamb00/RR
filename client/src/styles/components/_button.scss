@@ -80,7 +80,7 @@
    }
    &--conic-border {
       position: relative;
-      border-radius: $default-border-radius;
+      border-radius: $default-border-radius + 2rem;
       color: $color-grey-light-1;
 
       &::before,
