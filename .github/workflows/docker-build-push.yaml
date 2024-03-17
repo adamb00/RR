@@ -70,7 +70,9 @@ jobs:
                  docker pull adamb00/rr-client:latest
 
                  docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
-                 docker run -d -p 80:4173 -p 443:4173 --env-file /root/.env.client adamb00/rr-client:latest
+                 docker run --env-file /root/.env.client adamb00/rr-client:latest
+              #   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
+              #   docker run -d -p 80:4173 -p 443:4173 --env-file /root/.env.client adamb00/rr-client:latest
               #   docker run -d -p 80:4173 --env-file /root/.env.client adamb00/rr-client:latest
    web-deploy:
       name: 🎉 Deploy
