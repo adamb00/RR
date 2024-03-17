@@ -22,6 +22,7 @@ COPY robots.txt ./dist/
 FROM nginx:alpine
 
 
+COPY --from=builder /app/dist /usr/share/nginx/html
 # Expose port 80
 EXPOSE 80
 
