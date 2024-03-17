@@ -27,8 +27,8 @@ COPY . .
 # Build the project
 RUN npm run build
 
+COPY robots.txt ./assets/
 COPY ./assets ./dist/assets
-COPY robots.txt ./dist/
 
 
 FROM nginx:alpine
