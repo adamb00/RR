@@ -18,7 +18,17 @@ RUN npm run build
 COPY ./assets ./dist/assets
 COPY robots.txt ./dist/
 
-# CMD [ "npm", "run", "dev" ]
+
+FROM nginx:alpine
+
+
+# Copy built files to Nginx HTML directory
+COPY dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
 
 
