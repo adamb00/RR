@@ -31,7 +31,6 @@ jobs:
            run: |
               docker build \
                  --build-arg PORT=${{ secrets.PORT }} \
-                 --build-arg NODE_ENV=${{ secrets.NODE_ENV }} \
                  --build-arg VERSION=${{ secrets.VERSION }} \
                  --build-arg MONGO_PWD=${{ secrets.MONGO_PWD }} \
                  --build-arg MONGO_DB=${{ secrets.MONGO_DB }} \
