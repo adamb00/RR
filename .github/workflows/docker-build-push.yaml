@@ -31,7 +31,26 @@ jobs:
            run: |
               docker build \
                  --build-arg PORT=${{ secrets.PORT }} \
+                 --build-arg NODE_ENV=${{ secrets.NODE_ENV }} \
                  --build-arg VERSION=${{ secrets.VERSION }} \
+                 --build-arg EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }} \
+                 --build-arg EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }} \
+                 --build-arg EMAIL_FROM=${{ secrets.EMAIL_FROM }} \
+                 --build-arg EMAIL_HOST=${{ secrets.EMAIL_HOST }} \
+                 --build-arg EMAIL_PORT=${{ secrets.EMAIL_PORT }} \
+                 --build-arg EMAIL_CLIENT_ID=${{ secrets.EMAIL_CLIENT_ID }} \
+                 --build-arg EMAIL_CLIENT_SECRET=${{ secrets.EMAIL_CLIENT_SECRET }} \
+                 --build-arg EMAIL_REFRESH_TOKEN=${{ secrets.EMAIL_REFRESH_TOKEN }} \
+                 --build-arg EMAIL_ACCESS_TOKEN=${{ secrets.EMAIL_ACCESS_TOKEN }} \
+                 --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
+                 --build-arg JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }} \
+                 --build-arg FACEBOOK_ID=${{ secrets.FACEBOOK_ID }} \
+                 --build-arg FACEBOOK_SECRET=${{ secrets.FACEBOOK_SECRET }} \
+                 --build-arg FACEBOOK_CALLBACK_URL=${{ secrets.FACEBOOK_CALLBACK_URL }} \
+                 --build-arg AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }} \
+                 --build-arg AWS_BUCKET_REGION=${{ secrets.AWS_BUCKET_REGION }} \
+                 --build-arg AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} \
+                 --build-arg AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} \
                  --build-arg BASE_URL=${{ secrets.BASE_URL }} \
                  -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
               docker push $IMAGE_NAME_SERVER:$TAG_NAME
@@ -94,21 +113,5 @@ jobs:
    #   docker run -d -p 80:4173 -p 443:4173 --env-file /root/.env.client adamb00/rr-client:latest
    #   docker run -d -p 80:4173 --env-file /root/.env.client adamb00/rr-client:latest
 
-   # --build-arg EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }} \
-   # --build-arg EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }} \
-   # --build-arg EMAIL_FROM=${{ secrets.EMAIL_FROM }} \
-   # --build-arg EMAIL_HOST=${{ secrets.EMAIL_HOST }} \
-   # --build-arg EMAIL_PORT=${{ secrets.EMAIL_PORT }} \
-   # --build-arg EMAIL_CLIENT_ID=${{ secrets.EMAIL_CLIENT_ID }} \
-   # --build-arg EMAIL_CLIENT_SECRET=${{ secrets.EMAIL_CLIENT_SECRET }} \
-   # --build-arg EMAIL_REFRESH_TOKEN=${{ secrets.EMAIL_REFRESH_TOKEN }} \
-   # --build-arg EMAIL_ACCESS_TOKEN=${{ secrets.EMAIL_ACCESS_TOKEN }} \
-   # --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
-   # --build-arg JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }} \
-   # --build-arg FACEBOOK_ID=${{ secrets.FACEBOOK_ID }} \
-   # --build-arg FACEBOOK_SECRET=${{ secrets.FACEBOOK_SECRET }} \
-   # --build-arg FACEBOOK_CALLBACK_URL=${{ secrets.FACEBOOK_CALLBACK_URL }} \
-   # --build-arg AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }} \
-   # --build-arg AWS_BUCKET_REGION=${{ secrets.AWS_BUCKET_REGION }} \
-   # --build-arg AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} \
-   # --build-arg AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} \
+   # --build-arg MONGO_PWD=${{ secrets.MONGO_PWD }} \
+   # --build-arg MONGO_DB=${{ secrets.MONGO_DB }} \
