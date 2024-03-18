@@ -1,19 +1,24 @@
 .shared-link {
    display: flex;
    flex-direction: column;
-   justify-content: center;
-   align-items: center;
+   padding-top: 5rem;
+   align-items: flex-start;
+   background-image: linear-gradient($color-primary-tint, $color-secondary-tint);
+   height: 100vh;
    gap: 2rem;
    width: 100%;
-   margin-top: 10rem;
 
    &__image img {
+      margin-left: 5rem;
+      margin-bottom: 4rem;
+      display: flex;
       border-radius: 100%;
-      width: 20rem;
-      height: 20rem;
+      width: 12rem;
+      height: 12rem;
       object-fit: cover;
    }
    &__container {
+      align-self: center;
       width: 80%;
       display: flex;
       flex-direction: column;

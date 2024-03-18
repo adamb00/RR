@@ -26,7 +26,7 @@ export default function MyLink() {
       );
 
    return (
-      <div className='shared-link'>
+      <a className='shared-link' href={url}>
          <ShareModal isOpen={isOpen} setIsOpen={setIsOpen} url={url} />
 
          <div className='shared-link__image'>
@@ -37,6 +37,6 @@ export default function MyLink() {
                <LinkUser key={link._id} link={link} device={device} user={user} setIsOpen={setIsOpen} setUrl={setUrl} />
             ))}
          </div>
-      </div>
+      </a>
    );
 }
