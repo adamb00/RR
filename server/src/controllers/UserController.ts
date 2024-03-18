@@ -107,8 +107,6 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
 
    if (req.user.photo && typeof req.user.photo === 'string') {
       await s3Delete(req.user.photo);
-
-      console.log('Image deleted');
    }
 
    const uploadImage = await s3Upload(req.file as Express.Multer.File);

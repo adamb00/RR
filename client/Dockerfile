@@ -31,7 +31,7 @@ COPY ./assets ./dist/assets
 
 RUN echo "Files copied successfully to /app/dist"
 
-FROM nginx:alpine
+FROM nginx:latest
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
