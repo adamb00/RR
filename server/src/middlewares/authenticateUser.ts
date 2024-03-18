@@ -31,7 +31,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
          return next(new AppError('Your token has expired! Please log in again.', 401));
       }
 
-      // Handle other JWT errors
       return next(new AppError('Invalid token. Please log in again!', 401));
    }
 };
