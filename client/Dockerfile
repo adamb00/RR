@@ -36,7 +36,6 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 RUN echo "Files copied successfully to /usr/share/nginx/html"
-RUN ls -l /app/dist
 
 COPY --from=builder /app/dist /var/www/r2byou.com/html
 
