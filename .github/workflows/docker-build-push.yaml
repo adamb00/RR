@@ -8,6 +8,7 @@ on:
 env:
    IMAGE_NAME_SERVER: adamb00/rr-server
    IMAGE_NAME_CLIENT: adamb00/rr-client
+   IMAGE_NAME_NGINX: adamb00/rr-nginx
    TAG_NAME: latest
 
 jobs:
@@ -24,39 +25,51 @@ jobs:
               username: ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-         - name: Set up Docker Buildx
-           uses: docker/setup-buildx-action@v1
+         - name: Build and Push images to Docker Hub
+           run: |
+              docker-compose -f ../../docker-compose.yml build
 
-         - uses: actions/checkout@v3
-         - uses: isbang/compose-action@v1.5.1
-           with:
-              compose-file: './docker/docker-compose.yml'
-           env:
-              VITE_NODE_ENV: 'production'
-              VITE_FACEBOOK_APP_ID: ${{secrets.VITE_FACEBOOK_APP_ID}}
-              VITE_BASE_URL_SOCKET: ${{secrets.VITE_BASE_URL_SOCKET}}
-              VITE_BASE_URL: ${{secrets.VITE_BASE_URL}}
-              VITE_BASE_URL_LINK: ${{secrets.VITE_BASE_URL_LINK}}
-              MONGO_PWD: ${{ secrets.MONGO_PWD }}
-              MONGO_DB: ${{ secrets.MONGO_DB }}
-              EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-              EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-              EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-              EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
-              EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
-              EMAIL_CLIENT_ID: ${{ secrets.EMAIL_CLIENT_ID }}
-              EMAIL_CLIENT_SECRET: ${{ secrets.EMAIL_CLIENT_SECRET }}
-              EMAIL_REFRESH_TOKEN: ${{ secrets.EMAIL_REFRESH_TOKEN }}
-              EMAIL_ACCESS_TOKEN: ${{ secrets.EMAIL_ACCESS_TOKEN }}
-              JWT_SECRET: ${{ secrets.JWT_SECRET }}
-              JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
-              FACEBOOK_ID: ${{ secrets.FACEBOOK_ID }}
-              FACEBOOK_SECRET: ${{ secrets.FACEBOOK_SECRET }}
-              FACEBOOK_CALLBACK_URL: ${{ secrets.FACEBOOK_CALLBACK_URL }}
-              AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
-              AWS_BUCKET_REGION: ${{ secrets.AWS_BUCKET_REGION }}
-              AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-              AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+              docker login
+
+              docker tag rr:client $IMAGE_NAME_CLIENT:$TAG_NAME
+              docker tag rr:server $IMAGE_NAME_SERVER:$TAG_NAME
+              docker tag linuxserver/swag $IMAGE_NAME_NGINX:$TAG_NAME
+              docker push $IMAGE_NAME_SERVER:$TAG_NAME
+              docker push $IMAGE_NAME_CLIENT:$TAG_NAME
+
+         # - name: Set up Docker Buildx
+         #   uses: docker/setup-buildx-action@v1
+
+         # - uses: actions/checkout@v3
+         # - uses: isbang/compose-action@v1.5.1
+         #   with:
+         #      compose-file: '../../docker-compose.yaml'
+         #   env:
+         #      VITE_NODE_ENV: 'production'
+         #      VITE_FACEBOOK_APP_ID: ${{secrets.VITE_FACEBOOK_APP_ID}}
+         #      VITE_BASE_URL_SOCKET: ${{secrets.VITE_BASE_URL_SOCKET}}
+         #      VITE_BASE_URL: ${{secrets.VITE_BASE_URL}}
+         #      VITE_BASE_URL_LINK: ${{secrets.VITE_BASE_URL_LINK}}
+         #      MONGO_PWD: ${{ secrets.MONGO_PWD }}
+         #      MONGO_DB: ${{ secrets.MONGO_DB }}
+         #      EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+         #      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+         #      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+         #      EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+         #      EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+         #      EMAIL_CLIENT_ID: ${{ secrets.EMAIL_CLIENT_ID }}
+         #      EMAIL_CLIENT_SECRET: ${{ secrets.EMAIL_CLIENT_SECRET }}
+         #      EMAIL_REFRESH_TOKEN: ${{ secrets.EMAIL_REFRESH_TOKEN }}
+         #      EMAIL_ACCESS_TOKEN: ${{ secrets.EMAIL_ACCESS_TOKEN }}
+         #      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+         #      JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
+         #      FACEBOOK_ID: ${{ secrets.FACEBOOK_ID }}
+         #      FACEBOOK_SECRET: ${{ secrets.FACEBOOK_SECRET }}
+         #      FACEBOOK_CALLBACK_URL: ${{ secrets.FACEBOOK_CALLBACK_URL }}
+         #      AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+         #      AWS_BUCKET_REGION: ${{ secrets.AWS_BUCKET_REGION }}
+         #      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+         #      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
          #   run: |
          #      docker-compose -p rr-container -f docker-compose.yaml build \
@@ -124,6 +137,7 @@ jobs:
 
       #               docker stop $(docker ps -q)
       #               docker rm $(docker ps -a -q)
+
 # <<<<<<< HEAD
 #                  docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
 #                  docker run -d  adamb00/rr-client:latest
