@@ -27,7 +27,7 @@ jobs:
 
          - name: Build and Push images to Docker Hub
            run: |
-              docker-compose -f ./docker-compose.yml build
+              docker-compose -f docker-compose.yml build
 
               docker tag rr:client $IMAGE_NAME_CLIENT:$TAG_NAME
               docker tag rr:server $IMAGE_NAME_SERVER:$TAG_NAME
