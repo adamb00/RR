@@ -1,6 +1,6 @@
-# Use an official Node.js LTS version as the base image
-FROM node:lts-alpine AS builder
+FROM node:lts-alpine as builder
 
+<<<<<<< HEAD
 ARG VITE_NODE_ENV
 ARG VITE_FACEBOOK_APP_ID
 ARG VITE_BASE_URL_SOCKET
@@ -14,21 +14,21 @@ ENV VITE_BASE_URL=$VITE_BASE_URL
 ENV VITE_BASE_URL_LINK=$VITE_BASE_URL_LINK
 
 # Set working directory
+=======
+>>>>>>> d6f80fe (Test)
 WORKDIR /app
 
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm i
 
-# Copy the entire project
 COPY . .
 
-# Build the project
 RUN npm run build
 
-COPY ./assets ./dist/assets
+COPY ./assets /app/dist/assets
 
+<<<<<<< HEAD
 RUN echo "Files copied successfully to /app/dist"
 
 FROM nginx:latest
@@ -44,9 +44,17 @@ RUN echo "Files copied successfully to /var/www/r2byou.com/html"
 # Expose port 80
 EXPOSE 80
 EXPOSE 443
+=======
+COPY --from=builder /app/dist/ /app/dist/
 
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+COPY package.json .
+COPY vite.config.ts .
+>>>>>>> d6f80fe (Test)
 
+RUN npm install typescript
 
+FROM nginx:latest
 
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /app/dist /usr/share/nginx/html

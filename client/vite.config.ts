@@ -10,12 +10,8 @@ export default defineConfig({
          '@': path.resolve(__dirname, './src'),
       },
    },
-   server: {
-      watch: {
-         usePolling: true,
-      },
+   preview: {
       host: true,
-      strictPort: true,
-      port: 4173,
+      port: 3000, // client port when execute npm run preview
    },
 });

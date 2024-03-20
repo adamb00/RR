@@ -36,6 +36,7 @@ app.options('*', cors());
 const io = new Server(server, { cors: { origin: env.BASE_URL } });
 
 io.on('connection', socket => {
+   console.log(socket);
    socket.on('link', async data => {
       console.log('data', data);
       socket.broadcast.emit('link', data);

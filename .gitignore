@@ -3,7 +3,7 @@ data
 
 node-app
 react-app
-
-.env
-
+docker-compose.dev.yaml
+docker-compose.yaml
 gitaction.txt
+Makefile

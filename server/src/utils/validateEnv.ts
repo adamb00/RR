@@ -25,10 +25,6 @@ export default cleanEnv(process.env, {
    JWT_SECRET: str(),
    JWT_EXPIRES_IN: str(),
 
-   FACEBOOK_ID: str(),
-   FACEBOOK_SECRET: str(),
-   FACEBOOK_CALLBACK_URL: str(),
-
    AWS_BUCKET_NAME: str(),
    AWS_BUCKET_REGION: str(),
    AWS_ACCESS_KEY: str(),

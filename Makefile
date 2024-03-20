@@ -1,8 +1,11 @@
+build-dev:
+	docker-compose -p rr-container -f docker-compose.dev.yaml build 
 
-# run:
-# 	docker-compose -f docker-compose.yaml up
+run-dev: 
+	docker-compose -p rr-container -f docker-compose.dev.yaml up -d
 
-
-run:
-	docker-compose down && docker-compose build --no-cache && docker-compose up
-
+build-prod:
+	docker-compose -p rr-container -f docker-compose.yaml build 
+	
+run-prod:
+	docker-compose -p rr-container -f docker-compose.yaml up -d

@@ -5,8 +5,8 @@
    "type": "module",
    "scripts": {
       "dev": "vite",
-      "start:dev": "NODE_ENV=development vite --host --port 5174 --mode development",
-      "build": "NODE_ENV=production tsc && vite build --mode production",
+      "start:dev": "vite --host --port 5174 --mode development",
+      "build": "tsc && vite build --mode production",
       "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
       "preview": "vite preview"
    },

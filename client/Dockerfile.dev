@@ -1,0 +1,44 @@
+FROM node:lts-alpine as builder-dev
+
+ARG VITE_NODE_ENV
+ARG VITE_FACEBOOK_APP_ID
+ARG VITE_BASE_URL_SOCKET
+ARG VITE_BASE_URL
+ARG VITE_BASE_URL_LINK
+
+ENV VITE_NODE_ENV=${VITE_NODE_ENV}
+ENV VITE_FACEBOOK_APP_ID=${VITE_FACEBOOK_APP_ID}
+ENV VITE_BASE_URL_SOCKET=${VITE_BASE_URL_SOCKET}
+ENV VITE_BASE_URL=${VITE_BASE_URL}
+ENV VITE_BASE_URL_LINK=${VITE_BASE_URL_LINK}
+
+WORKDIR /app/react-app
+
+COPY package*.json .
+
+RUN npm i
+
+COPY . .
+
+RUN npm run build
+
+COPY ./assets /app/react-app/dist/assets
+
+FROM node:lts-alpine 
+
+WORKDIR /app/react-app
+
+COPY --from=builder-dev /app/react-app/dist/ /app/react-app/dist/
+
+EXPOSE 3000
+EXPOSE 80
+
+COPY package.json .
+COPY vite.config.ts .
+
+RUN npm install typescript
+
+EXPOSE 3000
+EXPOSE 80
+
+CMD [ "npm", "run", "preview" ]

@@ -2,11 +2,13 @@ version: '3.8'
 
 services:
    react-app:
-      image: adamb00/r2byou:react-app
+      image: adamb00/rr:client
       restart: unless-stopped
       container_name: react-app
+      stdin_open: true
+      tty: true
       ports:
-         - '4173:4173'
+         - '3000:3000'
       build:
          context: ./client
          dockerfile: Dockerfile
@@ -14,14 +16,36 @@ services:
          - mern-app
 
    node-app:
-      image: adamb00/r2byou:api-server
+      image: adamb00/rr:server
       restart: unless-stopped
       container_name: api-server
+      ports:
+         - '8000:8000'
       build:
          context: ./server
          dockerfile: Dockerfile
       networks:
          - mern-app
+   nginx:
+      image: linuxserver/swag
+      ports:
+         - 80:80
+         - 443:443
+      # volumes:
+      #    - ./nginx/config:/config
+      #    - ./nginx/default.conf:/config/nginx/site-confs/default.conf
+      #    - ./nginx/ssl.conf:/config/nginx/ssl.conf
+      container_name: rr-nginx
+      restart: unless-stopped
+      environment:
+         - PUID=1000
+         - PGID=1000
+         - TZ=Europe/London
+         - URL=r2byou.com
+         - SUBDOMAINS=www,
+         - VALIDATION=http
+         - STAGING=false
+         - EMAIL=borsodi.dm@gmail.com
 
 networks:
    mern-app:

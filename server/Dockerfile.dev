@@ -1,8 +1,10 @@
+
 FROM node:lts-alpine as builder
 
-WORKDIR /app
+WORKDIR /app/node-app
 
 COPY package*.json ./
+
 
 RUN npm ci
 
@@ -14,12 +16,14 @@ FROM node:lts-alpine
 
 USER node
 
-WORKDIR /app
+WORKDIR /app/node-app
 
 COPY package*.json ./
 
 RUN npm ci 
 
-COPY --from=builder /app/dist/ /app/dist/
+COPY --from=builder /app/node-app/dist/ /app/node-app/dist/
 
-CMD ["npm", "run", "start"]
+EXPOSE 8000
+
+CMD [ "npm", "run", "start" ]
