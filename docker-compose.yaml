@@ -28,9 +28,6 @@ services:
          - mern-app
    nginx:
       image: linuxserver/swag
-      ports:
-         - 80:80
-         - 443:443
       # volumes:
       #    - ./nginx/config:/config
       #    - ./nginx/default.conf:/config/nginx/site-confs/default.conf
