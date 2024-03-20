@@ -33,9 +33,3 @@ COPY package.json .
 COPY vite.config.ts .
 
 RUN npm install typescript
-
-FROM nginx:latest
-
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=builder /app/dist /usr/share/nginx/html

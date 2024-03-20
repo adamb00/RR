@@ -22,4 +22,6 @@ RUN npm ci
 
 COPY --from=builder /app/dist/ /app/dist/
 
-CMD ["npm", "run", "start"]
+EXPOSE 8000
+
+CMD [ "npm", "run", "start" ]
