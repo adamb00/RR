@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
    react-app:
-      image: rr-client
+      image: adamb00/rr:client
       restart: unless-stopped
       container_name: react-app
       stdin_open: true
@@ -16,7 +16,7 @@ services:
          - mern-app
 
    node-app:
-      image: rr-server
+      image: adamb00/rr:server
       restart: unless-stopped
       container_name: api-server
       ports:
