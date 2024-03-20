@@ -29,9 +29,9 @@ jobs:
            run: |
               docker-compose -f docker-compose.yaml build
 
-              docker tag rr-client $IMAGE_NAME_CLIENT:$TAG_NAME
-              docker tag rr-server $IMAGE_NAME_SERVER:$TAG_NAME
-              docker tag linuxserver/swag $IMAGE_NAME_NGINX:$TAG_NAME
+              docker tag react-app $IMAGE_NAME_CLIENT:$TAG_NAME
+              docker tag node-app $IMAGE_NAME_SERVER:$TAG_NAME
+              docker tag nginx $IMAGE_NAME_NGINX:$TAG_NAME
 
               docker push $IMAGE_NAME_SERVER:$TAG_NAME
               docker push $IMAGE_NAME_CLIENT:$TAG_NAME
