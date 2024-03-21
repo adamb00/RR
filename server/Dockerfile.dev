@@ -1,6 +1,6 @@
 FROM node:lts-alpine as builder
 
-WORKDIR /app/node-app
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -14,13 +14,13 @@ FROM node:lts-alpine
 
 USER node
 
-WORKDIR /app/node-app
+WORKDIR /app
 
 COPY package*.json ./
 
 RUN npm ci 
 
-COPY --from=builder /app/node-app/dist/ /app/node-app/dist/
+COPY --from=builder /app/dist/ /app/dist/
 
 EXPOSE 8000
 

@@ -26,23 +26,21 @@ services:
          dockerfile: Dockerfile
       networks:
          - mern-app
+
    nginx:
-      image: linuxserver/swag
-      # volumes:
-      #    - ./nginx/config:/config
-      #    - ./nginx/default.conf:/config/nginx/site-confs/default.conf
-      #    - ./nginx/ssl.conf:/config/nginx/ssl.conf
-      container_name: rr-nginx
-      restart: unless-stopped
-      environment:
-         - PUID=1000
-         - PGID=1000
-         - TZ=Europe/London
-         - URL=r2byou.com
-         - SUBDOMAINS=www,
-         - VALIDATION=http
-         - STAGING=false
-         - EMAIL=borsodi.dm@gmail.com
+      restart: always
+      image: adamb00/rr:nginx
+      depends_on:
+         - node-app
+         - react-app
+      build:
+         context: ./nginx
+         dockerfile: Dockerfile
+      ports:
+         - '80:80'
+         - '443:443'
+      networks:
+         - mern-app
 
 networks:
    mern-app:
