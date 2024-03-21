@@ -24,8 +24,6 @@ RUN npm run build
 
 COPY ./assets /app/dist/assets
 
-EXPOSE 3000
-
 FROM node:lts-alpine
 
 COPY --from=builder /app/dist/ /app/dist/
@@ -35,5 +33,9 @@ COPY vite.config.ts .
 
 RUN npm install typescript
 
-CMD [ "npm", "run", "preview" ]
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD nginx -g 'daemon off;'
 

@@ -6,9 +6,8 @@ on:
          - main
 
 env:
-   IMAGE_NAME_SERVER: adamb00/rr:server
-   IMAGE_NAME_CLIENT: adamb00/rr:client
-   IMAGE_NAME_NGINX: adamb00/rr:nginx
+   IMAGE_NAME_SERVER: adamb00/rr-server
+   IMAGE_NAME_CLIENT: adamb00/rr-client
    TAG_NAME: latest
 
 jobs:
@@ -24,43 +23,21 @@ jobs:
            with:
               username: ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+         - name: Build and push Docker images for server
+           run: |
+              docker build -t $IMAGE_NAME_SERVER:$TAG_NAME ./server
+              docker push $IMAGE_NAME_SERVER:$TAG_NAME
 
          - name: Build and push Docker images for client
            run: |
               docker build \
-              --build-arg VITE_NODE_ENV=production \
-              --build-arg VITE_FACEBOOK_APP_ID=${{secrets.VITE_FACEBOOK_APP_ID}} \
-              --build-arg VITE_BASE_URL_SOCKET=${{secrets.VITE_BASE_URL_SOCKET}} \
-              --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} \
-              --build-arg VITE_BASE_URL_LINK=${{secrets.VITE_BASE_URL_LINK}} \
-              -t $IMAGE_NAME_CLIENT ./client
-              docker push adamb00/rr:client
-
-         #   --build-arg MONGO_PWD=${{ secrets.MONGO_PWD }} \
-         #   --build-arg MONGO_DB=${{ secrets.MONGO_DB }} \
-         - name: Build and push Docker images for server
-           run: |
-              docker build \
-              --build-arg EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }} \
-              --build-arg EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }} \
-              --build-arg EMAIL_FROM=${{ secrets.EMAIL_FROM }} \
-              --build-arg EMAIL_HOST=${{ secrets.EMAIL_HOST }} \
-              --build-arg EMAIL_PORT=${{ secrets.EMAIL_PORT }} \
-              --build-arg EMAIL_CLIENT_ID=${{ secrets.EMAIL_CLIENT_ID }} \
-              --build-arg EMAIL_CLIENT_SECRET=${{ secrets.EMAIL_CLIENT_SECRET }} \
-              --build-arg EMAIL_REFRESH_TOKEN=${{ secrets.EMAIL_REFRESH_TOKEN }} \
-              --build-arg EMAIL_ACCESS_TOKEN=${{ secrets.EMAIL_ACCESS_TOKEN }} \
-              --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
-              --build-arg JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }} \
-              --build-arg FACEBOOK_ID=${{ secrets.FACEBOOK_ID }} \
-              --build-arg FACEBOOK_SECRET=${{ secrets.FACEBOOK_SECRET }} \
-              --build-arg FACEBOOK_CALLBACK_URL=${{ secrets.FACEBOOK_CALLBACK_URL }} \
-              --build-arg AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }} \
-              --build-arg AWS_BUCKET_REGION=${{ secrets.AWS_BUCKET_REGION }} \
-              --build-arg AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} \
-              --build-arg AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} \
-              -t adamb00/rr:server ./server
-              docker push adamb00/rr:server
+               --build-arg VITE_NODE_ENV=production \
+               --build-arg VITE_FACEBOOK_APP_ID=${{secrets.VITE_FACEBOOK_APP_ID}} \
+               --build-arg VITE_BASE_URL_SOCKET=${{secrets.VITE_BASE_URL_SOCKET}} \
+               --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} \
+               --build-arg VITE_BASE_URL_LINK=${{secrets.VITE_BASE_URL_LINK}} \
+               -t $IMAGE_NAME_CLIENT:$TAG_NAME ./client
+              docker push $IMAGE_NAME_CLIENT:$TAG_NAME
 
    deploy-to-digitalocean:
       runs-on: ubuntu-latest
@@ -81,11 +58,13 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker pull adamb00/rr:server
-                 docker pull adamb00/rr:client
+                  docker stop $(docker ps -q)
+                  docker rm $(docker ps -a -q)
 
-                 docker run -d adamb00/rr:server
-                 docker run -d adamb00/rr:client
+                 docker pull adamb00/rr-server:latest
+                 docker pull adamb00/rr-client:latest
+
+                 docker compose up -d
 
          # - name: Set up Docker Buildx
          #   uses: docker/setup-buildx-action@v1

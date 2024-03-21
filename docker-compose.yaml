@@ -8,13 +8,12 @@ services:
       stdin_open: true
       tty: true
       ports:
-         - '3000:3000'
+         - '3000:80'
       build:
          context: ./client
          dockerfile: Dockerfile
       networks:
          - mern-app
-
    node-app:
       image: adamb00/rr:server
       restart: unless-stopped
