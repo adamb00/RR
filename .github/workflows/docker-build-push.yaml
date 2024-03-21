@@ -8,7 +8,7 @@ on:
 env:
    IMAGE_NAME_SERVER: adamb00/rr:server
    IMAGE_NAME_CLIENT: adamb00/rr:client
-   IMAGE_NAME_NGINX: adamb00/rr-nginx
+   IMAGE_NAME_NGINX: adamb00/rr:nginx
    TAG_NAME: latest
 
 jobs:
