@@ -33,7 +33,7 @@ COPY vite.config.ts .
 
 RUN npm install typescript
 
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
