@@ -24,9 +24,9 @@ RUN npm run build
 
 COPY ./assets /app/dist/assets
 
-FROM node:lts-alpine
+# FROM node:lts-alpine
 
-COPY --from=builder /app/dist/ /app/dist/
+# COPY --from=builder /app/dist/ /app/dist/
 
 COPY package.json .
 COPY vite.config.ts .
@@ -35,8 +35,7 @@ RUN npm install typescript
 
 FROM nginx:latest
 
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY --from=builder /app/dist /var/www/r2byou.com/html/
+COPY --from=builder /app/dist /var/www/r2byou.com/html
 
 EXPOSE 80
 
