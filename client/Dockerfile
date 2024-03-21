@@ -15,30 +15,25 @@ ENV VITE_BASE_URL_LINK=$VITE_BASE_URL_LINK
 WORKDIR /app
 
 COPY package*.json ./
-
-RUN npm i
+RUN npm install
 
 COPY . .
-
 RUN npm run build
 
+# Copy assets from /app/dist to a location within the build context
 COPY ./assets /app/dist/assets
-COPY /app/dist /var/www/r2byou.com/html/
-
-# FROM node:lts-alpine
-
-# COPY --from=builder /app/dist/ /app/dist/
 
 COPY package.json .
 COPY vite.config.ts .
 
 RUN npm install typescript
 
+# Final stage
 FROM nginx:latest
 
-# COPY --from=builder /app/dist/* /var/www/r2byou.com/html
+# Copy files from the builder stage to the final stage
+COPY --from=builder /app/dist /var/www/r2byou.com/html
 
 EXPOSE 80
 
-CMD nginx -g 'daemon off;'
-
+CMD ["nginx", "-g", "daemon off;"]
