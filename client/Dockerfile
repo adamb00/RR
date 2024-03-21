@@ -1,5 +1,7 @@
 FROM node:lts-alpine as builder
 
+WORKDIR /usr/src/app
+
 ARG VITE_NODE_ENV
 ARG VITE_FACEBOOK_APP_ID
 ARG VITE_BASE_URL_SOCKET
@@ -12,16 +14,18 @@ ENV VITE_BASE_URL_SOCKET=$VITE_BASE_URL_SOCKET
 ENV VITE_BASE_URL=$VITE_BASE_URL
 ENV VITE_BASE_URL_LINK=$VITE_BASE_URL_LINK
 
-WORKDIR /app
-
 COPY package*.json ./
+COPY tsconfig.json ./
+COPY tsconfig.node.json ./
+
 RUN npm install
 
 COPY . .
+
 RUN npm run build
 
 # Copy assets from /app/dist to a location within the build context
-COPY ./assets /app/dist/assets
+COPY ./assets /usr/src/app/dist/assets
 
 COPY package.json .
 COPY vite.config.ts .
@@ -32,7 +36,7 @@ RUN npm install typescript
 FROM nginx:latest
 
 # Copy files from the builder stage to the final stage
-COPY --from=builder /app/dist /var/www/r2byou.com/html
+COPY --from=builder /usr/src/app/dist /var/www/r2byou.com/html
 
 EXPOSE 80
 

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, useRef } from 'react';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
-import QuillEditor from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 interface RichTextProps {
@@ -15,23 +16,9 @@ interface RichTextProps {
 //TODO TRANSLATE IF POSSIBLE
 
 export default function RichText({ control, name, rules, fieldErrorClassname, className, placeholder }: RichTextProps) {
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const quill = useRef<any>(null);
 
-   const formats = [
-      'header',
-      'bold',
-      'italic',
-      'underline',
-      'strike',
-      // 'blockquote',
-      'list',
-      'bullet',
-      // 'indent',
-      'link',
-      'color',
-      'clean',
-   ];
+   const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'list', 'bullet', 'link', 'color', 'clean'];
 
    const modules = useMemo(
       () => ({
@@ -58,8 +45,8 @@ export default function RichText({ control, name, rules, fieldErrorClassname, cl
          rules={rules}
          render={({ field: { value, onChange, onBlur }, fieldState: { error: fieldError } }) => (
             <>
-               <QuillEditor
-                  ref={el => (quill.current = el)}
+               <ReactQuill
+                  ref={(el: any) => (quill.current = el)}
                   className={className}
                   theme='snow'
                   value={value}

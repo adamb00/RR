@@ -1,9 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 interface PasswordVisibleProps extends React.ComponentPropsWithoutRef<'div'> {
    isVisible: boolean;
    setIsVisible: Dispatch<SetStateAction<boolean>>;
+   className: string;
 }
 
 export default function PasswordVisible({ isVisible, setIsVisible, className }: PasswordVisibleProps) {

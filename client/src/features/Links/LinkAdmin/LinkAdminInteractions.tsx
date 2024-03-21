@@ -1,4 +1,4 @@
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Switch from 'react-switch';
 import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
 import { CiMedicalClipboard } from 'react-icons/ci';

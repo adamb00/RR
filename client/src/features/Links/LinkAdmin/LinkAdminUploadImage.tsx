@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UserImageInput from '../../../ui/UserInteractions/UserImageInput';
 import Loader from '../../../ui/Loader';
 import LinkImage from '../../../ui/LinkImage';

@@ -1,6 +1,5 @@
-//
 import LinkImage from '../../../ui/LinkImage';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
 import { PiDotsThree } from 'react-icons/pi';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';

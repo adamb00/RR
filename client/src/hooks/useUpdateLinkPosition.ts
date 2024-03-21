@@ -1,11 +1,11 @@
 import { updateUser } from '../features/Auth/slices/auth/authSlice';
 import { useEffect, useState } from 'react';
-import isEqual from 'lodash/isEqual';
 import { ILink } from '../interfaces/ILink';
 import { useAppDispatch } from '../redux-hooks';
 import { UserProfileData } from '../interfaces/AuthInterfaces';
 import { useUpdateUserMutation } from '../features/Auth/slices/user/userApiSlice';
 import { socket } from '../utils/constants';
+import { isEqual } from 'lodash';
 
 interface UpdateLinkPositionProps {
    user: UserProfileData | null;
