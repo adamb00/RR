@@ -36,11 +36,11 @@ jobs:
               -t $IMAGE_NAME_CLIENT ./client
               docker push adamb00/rr:client
 
+         #   --build-arg MONGO_PWD=${{ secrets.MONGO_PWD }} \
+         #   --build-arg MONGO_DB=${{ secrets.MONGO_DB }} \
          - name: Build and push Docker images for server
            run: |
               docker build \
-              --build-arg MONGO_PWD=${{ secrets.MONGO_PWD }} \
-              --build-arg MONGO_DB=${{ secrets.MONGO_DB }} \
               --build-arg EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }} \
               --build-arg EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }} \
               --build-arg EMAIL_FROM=${{ secrets.EMAIL_FROM }} \
