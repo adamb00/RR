@@ -34,6 +34,7 @@ COPY vite.config.ts .
 RUN npm install typescript
 
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /var/www/r2byou.com/html/
 
 EXPOSE 80
 
