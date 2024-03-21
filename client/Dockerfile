@@ -1,43 +1,34 @@
+# Stage 1: Build the application
 FROM node:lts-alpine as builder
 
 WORKDIR /usr/src/app
 
-ARG VITE_NODE_ENV
-ARG VITE_FACEBOOK_APP_ID
-ARG VITE_BASE_URL_SOCKET
-ARG VITE_BASE_URL
-ARG VITE_BASE_URL_LINK
-
-ENV VITE_NODE_ENV=$VITE_NODE_ENV
-ENV VITE_FACEBOOK_APP_ID=$VITE_FACEBOOK_APP_ID
-ENV VITE_BASE_URL_SOCKET=$VITE_BASE_URL_SOCKET
-ENV VITE_BASE_URL=$VITE_BASE_URL
-ENV VITE_BASE_URL_LINK=$VITE_BASE_URL_LINK
-
+# Copy package.json and package-lock.json
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY tsconfig.node.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application
 COPY . .
 
+# Build the application
 RUN npm run build
 
-# Copy assets from /app/dist to a location within the build context
-COPY ./assets /usr/src/app/dist/assets
-
-COPY package.json .
-COPY vite.config.ts .
-
+COPY ./assets ./dist/assets
+# Install TypeScript for final stage
 RUN npm install typescript
 
-# Final stage
+# Stage 2: Serve the application with nginx
 FROM nginx:latest
 
-# Copy files from the builder stage to the final stage
+# Copy built assets from builder stage to nginx
 COPY --from=builder /usr/src/app/dist /var/www/r2byou.com/html
 
+# Expose port 80
 EXPOSE 80
 
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
