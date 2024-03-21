@@ -33,6 +33,8 @@ COPY vite.config.ts .
 
 RUN npm install typescript
 
+FROM nginx:latest
+
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY --from=builder /app/dist /var/www/r2byou.com/html/
 
