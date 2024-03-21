@@ -52,11 +52,11 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker pull $IMAGE_NAME_SERVER
-                 docker pull $IMAGE_NAME_CLIENT
-                 docker pull $IMAGE_NAME_NGINX
+                 docker pull adamb00/rr:server
+                 docker pull adamb00/rr:client
+                 docker pull adamb00/rr:nginx
 
-                 docker compose up
+                 docker-compose up -d
 
          # - name: Set up Docker Buildx
          #   uses: docker/setup-buildx-action@v1
