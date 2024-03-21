@@ -23,6 +23,7 @@ COPY . .
 RUN npm run build
 
 COPY ./assets /app/dist/assets
+
 EXPOSE 3000
 
 FROM node:lts-alpine
