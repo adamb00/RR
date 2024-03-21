@@ -23,9 +23,7 @@ COPY . .
 RUN npm run build
 
 COPY ./assets /app/dist/assets
-
-# EXPOSE 80
-# EXPOSE 443
+EXPOSE 3000
 
 FROM node:lts-alpine
 
@@ -36,10 +34,5 @@ COPY vite.config.ts .
 
 RUN npm install typescript
 
-FROM nginx:latest
+CMD [ "npm", "run", "preview" ]
 
-EXPOSE 3000
-
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=builder /app/dist /usr/share/nginx/html

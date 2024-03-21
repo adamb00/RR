@@ -31,7 +31,6 @@ jobs:
 
               docker push $IMAGE_NAME_SERVER
               docker push $IMAGE_NAME_CLIENT
-              docker push $IMAGE_NAME_NGINX
 
    deploy-to-digitalocean:
       runs-on: ubuntu-latest
@@ -54,7 +53,6 @@ jobs:
 
                  docker pull adamb00/rr:server
                  docker pull adamb00/rr:client
-                 docker pull adamb00/rr:nginx
 
                  docker-compose up -d
 

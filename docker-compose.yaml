@@ -27,21 +27,6 @@ services:
       networks:
          - mern-app
 
-   nginx:
-      restart: always
-      image: adamb00/rr:nginx
-      depends_on:
-         - node-app
-         - react-app
-      build:
-         context: ./nginx
-         dockerfile: Dockerfile
-      ports:
-         - '80:80'
-         - '443:443'
-      networks:
-         - mern-app
-
 networks:
    mern-app:
       driver: bridge
