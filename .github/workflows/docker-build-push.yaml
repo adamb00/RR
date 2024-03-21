@@ -52,9 +52,6 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker stop $(docker ps -q)
-                 docker rm $(docker ps -a -q)
-
                  docker pull $IMAGE_NAME_SERVER
                  docker pull $IMAGE_NAME_CLIENT
                  docker pull $IMAGE_NAME_NGINX

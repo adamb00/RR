@@ -24,8 +24,8 @@ RUN npm run build
 
 COPY ./assets /app/dist/assets
 
-EXPOSE 80
-EXPOSE 443
+# EXPOSE 80
+# EXPOSE 443
 
 FROM node:lts-alpine
 
