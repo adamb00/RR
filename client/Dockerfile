@@ -23,7 +23,7 @@ COPY . .
 RUN npm run build
 
 COPY ./assets /app/dist/assets
-# COPY /app/dist /var/www/r2byou.com/html
+COPY /app/dist /var/www/r2byou.com/html/
 
 # FROM node:lts-alpine
 
@@ -36,7 +36,7 @@ RUN npm install typescript
 
 FROM nginx:latest
 
-COPY --from=builder /app/dist/* /var/www/r2byou.com/html
+# COPY --from=builder /app/dist/* /var/www/r2byou.com/html
 
 EXPOSE 80
 
