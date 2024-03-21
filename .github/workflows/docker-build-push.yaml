@@ -54,7 +54,8 @@ jobs:
                  docker pull adamb00/rr:server
                  docker pull adamb00/rr:client
 
-                 docker-compose up -d
+                 docker run -d adamb00/rr:server
+                 docker run -d adamb00/rr:client
 
          # - name: Set up Docker Buildx
          #   uses: docker/setup-buildx-action@v1
