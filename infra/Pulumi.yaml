@@ -1,0 +1,7 @@
+name: rr-app
+runtime: nodejs
+description: Mern app
+config:
+   pulumi:tags:
+      value:
+         pulumi:template: digitalocean-typescript
