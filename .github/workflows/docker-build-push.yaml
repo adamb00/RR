@@ -66,7 +66,9 @@ jobs:
                   docker pull adamb00/rr-client:latest
 
                   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
-                  docker run -d adamb00/rr-client:latest
+                  docker run -d -p 80:80 -v /var/www/r2byou.com/html:/usr/share/nginx/html adamb00/rr-client:latest
+
+              # docker run -d adamb00/rr-client:latest
 
          # - name: Set up Docker Buildx
          #   uses: docker/setup-buildx-action@v1
