@@ -61,11 +61,17 @@ jobs:
                   docker stop $(docker ps -q)
                   docker rm $(docker ps -a -q)
 
-                 docker pull adamb00/rr-server:latest
-                 docker pull adamb00/rr-client:latest
+                  
+                  docker pull adamb00/rr-server:latest
+                  docker pull adamb00/rr-client:latest
+
+                  CONTAINER_ID=$(docker ps -qf "name=rr-client:latest")
 
                  docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
-                 docker run -d -v /var/www/r2byou.com/html:/usr/src/app/dist adamb00/rr-client:latest
+
+                 docker run -d adamb00/rr-client:latest
+
+                 docker cp $CONTAINER_ID:/usr/src/app/dist /var/www/r2byou.com/html
 
          # - name: Set up Docker Buildx
          #   uses: docker/setup-buildx-action@v1
