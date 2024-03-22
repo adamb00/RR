@@ -27,11 +27,8 @@ FROM nginx:latest
 # Copy built assets from builder stage to nginx
 # COPY --from=builder /usr/src/app/dist /var/www/r2byou.com/html
 
-COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
-
-
 # Expose port 80
-EXPOSE 80
+# EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
