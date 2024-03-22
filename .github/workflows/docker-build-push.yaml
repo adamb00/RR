@@ -68,6 +68,9 @@ jobs:
                   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
                   docker run -d adamb00/rr-client:latest
 
+         - name: Create destination directory if it doesn't exist
+           run: mkdir -p /var/www/r2byou.com/html/
+
          - name: Copy from container to host
            uses: tj-actions/docker-cp@v2
            with:
