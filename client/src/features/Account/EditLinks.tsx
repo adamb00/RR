@@ -43,12 +43,6 @@ export default function EditLinks() {
                <LinkAdmin key={link._id} link={link} device={device} />
             ))}
          </div>
-         {/* <Paginator
-            count={count}
-            currentPage={currentPage}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-         /> */}
       </>
    );
 }

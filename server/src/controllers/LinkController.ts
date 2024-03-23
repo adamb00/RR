@@ -12,7 +12,7 @@ import sharp from 'sharp';
 
 const unlinkFile = util.promisify(fs.unlink);
 
-export default class UserController {
+export default class LinkController {
    public uploadImage = multerUpload.single('image');
    public getAllLinks = handler.getAll(Link);
    public getOneLink = handler.getOne(Link);
@@ -44,6 +44,7 @@ export default class UserController {
    });
 
    public createLink = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      console.log(req.body);
       await Link.updateMany({}, { $inc: { order: 1 } });
       const link = await Link.create({ ...req.body, order: 0 });
 
