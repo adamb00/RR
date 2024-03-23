@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+   react-app:
+      image: adamb00/rr-client:latest
+      restart: always
+      container_name: react-app
+      stdin_open: true
+      tty: true
+      ports:
+         - '80:80'
+         - '443:443'
+      build:
+         context: ./client
+         dockerfile: Dockerfile
+      networks:
+         - mern-app
+   node-app:
+      image: adamb00/rr-server:latest
+      restart: always
+      stdin_open: true
+      tty: true
+      container_name: api-server
+      ports:
+         - '8000:8000'
+      build:
+         context: ./server
+         dockerfile: Dockerfile
+      networks:
+         - mern-app
+
+networks:
+   mern-app:
+      driver: bridge

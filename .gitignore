@@ -4,6 +4,5 @@ data
 node-app
 react-app
 docker-compose.dev.yaml
-docker-compose.yaml
 gitaction.txt
 Makefile
