@@ -1,0 +1,27 @@
+FROM node:lts-alpine as builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+FROM node:lts-alpine
+
+USER node
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci 
+
+COPY --from=builder /app/dist/ /app/dist/
+
+EXPOSE 8000
+
+CMD [ "npm", "run", "start" ]

@@ -10,15 +10,8 @@ export default defineConfig({
          '@': path.resolve(__dirname, './src'),
       },
    },
-   server: {
-      proxy: {
-         '/api': {
-            target: 'http://localhost:8000',
-         },
-      },
-   },
    preview: {
+      port: 3000,
       host: true,
-      port: 3000, // client port when execute npm run preview
    },
 });
