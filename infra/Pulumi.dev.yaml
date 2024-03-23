@@ -1,32 +1,58 @@
 config:
   digitalocean:token:
     secure: AAABAMcuoRgAaO/CEKS2QbZqTP3rO6IV9bhScQVrsZ9kqU9FzCTiRcVL6Q07vkDwO08AMKdd/QBA5eacYbB/88k2zA9qlkCRWQn4K0hPQ5L3S+cO6JHJLQS2nYPNLTL1ELvf66lmUA==
-  r2byou:AWS_ACCESS_KEY: AKIA3MBAYGAYQA2RKFUX
-  r2byou:AWS_BUCKET_NAME: rr-bucket-storage
-  r2byou:AWS_BUCKET_REGION: us-east-1
+  r2byou:AWS_ACCESS_KEY:
+    secure: AAABAAYK+NLrlGzvxOujKwgWkuC9TyQ2ln5rksNi09tEIyqTLW/0MgehK9qJ8eezwY4VnA==
+  r2byou:AWS_BUCKET_NAME:
+    secure: AAABAP21N5ZBhDhIpuAx6D9avzfFbcZD4fUjDDLknXi1bQUClgb4idStXAEkcIBIbA==
+  r2byou:AWS_BUCKET_REGION:
+    secure: AAABAPE3Dm9HBgT8p6rgkfLR/WS0gwXHD81IrXHIMFvq3jywcMaP/KM=
   r2byou:AWS_SECRET_KEY:
-    secure: AAABAMwQpajYyJNqIqTO6tEZTgrNFZ50aSEt3k0ZNfF5WeNTuJclx2lHXVdRtSN4QiM3bWJgZ9/0oxj7lnqH8Xd6jx97qNsS
-  r2byou:BASE_URL: https://r2byou.com
+    secure: AAABAMmFBXDMvLKjNrDJiGTjtitJE0LRtj5AI9Ax88/0TEdNEMdjsnyCWZDwwDAAUBxd7MS6f1s4tzMFKUHD1U3I+glMIoua
+  r2byou:BASE_URL:
+    secure: AAABAE7WSHqC7nMojBUQslPql9ruOruOPQTC5W/Hi2H6An6QwJ8aBi7qfqdDR1zT/JA=
   r2byou:EMAIL_ACCESS_TOKEN:
-    secure: AAABAMoEHon/kYE8ajarztqN6uuJWDss+iKQpm9ygJwozoL2fSp7bkkINxEC+vDIlufORTW1744fgYUkS2Czum0pmm20diP/R9jztGHdVWvRF4HjfWi2iLsdGe0k8G254923JVNOJgmN8z4LC4SYO8ucwSIX7QIPSlDK+YM0EbB0eCB+Odq9QveCByu/oDVeo6ibx4KJRWJe28dr089yi0pvdnHiX0/k+5DScqln67VVrbbr8dGbjclkCVBapdi0NTFyEFUgxMTF6hy6xn43xjYUxID3odLKFaBiPKtU3DFrf+gob4Y2iGR3H3whhezG5iG0MgMQxrlHhg==
-  r2byou:EMAIL_CLIENT_ID: 1077382016406-hseup3f823n22euho4gtk012qiotiibs.apps.googleusercontent.com
+    secure: AAABAB4a+gL4YClZiozn76pZE/wkQRe4CEbmJJyw0bBgPnt2lIw8533eLpdpVSDzrW7AGBl3sOl6SdOgmuwB1phzW0pnkBipwPI9WgyVGrNijHT7j1Bk9kkNUU95Gp3foDocISbaUC5CjniyhLDzp0EI8bDXRF0wv/8RL32juDEf/89tPzMzNsHT/mkFelQjVN72/n9yUbmpT4zNEqoWCfLXssQhMRRBG0rvib55V74GNx6FRGhiazFvVo6sMBQ2l8CGEafg2vfXKM7rY6wVCoXpW1SS4XzQB0v8d3hV48QO1wQyM86NBf7EOKKJEbfLPjNdoWFCVazCMw==
+  r2byou:EMAIL_CLIENT_ID:
+    secure: AAABALDW4Ufi6VIM/x0eiNWKoE1XaxS6NiEi4Wpla3ELhr38y4QERANPUSy4hnzt4cvYEwgicXiP9P6N+m9WJCyBNaTkYe3hctQqZKIXjUngDvWD+2bDtlNBk9hnfTE1zU0ZNjnQaE9N
   r2byou:EMAIL_CLIENT_SECRET:
-    secure: AAABAEa443n5w3zZL+EPoPt83zHzDI+eeAb/RLh9E5iVRUUjBjp3QseD5KkQrRsLO8v2bcCIFgVX9HBWCyW9zoShnA==
-  r2byou:EMAIL_FROM: borsodi.dm@gmail.com
-  r2byou:EMAIL_HOST: smtp.gmail.com
-  r2byou:EMAIL_PASSWORD: f418w6er
-  r2byou:EMAIL_PORT: '465'
+    secure: AAABAM7FUsREfGs02Lk+nH3I02R96zR5wjHjQyoh3anvDimty/ZHseglGqRD1UYnebcHwdEmk4w1MZvplaLiUNDgkA==
+  r2byou:EMAIL_FROM:
+    secure: AAABAHJIvdChBSeqSen4tMXO3YQ2QELOdBSmUjDKPyDIkIZ5YMBhQ0qAUjsBVMOxf+cGXg==
+  r2byou:EMAIL_HOST:
+    secure: AAABAFr2OI61k6Cn7rpobn6+6m+PXadd2NegT+vIPl/s+ayaowc1e3Ie5er98g==
+  r2byou:EMAIL_PASSWORD:
+    secure: AAABAMV8ibs330octNZFS0+U+2wp7V5plFtrPrhVXkYX3F6rBJGUaA==
+  r2byou:EMAIL_PORT:
+    secure: AAABAKIdZXK6xbOjcklArJjhVhLEeBUazCKv9IZ9yypFI54=
   r2byou:EMAIL_REFRESH_TOKEN:
-    secure: AAABADlspzjzYLpgQlds34yKrotniycWLG1+dybEwgRXC9xamcaAsUAD8slTp0+F2TwVBcyu6kakbRMN1EtMUAn26RkL6AouBvFrYOj5ClTWyrFZUkqsRjTA3btKYMa2dG5IxX77HvPBB2d8K0drMlRtzHh18R4EjEt2pFrB9HrOPl2EnPTd
-  r2byou:EMAIL_USERNAME: Borsodi Adam
-  r2byou:JWT_EXPIRES_IN: 90m
-  r2byou:JWT_SECRET: my-ultra-secure-and-ultra-long-secret
-  r2byou:MONGO_DB: mongodb+srv://borsodidm:<PASSWORD>@rr.ppybv9b.mongodb.net/rr?retryWrites=true&w=majority
+    secure: AAABABUhZFTn5g60n6aJMH2+RhXQ8c3OusB0JtG90ukp7kzetWZ/FuiBkkjKOSaEWmrPl7uKb/Oc8tyTWYQwhXYgqgEzFiZ6JeqTieECHmvtmhd7mO3YHj/7FxXjz3D8SpNoM4nELMVaUBIf+rB2u16rxNWQka+cVhMb3FLR+gI9SArkU7mr
+  r2byou:EMAIL_USERNAME:
+    secure: AAABADs2F7So1MOy81MC7cSYiuxwfwpqSkim62i996ZI74v2Au4jbrKEnPQ=
+  r2byou:JWT_EXPIRES_IN:
+    secure: AAABACkgq/5ePb6dJtTZda6rDrDdCPGxYg+xebzCosSoig8=
+  r2byou:JWT_SECRET:
+    secure: AAABALwAYqh7NKtOrqUb/QVdLFwZ0mz9cScMh+O9mUccQjRNoMZXzrLKFtjHHysmUlkjtWFgw+9hu+sxEyrq7sX14aOC
+  r2byou:MONGO_DB:
+    secure: AAABACfCa9towBHsiublhAIlhi0mK2w+r2kQiAfI0KNL8RHiSl/ynPyIc6X8uWK/SX4GwtL9VQaow2OVexPe7Yfdv70q6c01nMA+xTijrY5fF927IT1vheQVdqeYqcCUme6TogdOuoSa+D7QCPfVl6llG8Og16eu
   r2byou:MONGO_PWD:
-    secure: AAABADb6KrqzXp5sd0qe7/qyJYVwxj8+MBT9CDyf/kG8oRhvMLA3ATWrNm9klfLB49/OIA==
-  r2byou:NODE_ENV: prod
-  r2byou:PORT: '8000'
-  r2byou:VERSION: v1
+    secure: AAABAGP7tuzYdfoDornSaVSoytmIGIYd1PZUzfyPLRzDr1XV22S9JEOWOI4uqYNJuE76ag==
+  r2byou:NODE_ENV:
+    secure: AAABAEfJ+hTH7iNVlG+A+TxAnIT9VuGJ04aSDruBYlMQh1F1
+  r2byou:PORT:
+    secure: AAABANDMDbox+oqARAljIUqvOdy9aSN5tzr9HcEK/dkhA2OD
+  r2byou:VERSION:
+    secure: AAABADE9q/Zm3+6XqLFJATdCRwJb5fPFOEwvQwEgBg2RdQ==
+  r2byou:VITE_BASE_URL:
+    secure: AAABAI9ywG+jsO/W5J2jf+jDRfxk/1cXtvb+EoQWIIkaE2U5cxqWZzxhWisGBUDLLzvpW1VhvzxWXA==
+  r2byou:VITE_BASE_URL_LINK:
+    secure: AAABABsrILiWN8aXRyO+nl69quiPtqPYOL9tmznQ4N4Y+1DCs/sFB33oApUH7fdKP4XM
+  r2byou:VITE_BASE_URL_SOCKET:
+    secure: AAABAF3XbWkhGY1nhqyipfVBF6NL3uZX7Pz1tXqjxBs0FHAyQCjNEcvBpvGh89cpJNE=
+  r2byou:VITE_FACEBOOK_APP_ID:
+    secure: AAABANeeQs9eysvgACcScxcDpSRI4lNiLe3wlAIOeLZQBluy2Ik+G3ndJrIy8pOD
+  r2byou:VITE_NODE_ENV:
+    secure: AAABABPPv6iPPlM+q0xGBqVBa2UNGwjc1bONDQf3syGB3u6bDOqKYckP
   r2byou:branch: main
   r2byou:domainName: r2byou.com
   r2byou:repo: adamb00/RR
