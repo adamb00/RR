@@ -8,7 +8,7 @@ import { StrictMode } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { store, persistor } from './app/store.ts';
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import 'drag-drop-touch';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
