@@ -41,10 +41,6 @@ const viteBaseUrlLink = config.requireSecret('VITE_BASE_URL_LINK');
 // The DigitalOcean region to deploy into.
 const region = digitalocean.Region.FRA1;
 
-// const dropletIp = '165.227.173.40';
-
-// const domainName = config.require('domainName');
-
 // The App Platform spec that defines our grocery list.
 const app = new digitalocean.App('app', {
    spec: {
@@ -67,7 +63,7 @@ const app = new digitalocean.App('app', {
             envs: [
                { key: 'VITE_NODE_ENV', scope: 'RUN_AND_BUILD_TIME', value: viteNodeEnv },
                { key: 'VITE_FACEBOOK_APP_ID', scope: 'RUN_AND_BUILD_TIME', value: viteFacebookAppId },
-               { key: 'VITE_BASE_URL_SOCKET', scope: 'RUN_AND_BUILD_TIME', value: viteBaseUrlSocket },
+               { key: 'VITE_BASE_URL_SOCKET', scope: 'RUN_AND_BUILD_TIME', value: 'https://r2byou.com/' },
                { key: 'VITE_BASE_URL', scope: 'RUN_AND_BUILD_TIME', value: viteBaseUrl },
                { key: 'VITE_BASE_URL_LINK', scope: 'RUN_AND_BUILD_TIME', value: viteBaseUrlLink },
             ],
@@ -125,7 +121,7 @@ const app = new digitalocean.App('app', {
                { key: 'AWS_BUCKET_REGION', scope: 'RUN_AND_BUILD_TIME', value: awsBucketRegion },
                { key: 'AWS_ACCESS_KEY', scope: 'RUN_AND_BUILD_TIME', value: awsAccessKey },
                { key: 'AWS_SECRET_KEY', scope: 'RUN_AND_BUILD_TIME', value: awsSecretKey },
-               { key: 'BASE_URL', scope: 'RUN_AND_BUILD_TIME', value: baseURL },
+               { key: 'BASE_URL', scope: 'RUN_AND_BUILD_TIME', value: 'https://r2byou.com/' },
             ],
          },
       ],
