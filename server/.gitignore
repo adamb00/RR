@@ -5,3 +5,5 @@ node_modules
 .jest
 dist
 compose-dev.yaml
+Dockerfile.dev
+.dockerignore
