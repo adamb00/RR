@@ -64,14 +64,6 @@ app.use(`/api/${env.VERSION}/link`, LinkRouter);
 app.use(`/api/${env.VERSION}/notification`, NotificationRouter);
 app.use(`/api/${env.VERSION}/purchase`, PurchaseRouter);
 
-app.get('/*', function (req, res) {
-   res.sendFile(path.join(__dirname, '../../client/dist/index.html'), function (err) {
-      if (err) {
-         res.status(500).send(err);
-      }
-   });
-});
-
 app.all('*', (req: Request, _res: Response, next: NextFunction) => {
    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
