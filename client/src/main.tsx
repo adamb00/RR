@@ -8,11 +8,12 @@ import { StrictMode } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { store, persistor } from './app/store.ts';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import 'drag-drop-touch';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { createRoot } from 'react-dom/client';
+
+import 'drag-drop-touch';
 
 const queryClient = new QueryClient({
    defaultOptions: {
@@ -25,7 +26,7 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
    <StrictMode>
-      <BrowserRouter>
+      <HashRouter>
          <QueryClientProvider client={queryClient}>
             <Provider store={store}>
                <LinkProvider>
@@ -42,6 +43,6 @@ createRoot(document.getElementById('root')!).render(
                </LinkProvider>
             </Provider>
          </QueryClientProvider>
-      </BrowserRouter>
+      </HashRouter>
    </StrictMode>
 );

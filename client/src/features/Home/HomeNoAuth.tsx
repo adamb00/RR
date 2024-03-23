@@ -2,7 +2,6 @@ import { useTheme } from '../../context/ThemeContext';
 import { SparklesCore } from '../../ui/Aceternity/Sparkles';
 
 export default function HomeNoAuth() {
-   console.log(import.meta.env.VITE_BASE_URL);
    const { theme } = useTheme(),
       isDark = theme === 'dark';
    return (
