@@ -42,6 +42,6 @@ createRoot(document.getElementById('root')!).render(
                </LinkProvider>
             </Provider>
          </QueryClientProvider>
-      </HashRou>
+      </HashRouter>
    </StrictMode>
 );
