@@ -33,7 +33,7 @@ app.use(helmet());
 app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE'] }));
 app.options('*', cors());
 
-const io = new Server(server, { cors: { origin: env.BASE_URL }, path: '/socket.io/' });
+const io = new Server(server, { cors: { origin: env.BASE_URL } });
 
 io.on('connection', socket => {
    socket.on('link', async data => {

@@ -1,0 +1,33 @@
+config:
+  digitalocean:token:
+    secure: AAABAMcuoRgAaO/CEKS2QbZqTP3rO6IV9bhScQVrsZ9kqU9FzCTiRcVL6Q07vkDwO08AMKdd/QBA5eacYbB/88k2zA9qlkCRWQn4K0hPQ5L3S+cO6JHJLQS2nYPNLTL1ELvf66lmUA==
+  r2byou:AWS_ACCESS_KEY: AKIA3MBAYGAYQA2RKFUX
+  r2byou:AWS_BUCKET_NAME: rr-bucket-storage
+  r2byou:AWS_BUCKET_REGION: us-east-1
+  r2byou:AWS_SECRET_KEY:
+    secure: AAABAMwQpajYyJNqIqTO6tEZTgrNFZ50aSEt3k0ZNfF5WeNTuJclx2lHXVdRtSN4QiM3bWJgZ9/0oxj7lnqH8Xd6jx97qNsS
+  r2byou:BASE_URL: https://r2byou.com
+  r2byou:EMAIL_ACCESS_TOKEN:
+    secure: AAABAMoEHon/kYE8ajarztqN6uuJWDss+iKQpm9ygJwozoL2fSp7bkkINxEC+vDIlufORTW1744fgYUkS2Czum0pmm20diP/R9jztGHdVWvRF4HjfWi2iLsdGe0k8G254923JVNOJgmN8z4LC4SYO8ucwSIX7QIPSlDK+YM0EbB0eCB+Odq9QveCByu/oDVeo6ibx4KJRWJe28dr089yi0pvdnHiX0/k+5DScqln67VVrbbr8dGbjclkCVBapdi0NTFyEFUgxMTF6hy6xn43xjYUxID3odLKFaBiPKtU3DFrf+gob4Y2iGR3H3whhezG5iG0MgMQxrlHhg==
+  r2byou:EMAIL_CLIENT_ID: 1077382016406-hseup3f823n22euho4gtk012qiotiibs.apps.googleusercontent.com
+  r2byou:EMAIL_CLIENT_SECRET:
+    secure: AAABAEa443n5w3zZL+EPoPt83zHzDI+eeAb/RLh9E5iVRUUjBjp3QseD5KkQrRsLO8v2bcCIFgVX9HBWCyW9zoShnA==
+  r2byou:EMAIL_FROM: borsodi.dm@gmail.com
+  r2byou:EMAIL_HOST: smtp.gmail.com
+  r2byou:EMAIL_PASSWORD: f418w6er
+  r2byou:EMAIL_PORT: '465'
+  r2byou:EMAIL_REFRESH_TOKEN:
+    secure: AAABADlspzjzYLpgQlds34yKrotniycWLG1+dybEwgRXC9xamcaAsUAD8slTp0+F2TwVBcyu6kakbRMN1EtMUAn26RkL6AouBvFrYOj5ClTWyrFZUkqsRjTA3btKYMa2dG5IxX77HvPBB2d8K0drMlRtzHh18R4EjEt2pFrB9HrOPl2EnPTd
+  r2byou:EMAIL_USERNAME: Borsodi Adam
+  r2byou:JWT_EXPIRES_IN: 90m
+  r2byou:JWT_SECRET: my-ultra-secure-and-ultra-long-secret
+  r2byou:MONGO_DB: mongodb+srv://borsodidm:<PASSWORD>@rr.ppybv9b.mongodb.net/rr?retryWrites=true&w=majority
+  r2byou:MONGO_PWD:
+    secure: AAABADb6KrqzXp5sd0qe7/qyJYVwxj8+MBT9CDyf/kG8oRhvMLA3ATWrNm9klfLB49/OIA==
+  r2byou:NODE_ENV: prod
+  r2byou:PORT: '8000'
+  r2byou:VERSION: v1
+  r2byou:branch: main
+  r2byou:domainName: r2byou.com
+  r2byou:repo: adamb00/RR
+  r2byou:service_instance_count: '2'

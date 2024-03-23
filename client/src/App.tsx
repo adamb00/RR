@@ -54,6 +54,7 @@ export default function App() {
       <Routes>
          <Route path='/' element={<AppLayout />}>
             {/* NON AUTHENTICATED ROUTES */}
+
             <Route path='/' element={<Home />} />
             <Route path='/:id' element={<MyLink />} />
             <Route path='about' element={<About />} />

@@ -19,6 +19,7 @@ export default function HomeNoAuth() {
             />
          </div>
          <h1 className='heading-primary'>Here comes some fancy title</h1>
+         <p>askldjf;kljasdfkljasdklfjal;sd</p>
       </div>
    );
 }
