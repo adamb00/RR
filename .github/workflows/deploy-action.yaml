@@ -1,0 +1,29 @@
+name: pipeline
+on:
+   push:
+      branches:
+         - 'main'
+jobs:
+   build_and_push:
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout the repo
+           uses: actions/checkout@v2
+         # - name: Create env file
+         #   run: |
+         #      touch .env
+         #      echo "${{ secrets.SERVER_ENV_PROD }}" > .env
+         #      cat .env
+         - name: Build image
+           run: docker compose -f docker-compose.yaml build
+
+         - name: Install doctl
+           uses: digitalocean/action-doctl@v2
+           with:
+              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+         - name: Log in to DO Container Registry
+           run: doctl registry login --expiry-seconds 600
+
+         - name: Push image to DO Container Registry
+           run: docker compose -f docker-compose.prod.yml push
