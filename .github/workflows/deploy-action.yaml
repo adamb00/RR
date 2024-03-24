@@ -52,16 +52,16 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker stop $(docker ps -q)
-                 docker rm $(docker ps -a -q)
+                 docker stop $(docker ps -q) || true
+                 docker rm $(docker ps -a -q) || true
 
                  docker run -d \
-                 --name $(echo $IMAGE_NAME_FRONTEND) \
-                 $(echo $REGISTRY)/$(echo $IMAGE_NAME_FRONTEND):$(echo $GITHUB_SHA | head -c7)
+                 --name $IMAGE_NAME_FRONTEND \
+                 $REGISTRY/$IMAGE_NAME_FRONTEND:${{ github.sha }} | head -c7
 
                  docker run -d \
-                 --name $(echo $IMAGE_NAME_BACKEND) \
-                 $(echo $REGISTRY)/$(echo $IMAGE_NAME_BACKEND):$(echo $GITHUB_SHA | head -c7)
+                 --name $IMAGE_NAME_BACKEND \
+                 $REGISTRY/$IMAGE_NAME_BACKEND:${{ github.sha }} | head -c7
 
               #   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
               #   docker run -d adamb00/rr-client:latest
