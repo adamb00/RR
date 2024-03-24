@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
+COPY ./assets /app/dist/assets
+
 FROM nginx:stable-alpine as production
 
 COPY --from=development /usr/src/app/dist /var/www/r2byou.com/html
