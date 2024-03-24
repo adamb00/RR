@@ -31,6 +31,16 @@ jobs:
          - name: Log in to DO Container Registry
            run: doctl registry login --expiry-seconds 600
 
+         - name: Remove previous images
+           run: |
+              docker compose -f docker-compose.yaml down
+              docker rmi $(docker images -q) || true
+
+         - name: Remove previous images from DO Container Registry
+           run: |
+              doctl registry repository delete $REGISTRY/$IMAGE_NAME_FRONTEND || true
+              doctl registry repository delete $REGISTRY/$IMAGE_NAME_BACKEND || true
+
          - name: Push image to DO Container Registry
            run: docker compose -f docker-compose.yaml push
    deploy-to-digitalocean:
@@ -52,16 +62,16 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker stop $(docker ps -q) || true
-                 docker rm $(docker ps -a -q) || true
+                 docker stop $(docker ps -q)
+                 docker rm $(docker ps -a -q)
 
                  docker run -d \
                  --name $IMAGE_NAME_FRONTEND \
-                 $REGISTRY/$IMAGE_NAME_FRONTEND:${{ github.sha }} | head -c7
+                 $REGISTRY/$IMAGE_NAME_FRONTEND:${{ github.sha }}
 
                  docker run -d \
                  --name $IMAGE_NAME_BACKEND \
-                 $REGISTRY/$IMAGE_NAME_BACKEND:${{ github.sha }} | head -c7
+                 $REGISTRY/$IMAGE_NAME_BACKEND:${{ github.sha }}
 
               #   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
               #   docker run -d adamb00/rr-client:latest
