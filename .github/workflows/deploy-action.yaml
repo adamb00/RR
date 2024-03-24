@@ -52,6 +52,16 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
+         - name: Copy Backend env via ssh key
+           uses: appleboy/scp-action@v0.1.7
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              source: '/Users/borsodiadam/Documents/Robi_app/server/.env'
+              target: '/root/'
+
          - name: SSH into DigitalOcean droplet
            uses: appleboy/ssh-action@master
            with:
@@ -62,8 +72,6 @@ jobs:
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-                 scp -o StrictHostKeyChecking=no /Users/borsodiadam/Documents/Robi_app/server/.env ${{secrets.DROPLET_USERNAME}}@${{secrets.DROPLET_HOST}}:/root/.env
-
 
                  docker stop $(docker ps -q)
                  docker rm $(docker ps -a -q)
