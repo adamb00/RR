@@ -71,32 +71,34 @@ jobs:
                  docker run -d --name frontend  registry.digitalocean.com/rr-registry/frontend:latest
                  docker run -d registry.digitalocean.com/rr-registry/backend:latest
 
-   copy-to-host:
-      runs-on: ubuntu-latest
-      needs: deploy-to-digitalocean
-      steps:
-         - name: Checkout repository
-           uses: actions/checkout@v2
+                 docker ps -a
 
-         - name: SSH into DigitalOcean droplet
-           uses: appleboy/ssh-action@master
-           with:
-              host: ${{ secrets.DROPLET_HOST }}
-              username: ${{ secrets.DROPLET_USERNAME }}
-              key: ${{ secrets.DROPLET_SSH_KEY }}
-              port: ${{ secrets.DROPLET_SSH_PORT }}
-              passphrase: ${{ secrets.SSH_PASSPHRASE }}
-              script: |
-                 echo "Logged in to the remote host"
+   # copy-to-host:
+   #    runs-on: ubuntu-latest
+   #    needs: deploy-to-digitalocean
+   #    steps:
+   #       - name: Checkout repository
+   #         uses: actions/checkout@v2
 
-         - name: Check running containers
-           run: docker ps -a
+   #       - name: SSH into DigitalOcean droplet
+   #         uses: appleboy/ssh-action@master
+   #         with:
+   #            host: ${{ secrets.DROPLET_HOST }}
+   #            username: ${{ secrets.DROPLET_USERNAME }}
+   #            key: ${{ secrets.DROPLET_SSH_KEY }}
+   #            port: ${{ secrets.DROPLET_SSH_PORT }}
+   #            passphrase: ${{ secrets.SSH_PASSPHRASE }}
+   #            script: |
+   #               echo "Logged in to the remote host"
 
-         - name: Get container ID
-           run: |
-              CONTAINER_ID=$(docker ps -qf "name=frontend")
-              echo "Container ID: $CONTAINER_ID"
+   #       - name: Check running containers
+   #         run: docker ps -a
 
-         - name: Copy files from image
-           run: |
-              docker cp $CONTAINER_ID:/var/www/r2byou.com/html /var/www/r2byou.com/html
+   #       - name: Get container ID
+   #         run: |
+   #            CONTAINER_ID=$(docker ps -qf "name=frontend")
+   #            echo "Container ID: $CONTAINER_ID"
+
+   #       - name: Copy files from image
+   #         run: |
+   #            docker cp $CONTAINER_ID:/var/www/r2byou.com/html /var/www/r2byou.com/html
