@@ -62,6 +62,8 @@ jobs:
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+                 scp -o StrictHostKeyChecking=no /Users/borsodiadam/Documents/Robi_app/server/.env ${{secrets.DROPLET_USERNAME}}@${{secrets.DROPLET_HOST}}:/root/.env
+
 
                  docker stop $(docker ps -q)
                  docker rm $(docker ps -a -q)
@@ -69,7 +71,7 @@ jobs:
                  docker pull registry.digitalocean.com/rr-registry/frontend:latest
                  docker pull registry.digitalocean.com/rr-registry/backend:latest
 
-                 docker run -d --name frontend  registry.digitalocean.com/rr-registry/frontend:latest
-                 docker run -d registry.digitalocean.com/rr-registry/backend:latest
+                 docker run -d --name frontend registry.digitalocean.com/rr-registry/frontend:latest
+                 docker run -d --env-file /root/.env registry.digitalocean.com/rr-registry/backend:latest
 
                  docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com
