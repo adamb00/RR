@@ -78,6 +78,17 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
+         - name: SSH into DigitalOcean droplet
+           uses: appleboy/ssh-action@master
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
+              script: |
+                 echo "Logged in to the remote host"
+
          - name: Check running containers
            run: docker ps -a
 
