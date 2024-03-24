@@ -20,16 +20,6 @@ jobs:
          #      touch .env
          #      echo "${{ secrets.SERVER_ENV_PROD }}" > .env
          #      cat .env
-         - name: Build image
-           run: docker compose -f docker-compose.yaml build
-
-         - name: Install doctl
-           uses: digitalocean/action-doctl@v2
-           with:
-              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-         - name: Log in to DO Container Registry
-           run: doctl registry login --expiry-seconds 600
 
          - name: Remove previous images
            run: |
@@ -40,6 +30,17 @@ jobs:
            run: |
               doctl registry repository delete $REGISTRY/$IMAGE_NAME_FRONTEND || true
               doctl registry repository delete $REGISTRY/$IMAGE_NAME_BACKEND || true
+
+         - name: Build image
+           run: docker compose -f docker-compose.yaml build
+
+         - name: Install doctl
+           uses: digitalocean/action-doctl@v2
+           with:
+              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+         - name: Log in to DO Container Registry
+           run: doctl registry login --expiry-seconds 600
 
          - name: Push image to DO Container Registry
            run: docker compose -f docker-compose.yaml push
