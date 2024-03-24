@@ -62,16 +62,11 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 docker pull $REGISTRY/$IMAGE_NAME_FRONTEND
-                 docker pull $REGISTRY/$IMAGE_NAME_BACKEND
+                 docker pull registry.digitalocean.com/rr-registry/frontend:latest
+                 docker pull registry.digitalocean.com/rr-registry/backend:latest
 
-                 docker run -d \
-                 --name $IMAGE_NAME_FRONTEND \
-                 $REGISTRY/$IMAGE_NAME_FRONTEND:${{ github.sha }} || true
-
-                 docker run -d \
-                 --name $IMAGE_NAME_BACKEND \
-                 $REGISTRY/$IMAGE_NAME_BACKEND:${{ github.sha }} || true
+                 docker run -d registry.digitalocean.com/rr-registry/frontend:latest
+                 docker run -d registry.digitalocean.com/rr-registry/frontend:latest
 
               #   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
               #   docker run -d adamb00/rr-client:latest
