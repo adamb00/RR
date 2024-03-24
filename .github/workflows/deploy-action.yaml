@@ -71,10 +71,8 @@ jobs:
                  docker run -d registry.digitalocean.com/rr-registry/frontend:latest --name frontend
                  docker run -d registry.digitalocean.com/rr-registry/backend:latest
 
-         - name: Get container ID
-           run: |
-              CONTAINER_ID=$(docker ps -qf "name=frontend")
-              echo "Container ID: $CONTAINER_ID"
+                 CONTAINER_ID=$(docker ps -qf "name=frontend")
+                 echo "Container ID: $CONTAINER_ID"
 
            #   docker run -d -p 8000:8000 --env-file /root/.env adamb00/rr-server:latest
            #   docker run -d adamb00/rr-client:latest
