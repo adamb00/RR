@@ -53,7 +53,7 @@ app.all('*', (req: Request, _res: Response, next: NextFunction) => {
 
 app.use(globalErrorHandler);
 
-const io = new Server(server, { cors: { origin: env.BASE_URL }, path: '/socket.io' });
+const io = new Server(server, { cors: { origin: '*' }, path: '/socket.io' });
 
 io.on('connection', socket => {
    socket.on('link', async data => {

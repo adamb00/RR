@@ -70,6 +70,9 @@ jobs:
                  docker pull registry.digitalocean.com/rr-registry/backend:latest
 
                  docker run -d --name frontend registry.digitalocean.com/rr-registry/frontend:latest
-                 docker run -d --env-file /root/.env registry.digitalocean.com/rr-registry/backend:latest
+                 docker run -d --name backend --env-file /root/.env registry.digitalocean.com/rr-registry/backend:latest
 
                  docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com
+                 docker cp backend:/var/www/r2byou.com/server /app/dist
+
+                 pm2 start /var/www/r2byou.com/server/dist/server.js
