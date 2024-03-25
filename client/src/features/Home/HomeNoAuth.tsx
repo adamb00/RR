@@ -5,7 +5,6 @@ export default function HomeNoAuth() {
    const { theme } = useTheme(),
       isDark = theme === 'dark';
 
-   console.log(import.meta.env.VITE_BASE_URL);
    return (
       <div className='home__no-auth'>
          <div className='home__no-auth--container'>
@@ -20,7 +19,6 @@ export default function HomeNoAuth() {
             />
          </div>
          <h1 className='heading-primary'>Here comes some fancy title</h1>
-         <h1 className='heading-secondary'>subidubi</h1>
       </div>
    );
 }

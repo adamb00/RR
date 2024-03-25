@@ -34,7 +34,7 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
       setShowModal(false);
    };
 
-   if (!notifications || notifications.length < 1)
+   if (!notifications || notifications.length < 1) {
       return (
          <div className='notifications__modal'>
             <div className='notifications__modal--content'>
@@ -42,6 +42,7 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
             </div>
          </div>
       );
+   }
 
    return (
       <div className='notifications__modal'>

@@ -15,7 +15,7 @@ export default function HomeAuth() {
          {inviteModalOpen && (
             <InviteModal
                setInviteModalOpen={setInviteModalOpen}
-               url={`${import.meta.env.VITE_BASE_URL_LINK}#/signup/${user.referralCode}`}
+               url={`${import.meta.env.VITE_BASE_URL_LINK}signup/${user.referralCode}`}
             />
          )}
          <AvailablePoints />
