@@ -20,16 +20,15 @@ jobs:
          #      touch .env
          #      echo "${{ secrets.SERVER_ENV_PROD }}" > .env
          #      cat .env
-
-         - name: Remove previous images
-           run: |
-              docker compose -f docker-compose.yaml down
-              docker rmi $(docker images -q) || true
-
-         - name: Remove previous images from DO Container Registry
-           run: |
-              doctl registry repository delete $REGISTRY/$IMAGE_NAME_FRONTEND || true
-              doctl registry repository delete $REGISTRY/$IMAGE_NAME_BACKEND || true
+         - name: Install doctl
+           uses: digitalocean/action-doctl@v2
+           with:
+              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+         - name: Remove old images from Container Registry
+           uses: henrik242/docr-image-remove@v1
+           with:
+              image_repository: $REGISTRY
+              buffer_size: 10
 
          - name: Build image
            run: docker compose -f docker-compose.yaml build

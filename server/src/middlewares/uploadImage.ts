@@ -24,18 +24,7 @@ export const resizeImage = (resize: number) =>
 
       req.file.filename = `image_${Date.now()}.png`;
 
-      let outputPath;
-
-      if (env.NODE_ENV === 'prod') {
-         outputPath = path.join(__dirname, '../dist', req.file.filename);
-      } else {
-         outputPath = path.join(__dirname, '../uploads', req.file.filename);
-      }
-
-      console.log(outputPath);
-      console.log(env.NODE_ENV);
-
-      await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
+      const outputPath = path.join(__dirname, '../uploads', req.file.filename);
 
       req.file.path = outputPath;
 
