@@ -68,7 +68,7 @@ export default class AuthController {
          const resetToken = newUser.createActivationToken();
          await newUser.save({ validateBeforeSave: false });
 
-         const url = `${env.BASE_URL}/#/activate-account/${resetToken}`;
+         const url = `${env.BASE_URL}/activate-account/${resetToken}`;
 
          await new Email(newUser, url).sendWelcome();
 
@@ -149,7 +149,7 @@ export default class AuthController {
          const resetToken = user.createPasswordResetToken();
          await user.save({ validateBeforeSave: false });
 
-         const url = `${env.BASE_URL}/#/activate-account/${resetToken}}`;
+         const url = `${env.BASE_URL}/activate-account/${resetToken}}`;
 
          await new Email(user, url).sendWelcome();
          res.status(401).json({
@@ -225,7 +225,7 @@ export default class AuthController {
       await user.save({ validateBeforeSave: false });
 
       try {
-         const url = `${env.BASE_URL}/#/reset-password/${resetToken}`;
+         const url = `${env.BASE_URL}/reset-password/${resetToken}`;
 
          await new Email(user, url).sendPasswordReset();
 

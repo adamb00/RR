@@ -77,7 +77,7 @@ export const closeMenu = () => {
 };
 
 export const truncateText = (text: string, maxLength: number) => {
-   if (text.length > maxLength) {
+   if (text && text.length > maxLength) {
       const commaIndex = text.lastIndexOf(',', maxLength - 3);
       if (commaIndex !== -1) {
          return text.substring(0, commaIndex) + '...';

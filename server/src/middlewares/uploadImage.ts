@@ -2,9 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import multer, { FileFilterCallback } from 'multer';
 import catchAsync from '../utils/catchAsync';
 import path from 'path';
-import env from '../utils/validateEnv';
 import sharp from 'sharp';
-import fs from 'fs';
 
 const multerStore = multer.memoryStorage();
 
