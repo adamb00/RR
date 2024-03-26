@@ -18,6 +18,7 @@ export default function UploadImage() {
    const handleUploadImage = async (data: FieldValues) => {
       const formData = new FormData();
       formData.append('image', data.image);
+
       const res = await uploadUserImageApi(formData).unwrap();
       dispatch(updateUser({ ...res.data.user }));
 

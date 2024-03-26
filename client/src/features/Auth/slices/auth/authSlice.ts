@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserProfileData } from '../../../../interfaces/AuthInterfaces';
-import INotification from '../../../../interfaces/INotification';
+import { UserProfileData } from '@/interfaces/AuthInterfaces';
+import INotification from '@/interfaces/INotification';
 
 interface InitialState {
    user: null | UserProfileData;

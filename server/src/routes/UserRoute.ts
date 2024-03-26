@@ -20,9 +20,10 @@ router.patch('/update-password', authenticateUser, updatePassword);
 router.patch('/mark-notifications', authenticateUser, markNotifications);
 router.patch('/mark-one-notification', authenticateUser, markNotification);
 router.patch('/delete-notifications', authenticateUser, deleteAllNotifications);
-router.post('/upload-image', userController.uploadImage, resizeImage(300), authenticateUser, updateMe);
 
+router.post('/upload-image', userController.uploadImage, resizeImage(300), authenticateUser, updateMe);
 router.get('/get-image/:key', getUserImage);
+
 router.route('/').get(userController.getAllUsers).post(userController.createUser);
 router.route('/:id').get(userController.getOneUser).patch(userController.updateOneUser);
 

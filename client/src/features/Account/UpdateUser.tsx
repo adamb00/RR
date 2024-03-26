@@ -6,7 +6,7 @@ import Button from '../../ui/Buttons/Button';
 import { selectCurrentUser, updateUser as updateUserStore } from '../Auth/slices/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { IS_VALID_EMAIL, IS_VALID_PHONE_NUMBER } from '../../utils/helpers';
-import { useUpdateUserMutation } from '../Auth/slices/auth/authApiSlice';
+import { useUpdateUserMutation } from '../Auth/slices/user/userApiSlice';
 
 export default function UpdateUser() {
    const { control, handleSubmit } = useForm();
