@@ -4,9 +4,6 @@ import viteCompression from 'vite-plugin-compression';
 import path from 'path';
 
 export default defineConfig({
-   define: {
-      global: {},
-   },
    plugins: [react(), viteCompression()],
    resolve: {
       alias: {
