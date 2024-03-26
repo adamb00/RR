@@ -2,7 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import multer, { FileFilterCallback } from 'multer';
 import catchAsync from '../utils/catchAsync';
 import path from 'path';
+import env from '../utils/validateEnv';
 import sharp from 'sharp';
+import fs from 'fs';
 
 const multerStore = multer.memoryStorage();
 
@@ -22,7 +24,19 @@ export const resizeImage = (resize: number) =>
 
       req.file.filename = `image_${Date.now()}.png`;
 
-      const outputPath = path.join(__dirname, '../uploads', req.file.filename);
+      let outputPath;
+
+      if (env.NODE_ENV === 'prod') {
+         outputPath = path.join(__dirname, '../dist', req.file.filename);
+      } else {
+         outputPath = path.join(__dirname, '../uploads', req.file.filename);
+      }
+
+      console.log(outputPath);
+      console.log(env.NODE_ENV);
+
+      await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
+
       req.file.path = outputPath;
 
       await sharp(req.file.buffer)

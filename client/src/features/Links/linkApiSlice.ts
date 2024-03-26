@@ -1,5 +1,5 @@
 import { apiSlice } from '../../app/api/apiSlice';
-import { ITEM_PER_PAGE } from '../../utils/constants';
+// import { ITEM_PER_PAGE } from '../../utils/constants';
 
 // const apiWithTag = apiSlice.enhanceEndpoints({addTagTypes: ['Link']})
 
@@ -15,8 +15,10 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
       }),
 
       getLinks: builder.mutation({
-         query: (page = 1) => ({
-            url: `link?page=${page}&limit=${ITEM_PER_PAGE}`,
+         query: () => ({
+            // query: (page = 1) => ({
+            // url: `link?page=${page}&limit=${ITEM_PER_PAGE}`,
+            url: `link`,
             method: 'GET',
          }),
       }),

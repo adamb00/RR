@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { deleteAllNotifications, markAllNotificationAsRead } from '../../features/Auth/slices/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import Loader from '../Loader';
 
 interface NotificationsProps {
    setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -33,6 +34,8 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
       dispatch(deleteAllNotifications());
       setShowModal(false);
    };
+
+   if (!notifications) return <Loader size={250} />;
 
    if (!notifications || notifications.length < 1) {
       return (

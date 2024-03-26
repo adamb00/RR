@@ -25,11 +25,11 @@ export default function NotificationsItem({ notification, setShowModal }: Notifi
    };
 
    const plainText = stripHtmlTags(message);
-   const truncatedMessage = truncateText(plainText, 55);
+   const truncatedMessage = plainText && truncateText(plainText, 55);
 
    return (
       <div className={`notifications__modal--wrapper ${read && 'read'}`} onClick={handleOnClick}>
-         <p className='notifications__modal--title'>{truncateText(title, 28)}</p>
+         <p className='notifications__modal--title'>{title && truncateText(title, 28)}</p>
          <p className='notifications__modal--message'>{truncatedMessage}</p>
       </div>
    );
