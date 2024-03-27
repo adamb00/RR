@@ -8,11 +8,9 @@ interface UserImageProps {
 }
 
 export default function UserImage({ user }: UserImageProps) {
-   const userPhoto = user?.photo;
+   const userPhoto = user!.photo;
    const [userImage, setUserImage] = useState<string | undefined>(userPhoto);
    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-   console.log(userPhoto);
 
    useEffect(() => {
       const fetchUserImage = async () => {
@@ -33,7 +31,7 @@ export default function UserImage({ user }: UserImageProps) {
    }, [userPhoto]);
 
    if (isLoading) return <Loader size={100} />;
-   if (!userImage) return <div>No image available</div>;
+   if (!userImage) return;
 
    return <img src={userImage} alt='User image' />;
 }

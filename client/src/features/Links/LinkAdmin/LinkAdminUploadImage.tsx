@@ -54,14 +54,14 @@ export default function LinkAdminUploadImage({ isChecked, control, isOpen, link 
    };
    return (
       isChecked && (
-         <div className='link__image-container'>
-            <div className='link__admin'>
+         <div className='admin-links__image-container'>
+            <div className='admin-links__admin'>
                <UserImageInput control={control} name='image' onChange={handleImageChange} id={link._id}>
-                  <label className='link__admin--label' htmlFor={link._id}>
+                  <label className='admin-links__admin--label' htmlFor={link._id}>
                      {isLoading || uploading ? (
                         <Loader size={100} />
                      ) : link.image && isChecked ? (
-                        <LinkImage link={link} className='link__image' />
+                        <LinkImage link={link} className='admin-links__image' />
                      ) : (
                         '+'
                      )}
@@ -69,7 +69,7 @@ export default function LinkAdminUploadImage({ isChecked, control, isOpen, link 
                </UserImageInput>
             </div>
             {isOpen && link.image && (
-               <div className='link__checkbox'>
+               <div className='admin-links__checkbox'>
                   <UserCheckboxInput
                      control={control}
                      name='isPreview'

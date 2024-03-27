@@ -4,6 +4,7 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 import { linkSchema } from './LinkModel';
 import crypto from 'crypto';
+import slugify from 'slugify';
 
 const userSchema: Schema = new Schema<IUser>(
    {
@@ -22,6 +23,7 @@ const userSchema: Schema = new Schema<IUser>(
          type: String,
          default: 'User',
       },
+      username: { type: String },
       password: {
          type: String,
          minlength: 8,
@@ -99,11 +101,15 @@ const userSchema: Schema = new Schema<IUser>(
       phone: {
          type: String,
       },
-
       refreshToken: String,
    },
    { validateBeforeSave: false }
 );
+
+userSchema.pre<IUser>('save', function (next) {
+   this.username = slugify(this.name + this.referralCode, { lower: true, replacement: '' });
+   next();
+});
 
 userSchema.pre<IUser>('save', async function (next: (err?: CallbackError) => void): Promise<void> {
    if (!this.isModified('password')) return next();

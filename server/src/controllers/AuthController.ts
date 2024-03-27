@@ -55,6 +55,7 @@ export default class AuthController {
             ...req.body,
             referralCode: highestReferralCode!.referralCode + 1,
             level: parentUser ? parentUser.level + 1 : 1,
+            availableLinks: [],
          });
 
          if (parentUser) await User.updateOne({ _id: parentUser._id }, { $push: { children_level_1: newUser._id } });
@@ -66,6 +67,10 @@ export default class AuthController {
             await User.updateOne({ _id: granderparentUser._id }, { $push: { children_level_3: newUser._id } });
 
          const resetToken = newUser.createActivationToken();
+         const existingLinks = await Link.find({ active: true });
+
+         newUser.availableLinks = existingLinks.map(link => link);
+
          await newUser.save({ validateBeforeSave: false });
 
          const url = `${env.BASE_URL}/activate-account/${resetToken}`;

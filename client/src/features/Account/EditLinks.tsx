@@ -23,7 +23,7 @@ export default function EditLinks() {
 
    if (!links)
       return (
-         <div className='link'>
+         <div className='admin-links'>
             <h1 className='heading-primary'>{t('No links created yet')}</h1>
             <ShareLinks />
          </div>
@@ -38,7 +38,7 @@ export default function EditLinks() {
    return (
       <>
          <ShareLinks />
-         <div className='link'>
+         <div className='admin-links'>
             {links.map((link: ILink) => (
                <LinkAdmin key={link._id} link={link} device={device} />
             ))}

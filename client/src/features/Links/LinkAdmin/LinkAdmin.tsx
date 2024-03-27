@@ -45,13 +45,15 @@ export default function LinkAdmin({ link, device }: LinkItemProps) {
    };
 
    return (
-      <div className='link__links'>
+      <div className='admin-links__links'>
          <LinkAdminUploadImage isChecked={isChecked} control={control} isOpen={isOpen} link={link} />
-         <div className={`link__form link__form${isOpen ? '--open' : ''}`}>
-            <div className='link__wrapper'>
-               <div className='link__wrapper--group'>
-                  <div className='link__item'>{handleIfLinkHasTitle()}</div>
-                  <div className='link__item--link'>{currentLinkTitle() && handlePhoneView(`(${link.link})`, 60)}</div>
+         <div className={`admin-links__form admin-links__form${isOpen ? '--open' : ''}`}>
+            <div className='admin-links__wrapper'>
+               <div className='admin-links__wrapper--group'>
+                  <div className='admin-links__item'>{handleIfLinkHasTitle()}</div>
+                  <div className='admin-links__item--link'>
+                     {currentLinkTitle() && handlePhoneView(`(${link.link})`, 60)}
+                  </div>
                </div>
                <LinkAdminInteractions link={link} isChecked={isChecked} setIsChecked={setIsChecked} />
             </div>

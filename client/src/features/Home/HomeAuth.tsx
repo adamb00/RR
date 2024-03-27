@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../../ui/Buttons/Button';
 import AvailablePoints from './AvailablePoints';
 import Team from './Team';
-import InviteModal from './InviteModal';
+import InviteModal from '../../ui/Modals/InviteModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 

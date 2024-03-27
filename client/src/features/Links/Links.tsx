@@ -14,7 +14,7 @@ import { IoCopyOutline, IoEyeOutline } from 'react-icons/io5';
 
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import ShareModal from '../../ui/ShareModal';
+import ShareModal from '../../ui/Modals/ShareModal';
 
 export default function Links() {
    const user = useSelector(selectCurrentUser);
@@ -39,16 +39,16 @@ export default function Links() {
    if (!sortedLinks || activeLinks.length === 0) return <h1 className='heading-primary'>No links yet</h1>;
 
    return (
-      <div className='my-link'>
+      <div className='links'>
          <ShareModal isOpen={isOpen} setIsOpen={setIsOpen} url={url} />
-         <div className='my-link__preview'>
+         <div className='links__preview'>
             <NavLink to={`/${user._id}`} target='noreffer _blank'>
-               <IoEyeOutline className='my-link__icon' />
+               <IoEyeOutline className='links__icon' />
             </NavLink>
 
             <NavLink to=''>
                <IoCopyOutline
-                  className='my-link__icon'
+                  className='links__icon'
                   onClick={() => {
                      setUrl(import.meta.env.VITE_BASE_URL_LINK + user._id);
                      handleOpenModal();
@@ -57,7 +57,7 @@ export default function Links() {
             </NavLink>
          </div>
 
-         <div className='my-link__container'>
+         <div className='links__container'>
             <Draggable onPosChange={handlePosChange}>
                {sortedLinks.map((link: ILink) => (
                   <LinkUser
@@ -71,8 +71,6 @@ export default function Links() {
                ))}
             </Draggable>
          </div>
-
-         {/* <Paginator count={count} /> */}
       </div>
    );
 }

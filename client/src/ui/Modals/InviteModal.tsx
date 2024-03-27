@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { QRCode } from 'react-qrcode-logo';
-import { useTheme } from '../../context/ThemeContext';
-import Button from '../../ui/Buttons/Button';
-import ShareModal from '../../ui/ShareModal';
+import { useTheme } from '@/context/ThemeContext';
+import Button from '../Buttons/Button';
+import ShareModal from './ShareModal';
 
 interface InviteModalProps {
    setInviteModalOpen: Dispatch<SetStateAction<boolean>>;

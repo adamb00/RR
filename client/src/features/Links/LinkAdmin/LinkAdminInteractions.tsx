@@ -31,7 +31,7 @@ export default function LinkAdminInteractions({ link, isChecked, setIsChecked }:
       setIsChecked(false);
    };
    return (
-      <div className='link__group'>
+      <div className='admin-links__group'>
          <Switch
             onChange={handleOnChange}
             checked={isChecked}
@@ -41,15 +41,15 @@ export default function LinkAdminInteractions({ link, isChecked, setIsChecked }:
             checkedIcon={false}
             boxShadow='0px 1px 5px rgba(0, 0, 0, 0.6)'
             activeBoxShadow='0px 0px 1px 10px rgba(0, 0, 0, 0.2)'
-            className='link__switch'
+            className='admin-links__switch'
          />
          <CopyToClipboard text={link.link}>
-            <ButtonIcon onClick={() => {}} className='link__icon'>
+            <ButtonIcon onClick={() => {}} className='admin-links__icon'>
                <CiMedicalClipboard />
             </ButtonIcon>
          </CopyToClipboard>
 
-         <Icon onClick={handleOnDelete} className='link__icon link__icon--remove'>
+         <Icon onClick={handleOnDelete} className='admin-links__icon admin-links__icon--remove'>
             &#10005;
          </Icon>
       </div>

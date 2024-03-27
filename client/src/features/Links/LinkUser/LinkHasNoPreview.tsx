@@ -1,12 +1,13 @@
-import LinkImage from '../../../ui/LinkImage';
+import LinkImage from '@/ui/LinkImage';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
-import { PiDotsThree } from 'react-icons/pi';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
-import { truncateText } from '../../../utils/helpers';
-import useDetectOrientation from '../../../hooks/useDetectOrientation';
-import { ILink } from '../../../interfaces/ILink';
-import { Dispatch, SetStateAction } from 'react';
+import { truncateText } from '@/utils/helpers';
+import useDetectOrientation from '@/hooks/useDetectOrientation';
+import { ILink } from '@/interfaces/ILink';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
+import Icon from '@/ui/Icon';
+import { CiSettings } from 'react-icons/ci';
 
 interface LinkHasNoPreviewProps {
    link: ILink;
@@ -28,7 +29,12 @@ export default function LinkHasNoPreview({
 }: LinkHasNoPreviewProps) {
    const currentLinkTitle = () => link.title ?? '';
    const orientation = useDetectOrientation();
+   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
+   const handleOpenSettings = () => {
+      setSettingsIsOpen(isOpen => !isOpen);
+   };
 
+   const ref = useOutsideClick(handleOpenSettings);
    const handlePhoneView = (text: string, phoneLength = 40) => {
       let view = text;
       if (device === 'Mobile' && orientation === 'landscape') {
@@ -50,21 +56,21 @@ export default function LinkHasNoPreview({
    return (
       !link.isPreview && (
          <>
-            <div className='my-link__image-container'>
-               {link.image && <LinkImage link={link} className='my-link__image' />}
+            <div className='links__image-container'>
+               {link.image && <LinkImage link={link} className='links__image' />}
             </div>
-            <div className='my-link__body'>
-               <div className={`my-link__wrapper--container `}>
-                  <div className='my-link__wrapper--group'>
-                     <div className='my-link__item'>{handleIfLinkHasTitle()}</div>
-                     <div className='my-link__item--link'>{handlePhoneView(`(${updatedLink})`, 60)}</div>
+            <div className='links__body'>
+               <div className={`links__wrapper--container `}>
+                  <div className='links__wrapper--group'>
+                     <div className='links__item'>{handleIfLinkHasTitle()}</div>
+                     <div className='links__item--link'>{handlePhoneView(`(${updatedLink})`, 60)}</div>
                   </div>
 
-                  <div className='my-link__group'>
+                  <div className='links__group'>
                      <CopyToClipboard text={updatedLink}>
-                        <ButtonIcon className='my-link__icon' onClick={handleOpenModal}>
-                           <PiDotsThree />
-                        </ButtonIcon>
+                        <Icon className='links__icon links__icon--settings' onClick={handleOpenSettings}>
+                           <CiSettings />
+                        </Icon>
                      </CopyToClipboard>
                      {link.description &&
                         (isOpenDropdown ? (
@@ -76,13 +82,23 @@ export default function LinkHasNoPreview({
                </div>
                {link.description && isOpenDropdown && (
                   <div
-                     className='my-link__description'
+                     className='links__description'
                      aria-multiline
                      style={{ whiteSpace: 'pre-line' }}
                      dangerouslySetInnerHTML={link && { __html: link.description }}
                   ></div>
                )}
             </div>
+            {settingsIsOpen && (
+               <div className='links__settings-modal' ref={ref}>
+                  <span className='links__settings-modal--item' onClick={handleOpenModal}>
+                     Share link
+                  </span>
+                  <span className='links__settings-modal--item' onClick={handleOpenSettings}>
+                     Edit title
+                  </span>
+               </div>
+            )}
          </>
       )
    );

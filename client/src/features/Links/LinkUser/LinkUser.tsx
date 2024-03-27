@@ -29,8 +29,8 @@ export default function LinkUser({ link, device, user, setIsOpen, setUrl }: Link
 
    return (
       <div
-         className={`my-link__wrapper${isOpenDropdown ? '--expanded' : ''}${
-            link.isPreview ? '--preview my-link__wrapper' : '--basic my-link__wrapper'
+         className={`links__wrapper${isOpenDropdown ? '--expanded' : ''}${
+            link.isPreview ? '--preview links__wrapper' : '--basic links__wrapper'
          }`}
       >
          <LinkHasPreview

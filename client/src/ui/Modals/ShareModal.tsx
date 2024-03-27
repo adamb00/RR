@@ -6,25 +6,27 @@ import {
    TelegramIcon,
    TelegramShareButton,
    TwitterShareButton,
+   ViberIcon,
+   ViberShareButton,
    WhatsappIcon,
    WhatsappShareButton,
    XIcon,
 } from 'react-share';
-import { MenuProps } from '../interfaces/MenuProps';
-import { useOutsideClick } from '../hooks/useOutsideClick';
-import ButtonIcon from './Buttons/ButtonIcon';
+import { MenuProps } from '../../interfaces/MenuProps';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+import ButtonIcon from '../Buttons/ButtonIcon';
 import { IoCopyOutline } from 'react-icons/io5';
 import { useState } from 'react';
-import { truncateText } from '../utils/helpers';
+import { truncateText } from '../../utils/helpers';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
+import { iconSize } from '@/utils/constants';
 
 interface ShareModalProps extends MenuProps {
    url: string;
 }
 
 export default function ShareModal({ isOpen, setIsOpen, url, setOutterModal }: ShareModalProps) {
-   const iconSize = 44;
    const [isCopied, setIsCopied] = useState(false);
    const { t } = useTranslation();
 
@@ -71,6 +73,11 @@ export default function ShareModal({ isOpen, setIsOpen, url, setOutterModal }: S
                      <TelegramShareButton url={url}>
                         <TelegramIcon size={iconSize} round />
                      </TelegramShareButton>
+                  </div>
+                  <div className='sharemodal__container--item'>
+                     <ViberShareButton url={url}>
+                        <ViberIcon size={iconSize} round />
+                     </ViberShareButton>
                   </div>
                   <div className='sharemodal__container--item'>
                      <WhatsappShareButton url={url}>

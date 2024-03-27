@@ -1,4 +1,4 @@
-import ShareModal from '../../../ui/ShareModal';
+import ShareModal from '../../../ui/Modals/ShareModal';
 import LinkImage from '../../../ui/LinkImage';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
@@ -23,23 +23,23 @@ export default function LinkHasPreview({
 }: LinkHasPreviewProps) {
    return (
       link.isPreview && (
-         <div className='my-link__card'>
+         <div className='links__card'>
             <ShareModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} url={link.link} />
-            <div className='my-link__side my-link__side--front'>
-               <LinkImage link={link} className='my-link__wrapper--image' />
+            <div className='links__side links__side--front'>
+               <LinkImage link={link} className='links__wrapper--image' />
             </div>
-            <div className='my-link__side my-link__side--back'>
+            <div className='links__side links__side--back'>
                <h1 className='heading-primary'>{link.title}</h1>
-               <div className='my-link__group my-link__group--preview'>
+               <div className='links__group links__group--preview'>
                   <CopyToClipboard text={updatedLink}>
-                     <ButtonIcon className='my-link__icon' onClick={handleOpenModal}>
+                     <ButtonIcon className='links__icon' onClick={handleOpenModal}>
                         <PiDotsThree />
                      </ButtonIcon>
                   </CopyToClipboard>
                </div>
                <div
                   aria-multiline
-                  className='my-link__side--back__description'
+                  className='links__side--back__description'
                   style={{ whiteSpace: 'pre-line' }}
                   dangerouslySetInnerHTML={link && { __html: link.description }}
                ></div>

@@ -72,6 +72,17 @@ export default function UpdateUser() {
                }}
             />
          </form>
+         <form onSubmit={handleSubmit(updateUser)} className='update-user__form'>
+            <h2 className='heading-secondary update-user__header'>{t('Update your username')}</h2>
+            <UserInput
+               control={control}
+               name='username'
+               className='update-user__input'
+               placeholder='You can easily update your your username'
+               defaultValue={user.username || ''}
+               fieldErrorClassname='update-user__form--error'
+            />
+         </form>
          <Button className='btn btn--tertiary update-user__btn' type='submit' onClick={handleSubmit(updateUser)}>
             {isLoading ? t('Uploading') : t('Upload')}
          </Button>

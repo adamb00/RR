@@ -4,8 +4,6 @@
 
    &__input {
       @include defaultInput;
-      @include respond(phone) {
-      }
    }
    &__icon {
       position: absolute;

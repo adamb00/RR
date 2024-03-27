@@ -30,6 +30,7 @@ export default interface IUser extends Document {
    availableLinks: ILink[];
    refreshToken: string;
    phone: string;
+   username: string;
 
    createPasswordResetToken: () => string;
    createActivationToken: () => string;
