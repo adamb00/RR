@@ -1,19 +1,8 @@
 import nodemailer from 'nodemailer';
-import smtpTransport from 'nodemailer-smtp-transport';
 import { htmlToText } from 'html-to-text';
 import env from './validateEnv';
 import pug from 'pug';
 import IUser from '../interfaces/IUser';
-
-const transporterDetails = smtpTransport({
-   host: env.EMAIL_HOST,
-   port: env.EMAIL_PORT,
-   secure: true,
-   auth: {
-      user: env.EMAIL_USERNAME,
-      pass: env.EMAIL_PASSWORD,
-   },
-});
 
 export default class Email {
    private to: string;
@@ -41,16 +30,19 @@ export default class Email {
       });
    }
    private newTransportProd() {
-      return nodemailer.createTransport(transporterDetails);
-      // return nodemailer.createTransport(smtpTransport {
-      //    host: env.EMAIL_HOST,
-      //    port: env.EMAIL_PORT,
-      //    secure: true,
-      //    auth: {
-      //       user: env.EMAIL_USERNAME,
-      //       pass: env.EMAIL_PASSWORD,
-      //    },
-      // });
+      const transport = nodemailer.createTransport({
+         host: env.EMAIL_HOST,
+         port: env.EMAIL_PORT,
+         secure: true,
+         auth: {
+            user: env.EMAIL_USERNAME,
+            pass: env.EMAIL_PASSWORD,
+         },
+      });
+
+      console.log(transport);
+
+      return transport;
    }
 
    public async send(subject: string, template: string) {
@@ -69,6 +61,8 @@ export default class Email {
             html,
             text: htmlToText(html),
          };
+
+         console.log(env.NODE_ENV);
 
          if (env.NODE_ENV === 'dev') await this.newTransportDev().sendMail(mailOptions);
          else await this.newTransportProd().sendMail(mailOptions);
