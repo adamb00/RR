@@ -3,6 +3,8 @@ import env from './utils/validateEnv';
 
 import { server as Server } from './app';
 
+process.setMaxListeners(15);
+
 process.on('uncaughtException', err => {
    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
    console.log(err.name, err.message);

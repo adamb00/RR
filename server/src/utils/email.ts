@@ -3,7 +3,6 @@ import { htmlToText } from 'html-to-text';
 import env from './validateEnv';
 import pug from 'pug';
 import IUser from '../interfaces/IUser';
-import { google } from 'googleapis';
 
 export default class Email {
    private to: string;
@@ -20,7 +19,7 @@ export default class Email {
       this.from = `Adam Borsodi <${env.EMAIL_FROM}`;
    }
 
-   private newTransportDev() {
+   private newTransport() {
       return nodemailer.createTransport({
          host: env.EMAIL_HOST,
          port: env.EMAIL_PORT,
@@ -48,7 +47,7 @@ export default class Email {
             text: htmlToText(html),
          };
 
-         await this.newTransportDev().sendMail(mailOptions);
+         await this.newTransport().sendMail(mailOptions);
       } catch (err) {
          console.log(err);
       }
