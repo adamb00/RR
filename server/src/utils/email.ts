@@ -1,8 +1,19 @@
-import nodemailer, { Transporter } from 'nodemailer';
+import nodemailer from 'nodemailer';
+import smtpTransport from 'nodemailer-smtp-transport';
 import { htmlToText } from 'html-to-text';
 import env from './validateEnv';
 import pug from 'pug';
 import IUser from '../interfaces/IUser';
+
+const transporterDetails = smtpTransport({
+   host: env.EMAIL_HOST,
+   port: env.EMAIL_PORT,
+   secure: true,
+   auth: {
+      user: env.EMAIL_USERNAME,
+      pass: env.EMAIL_PASSWORD,
+   },
+});
 
 export default class Email {
    private to: string;
@@ -30,15 +41,16 @@ export default class Email {
       });
    }
    private newTransportProd() {
-      return nodemailer.createTransport({
-         host: env.EMAIL_HOST,
-         port: env.EMAIL_PORT,
-         secure: true,
-         auth: {
-            user: env.EMAIL_USERNAME,
-            pass: env.EMAIL_PASSWORD,
-         },
-      });
+      return nodemailer.createTransport(transporterDetails);
+      // return nodemailer.createTransport(smtpTransport {
+      //    host: env.EMAIL_HOST,
+      //    port: env.EMAIL_PORT,
+      //    secure: true,
+      //    auth: {
+      //       user: env.EMAIL_USERNAME,
+      //       pass: env.EMAIL_PASSWORD,
+      //    },
+      // });
    }
 
    public async send(subject: string, template: string) {
