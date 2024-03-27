@@ -16,13 +16,24 @@ export default class Email {
       this.fullName = user.name;
       this.url = url;
       this.user = user;
-      this.from = `Adam Borsodi <${env.EMAIL_FROM}`;
+      this.from = env.EMAIL_FROM;
    }
 
-   private newTransport() {
+   private newTransportDev() {
       return nodemailer.createTransport({
          host: env.EMAIL_HOST,
          port: env.EMAIL_PORT,
+         auth: {
+            user: env.EMAIL_USERNAME,
+            pass: env.EMAIL_PASSWORD,
+         },
+      });
+   }
+   private newTransportProd() {
+      return nodemailer.createTransport({
+         host: env.EMAIL_HOST,
+         port: env.EMAIL_PORT,
+         secure: true,
          auth: {
             user: env.EMAIL_USERNAME,
             pass: env.EMAIL_PASSWORD,
@@ -47,7 +58,8 @@ export default class Email {
             text: htmlToText(html),
          };
 
-         await this.newTransport().sendMail(mailOptions);
+         if (env.NODE_ENV === 'dev') await this.newTransportDev().sendMail(mailOptions);
+         else await this.newTransportProd().sendMail(mailOptions);
       } catch (err) {
          console.log(err);
       }
