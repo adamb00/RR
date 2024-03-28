@@ -33,7 +33,7 @@ export default class Email {
       const transport = nodemailer.createTransport({
          host: env.EMAIL_HOST,
          port: 587,
-         secure: true,
+         // secure: true,
          auth: {
             user: env.EMAIL_USERNAME,
             pass: env.EMAIL_PASSWORD,
