@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import UserInput from '../../ui/UserInteractions/UserInput';
+import UserInput from '@/ui/UserInteractions/UserInput';
 import { FieldValues, useForm } from 'react-hook-form';
-import { IS_VALID_EMAIL, handleError } from '../../utils/helpers';
-import FormIcon from '../../ui/FormIcon';
+import { IS_VALID_EMAIL, handleError } from '@/utils/helpers';
+import FormIcon from '@/ui/FormIcon';
 import { CiUser } from 'react-icons/ci';
-import Button from '../../ui/Buttons/Button';
+import Button from '@/ui/Buttons/Button';
 import { useForgotPassword } from './useUserAuth';
-import IError from '../../interfaces/IError';
+import IError from '@/interfaces/IError';
 
 export default function ForgotPassword() {
    const { control, handleSubmit } = useForm();

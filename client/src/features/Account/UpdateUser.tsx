@@ -1,12 +1,12 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import UserInput from '../../ui/UserInteractions/UserInput';
+import UserInput from '@/ui/UserInteractions/UserInput';
 import { useTranslation } from 'react-i18next';
-import Button from '../../ui/Buttons/Button';
+import Button from '@/ui/Buttons/Button';
 
-import { selectCurrentUser, updateUser as updateUserStore } from '../Auth/slices/auth/authSlice';
+import { selectCurrentUser, updateUser as updateUserStore } from '@/features/Auth/slices/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { IS_VALID_EMAIL, IS_VALID_PHONE_NUMBER } from '../../utils/helpers';
-import { useUpdateUserMutation } from '../Auth/slices/user/userApiSlice';
+import { IS_VALID_EMAIL, IS_VALID_PHONE_NUMBER } from '@/utils/helpers';
+import { useUpdateUserMutation } from '@/features/Auth/slices/user/userApiSlice';
 
 export default function UpdateUser() {
    const { control, handleSubmit } = useForm();

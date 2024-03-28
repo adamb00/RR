@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
-import { ILink } from '../interfaces/ILink';
-import { useGetLinksMutation } from '../features/Links/linkApiSlice';
+import { ILink } from '@/interfaces/ILink';
+import { useGetLinksMutation } from '@/features/Links/linkApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '@/features/Auth/slices/auth/authSlice';
 

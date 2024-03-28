@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect } from 'react';
-import { useLocalStorageState } from '../hooks/useLocalStorageState';
+import { useLocalStorageState } from '@/hooks/useLocalStorageState';
 
 interface ThemeContextType {
    theme: string;

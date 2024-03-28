@@ -4,7 +4,7 @@ import {
    getUserImage as getUserImageFn,
    activateUser as activateUserFn,
    forgotPassword as forgotPasswordFn,
-} from '../../services/apiUser';
+} from '@/services/apiUser';
 
 export const useGetOneUser = (id: string) => {
    const {

@@ -1,12 +1,12 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import Button from '../../ui/Buttons/Button';
-import UserImageInput from '../../ui/UserInteractions/UserImageInput';
-import { useUploadUserImageMutation } from '../Auth/slices/user/userApiSlice';
+import Button from '@/ui/Buttons/Button';
+import UserImageInput from '@/ui/UserInteractions/UserImageInput';
+import { useUploadUserImageMutation } from '@/features/Auth/slices/user/userApiSlice';
 import { useState } from 'react';
-import { useAppDispatch } from '../../redux-hooks';
+import { useAppDispatch } from '@/redux-hooks';
 import { useTranslation } from 'react-i18next';
-import { truncateText } from '../../utils/helpers';
-import { updateUser } from '../Auth/slices/auth/authSlice';
+import { truncateText } from '@/utils/helpers';
+import { updateUser } from '@/features/Auth/slices/auth/authSlice';
 
 export default function UploadImage() {
    const { control, handleSubmit } = useForm();

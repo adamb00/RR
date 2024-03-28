@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useResetPasswordMutation } from './slices/auth/authApiSlice';
 import { FieldValues, useForm, useWatch } from 'react-hook-form';
-import Button from '../../ui/Buttons/Button';
-import UserInput from '../../ui/UserInteractions/UserInput';
-import FormIcon from '../../ui/FormIcon';
+import Button from '@/ui/Buttons/Button';
+import UserInput from '@/ui/UserInteractions/UserInput';
+import FormIcon from '@/ui/FormIcon';
 import { CiUnlock } from 'react-icons/ci';
-import PasswordVisible from '../../ui/PasswordVisible';
-import { useAppDispatch } from '../../redux-hooks';
+import PasswordVisible from '@/ui/PasswordVisible';
+import { useAppDispatch } from '@/redux-hooks';
 import { setCredentials } from './slices/auth/authSlice';
-import IError from '../../interfaces/IError';
-import { getErrorMessage } from '../../utils/helpers';
+import IError from '@/interfaces/IError';
+import { getErrorMessage } from '@/utils/helpers';
 
 export default function ResetPassword() {
    const { token } = useParams();

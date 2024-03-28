@@ -1,14 +1,14 @@
 import { Control, useWatch } from 'react-hook-form';
-import UserInput from '../../ui/UserInteractions/UserInput';
+import UserInput from '@/ui/UserInteractions/UserInput';
 import { CiUnlock, CiUser, CiMail, CiCalendarDate } from 'react-icons/ci';
-import { IS_VALID_EMAIL, handleError } from '../../utils/helpers';
-import IError from '../../interfaces/IError';
+import { IS_VALID_EMAIL, handleError } from '@/utils/helpers';
+import IError from '@/interfaces/IError';
 import { useState } from 'react';
-import PasswordVisible from '../../ui/PasswordVisible';
-import FormIcon from '../../ui/FormIcon';
+import PasswordVisible from '@/ui/PasswordVisible';
+import FormIcon from '@/ui/FormIcon';
 import { useTranslation } from 'react-i18next';
 import { GiPhone } from 'react-icons/gi';
-import SelectCountry from '../../ui/UserInteractions/SelectCountry';
+import SelectCountry from '@/ui/UserInteractions/SelectCountry';
 
 interface SignUpValidReferralCodeProps {
    control: Control;

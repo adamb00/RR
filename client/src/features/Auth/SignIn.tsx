@@ -1,16 +1,16 @@
 import { CiUnlock, CiUser } from 'react-icons/ci';
-import Button from '../../ui/Buttons/Button';
+import Button from '@/ui/Buttons/Button';
 import { useForm } from 'react-hook-form';
-import UserInput from '../../ui/UserInteractions/UserInput';
-import { IS_VALID_EMAIL, getErrorMessage, handleError } from '../../utils/helpers';
+import UserInput from '@/ui/UserInteractions/UserInput';
+import { IS_VALID_EMAIL, getErrorMessage, handleError } from '@/utils/helpers';
 import { NavLink, useNavigate } from 'react-router-dom';
-import IError from '../../interfaces/IError';
+import IError from '@/interfaces/IError';
 import { useState } from 'react';
 import { setCredentials } from './slices/auth/authSlice';
-import { useAppDispatch } from '../../redux-hooks';
+import { useAppDispatch } from '@/redux-hooks';
 import { useLoginMutation } from './slices/auth/authApiSlice';
-import PasswordVisible from '../../ui/PasswordVisible';
-import FormIcon from '../../ui/FormIcon';
+import PasswordVisible from '@/ui/PasswordVisible';
+import FormIcon from '@/ui/FormIcon';
 import { useTranslation } from 'react-i18next';
 
 export default function SignIn() {

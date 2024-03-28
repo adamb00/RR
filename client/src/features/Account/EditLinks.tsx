@@ -1,15 +1,15 @@
-import useDeviceDetection from '../../hooks/useDetectDevice';
-import ShareLinks from '../Links/ShareLinks';
+import useDeviceDetection from '@/hooks/useDetectDevice';
+import ShareLinks from '@/features/Links/ShareLinks';
 
-import LinkAdmin from '../Links/LinkAdmin/LinkAdmin';
-import { ILink } from '../../interfaces/ILink';
-import Loader from '../../ui/Loader';
-import RestrictedRoute from '../../ui/RestrictedRoute';
+import LinkAdmin from '@/features/Links/LinkAdmin/LinkAdmin';
+import { ILink } from '@/interfaces/ILink';
+import Loader from '@/ui/Loader';
+import RestrictedRoute from '@/ui/RestrictedRoute';
 import { useSelector } from 'react-redux';
-import { selectIsAdmin } from '../Auth/slices/auth/authSlice';
+import { selectIsAdmin } from '@/features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
 
-import { useLinks } from '../../context/LinkContext';
+import { useLinks } from '@/context/LinkContext';
 
 export default function EditLinks() {
    const isAdmin = useSelector(selectIsAdmin);

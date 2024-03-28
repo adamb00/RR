@@ -1,15 +1,15 @@
 import { FieldValues, useForm, useWatch } from 'react-hook-form';
-import UserInput from '../../ui/UserInteractions/UserInput';
+import UserInput from '@/ui/UserInteractions/UserInput';
 import { useState } from 'react';
-import FormIcon from '../../ui/FormIcon';
+import FormIcon from '@/ui/FormIcon';
 import { CiUnlock } from 'react-icons/ci';
-import PasswordVisible from '../../ui/PasswordVisible';
-import IError from '../../interfaces/IError';
-import Button from '../../ui/Buttons/Button';
-import { useUpdatePasswordMutation } from '../Auth/slices/user/userApiSlice';
-import { useAppDispatch } from '../../redux-hooks';
-import { setCredentials } from '../Auth/slices/auth/authSlice';
-import { emptyInputField, getErrorMessage, handleError } from '../../utils/helpers';
+import PasswordVisible from '@/ui/PasswordVisible';
+import IError from '@/interfaces/IError';
+import Button from '@/ui/Buttons/Button';
+import { useUpdatePasswordMutation } from '@/features/Auth/slices/user/userApiSlice';
+import { useAppDispatch } from '@/redux-hooks';
+import { setCredentials } from '@/features/Auth/slices/auth/authSlice';
+import { emptyInputField, getErrorMessage, handleError } from '@/utils/helpers';
 import { useTranslation } from 'react-i18next';
 
 export default function Security() {

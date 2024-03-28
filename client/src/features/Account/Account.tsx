@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import Menu from '../../ui/Menu/Menu';
+import Menu from '@/ui/Menu/Menu';
 import { Outlet } from 'react-router-dom';
 
-import AdminMenu from '../../ui/Menu/AdminMenu';
-import RestrictedRoute from '../../ui/RestrictedRoute';
-import { selectCurrentUser, selectIsAdmin } from '../Auth/slices/auth/authSlice';
+import AdminMenu from '@/ui/Menu/AdminMenu';
+import RestrictedRoute from '@/ui/RestrictedRoute';
+import { selectCurrentUser, selectIsAdmin } from '@/features/Auth/slices/auth/authSlice';
 import { useSelector } from 'react-redux';
 
 export default function Account() {

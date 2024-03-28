@@ -1,9 +1,9 @@
 import { CiBarcode } from 'react-icons/ci';
-import UserInput from '../../ui/UserInteractions/UserInput';
-import { IS_VALID_NUMBER, handleError } from '../../utils/helpers';
+import UserInput from '@/ui/UserInteractions/UserInput';
+import { IS_VALID_NUMBER, handleError } from '@/utils/helpers';
 import { Control } from 'react-hook-form';
-import IError from '../../interfaces/IError';
-import FormIcon from '../../ui/FormIcon';
+import IError from '@/interfaces/IError';
+import FormIcon from '@/ui/FormIcon';
 import { useTranslation } from 'react-i18next';
 
 interface SignUpNoValidReferralCodeProps {

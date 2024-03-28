@@ -1,6 +1,6 @@
-import Button from '../../ui/Buttons/Button';
+import Button from '@/ui/Buttons/Button';
 import { logout } from './slices/auth/authSlice';
-import { useAppDispatch } from '../../redux-hooks';
+import { useAppDispatch } from '@/redux-hooks';
 import { useLogoutMutation } from './slices/auth/authApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';

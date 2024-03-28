@@ -1,12 +1,12 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import Button from '../../ui/Buttons/Button';
+import Button from '@/ui/Buttons/Button';
 import { useEffect, useState } from 'react';
-import IError from '../../interfaces/IError';
+import IError from '@/interfaces/IError';
 import SignUpValildReferralCode from './SignUpValildReferralCode';
 import SignUpNoValidReferralCode from './SignUpNoValidReferralCode';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetReferralCodeMutation, useRegisterMutation } from './slices/auth/authApiSlice';
-import { getErrorMessage } from '../../utils/helpers';
+import { getErrorMessage } from '@/utils/helpers';
 import { useTranslation } from 'react-i18next';
 
 export default function SignUp() {

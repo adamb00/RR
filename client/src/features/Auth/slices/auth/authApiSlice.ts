@@ -9,13 +9,6 @@ export const authApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
             body: data,
          }),
       }),
-      // updateUser: builder.mutation({
-      //    query: ({ id, data }) => ({
-      //       url: `user/${id}`,
-      //       method: 'PATCH',
-      //       body: data,
-      //    }),
-      // }),
       register: builder.mutation({
          query: data => ({
             url: `auth/signup`,
