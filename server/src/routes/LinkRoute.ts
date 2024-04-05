@@ -23,6 +23,5 @@ router
 router.route('/:id/activate-link').patch(linkController.activateLink);
 
 router.post('/:id/upload-image', linkController.uploadImage, resizeImage(1000), updateLink);
-// router.get('/get-image/:key', getImage);
 
 export default router;

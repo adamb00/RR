@@ -51,6 +51,8 @@ export default class AuthController {
          const grandparentUser = await User.findOne({ _id: parentUser?.parent });
          const granderparentUser = await User.findOne({ _id: grandparentUser?.parent });
 
+         console.log(req.body);
+
          const newUser = await User.create({
             ...req.body,
             referralCode: highestReferralCode!.referralCode + 1,
