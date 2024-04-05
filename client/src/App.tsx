@@ -19,7 +19,7 @@ import ActivateAccount from './ui/ActivateAccount';
 
 import { Routes, Route } from 'react-router-dom';
 
-import RequireAuth from './ui/RequireAuth';
+// import RequireAuth from './ui/RequireAuth';
 import RestrictedRoute from './ui/RestrictedRoute';
 import Home from './features/Home/Home';
 import Links from './features/Links/Links';
