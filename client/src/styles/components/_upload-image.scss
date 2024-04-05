@@ -1,70 +1,25 @@
 .upload-image {
+   border-radius: 100%;
+   width: 10rem;
+   height: 10rem;
+   border: 1px dashed $color-grey-dark-3;
    display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-   gap: 1rem;
-   padding: 1rem 3rem;
-   @include respond(phone) {
-      padding: 1rem;
-   }
+   align-items: center;
+   justify-content: center;
+   align-self: center;
+   cursor: pointer;
+   margin-bottom: 2rem;
 
-   input[type='file'] {
-      display: none;
-      z-index: 200000;
-   }
-   &__input {
-      background-image: linear-gradient(to right, $color-primary-tint, transparent);
-      color: $color-grey-light-3;
-      display: inline-block;
-      cursor: pointer;
-      width: 100%;
-      padding: 1rem 3rem;
-      border-radius: $default-border-radius;
+   &__container {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      @include respond(phone) {
-         background-color: $color-primary-tint;
-         display: flex;
-         flex-direction: column;
-         align-items: flex-start;
-         padding: 1rem 2rem;
-      }
+      align-items: center !important;
+      justify-content: center;
    }
-
-   &__filename {
-      font-size: 2rem;
-      margin-left: 2rem;
-      color: $color-grey-dark-3;
-      cursor: default;
-   }
-   &__span {
-      font-size: 2rem;
-      padding: 1.5rem 3rem;
-      width: 35%;
-      border-radius: $default-border-radius;
-      transition: all 200ms ease-in-out;
-      border: 1px solid transparent;
-      @include respond(phone) {
-         width: 100%;
-         padding: 0rem 2rem;
-      }
-      &:hover {
-         background-size: 450%;
-         color: $color-white;
-         border: 1px solid $color-white;
-      }
-
-      &:active,
-      &:focus {
-         outline: none;
-         transform: translateY(-0.1rem);
-         box-shadow: $default-box-shadow;
-      }
-   }
-   button {
-      margin-top: 2rem;
-      align-self: center;
+   &__image {
+      // width: 100%;
+      border-radius: 100%;
+      min-width: 12rem !important;
+      height: 12rem !important;
+      object-fit: cover;
    }
 }

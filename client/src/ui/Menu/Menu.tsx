@@ -4,26 +4,22 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { CiBellOn, CiLock, CiUser } from 'react-icons/ci';
 import Icon from '../Icon';
 import MenuIsNotOpen from './MenuIsNotOpen';
-import useDeviceDetection from '../../hooks/useDetectDevice';
+import useDeviceDetection from '@/hooks/useDetectDevice';
 
-import { useIsNotification } from '../../hooks/useIsNotification';
+import { useIsNotification } from '@/hooks/useIsNotification';
 import NotificationsMenu from './NotificationsMenu';
-import { MenuProps } from '../../interfaces/MenuProps';
-import { useAppSelector } from '../../redux-hooks';
-import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
+import { MenuProps } from '@/interfaces/MenuProps';
+import { useAppSelector } from '@/redux-hooks';
+import { useMarkOneNotificationAsRead } from '@/hooks/useMarkOneNotificationAsRead';
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
-import { useGetImage } from '@/hooks/useGetImage';
+import UploadImage from '@/features/Account/UploadImage';
 
 export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
    const { isNotification } = useIsNotification();
    const firstNotificationId = useAppSelector(state => state.auth.user?.notifications[0]);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId?._id);
-   const user = useSelector(selectCurrentUser);
-   const { image: userImage } = useGetImage(user);
    const { t } = useTranslation();
 
    const handleClick = () => {
@@ -46,10 +42,7 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
          {isOpen ? (
             <ul className='account__sidebar--navigation'>
                <li>
-                  <div className='user-image'>
-                     <img src={userImage} alt='User' />
-                     {/* <UserImage user={user} /> */}
-                  </div>
+                  <UploadImage />
                </li>
 
                <li>
