@@ -22,7 +22,6 @@ COPY . .
 
 RUN npm run build
 
-# COPY ./assets /usr/src/app/dist/assets
 
 FROM nginx:stable-alpine as production
 

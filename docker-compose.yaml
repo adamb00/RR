@@ -17,7 +17,7 @@ services:
             - VITE_NODE_ENV=production
             - VITE_FACEBOOK_APP_ID=3092655644205329
             - VITE_BASE_URL_SOCKET=https://r2byou.com/
-            - VITE_BASE_URL=https://r2byou.com/api/v1/
+            - VITE_BASE_URL=http://165.227.173.40:8000/api/v1
             - VITE_BASE_URL_LINK=https://r2byou.com/
       networks:
          - mern-app
