@@ -61,7 +61,7 @@ jobs:
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
                  ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts
-                 ssh -i ${{ secrets.DROPLET_SSH_KEY }} ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }} "rm -rf /var/www/r2byou.com/*"
+                 ssh -i ${{ secrets.DROPLET_SSH_KEY }} ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }} "rm -rf /var/www/r2byou.com/html/assets"
 
          - name: SSH into DigitalOcean droplet
            uses: appleboy/ssh-action@master
