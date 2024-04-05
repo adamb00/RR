@@ -35,9 +35,12 @@ export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Req
 export const createOne = <T extends Document>(Model: Model<T>, customizeRequestBody?: (req: Request) => void) => {
    return catchAsync(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
       try {
+         console.log('lol');
          if (customizeRequestBody) {
             customizeRequestBody(req);
+            console.log(req);
          }
+         console.log('asd');
 
          console.log(req.body);
 

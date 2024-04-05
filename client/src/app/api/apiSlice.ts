@@ -9,6 +9,8 @@ const baseQuery = fetchBaseQuery({
    prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
 
+      console.log('lol');
+
       if (token) {
          headers.set('Authorization', `Bearer ${token}`);
       }
@@ -18,6 +20,9 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, extraOptions: object) => {
    let result = await baseQuery(args, api, extraOptions);
+
+   console.log('asd');
+   console.log('result', result);
 
    if (result?.error?.status === 'FETCH_ERROR' || result.error?.status === 'PARSING_ERROR') {
       const refreshResult = await baseQuery('auth/refresh', api, extraOptions);
