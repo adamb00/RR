@@ -7,7 +7,7 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
    endpoints: builder => ({
       createLink: builder.mutation({
          query: data => (
-            console.log('linkQuery', data),
+            console.log('/linkQuery', data),
             {
                url: 'link',
                method: 'POST',
@@ -19,14 +19,14 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
       getLinks: builder.mutation({
          query: () => ({
-            url: `link`,
+            url: `/link`,
             method: 'GET',
          }),
       }),
 
       uploadLinkImage: builder.mutation({
          query: (data: { data: FormData; id: string }) => ({
-            url: `link/${data.id}/upload-image`,
+            url: `/link/${data.id}/upload-image`,
             method: 'POST',
             body: data.data,
          }),
@@ -35,7 +35,7 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
       updateLink: builder.mutation({
          query: ({ id, data }) => ({
-            url: `link/${id}`,
+            url: `/link/${id}`,
             method: 'PATCH',
             body: data,
          }),
@@ -44,7 +44,7 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
       activateLink: builder.mutation({
          query: ({ id, data }) => ({
-            url: `link/${id}/activate-link`,
+            url: `/link/${id}/activate-link`,
             method: 'PATCH',
             body: data,
          }),
@@ -52,7 +52,7 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
       deleteLink: builder.mutation({
          query: id => ({
-            url: `link/${id}`,
+            url: `/link/${id}`,
             method: 'DELETE',
          }),
          invalidatesTags: ['Link', 'User'],

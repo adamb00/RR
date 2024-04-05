@@ -17,7 +17,7 @@ interface GetAllLinksParams {
 
 export const getAllLinks = async ({ page }: GetAllLinksParams) => {
    const response = await fetch(
-      import.meta.env.VITE_BASE_URL + `link?page=${page}&limit=${ITEM_PER_PAGE}`,
+      import.meta.env.VITE_BASE_URL + `/link?page=${page}&limit=${ITEM_PER_PAGE}`,
       await OPTIONS({ method: 'GET' })
    );
    const responseData = await response.json();
@@ -25,7 +25,7 @@ export const getAllLinks = async ({ page }: GetAllLinksParams) => {
    return responseData;
 };
 export const deleteOneLink = async (id: string) => {
-   const response = await fetch(import.meta.env.VITE_BASE_URL + `link/${id}`, await OPTIONS({ method: 'DELETE' }));
+   const response = await fetch(import.meta.env.VITE_BASE_URL + `/link/${id}`, await OPTIONS({ method: 'DELETE' }));
 
    if (response.ok) {
       return;
@@ -35,7 +35,10 @@ export const deleteOneLink = async (id: string) => {
 };
 
 export const updateOneLink = async ({ id, data }: { id: string; data: object }) => {
-   const response = await fetch(import.meta.env.VITE_BASE_URL + `link/${id}`, await OPTIONS({ method: 'PATCH', data }));
+   const response = await fetch(
+      import.meta.env.VITE_BASE_URL + `/link/${id}`,
+      await OPTIONS({ method: 'PATCH', data })
+   );
    if (!response.ok) {
       throw new Error(`Failed to update link. Status: ${response.status}`);
    }
@@ -47,7 +50,7 @@ export const updateOneLink = async ({ id, data }: { id: string; data: object }) 
 
 export const getLinkImage = async (key: string) => {
    const response = await fetch(
-      import.meta.env.VITE_BASE_URL + `link/get-image/${key}`,
+      import.meta.env.VITE_BASE_URL + `/link/get-image/${key}`,
       await OPTIONS({ method: 'GET', header: 'image/png' })
    );
 

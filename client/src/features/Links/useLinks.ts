@@ -4,10 +4,10 @@ import {
    getAllLinks as getAllLinksFn,
    deleteOneLink as deleteOneLinkFn,
    updateOneLink as updateOneLinkFn,
-} from '../../services/apiLinks';
-import IError from '../../interfaces/IError';
+} from '@/services/apiLinks';
+import IError from '@/interfaces/IError';
 import { useSearchParams } from 'react-router-dom';
-import { ITEM_PER_PAGE } from '../../utils/constants';
+import { ITEM_PER_PAGE } from '@/utils/constants';
 
 interface Props {
    onError: CallableFunction;

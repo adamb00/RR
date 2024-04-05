@@ -11,7 +11,7 @@ export const authApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
       }),
       register: builder.mutation({
          query: data => ({
-            url: `auth/signup`,
+            url: `/auth/signup`,
             method: 'POST',
             body: data,
          }),
@@ -19,19 +19,19 @@ export const authApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
       getReferralCode: builder.mutation({
          query: (referralCode: number) => ({
-            url: `auth/get-referralcode/${referralCode}`,
+            url: `/auth/get-referralcode/${referralCode}`,
             method: 'GET',
          }),
       }),
       logout: builder.mutation({
          query: () => ({
-            url: `auth/signout`,
+            url: `/auth/signout`,
             method: 'POST',
          }),
       }),
       resetPassword: builder.mutation({
          query: ({ data, token }) => ({
-            url: `auth/reset-password/${token}`,
+            url: `/auth/reset-password/${token}`,
             method: 'PATCH',
             body: data,
          }),

@@ -4,7 +4,7 @@ export const subscribeApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       subscribe: builder.mutation({
          query: data => ({
-            url: 'subscribe',
+            url: '/subscribe',
             method: 'POST',
             body: data,
          }),
