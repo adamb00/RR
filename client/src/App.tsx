@@ -19,7 +19,7 @@ import ActivateAccount from './ui/ActivateAccount';
 
 import { Routes, Route } from 'react-router-dom';
 
-// import RequireAuth from './ui/RequireAuth';
+import RequireAuth from './ui/RequireAuth';
 import RestrictedRoute from './ui/RestrictedRoute';
 import Home from './features/Home/Home';
 import Links from './features/Links/Links';
@@ -69,20 +69,19 @@ export default function App() {
             <Route path='reset-password/:token' element={<ResetPassword />} />
 
             {/* AUTHENTICATED ROUTES */}
-            {/* <Route element={<RequireAuth allowedRoles={['User', 'Admin']} />}> */}
-            <Route path='/' element={<Home />} />
-            <Route path='my-links' element={<Links />} />
-            <Route path='account' element={<Account />}>
-               <Route path='notifications/:id' element={<NotificationItem />} />
-               <Route path='personal' element={<PersonalInformation />} />
-               <Route path='security' element={<Security />} />
-               <Route path='notifications' element={<Notifications />} />
-
-               {/* ADMIN ROUTES */}
-               {/* <Route element={<RequireAuth allowedRoles={['Admin']} />}> */}
-               <Route path='edit-links' element={<EditLinks />} />
-               {/* </Route> */}
-               {/* </Route> */}
+            <Route element={<RequireAuth allowedRoles={['User', 'Admin']} />}>
+               <Route path='/' element={<Home />} />
+               <Route path='my-links' element={<Links />} />
+               <Route path='account' element={<Account />}>
+                  <Route path='notifications/:id' element={<NotificationItem />} />
+                  <Route path='personal' element={<PersonalInformation />} />
+                  <Route path='security' element={<Security />} />
+                  <Route path='notifications' element={<Notifications />} />
+                  ADMIN ROUTES
+                  <Route element={<RequireAuth allowedRoles={['Admin']} />}>
+                     <Route path='edit-links' element={<EditLinks />} />
+                  </Route>
+               </Route>
             </Route>
 
             <Route path='*' element={<RestrictedRoute />} />

@@ -43,13 +43,6 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static('dist'));
-
-// Define a catch-all route to serve your React application for all other routes
-app.get('*', (req, res) => {
-   res.sendFile(path.join(__dirname, '/client/dist', 'index.html'));
-});
-
 if (env.NODE_ENV === 'dev') app.use(morgan('dev'));
 
 app.use(`/api/${env.VERSION}/auth`, AuthRouter);
