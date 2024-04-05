@@ -10,6 +10,8 @@ export default function HomeAuth() {
    const [inviteModalOpen, setInviteModalOpen] = useState<boolean>(false);
    const user = useSelector(selectCurrentUser);
 
+   console.log(import.meta.env.VITE_BASE_URL);
+
    return (
       <>
          {inviteModalOpen && (
