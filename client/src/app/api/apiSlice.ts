@@ -4,8 +4,8 @@ import { logout, setCredentials } from '@/features/Auth/slices/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
    baseUrl: import.meta.env.VITE_BASE_URL,
-   credentials: 'same-origin',
-   mode: 'cors',
+   // credentials: 'same-origin',
+   // mode: 'cors',
    prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
 

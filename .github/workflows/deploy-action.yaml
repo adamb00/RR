@@ -51,6 +51,18 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
+         - name: SSH into DigitalOcean droplet and remove existing files
+           uses: appleboy/ssh-action@master
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
+              script: |
+                 ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts
+                 ssh -i ${{ secrets.DROPLET_SSH_KEY }} ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }} "rm -rf /var/www/r2byou.com/html/*"
+
          - name: SSH into DigitalOcean droplet
            uses: appleboy/ssh-action@master
            with:
