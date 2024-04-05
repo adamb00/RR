@@ -77,7 +77,7 @@ export default function App() {
                   <Route path='personal' element={<PersonalInformation />} />
                   <Route path='security' element={<Security />} />
                   <Route path='notifications' element={<Notifications />} />
-                  ADMIN ROUTES
+                  {/* ADMIN ROUTES */}
                   <Route element={<RequireAuth allowedRoles={['Admin']} />}>
                      <Route path='edit-links' element={<EditLinks />} />
                   </Route>

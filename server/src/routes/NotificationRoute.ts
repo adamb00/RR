@@ -8,7 +8,6 @@ const notificationController = new NotificationController();
 
 router.use(authenticateUser);
 
-// router.route('/').get(notificationController.getAllNotifications).post(restrictTo('Admin'), createNotification);
 router.route('/').get(notificationController.getAllNotifications);
 
 router

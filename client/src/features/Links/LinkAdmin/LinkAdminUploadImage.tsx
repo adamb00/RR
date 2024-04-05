@@ -73,7 +73,7 @@ export default function LinkAdminUploadImage({ isChecked, control, isOpen, link 
                      {isLoadingLinkImage || uploading ? (
                         <Loader size={100} />
                      ) : link.image && isChecked ? (
-                        <img src={linkImage} alt='User Image' className='admin-links__image' />
+                        <img src={linkImage} alt={link.description} className='admin-links__image' />
                      ) : (
                         '+'
                      )}
