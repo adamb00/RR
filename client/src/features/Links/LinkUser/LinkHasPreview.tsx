@@ -1,10 +1,10 @@
-import ShareModal from '../../../ui/Modals/ShareModal';
-import LinkImage from '../../../ui/LinkImage';
+import ShareModal from '@/ui/Modals/ShareModal';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
+import ButtonIcon from '@/ui/Buttons/ButtonIcon';
 import { PiDotsThree } from 'react-icons/pi';
-import { ILink } from '../../../interfaces/ILink';
+import { ILink } from '@/interfaces/ILink';
 import { Dispatch, SetStateAction } from 'react';
+import { useGetImage } from '@/hooks/useGetImage';
 
 interface LinkHasPreviewProps {
    link: ILink;
@@ -21,12 +21,13 @@ export default function LinkHasPreview({
    updatedLink,
    handleOpenModal,
 }: LinkHasPreviewProps) {
+   const { image: linkImage } = useGetImage(link);
    return (
       link.isPreview && (
          <div className='links__card'>
             <ShareModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} url={link.link} />
             <div className='links__side links__side--front'>
-               <LinkImage link={link} className='links__wrapper--image' />
+               <img src={linkImage} alt={link.description} className='links__wrapper--image' />
             </div>
             <div className='links__side links__side--back'>
                <h1 className='heading-primary'>{link.title}</h1>

@@ -6,60 +6,35 @@
    margin-bottom: 20rem;
    width: 100%;
 
-   &__preview {
+   &__side-menu {
+      background-color: $color-grey-light-4;
+      box-shadow: $default-box-shadow;
       display: flex;
-      align-items: center;
-      position: absolute;
-      left: 3rem;
-      top: 2rem;
-      gap: 2rem;
+      position: fixed;
+      left: 0;
+      padding: 0 1rem 0 3rem;
+      border-radius: 0 1.2rem 1.2rem 0;
+      top: 15rem;
+      gap: 3rem;
       flex-direction: row;
+      z-index: 1999;
+
+      &.open {
+         animation: moveInLeft 0.5s ease-in-out;
+      }
+
+      &.closed {
+         left: -31rem;
+         animation: moveOutRight 0.5s ease-in-out;
+      }
       &:focus,
       &:active {
          color: $color-grey-dark-4;
       }
    }
 
-   &__settings-modal {
-      cursor: default;
-      position: absolute;
-      background-color: $color-grey-light-1;
-      box-shadow: $default-box-shadow;
-      border-radius: $default-border-radius;
-      text-align: center;
-      gap: 0.8rem;
-      z-index: 1000;
-      padding: 0.8rem 0;
-      right: -2.5rem;
-      top: 8.1rem;
-      width: 15rem;
-      display: flex;
-      flex-direction: column;
-
-      &--item {
-         cursor: pointer;
-         color: $color-primary-tint;
-         border-bottom: 1px solid $color-grey-dark-1;
-         padding: 0.8rem;
-
-         &:last-child {
-            border-bottom: none;
-         }
-
-         &:hover {
-            color: $color-primary-shade;
-         }
-      }
-   }
-
-   &__share {
-      position: absolute;
-      right: 0 !important;
-      top: 0 !important;
-   }
-
    &__icon {
-      margin-top: 0.5rem;
+      margin: 0.5rem;
       cursor: pointer !important;
       font-size: 3rem;
       color: $color-grey-dark-4;
@@ -77,6 +52,11 @@
          }
       }
 
+      &--chevron {
+         margin: 0.5;
+         margin-right: -1rem;
+      }
+
       &:hover {
          color: $color-primary-tint;
       }
@@ -87,214 +67,93 @@
       }
    }
 
-   &__image-container {
-      width: 14%;
-      @include respond(phone) {
-         width: 30%;
-      }
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-      justify-content: flex-start;
-      align-items: center;
-   }
-   &__image {
-      width: 8rem;
-      height: 8rem;
-      @include respond(phone) {
-         width: 10rem;
-         height: 6rem;
-         // margin-left: 1rem;
-      }
-      border-radius: $default-border-radius;
-      border: none;
-      // object-fit: conta;
-   }
-
    &__container {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      width: 80%;
       margin-top: 10rem;
+      align-items: center;
+      gap: 6rem;
    }
 
    &__card {
-      width: 100%;
-      -moz-perspective: 200rem;
-      perspective: 200rem;
-   }
-
-   &__side {
-      overflow: hidden;
-      width: 100%;
-      transition: all 0.8s ease;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
+      height: auto;
       position: relative;
-      top: 0;
-
-      &--front {
-         width: 100%;
-      }
-      &--back {
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         flex-direction: column;
-         position: absolute;
-         z-index: 2000;
-         width: 100%;
-         transform: rotateY(180deg);
-         background-color: $color-grey-light-3;
-         height: 20rem;
-         max-height: 20rem;
-         @include respond(phone) {
-            max-height: 20rem;
-            overflow-y: hidden;
-         }
-
-         &__description {
-            width: 90%;
-            padding: 1rem 4rem;
-            border-radius: $default-border-radius;
-
-            box-shadow: $default-box-shadow;
-            overflow-y: scroll;
-            margin-bottom: 1rem;
-         }
-      }
-   }
-   &__wrapper--preview:hover &__side--back {
-      transform: rotateY(0);
-   }
-   &__wrapper--preview:hover &__side--front {
-      transform: rotateY(-180deg);
-   }
-   &__description {
-      border-radius: $default-border-radius;
-      box-shadow: $default-box-shadow;
-      padding: 1rem 3rem;
-      overflow-y: scroll;
-
-      @include respond(phone) {
-         position: absolute;
-         border-radius: 0;
-         box-shadow: none;
-         width: 100%;
-         top: 25%;
-         left: 0;
-         border-top: 1px solid $color-grey-light-6;
-      }
-   }
-
-   &__body {
-      margin-top: 2rem;
-      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      @include respond(tab-port) {
-         margin-left: 2rem;
-      }
-      @include respond(phone) {
-         margin-top: 0;
-         margin-left: 2rem;
-      }
-   }
-   &__wrapper {
-      // overflow: hidden;
-      display: flex;
-      flex-direction: row;
-      position: relative;
-      padding: 1rem 3rem;
-      @include respond(phone) {
-         padding: 1rem 1rem;
-      }
-      font-size: $default-font-size;
+      cursor: pointer;
       border-radius: $default-border-radius;
-      height: 20rem;
-      max-height: 40rem;
-      width: 100%;
-      border: none;
-      box-shadow: $default-box-shadow;
-
-      &--preview {
-         padding: 0;
-         width: 100%;
+      min-width: 70%;
+      &:hover {
+         box-shadow: $hover-box-shadow;
       }
 
-      &--basic {
-         background-color: $color-grey-light-3;
-         gap: 2rem;
-         height: 12rem;
-         @include respond(phone) {
-            height: 8rem;
-            gap: 3rem;
-         }
-         &:hover {
-            top: -0.3rem;
-            box-shadow: $hover-box-shadow;
-         }
+      @include respond(tab-land) {
+         max-width: 80%;
+         min-width: 80%;
       }
 
       &--image {
-         width: 100%;
+         clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);
+         border-radius: 0 0 $default-border-radius $default-border-radius;
+         bottom: 12rem;
+         position: relative;
+         margin-bottom: -12rem;
+
+         @include respond(phone) {
+            bottom: 9rem;
+            clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);
+         }
+
+         &-no-preview {
+            clip-path: none;
+            position: absolute;
+            top: 12%;
+            margin-left: 5rem;
+            border-radius: 100%;
+            width: 15rem;
+            height: 15rem;
+            box-shadow: $hover-box-shadow;
+
+            @include respond(phone) {
+               margin-left: 1rem;
+               width: 12rem;
+               height: 12rem;
+               top: 18%;
+            }
+         }
+      }
+
+      &--body {
+         padding-top: 1rem;
+         box-shadow: $default-box-shadow;
+         background-color: $color-grey-light-1;
+         min-height: 25rem;
+         max-height: 30rem;
+         min-width: auto;
+         max-width: 100%;
          border-radius: $default-border-radius;
-         object-fit: cover;
-         height: 20rem;
-         max-height: 20rem;
+         position: relative;
+
+         &-no-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 20rem;
+
+            @include respond(tab-port) {
+               padding: 0 0 2rem 10rem;
+            }
+         }
+         @include respond(phone) {
+            min-height: 20rem;
+         }
       }
 
-      &--container {
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         width: 100%;
-      }
-
-      &--expanded {
-         height: calc(100% + 30rem);
-      }
-
-      @include respond(tab-land) {
-      }
-
-      @include respond(tab-port) {
-      }
-      @include respond(phone) {
-         // max-height: fit-content;
-      }
-   }
-
-   &__group {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      &--preview {
-         position: absolute;
-         right: 1rem;
-         top: 1rem;
-      }
-   }
-
-   &__item {
-      font-size: 2rem;
-      letter-spacing: 0.2rem;
-      font-family: 'Montserrat', sans-serif;
-      color: $color-primary-tint;
-
-      &--link {
-         font-style: italic;
-         font-family: 'Montserrat', sans-serif;
-         letter-spacing: 0.05rem;
-         font-weight: 300;
-         font-size: 1rem;
-         color: $color-grey-dark-6;
-      }
-
-      @include respond(tab-land) {
-         font-size: 2rem;
+      &--description {
+         text-align: center;
+         font-size: $default-font-size;
       }
    }
 }

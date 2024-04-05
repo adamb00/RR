@@ -41,7 +41,6 @@ export const authApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
 export const {
    useLoginMutation,
-   // useUpdateUserMutation,
    useRegisterMutation,
    useGetReferralCodeMutation,
    useResetPasswordMutation,

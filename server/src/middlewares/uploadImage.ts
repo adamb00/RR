@@ -3,6 +3,8 @@ import multer, { FileFilterCallback } from 'multer';
 import catchAsync from '../utils/catchAsync';
 import path from 'path';
 import sharp from 'sharp';
+import AppError from '../utils/appError';
+import { Model } from 'mongoose';
 
 const multerStore = multer.memoryStorage();
 
@@ -47,3 +49,36 @@ export const upload = multer({
    fileFilter: filter,
    storage: multerStore,
 });
+
+// export const uploadImage = async <T extends Document>(
+//    Model: Model<T>,
+//    req: Request,
+//    res: Response,
+//    next: NextFunction
+// ) => {
+//    console.log(Model);
+//    const doc = await Model?.findById(req.params.id);
+
+//    if (!req.file) {
+//       res.status(404).json({
+//          status: 'error',
+//          message: 'No file provided',
+//       });
+//       return next(new AppError('No file provided', 400));
+//    }
+
+//    console.log(doc);
+
+//    if (!doc) {
+//       res.status(404).json({
+//          status: 'error',
+//          message: 'No document found with that ID',
+//       });
+//    }
+
+//    res.status(200).json({
+//       status: 'error',
+//       message: 'Connection success',
+//       doc,
+//    });
+// };

@@ -4,6 +4,7 @@ import { QRCode } from 'react-qrcode-logo';
 import { useTheme } from '@/context/ThemeContext';
 import Button from '../Buttons/Button';
 import ShareModal from './ShareModal';
+import { darkGrey, lightGrey, primaryColor, secondaryColor } from '@/utils/constants';
 
 interface InviteModalProps {
    setInviteModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -24,8 +25,8 @@ export default function InviteModal({ setInviteModalOpen, qrOptions, url }: Invi
    const defaultOptions = {
       size: 250,
       quietZone: 15,
-      bgColor: mode === 'light' ? '#eeeeee' : '#6d6d6d',
-      fgColor: mode === 'light' ? 'rgb(237, 83, 91)' : ' rgb(192, 244, 229)',
+      bgColor: mode === 'light' ? lightGrey : darkGrey,
+      fgColor: mode === 'light' ? primaryColor : secondaryColor,
       logoWidth: 100,
       logoHeight: 100,
    };

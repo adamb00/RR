@@ -1,10 +1,12 @@
-import { ILink } from '../../../interfaces/ILink';
+import { ILink } from '@/interfaces/ILink';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { truncateText } from '../../../utils/helpers';
-import useDetectOrientation from '../../../hooks/useDetectOrientation';
+import { truncateText } from '@/utils/helpers';
+import useDetectOrientation from '@/hooks/useDetectOrientation';
 import LinkAdminUploadImage from './LinkAdminUploadImage';
 import LinkAdminInteractions from './LinkAdminInteractions';
+import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
+
 import LinkAdminForm from './LinkAdminForm';
 
 interface LinkItemProps {
@@ -13,6 +15,9 @@ interface LinkItemProps {
 }
 export default function LinkAdmin({ link, device }: LinkItemProps) {
    const { control, handleSubmit } = useForm();
+   const handleOpenDropdown = () => {
+      setIsOpen((open: boolean) => !open);
+   };
 
    const [isChecked, setIsChecked] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +50,9 @@ export default function LinkAdmin({ link, device }: LinkItemProps) {
    };
 
    return (
-      <div className='admin-links__links'>
+      <div className='admin-links__link'>
          <LinkAdminUploadImage isChecked={isChecked} control={control} isOpen={isOpen} link={link} />
-         <div className={`admin-links__form admin-links__form${isOpen ? '--open' : ''}`}>
+         <div className={`admin-links__interactions admin-links__interactions${isOpen ? '--open' : ''}`}>
             <div className='admin-links__wrapper'>
                <div className='admin-links__wrapper--group'>
                   <div className='admin-links__item'>{handleIfLinkHasTitle()}</div>
@@ -67,6 +72,11 @@ export default function LinkAdmin({ link, device }: LinkItemProps) {
                link={link}
             />
          </div>
+         {link.active && isOpen ? (
+            <IoChevronUp className='admin-links__chevron' onClick={handleOpenDropdown} />
+         ) : (
+            <IoChevronDown className='admin-links__chevron' onClick={handleOpenDropdown} />
+         )}
       </div>
    );
 }

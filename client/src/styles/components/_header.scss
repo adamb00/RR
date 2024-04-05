@@ -26,6 +26,18 @@
       @include respond(phone) {
          margin-right: 5rem;
       }
+
+      &__telegram-icon {
+         border-radius: 100%;
+         cursor: pointer;
+         width: 2rem;
+         height: 2rem;
+
+         @include respond(tab-land) {
+            width: 2.5rem;
+            height: 2.5rem;
+         }
+      }
       &__list {
          display: flex;
          gap: 3rem;

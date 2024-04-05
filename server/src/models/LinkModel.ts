@@ -19,7 +19,7 @@ export const linkSchema: Schema = new Schema<ILink>(
       },
       order: {
          type: Number,
-         default: 0,
+         default: 1,
       },
       createdBy: {
          type: String,
@@ -32,6 +32,7 @@ export const linkSchema: Schema = new Schema<ILink>(
       },
       image: {
          type: String,
+         default: 'logo.png',
       },
    },
 

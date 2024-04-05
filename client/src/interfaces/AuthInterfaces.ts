@@ -1,5 +1,6 @@
 import { ILink } from './ILink';
 import INotification from './INotification';
+import { ISocialLinks } from './ISocialLinks';
 
 export interface UserProfileData {
    name: string;
@@ -25,4 +26,5 @@ export interface UserProfileData {
    refreshToken: string;
    phone: string;
    username: string;
+   socialLinks: ISocialLinks[];
 }

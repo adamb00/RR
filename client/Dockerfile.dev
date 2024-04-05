@@ -22,7 +22,7 @@ COPY . .
 
 RUN npm run build
 
-COPY ./assets /app/dist/assets
+# COPY ./assets /app/dist/assets
 
 FROM node:lts-alpine 
 

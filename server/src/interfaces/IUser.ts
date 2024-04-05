@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 import INotification from './INotification';
 import ILink from './ILink';
+import ISocialLinks from './ISocialLinks';
 
 export default interface IUser extends Document {
    name: string;
@@ -31,6 +32,7 @@ export default interface IUser extends Document {
    refreshToken: string;
    phone: string;
    username: string;
+   socialLinks: ISocialLinks[];
 
    createPasswordResetToken: () => string;
    createActivationToken: () => string;

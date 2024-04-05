@@ -11,11 +11,11 @@ import NotificationsMenu from './NotificationsMenu';
 import { MenuProps } from '../../interfaces/MenuProps';
 import { useAppSelector } from '../../redux-hooks';
 import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead';
-import UserImage from '../UserImage';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
+import { useGetImage } from '@/hooks/useGetImage';
 
 export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const device = useDeviceDetection();
@@ -23,6 +23,7 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
    const firstNotificationId = useAppSelector(state => state.auth.user?.notifications[0]);
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(firstNotificationId?._id);
    const user = useSelector(selectCurrentUser);
+   const { image: userImage } = useGetImage(user);
    const { t } = useTranslation();
 
    const handleClick = () => {
@@ -46,7 +47,8 @@ export default memo(function Menu({ isOpen, setIsOpen }: MenuProps) {
             <ul className='account__sidebar--navigation'>
                <li>
                   <div className='user-image'>
-                     <UserImage user={user} />
+                     <img src={userImage} alt='User' />
+                     {/* <UserImage user={user} /> */}
                   </div>
                </li>
 

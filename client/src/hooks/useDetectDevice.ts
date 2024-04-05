@@ -6,13 +6,16 @@ const useDeviceDetection = () => {
    useEffect(() => {
       const handleDeviceDetection = () => {
          const userAgent = navigator.userAgent.toLowerCase();
-         const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone/g.test(userAgent);
+         const isMobile = /iphone|ipod|android|blackberry|windows phone/g.test(userAgent);
          const isTablet = /(ipad|tablet|playbook|silk)|(android(?!.*mobile))/g.test(userAgent);
          const screenWidth = window.innerWidth;
+         const screenHeight = window.innerHeight;
 
          if (isMobile) {
             setDevice('Mobile');
-         } else if (isTablet || (screenWidth >= 600 && screenWidth <= 1024)) {
+         } else if (isTablet && screenWidth > screenHeight) {
+            setDevice('Tablet');
+         } else if (isTablet) {
             setDevice('Tablet');
          } else {
             setDevice('Desktop');

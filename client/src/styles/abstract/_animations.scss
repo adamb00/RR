@@ -36,30 +36,41 @@
 
 @keyframes moveInLeft {
    0% {
-      opacity: 0;
-      transform: translateX(-20rem);
-   }
-   80% {
-      opacity: 0.5;
-
-      transform: translateX(1rem);
+      transform: translateX(-31rem);
    }
    100% {
-      opacity: 1;
       transform: translateX(0);
    }
 }
 
-@keyframes sinusWave {
+@keyframes moveOutRight {
    0% {
-      background-image: linear-gradient(to left, $color-grey-light-1, transparent 0%);
-      background-size: 100%;
+      transform: translateX(31rem);
    }
    100% {
-      background-image: linear-gradient(to left, $color-grey-light-1, transparent 50%);
-      background-size: 150%;
+      transform: translateX(0);
    }
 }
+
+@keyframes pulsate {
+   from {
+      transform: scale(1);
+   }
+   to {
+      transform: scale(0.95);
+   }
+}
+
+// @keyframes sinusWave {
+//    0% {
+//       background-image: linear-gradient(to left, $color-grey-light-1, transparent 0%);
+//       background-size: 100%;
+//    }
+//    100% {
+//       background-image: linear-gradient(to left, $color-grey-light-1, transparent 50%);
+//       background-size: 150%;
+//    }
+// }
 
 @keyframes shake {
    0%,
@@ -75,42 +86,42 @@
    }
 }
 
-@keyframes rotate {
-   0%,
-   100% {
-      transform: rotate(0deg);
-   }
-   50% {
-      transform: rotate(15deg);
-   }
-   75% {
-      transform: rotate(-15deg);
-   }
-}
+// @keyframes rotate {
+//    0%,
+//    100% {
+//       transform: rotate(0deg);
+//    }
+//    50% {
+//       transform: rotate(15deg);
+//    }
+//    75% {
+//       transform: rotate(-15deg);
+//    }
+// }
 
-@keyframes waves {
-   0% {
-      transform: scale(1);
-      opacity: 1;
-   }
-   50% {
-      transform: scale(1.3);
-      opacity: 0.7;
-   }
-   100% {
-      transform: scale(1);
-      opacity: 1;
-   }
-}
+// @keyframes waves {
+//    0% {
+//       transform: scale(1);
+//       opacity: 1;
+//    }
+//    50% {
+//       transform: scale(1.3);
+//       opacity: 0.7;
+//    }
+//    100% {
+//       transform: scale(1);
+//       opacity: 1;
+//    }
+// }
 
-@keyframes steam {
-   0% {
-      background-position: 0 0;
-   }
-   50% {
-      background-position: 400% 0;
-   }
-   100% {
-      background-position: 0 0;
-   }
-}
+// @keyframes steam {
+//    0% {
+//       background-position: 0 0;
+//    }
+//    50% {
+//       background-position: 400% 0;
+//    }
+//    100% {
+//       background-position: 0 0;
+//    }
+// }

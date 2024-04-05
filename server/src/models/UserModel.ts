@@ -5,6 +5,18 @@ import bcrypt from 'bcrypt';
 import { linkSchema } from './LinkModel';
 import crypto from 'crypto';
 import slugify from 'slugify';
+import ISocialLinks from '../interfaces/ISocialLinks';
+
+const SocialMediaSchema: Schema = new Schema<ISocialLinks>({
+   platform: {
+      type: String,
+      required: true,
+   },
+   url: {
+      type: String,
+      required: true,
+   },
+});
 
 const userSchema: Schema = new Schema<IUser>(
    {
@@ -23,7 +35,7 @@ const userSchema: Schema = new Schema<IUser>(
          type: String,
          default: 'User',
       },
-      username: { type: String },
+      username: { type: String, unique: true },
       password: {
          type: String,
          minlength: 8,
@@ -98,6 +110,7 @@ const userSchema: Schema = new Schema<IUser>(
       availableLinks: {
          type: [linkSchema],
       },
+      socialLinks: { type: [SocialMediaSchema] },
       phone: {
          type: String,
       },

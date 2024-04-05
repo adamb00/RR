@@ -1,12 +1,12 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Switch from 'react-switch';
-import ButtonIcon from '../../../ui/Buttons/ButtonIcon';
+import ButtonIcon from '@/ui/Buttons/ButtonIcon';
 import { CiMedicalClipboard } from 'react-icons/ci';
-import Icon from '../../../ui/Icon';
-import { ILink } from '../../../interfaces/ILink';
+import Icon from '@/ui/Icon';
+import { ILink } from '@/interfaces/ILink';
 import { Dispatch, SetStateAction } from 'react';
-import { useLinks } from '../../../context/LinkContext';
-import { useDeleteLinkMutation, useUpdateLinkMutation } from '../linkApiSlice';
+import { useLinks } from '@/context/LinkContext';
+import { useActivateLinkMutation, useDeleteLinkMutation } from '../linkApiSlice';
 
 interface LinkAdminInteractionsProps {
    link: ILink;
@@ -15,13 +15,14 @@ interface LinkAdminInteractionsProps {
 }
 
 export default function LinkAdminInteractions({ link, isChecked, setIsChecked }: LinkAdminInteractionsProps) {
-   const [updateLinkAPI] = useUpdateLinkMutation();
    const { updateLink, removeLink } = useLinks();
    const [removeLinkAPI] = useDeleteLinkMutation();
+   const [activateLinkApi] = useActivateLinkMutation();
 
    const handleOnChange = async () => {
       setIsChecked(!isChecked);
-      const res = await updateLinkAPI({ id: link._id, data: { active: !isChecked } }).unwrap();
+
+      const res = await activateLinkApi({ id: link._id, data: { active: !isChecked } }).unwrap();
       updateLink(res.doc);
    };
 

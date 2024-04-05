@@ -1,4 +1,4 @@
-import { apiSlice } from '../../app/api/apiSlice';
+import { apiSlice } from '@/app/api/apiSlice';
 // import { ITEM_PER_PAGE } from '../../utils/constants';
 
 // const apiWithTag = apiSlice.enhanceEndpoints({addTagTypes: ['Link']})
@@ -16,8 +16,6 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
 
       getLinks: builder.mutation({
          query: () => ({
-            // query: (page = 1) => ({
-            // url: `link?page=${page}&limit=${ITEM_PER_PAGE}`,
             url: `link`,
             method: 'GET',
          }),
@@ -41,6 +39,14 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
          invalidatesTags: ['Link', 'User'],
       }),
 
+      activateLink: builder.mutation({
+         query: ({ id, data }) => ({
+            url: `link/${id}/activate-link`,
+            method: 'PATCH',
+            body: data,
+         }),
+      }),
+
       deleteLink: builder.mutation({
          query: id => ({
             url: `link/${id}`,
@@ -57,4 +63,5 @@ export const {
    useGetLinksMutation,
    useUpdateLinkMutation,
    useDeleteLinkMutation,
+   useActivateLinkMutation,
 } = linkApiSlice;

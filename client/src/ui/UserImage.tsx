@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { getUserImage } from '../services/apiUser';
 import { UserProfileData } from '../interfaces/AuthInterfaces';
-import Loader from './Loader';
 
 interface UserImageProps {
    user?: UserProfileData;
 }
 
-export default function UserImage({ user }: UserImageProps) {
+export default function UserImage({ user, children }: PropsWithChildren<UserImageProps>) {
    const userPhoto = user!.photo;
    const [userImage, setUserImage] = useState<string | undefined>(userPhoto);
    const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -30,7 +29,7 @@ export default function UserImage({ user }: UserImageProps) {
       fetchUserImage();
    }, [userPhoto]);
 
-   if (isLoading) return <Loader size={100} />;
+   if (isLoading) return <>{children}</>;
    if (!userImage) return;
 
    return <img src={userImage} alt='User image' />;

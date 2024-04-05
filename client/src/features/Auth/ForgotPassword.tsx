@@ -32,7 +32,7 @@ export default function ForgotPassword() {
    };
 
    return (
-      <div>
+      <div className='forgot-password'>
          <h1 className='heading-primary'>Forgot your password?</h1>
          <form action='' onSubmit={handleSubmit(handleForgotPassword)} className='forgot-password__form'>
             <UserInput

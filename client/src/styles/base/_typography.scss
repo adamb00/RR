@@ -30,6 +30,19 @@ body {
       text-align-last: left;
       padding: 1rem;
    }
+
+   &--small {
+      background: -webkit-linear-gradient(left, $color-grey-dark 20%, $color-grey-dark);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.4rem !important;
+
+      font-size: 2.6rem !important;
+      @include respond(phone) {
+         font-size: 2.2rem !important;
+      }
+   }
 }
 .heading-secondary {
    text-align: center;
@@ -39,10 +52,15 @@ body {
    letter-spacing: 0.5rem;
    color: $color-grey-dark-3;
 
+   &--big {
+      font-size: 2rem;
+   }
+
    &--left {
       text-align: left !important;
    }
 }
+
 .emoji {
    font-size: 2.6rem;
 }

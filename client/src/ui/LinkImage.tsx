@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { ILink } from '../interfaces/ILink';
 import { getLinkImage } from '../services/apiLinks';
-import Loader from './Loader';
+
 interface LinkImageProps extends React.ComponentPropsWithoutRef<'img'> {
    link: ILink;
 }
-export default function LinkImage({ link, className }: LinkImageProps) {
+export default function LinkImage({ link, className }: PropsWithChildren<LinkImageProps>) {
    const linkPhoto = link.image;
    const [linkImage, setLinkImage] = useState<string | undefined>(linkPhoto);
    const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,8 +28,8 @@ export default function LinkImage({ link, className }: LinkImageProps) {
       fetchLinkImage();
    }, [linkPhoto]);
 
-   if (isLoading) return <Loader size={50} />;
-   if (!linkImage) return <div>No image available</div>;
+   if (isLoading) return isLoading;
+   if (!linkImage) return;
 
    return <img className={className} src={linkImage} alt='Link image' />;
 }

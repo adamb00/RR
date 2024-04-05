@@ -33,8 +33,9 @@
       width: 70vw;
    }
    @include respond(phone) {
-      height: 60vh;
-      width: 90%;
+      height: 100vh;
+      width: 100%;
+      border-radius: 0;
    }
    &__container {
       display: flex;
@@ -100,8 +101,12 @@
       right: 2rem;
       top: 3rem;
    }
-}
-
-.close:hover {
-   color: $color-primary-tint;
+   &:hover {
+      color: $color-primary-tint;
+   }
+   &--dark {
+      &:hover {
+         color: $color-grey-dark !important;
+      }
+   }
 }

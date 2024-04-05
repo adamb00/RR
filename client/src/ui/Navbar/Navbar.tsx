@@ -4,11 +4,13 @@ import Notifications from '../HomeNotifications/Notifications';
 import Navigation from '../Navigation/Navigation';
 
 import NavigationNoAuth from '../Navigation/NavigationNoAuth';
-import useDeviceDetection from '../../hooks/useDetectDevice';
-import SignOut from '../../features/Auth/SignOut';
+import useDeviceDetection from '@/hooks/useDetectDevice';
+import SignOut from '@/features/Auth/SignOut';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser, selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
+import { selectCurrentUser, selectIsAdmin } from '@/features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
+
+import { TelegramIcon } from 'react-share';
 
 import LanguageChanger from '../Languages/LanguageChanger';
 
@@ -26,10 +28,10 @@ export default function Navbar() {
                   <ThemeSwitcher />
                </li>
                <li>
-                  <Notifications />
+                  <LanguageChanger />
                </li>
                <li>
-                  <LanguageChanger />
+                  <Notifications />
                </li>
                {user ? <Navigation /> : <NavigationNoAuth />}
             </ul>
@@ -41,7 +43,6 @@ export default function Navbar() {
             <li>
                <NavigationLink to='/'>{t('Home')}</NavigationLink>
             </li>
-
             <li>
                <NavigationLink to='/my-links'>{t('Links')}</NavigationLink>
             </li>
@@ -59,6 +60,13 @@ export default function Navbar() {
                <LanguageChanger />
             </li>
             <li>{!isAdmin && <Notifications />}</li>
+            <li>
+               <TelegramIcon
+                  className='header-nav__telegram-icon'
+                  //TODO NAVIGATE TO TELEGRAM GROUP
+                  onClick={() => alert('This will navigate to telegram group')}
+               />
+            </li>
             <li>
                <SignOut />
             </li>

@@ -1,8 +1,7 @@
 import './styles/main.scss';
-import '../node_modules/flag-icon-css/css/flag-icons.min.css';
 
 import AppLayout from './ui/AppLayout';
-import MyLink from './features/Links/MyLink';
+import MyLink from './features/Links/LinkShared/MyLink';
 import About from './features/About/About';
 import SignIn from './features/Auth/SignIn';
 import SignUp from './features/Auth/SignUp';
@@ -44,7 +43,7 @@ i18n
          caches: ['cookie', 'localStorage'],
       },
       backend: {
-         loadPath: '/assets/locales/{{lng}}/translation.json',
+         loadPath: '/locales/{{lng}}/translation.json',
       },
       react: { useSuspense: false },
    });

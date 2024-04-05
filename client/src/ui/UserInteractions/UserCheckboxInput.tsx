@@ -10,6 +10,7 @@ interface UserCheckboxInputProps extends React.ComponentPropsWithoutRef<'input'>
    eError?: string;
    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
    defaultChecked: boolean;
+   outterClassName?: string;
 }
 
 export default function UserCheckboxInput({
@@ -20,6 +21,7 @@ export default function UserCheckboxInput({
    onChange,
    children,
    defaultChecked,
+   outterClassName,
 }: PropsWithChildren<UserCheckboxInputProps>) {
    return (
       <Controller
@@ -27,7 +29,7 @@ export default function UserCheckboxInput({
          name={name}
          rules={rules}
          render={({ field: { value, onChange: onFieldChange, onBlur }, fieldState: { error: fieldError } }) => (
-            <div className='user-input--checkbox'>
+            <div className={`user-input--checkbox ${outterClassName}`}>
                {children}
                <input
                   type='checkbox'

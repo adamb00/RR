@@ -129,25 +129,6 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
    });
 });
 
-export const getUserImage = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-   const key = req.params.key;
-
-   if (!key) res.status(404).send('Image not found');
-
-   try {
-      const readStream = s3Download(key);
-
-      readStream.pipe(res);
-
-      readStream.on('error', error => {
-         console.error(error);
-         res.status(404).send('Image not found');
-      });
-   } catch (error) {
-      res.status(500).send('Internal Server Error');
-   }
-});
-
 export const updatePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const user = await User.findById(req.user._id).select('+password');
 

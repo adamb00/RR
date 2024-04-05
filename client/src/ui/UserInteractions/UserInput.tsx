@@ -5,13 +5,80 @@ interface UserInputProps extends React.ComponentPropsWithoutRef<'input'> {
    name: string;
    control: Control;
    rules?: RegisterOptions;
+   outterClassName?: string;
    formError?: boolean;
    fieldErrorClassname?: string;
    eError?: string;
    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+   onBlur?: () => void;
 }
 
-//TODO TRANSLATE IF POSSIBLE
+// //TODO TRANSLATE IF POSSIBLE
+// export default function UserInput({
+//    children,
+//    control,
+//    name,
+//    rules,
+//    className,
+//    placeholder,
+//    fieldErrorClassname,
+//    outterClassName,
+//    defaultValue,
+//    type,
+//    onChange,
+//    eError,
+//    onBlur,
+// }: PropsWithChildren<UserInputProps>) {
+//    return (
+//       <Controller
+//          control={control}
+//          name={name}
+//          defaultValue={defaultValue}
+//          rules={rules}
+//          render={({
+//             field: { value, onChange: onFieldChange, onBlur: onFieldBlur },
+//             fieldState: { error: fieldError },
+//          }) => (
+//             <div className={outterClassName ? outterClassName : 'user-input'}>
+//                {children}
+//                <input
+//                   // autoComplete='new-password'
+//                   autoComplete='off'
+//                   id={name}
+//                   autoFocus={false}
+//                   type={type}
+//                   className={fieldError ? `${className}--error ${className}` : className}
+//                   onChange={e => {
+//                      if (onChange) {
+//                         onChange(e);
+//                      }
+//                      onFieldChange(e);
+//                   }}
+//                   placeholder={placeholder}
+//                   onBlur={() => {
+//                      if (onBlur) {
+//                         onBlur();
+//                      }
+//                      onFieldBlur();
+//                   }}
+//                   lang='en-EN'
+//                   defaultValue={type === 'date' ? new Date().toISOString().split('T')[0] : value}
+//                   max={new Date().toISOString().split('T')[0]}
+//                />
+//                {fieldError && (
+//                   <p className={fieldErrorClassname}>
+//                      {fieldError.message || 'Something went wrong. Please try again.'}
+//                   </p>
+//                )}
+//                {eError && <p className={fieldErrorClassname}>{eError}</p>}
+//             </div>
+//          )}
+//       />
+//    );
+// }
+
+import { useState } from 'react'; // Import useState hook
+
 export default function UserInput({
    children,
    control,
@@ -20,22 +87,29 @@ export default function UserInput({
    className,
    placeholder,
    fieldErrorClassname,
+   outterClassName,
    defaultValue,
    type,
    onChange,
    eError,
+   onBlur,
 }: PropsWithChildren<UserInputProps>) {
+   const [isValueChanged, setIsValueChanged] = useState(false); // State to track value change
+
    return (
       <Controller
          control={control}
          name={name}
          defaultValue={defaultValue}
          rules={rules}
-         render={({ field: { value, onChange: onFieldChange, onBlur }, fieldState: { error: fieldError } }) => (
-            <div className='user-input'>
+         render={({
+            field: { value, onChange: onFieldChange, onBlur: onFieldBlur },
+            fieldState: { error: fieldError },
+         }) => (
+            <div className={outterClassName ? outterClassName : 'user-input'}>
                {children}
                <input
-                  autoComplete='new-password'
+                  autoComplete='off'
                   id={name}
                   autoFocus={false}
                   type={type}
@@ -45,9 +119,20 @@ export default function UserInput({
                         onChange(e);
                      }
                      onFieldChange(e);
+                     // Check if value changed
+                     if (e.target.value !== defaultValue) {
+                        setIsValueChanged(true);
+                     }
                   }}
                   placeholder={placeholder}
-                  onBlur={onBlur}
+                  onBlur={() => {
+                     if (onBlur && isValueChanged) {
+                        // Trigger onBlur only if value changed
+                        onBlur();
+                     }
+                     onFieldBlur();
+                     setIsValueChanged(false); // Reset flag after onBlur
+                  }}
                   lang='en-EN'
                   defaultValue={type === 'date' ? new Date().toISOString().split('T')[0] : value}
                   max={new Date().toISOString().split('T')[0]}

@@ -12,6 +12,8 @@ import LinkRouter from './routes/LinkRoute';
 import NotificationRouter from './routes/NotificationRoute';
 import AuthRouter from './routes/AuthRoute';
 import PurchaseRouter from './routes/PurchaseRoute';
+import SubscriptionRouter from './routes/SubscribeRoute';
+// import ImageRouter from './routes/ImageRoute';
 
 import AppError from './utils/appError';
 import { globalErrorHandler } from './controllers/ErrorController';
@@ -19,6 +21,8 @@ import { globalErrorHandler } from './controllers/ErrorController';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { handleSocketNotification } from './controllers/NotificationController';
+import { getImage } from './middlewares/getImage';
+// import { uploadImage } from './middlewares/uploadImage';
 
 const app: Application = express();
 export const server = createServer(app);
@@ -46,6 +50,10 @@ app.use(`/api/${env.VERSION}/user`, UserRouter);
 app.use(`/api/${env.VERSION}/link`, LinkRouter);
 app.use(`/api/${env.VERSION}/notification`, NotificationRouter);
 app.use(`/api/${env.VERSION}/purchase`, PurchaseRouter);
+app.use(`/api/${env.VERSION}/subscribe`, SubscriptionRouter);
+app.use(`/api/${env.VERSION}/get-image/:key`, getImage);
+// app.use(`/api/${env.VERSION}`, ImageRouter);
+// app.post(`/api/${env.VERSION}/:id/upload-image`, uploadImage);
 
 app.all('*', (req: Request, _res: Response, next: NextFunction) => {
    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

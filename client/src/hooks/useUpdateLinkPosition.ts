@@ -54,22 +54,41 @@ export const useUpdateLinkPosition = ({ user }: UpdateLinkPositionProps) => {
 
    const updateLinkPosition = async (currentPos: number, newPos: number) => {
       try {
+         if (newPos === 0) {
+            console.error('New position cannot be 0.');
+            return (newPos = 1);
+         }
          const updatedLinks = [...sortedLinks];
          const linkToMove = updatedLinks.splice(currentPos, 1)[0];
          updatedLinks.splice(newPos, 0, linkToMove);
 
-         const updatedLinksWithOrder = updatedLinks.map((link, index) => ({
-            ...link,
-            order: index + 1,
-         }));
+         if (linkToMove.order !== 0) {
+            const updatedLinksWithOrder = updatedLinks.map((link, index) => ({
+               ...link,
+               order: index + 1,
+            }));
 
-         setSortedLinks(() => updatedLinksWithOrder);
-         await updateUserApi({
-            id: user!._id,
-            data: { availableLinks: updatedLinksWithOrder },
-         });
+            setSortedLinks(() => updatedLinksWithOrder);
+            await updateUserApi({
+               id: user!._id,
+               data: { availableLinks: updatedLinksWithOrder },
+            });
 
-         dispatch(updateUser({ ...user, availableLinks: updatedLinksWithOrder }));
+            dispatch(updateUser({ ...user, availableLinks: updatedLinksWithOrder }));
+         }
+
+         // const updatedLinksWithOrder = updatedLinks.map((link, index) => ({
+         //    ...link,
+         //    order: index + 1,
+         // }));
+
+         // setSortedLinks(() => updatedLinksWithOrder);
+         // await updateUserApi({
+         //    id: user!._id,
+         //    data: { availableLinks: updatedLinksWithOrder },
+         // });
+
+         // dispatch(updateUser({ ...user, availableLinks: updatedLinksWithOrder }));
       } catch (error) {
          console.error('Error updating link position:', error);
       }

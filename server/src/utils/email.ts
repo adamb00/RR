@@ -21,7 +21,7 @@ export default class Email {
 
    private newTransportDev() {
       return nodemailer.createTransport({
-         host: env.EMAIL_HOST,
+         host: 'mail.r2byou.com',
          port: env.EMAIL_PORT,
          auth: {
             user: env.EMAIL_USERNAME,
@@ -32,15 +32,13 @@ export default class Email {
    private newTransportProd() {
       const transport = nodemailer.createTransport({
          host: env.EMAIL_HOST,
-         port: 587,
-         // secure: true,
+         port: env.EMAIL_PORT,
+         secure: true,
          auth: {
             user: env.EMAIL_USERNAME,
             pass: env.EMAIL_PASSWORD,
          },
       });
-
-      console.log(transport);
 
       return transport;
    }
@@ -61,8 +59,6 @@ export default class Email {
             html,
             text: htmlToText(html),
          };
-
-         console.log(env.NODE_ENV);
 
          if (env.NODE_ENV === 'dev') await this.newTransportDev().sendMail(mailOptions);
          else await this.newTransportProd().sendMail(mailOptions);

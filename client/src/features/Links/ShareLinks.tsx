@@ -1,11 +1,11 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import UserInput from '../../ui/UserInteractions/UserInput';
+import UserInput from '@/ui/UserInteractions/UserInput';
 import { CiShare1 } from 'react-icons/ci';
-import ButtonIcon from '../../ui/Buttons/ButtonIcon';
+import ButtonIcon from '@/ui/Buttons/ButtonIcon';
 import { BallTriangle } from 'react-loader-spinner';
-import { emptyInputField } from '../../utils/helpers';
+import { emptyInputField } from '@/utils/helpers';
 import { useCreateLinkMutation } from './linkApiSlice';
-import { useLinks } from '../../context/LinkContext';
+import { useLinks } from '@/context/LinkContext';
 
 export default function ShareLinks() {
    const { control, handleSubmit } = useForm();
@@ -13,8 +13,7 @@ export default function ShareLinks() {
    const { setLinks } = useLinks();
    const handleOnSubmit = async (data: FieldValues) => {
       const res = await createLink(data).unwrap();
-      console.log(res);
-      setLinks(prevlink => [res.link, ...prevlink]);
+      setLinks(prevlink => [res.doc, ...prevlink]);
       emptyInputField('.share-links__input');
    };
    return (

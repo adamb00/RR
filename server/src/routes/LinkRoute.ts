@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import LinkController, { getLinkImage, updateLink } from '../controllers/LinkController';
+import LinkController, { updateLink } from '../controllers/LinkController';
 import authenticateUser from '../middlewares/authenticateUser';
 import restrictTo from '../middlewares/restrictTo';
 import { deleteUsersLink } from '../controllers/UserController';
 import { resizeImage } from '../middlewares/uploadImage';
+import { getImage } from '../middlewares/getImage';
 
 const router: Router = Router();
 const linkController = new LinkController();
@@ -19,7 +20,9 @@ router
    .patch(linkController.updateOneLink)
    .delete(deleteUsersLink, linkController.deleteOneLink);
 
-router.post('/:id/upload-image', linkController.uploadImage, resizeImage(4000), updateLink);
-router.get('/get-image/:key', getLinkImage);
+router.route('/:id/activate-link').patch(linkController.activateLink);
+
+router.post('/:id/upload-image', linkController.uploadImage, resizeImage(1000), updateLink);
+// router.get('/get-image/:key', getImage);
 
 export default router;

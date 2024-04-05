@@ -68,6 +68,17 @@
          background-image: linear-gradient(to right, $color-primary-tint, $color-tertiary);
       }
    }
+
+   &--grey {
+      font-size: 1.2rem;
+      text-transform: none;
+      background-color: $color-grey-light-1;
+      color: currentColor;
+
+      &::after {
+         background-color: $color-grey-light-2;
+      }
+   }
    &--paginator {
       padding: 1rem;
       border-radius: 100%;
@@ -82,6 +93,7 @@
       position: relative;
       border-radius: $default-border-radius + 2rem;
       color: $color-grey-light-1;
+      background-color: transparent;
 
       &::before,
       &::after {
@@ -91,11 +103,11 @@
          left: -2px;
          top: -2px;
          background: linear-gradient(45deg, $color-tertiary, $color-primary-tint, $color-tertiary);
+         animation: steam 20s linear infinite;
          background-size: 400%;
          width: calc(100% + 4px);
          height: calc(100% + 4px);
          z-index: -1;
-         animation: steam 20s linear infinite;
       }
    }
 }
