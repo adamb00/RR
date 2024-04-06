@@ -15,20 +15,20 @@ export default class LinkController {
    public uploadImage = multerUpload.single('image');
    public getAllLinks = handler.getAll(Link);
    public getOneLink = handler.getOne(Link);
-   // public createLink = handler.createOne(Link);
+   public createLink = handler.createOne(Link);
 
-   public createLink = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-      try {
-         const doc = await Link.create(req.body);
+   // public createLink = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   //    try {
+   //       const doc = await Link.create(req.body);
 
-         res.status(201).json({
-            status: 'success',
-            doc,
-         });
-      } catch (err) {
-         console.log(err);
-      }
-   });
+   //       res.status(201).json({
+   //          status: 'success',
+   //          doc,
+   //       });
+   //    } catch (err) {
+   //       console.log(err);
+   //    }
+   // });
 
    public deleteOneLink = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       const linkToDelete = await Link.findById(req.params.id);
