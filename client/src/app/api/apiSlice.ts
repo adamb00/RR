@@ -3,7 +3,7 @@ import { RootState } from '@/app/store';
 import { logout, setCredentials } from '@/features/Auth/slices/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-   baseUrl: 'http://localhost:8000/',
+   baseUrl: 'https://r2byou.com/api/v1/',
    // credentials: 'same-origin',
    mode: 'cors',
    prepareHeaders: (headers, { getState }) => {
