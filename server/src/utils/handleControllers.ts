@@ -39,13 +39,18 @@ export const createOne = <T extends Document>(Model: Model<T>, customizeRequestB
          //    customizeRequestBody(req);
          // }
 
+         console.log(req.body);
+
          const doc = await Model.create(req.body);
+
+         console.log(doc);
 
          res.status(201).json({
             status: 'success',
             doc,
          });
       } catch (error) {
+         console.log(error);
          res.send(500).json({ status: 'error', message: error });
       }
    });
