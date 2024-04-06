@@ -6,14 +6,11 @@ import { apiSlice } from '@/app/api/apiSlice';
 export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'User'] }).injectEndpoints({
    endpoints: builder => ({
       createLink: builder.mutation({
-         query: data => (
-            console.log('/linkQuery', data),
-            {
-               url: '/link',
-               method: 'POST',
-               body: data,
-            }
-         ),
+         query: ({ data }) => ({
+            url: '/link',
+            method: 'POST',
+            body: data,
+         }),
          invalidatesTags: ['Link', 'User'],
       }),
 
