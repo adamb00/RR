@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 import { cleanEnv, str, port, num } from 'envalid';
 
-const envFile = process.env.NODE_ENV === 'prod' ? '.env.prod' : '.env.dev';
+const envFile = process.env.NODE_ENV === 'prod' ? '.env' : '.env.dev';
+
 dotenv.config({ path: envFile });
 
 export default cleanEnv(process.env, {

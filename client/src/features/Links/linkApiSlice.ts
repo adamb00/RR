@@ -1,16 +1,17 @@
 import { apiSlice } from '@/app/api/apiSlice';
-// import { ITEM_PER_PAGE } from '../../utils/constants';
-
-// const apiWithTag = apiSlice.enhanceEndpoints({addTagTypes: ['Link']})
 
 export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'User'] }).injectEndpoints({
    endpoints: builder => ({
       createLink: builder.mutation({
-         query: ({ data }) => ({
-            url: '/link',
-            method: 'POST',
-            body: data,
-         }),
+         query: data => (
+            console.log('BUILDER', builder),
+            console.log('BUILDER', data),
+            {
+               url: '/link',
+               method: 'POST',
+               body: data,
+            }
+         ),
          invalidatesTags: ['Link', 'User'],
       }),
 

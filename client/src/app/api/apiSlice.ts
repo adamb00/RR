@@ -3,13 +3,19 @@ import { RootState } from '@/app/store';
 import { logout, setCredentials } from '@/features/Auth/slices/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-   baseUrl: 'https://r2byou.com/api/v1/',
-   // credentials: 'same-origin',
+   baseUrl: import.meta.env.VITE_BASE_URL,
+   credentials: 'same-origin',
+   referrerPolicy: 'strict-origin-when-cross-origin',
+   keepalive: true,
    mode: 'cors',
 
    prepareHeaders: (headers, { getState }) => {
       headers.set('Access-Control-Allow-Origin', '*');
       const token = (getState() as RootState).auth.token;
+
+      console.log('HEDERS', headers);
+
+      console.log('STATE', getState);
 
       if (token) {
          headers.set('Authorization', `Bearer ${token}`);
@@ -20,6 +26,11 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, extraOptions: object) => {
    let result = await baseQuery(args, api, extraOptions);
+
+   console.log('RESULT', result);
+   console.log('EXTRAOPTIONS', extraOptions);
+   console.log('ARGS', args);
+   console.log('API', api);
 
    if (result?.error?.status === 'FETCH_ERROR' || result.error?.status === 'PARSING_ERROR') {
       const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);

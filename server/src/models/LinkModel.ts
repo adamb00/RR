@@ -32,7 +32,7 @@ export const linkSchema: Schema = new Schema<ILink>(
       },
       image: {
          type: String,
-         default: 'logo.png',
+         // default: 'logo.png',
       },
    },
 

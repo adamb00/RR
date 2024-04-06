@@ -12,7 +12,9 @@ export default function ShareLinks() {
    const [createLink, { isLoading: isCreating }] = useCreateLinkMutation();
    const { setLinks } = useLinks();
    const handleOnSubmit = async (data: FieldValues) => {
-      const res = await createLink({ data }).unwrap();
+      console.log('ShareLinksData', data);
+      const res = await createLink(data).unwrap();
+      console.log('ShareLinksRes', res);
       setLinks(prevlink => [res.doc, ...prevlink]);
       emptyInputField('.share-links__input');
    };
