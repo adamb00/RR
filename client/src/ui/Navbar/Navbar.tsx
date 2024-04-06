@@ -48,15 +48,10 @@ export default function Navbar() {
             </li>
             <li>
                {isAdmin ? (
-                  <NavigationLink to='/edit-links'>{t('Account')}</NavigationLink>
-               ) : (
-                  <NavigationLink to='/personal'>{t('Account')}</NavigationLink>
-               )}
-               {/* {isAdmin ? (
                   <NavigationLink to='/account/edit-links'>{t('Account')}</NavigationLink>
                ) : (
                   <NavigationLink to='/account/personal'>{t('Account')}</NavigationLink>
-               )} */}
+               )}
             </li>
             <li>
                <ThemeSwitcher />

@@ -5,7 +5,7 @@ import MyLink from './features/Links/LinkShared/MyLink';
 import About from './features/About/About';
 import SignIn from './features/Auth/SignIn';
 import SignUp from './features/Auth/SignUp';
-// import Account from './features/Account/Account';
+import Account from './features/Account/Account';
 
 import Notifications from './features/Notifications/Notifications';
 import PersonalInformation from './features/Account/PersonalInformation';
@@ -72,17 +72,17 @@ export default function App() {
             <Route element={<RequireAuth allowedRoles={['User', 'Admin']} />}>
                <Route path='/' element={<Home />} />
                <Route path='my-links' element={<Links />} />
-               {/* <Route path='account' element={<Account />}> */}
-               <Route path='notifications/:id' element={<NotificationItem />} />
-               <Route path='personal' element={<PersonalInformation />} />
-               <Route path='security' element={<Security />} />
-               <Route path='notifications' element={<Notifications />} />
-               {/* ADMIN ROUTES */}
-               <Route element={<RequireAuth allowedRoles={['Admin']} />}>
-                  <Route path='edit-links' element={<EditLinks />} />
+               <Route path='account' element={<Account />}>
+                  <Route path='notifications/:id' element={<NotificationItem />} />
+                  <Route path='personal' element={<PersonalInformation />} />
+                  <Route path='security' element={<Security />} />
+                  <Route path='notifications' element={<Notifications />} />
+                  {/* ADMIN ROUTES */}
+                  <Route element={<RequireAuth allowedRoles={['Admin']} />}>
+                     <Route path='edit-links' element={<EditLinks />} />
+                  </Route>
                </Route>
             </Route>
-            {/* </Route> */}
 
             <Route path='*' element={<RestrictedRoute />} />
          </Route>
