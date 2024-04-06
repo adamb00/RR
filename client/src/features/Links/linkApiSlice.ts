@@ -9,7 +9,7 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
          query: data => (
             console.log('/linkQuery', data),
             {
-               url: 'link',
+               url: '/link',
                method: 'POST',
                body: data,
             }
