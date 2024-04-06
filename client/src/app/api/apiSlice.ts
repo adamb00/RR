@@ -6,6 +6,7 @@ const baseQuery = fetchBaseQuery({
    baseUrl: 'https://r2byou.com/api/v1/',
    // credentials: 'same-origin',
    mode: 'cors',
+
    prepareHeaders: (headers, { getState }) => {
       headers.set('Access-Control-Allow-Origin', '*');
       const token = (getState() as RootState).auth.token;
