@@ -5,7 +5,7 @@ import MyLink from './features/Links/LinkShared/MyLink';
 import About from './features/About/About';
 import SignIn from './features/Auth/SignIn';
 import SignUp from './features/Auth/SignUp';
-import Account from './features/Account/Account';
+// import Account from './features/Account/Account';
 
 import Notifications from './features/Notifications/Notifications';
 import PersonalInformation from './features/Account/PersonalInformation';
