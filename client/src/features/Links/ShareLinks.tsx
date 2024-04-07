@@ -3,23 +3,20 @@ import UserInput from '@/ui/UserInteractions/UserInput';
 import { CiShare1 } from 'react-icons/ci';
 import ButtonIcon from '@/ui/Buttons/ButtonIcon';
 import { BallTriangle } from 'react-loader-spinner';
-import { useCreateLink } from './useLinks';
-// import { emptyInputField } from '@/utils/helpers';
-// import { useCreateLinkMutation } from './linkApiSlice';
-// import { useLinks } from '@/context/LinkContext';
+import { emptyInputField } from '@/utils/helpers';
+import { useCreateLinkMutation } from './linkApiSlice';
+import { useLinks } from '@/context/LinkContext';
 
 export default function ShareLinks() {
    const { control, handleSubmit } = useForm();
-   const { createLink, isCreating } = useCreateLink();
-   // const [createLink, { isLoading: isCreating }] = useCreateLinkMutation();
-   // const { setLinks } = useLinks();
+   const [createLink, { isLoading: isCreating }] = useCreateLinkMutation();
+   const { setLinks } = useLinks();
    const handleOnSubmit = async (data: FieldValues) => {
-      createLink(data.link);
-      // console.log('ShareLinksData', data);
-      // const res = await createLink(data).unwrap();
-      // console.log('ShareLinksRes', res);
-      // setLinks(prevlink => [res.doc, ...prevlink]);
-      // emptyInputField('.share-links__input');
+      console.log('ShareLinksData', data);
+      const res = await createLink(data).unwrap();
+      console.log('ShareLinksRes', res);
+      setLinks(prevlink => [res.doc, ...prevlink]);
+      emptyInputField('.share-links__input');
    };
    return (
       <form className='share-links' onSubmit={handleSubmit(handleOnSubmit)}>

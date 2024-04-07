@@ -1,5 +1,4 @@
 import { OPTIONS } from '../utils/helpers';
-// import { BASE_URL } from '../utils/constants';
 
 export const getOneUser = async (id: string) => {
    const response = await fetch(import.meta.env.VITE_BASE_URL + `/user/${id}`, await OPTIONS({ method: 'GET' }));
@@ -8,18 +7,6 @@ export const getOneUser = async (id: string) => {
    if (!response.ok) throw new Error(responseData.message);
 
    return responseData;
-};
-
-export const getUserImage = async (key: string) => {
-   const response = await fetch(
-      import.meta.env.VITE_BASE_URL + `/user/get-image/${key}`,
-      await OPTIONS({ method: 'GET', header: 'image/png' })
-   );
-
-   const imageBlob = await response.blob();
-   const imageURL = URL.createObjectURL(imageBlob);
-
-   return imageURL;
 };
 
 export const activateUser = async (token: string) => {

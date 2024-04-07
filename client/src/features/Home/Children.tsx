@@ -1,18 +1,18 @@
-import { memo } from 'react';
-import Loader from '../../ui/Loader';
-import { createMonogram } from '../../utils/helpers';
+import Loader from '@/ui/Loader';
+import { createMonogram } from '@/utils/helpers';
 import { useGetOneUser } from '../Auth/useUserAuth';
-import UserImage from '../../ui/UserImage';
+import { useGetImage } from '@/hooks/useGetImage';
 
 interface ChildrenProps {
    id: string;
 }
 
-export default memo(function Children({ id }: ChildrenProps) {
+export default function Children({ id }: ChildrenProps) {
    const { currentUser, isLoading: isLoadingUser } = useGetOneUser(id);
+   const { image: userImage, isLoading: isLoadingImage } = useGetImage(currentUser);
 
    if (!currentUser) return;
-   if (isLoadingUser) return <Loader size={100} />;
+   if (isLoadingUser || isLoadingImage) return <Loader size={100} />;
 
    const { doc: user } = currentUser;
 
@@ -20,7 +20,7 @@ export default memo(function Children({ id }: ChildrenProps) {
       return (
          <div className={`team__user ${user.active ? 'team__user--active' : 'team__user--inactive'}`}>
             <div className='team__user--image'>
-               <UserImage user={user} />
+               <img src={userImage} alt='User Image' />
             </div>
          </div>
       );
@@ -31,4 +31,4 @@ export default memo(function Children({ id }: ChildrenProps) {
          {createMonogram(user.name)}
       </div>
    );
-});
+}
