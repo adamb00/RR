@@ -6,6 +6,8 @@ export const createLink = async (link: string) => {
       import.meta.env.VITE_BASE_URL + 'link',
       await OPTIONS({ method: 'POST', data: { link } })
    );
+
+   console.log(response);
    const responseData = await response.json();
 
    return responseData;

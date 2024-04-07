@@ -5,20 +5,15 @@ import {
    deleteOneLink as deleteOneLinkFn,
    updateOneLink as updateOneLinkFn,
 } from '@/services/apiLinks';
-import IError from '@/interfaces/IError';
 import { useSearchParams } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '@/utils/constants';
-
-interface Props {
-   onError: CallableFunction;
-}
 
 interface MutationParams {
    id: string;
    data: object;
 }
 
-export const useCreateLink = ({ onError }: Props) => {
+export const useCreateLink = () => {
    const queryClient = useQueryClient();
 
    const {
@@ -29,9 +24,6 @@ export const useCreateLink = ({ onError }: Props) => {
       mutationFn: createLinkFn,
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ['link'] });
-      },
-      onError: (error: IError) => {
-         onError(error);
       },
    });
    return { createLink, error, isCreating };

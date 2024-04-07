@@ -8,7 +8,6 @@ const baseQuery = fetchBaseQuery({
    mode: 'cors',
 
    prepareHeaders: (headers, { getState }) => {
-      headers.set('Access-Control-Allow-Origin', '*');
       const token = (getState() as RootState).auth.token;
 
       console.log('HEDERS', headers);
