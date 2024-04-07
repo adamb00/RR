@@ -1,6 +1,6 @@
 import { apiSlice } from '@/app/api/apiSlice';
 
-export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'User'] }).injectEndpoints({
+export const linkApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       createLink: builder.mutation({
          query: data => (
@@ -12,7 +12,6 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
                body: data,
             }
          ),
-         invalidatesTags: ['Link', 'User'],
       }),
 
       getLinks: builder.mutation({
@@ -28,7 +27,6 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
             method: 'POST',
             body: data.data,
          }),
-         invalidatesTags: ['Link', 'User'],
       }),
 
       updateLink: builder.mutation({
@@ -37,7 +35,6 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
             method: 'PATCH',
             body: data,
          }),
-         invalidatesTags: ['Link', 'User'],
       }),
 
       activateLink: builder.mutation({
@@ -53,7 +50,6 @@ export const linkApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
             url: `/link/${id}`,
             method: 'DELETE',
          }),
-         invalidatesTags: ['Link', 'User'],
       }),
    }),
 });

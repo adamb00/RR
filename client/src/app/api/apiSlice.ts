@@ -5,8 +5,6 @@ import { logout, setCredentials } from '@/features/Auth/slices/auth/authSlice';
 const baseQuery = fetchBaseQuery({
    baseUrl: import.meta.env.VITE_BASE_URL,
    credentials: 'same-origin',
-   referrerPolicy: 'strict-origin-when-cross-origin',
-   keepalive: true,
    mode: 'cors',
 
    prepareHeaders: (headers, { getState }) => {
@@ -50,5 +48,4 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
 export const apiSlice = createApi({
    baseQuery: baseQueryWithReauth,
    endpoints: () => ({}),
-   tagTypes: ['Link', 'User'],
 });
