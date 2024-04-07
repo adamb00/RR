@@ -3,7 +3,7 @@ import { OPTIONS } from '../utils/helpers';
 
 export const createLink = async (link: string) => {
    const response = await fetch(
-      import.meta.env.VITE_BASE_URL + 'link',
+      import.meta.env.VITE_BASE_URL + '/link',
       await OPTIONS({ method: 'POST', data: { link } })
    );
 
