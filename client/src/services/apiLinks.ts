@@ -1,16 +1,25 @@
+import axios from 'axios';
 import { ITEM_PER_PAGE } from '../utils/constants';
 import { OPTIONS } from '../utils/helpers';
 
 export const createLink = async (link: string) => {
-   const response = await fetch(
-      import.meta.env.VITE_BASE_URL + '/link',
-      await OPTIONS({ method: 'POST', data: { link } })
-   );
+   const data = { link: link };
+   const response = await axios.post(import.meta.env.VITE_BASE_URL + '/link', data);
+
+   console.log('response axios', response);
 
    console.log(response);
-   const responseData = await response.json();
 
-   return responseData;
+   return response;
+   // const response = await fetch(
+   //    import.meta.env.VITE_BASE_URL + '/link',
+   //    await OPTIONS({ method: 'POST', data: { link } })
+   // );
+
+   // console.log(response);
+   // const responseData = await response.json();
+
+   // return responseData;
 };
 
 interface GetAllLinksParams {
