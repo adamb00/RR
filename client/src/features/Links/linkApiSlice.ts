@@ -7,7 +7,7 @@ export const linkApiSlice = apiSlice.injectEndpoints({
             console.log('BUILDER', builder),
             console.log('BUILDER', data),
             {
-               url: '/link/create-link',
+               url: '/link',
                method: 'POST',
                body: data,
             }

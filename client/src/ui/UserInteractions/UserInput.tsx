@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Controller, Control, RegisterOptions } from 'react-hook-form';
+import { useState } from 'react'; // Import useState hook
 
 interface UserInputProps extends React.ComponentPropsWithoutRef<'input'> {
    name: string;
@@ -12,72 +13,6 @@ interface UserInputProps extends React.ComponentPropsWithoutRef<'input'> {
    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
    onBlur?: () => void;
 }
-
-// //TODO TRANSLATE IF POSSIBLE
-// export default function UserInput({
-//    children,
-//    control,
-//    name,
-//    rules,
-//    className,
-//    placeholder,
-//    fieldErrorClassname,
-//    outterClassName,
-//    defaultValue,
-//    type,
-//    onChange,
-//    eError,
-//    onBlur,
-// }: PropsWithChildren<UserInputProps>) {
-//    return (
-//       <Controller
-//          control={control}
-//          name={name}
-//          defaultValue={defaultValue}
-//          rules={rules}
-//          render={({
-//             field: { value, onChange: onFieldChange, onBlur: onFieldBlur },
-//             fieldState: { error: fieldError },
-//          }) => (
-//             <div className={outterClassName ? outterClassName : 'user-input'}>
-//                {children}
-//                <input
-//                   // autoComplete='new-password'
-//                   autoComplete='off'
-//                   id={name}
-//                   autoFocus={false}
-//                   type={type}
-//                   className={fieldError ? `${className}--error ${className}` : className}
-//                   onChange={e => {
-//                      if (onChange) {
-//                         onChange(e);
-//                      }
-//                      onFieldChange(e);
-//                   }}
-//                   placeholder={placeholder}
-//                   onBlur={() => {
-//                      if (onBlur) {
-//                         onBlur();
-//                      }
-//                      onFieldBlur();
-//                   }}
-//                   lang='en-EN'
-//                   defaultValue={type === 'date' ? new Date().toISOString().split('T')[0] : value}
-//                   max={new Date().toISOString().split('T')[0]}
-//                />
-//                {fieldError && (
-//                   <p className={fieldErrorClassname}>
-//                      {fieldError.message || 'Something went wrong. Please try again.'}
-//                   </p>
-//                )}
-//                {eError && <p className={fieldErrorClassname}>{eError}</p>}
-//             </div>
-//          )}
-//       />
-//    );
-// }
-
-import { useState } from 'react'; // Import useState hook
 
 export default function UserInput({
    children,

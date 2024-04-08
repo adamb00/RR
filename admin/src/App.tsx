@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Controller, FieldValues, useForm } from 'react-hook-form';
+import './App.css';
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+   const { control, handleSubmit } = useForm();
+   const handleOnSubmit = async (data: FieldValues) => {
+      const res = await axios.post(import.meta.env.VITE_BASE_URL + '/link', data);
+      console.log(res);
+   };
+   return (
+      <form onSubmit={handleSubmit(handleOnSubmit)}>
+         <Controller
+            name='link'
+            control={control}
+            render={({ field: { value, onChange } }) => (
+               <input
+                  defaultValue={value}
+                  type='text'
+                  placeholder='Link Title'
+                  id='link'
+                  onChange={e => onChange(e.target.value)}
+               />
+            )}
+         />
+      </form>
+   );
 }
 
-export default App
+export default App;

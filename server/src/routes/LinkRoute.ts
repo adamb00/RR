@@ -9,8 +9,7 @@ import { getImage } from '../middlewares/getImage';
 const router: Router = Router();
 const linkController = new LinkController();
 
-router.route('/').get(linkController.getAllLinks);
-router.route('/create-link').post(linkController.createLink);
+router.route('/').get(linkController.getAllLinks).post(linkController.createLink);
 
 router
    .route('/:id')
