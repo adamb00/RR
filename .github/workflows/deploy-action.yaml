@@ -15,11 +15,6 @@ jobs:
       steps:
          - name: Checkout the repo
            uses: actions/checkout@v2
-         # - name: Create env file
-         #   run: |
-         #      touch .env
-         #      echo "${{ secrets.SERVER_ENV_PROD }}" > .env
-         #      cat .env
          - name: Install doctl
            uses: digitalocean/action-doctl@v2
            with:
@@ -67,7 +62,9 @@ jobs:
 
                  docker pull registry.digitalocean.com/rr-registry/frontend:latest
                  docker pull registry.digitalocean.com/rr-registry/backend:latest
+                 docker pull registry.digitalocean.com/rr-registry/admin:latest
 
+                 docker run -d --name admin registry.digitalocean.com/rr-registry/admin:latest
                  docker run -d --name frontend registry.digitalocean.com/rr-registry/frontend:latest
                  docker run -d --name backend -p 8000:8000 --env-file /root/.env registry.digitalocean.com/rr-registry/backend:latest
 

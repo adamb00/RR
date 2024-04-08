@@ -1,4 +1,4 @@
-FROM node:lts-alpine as builder-dev
+FROM node as development
 
 ARG VITE_NODE_ENV
 ARG VITE_FACEBOOK_APP_ID
@@ -12,27 +12,22 @@ ENV VITE_BASE_URL_SOCKET=${VITE_BASE_URL_SOCKET}
 ENV VITE_BASE_URL=${VITE_BASE_URL}
 ENV VITE_BASE_URL_LINK=${VITE_BASE_URL_LINK}
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json .
 
-RUN npm i
+RUN npm install
 
 COPY . .
 
 RUN npm run build
 
-FROM node:lts-alpine 
 
-WORKDIR /app
+FROM nginx:stable-alpine 
 
-COPY --from=builder-dev /app/dist/ /app/dist/
+COPY --from=development /usr/src/app/dist /var/www/r2byou.com/admin/html
 
-COPY package.json .
-COPY vite.config.ts .
+EXPOSE 80
+EXPOSE 443
 
-RUN npm install typescript
-
-EXPOSE 3000
-
-CMD [ "npm", "run", "preview"]
+CMD ["nginx", "-g", "daemon off;"]

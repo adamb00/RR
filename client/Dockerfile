@@ -23,9 +23,9 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:stable-alpine as production
+FROM nginx:stable-alpine 
 
-COPY --from=development /usr/src/app/dist /var/www/r2byou.com/html
+COPY --from=development /usr/src/app/dist /var/www/r2byou.com/client/html
 
 EXPOSE 80
 EXPOSE 443
