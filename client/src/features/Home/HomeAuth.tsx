@@ -5,6 +5,7 @@ import Team from './Team';
 import InviteModal from '../../ui/Modals/InviteModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
+import ShareLinks from '../Links/ShareLinks';
 
 export default function HomeAuth() {
    const [inviteModalOpen, setInviteModalOpen] = useState<boolean>(false);
@@ -14,6 +15,7 @@ export default function HomeAuth() {
 
    return (
       <>
+         <ShareLinks />
          {inviteModalOpen && (
             <InviteModal
                setInviteModalOpen={setInviteModalOpen}

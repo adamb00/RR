@@ -69,3 +69,4 @@ jobs:
                  docker run -d --name backend -p 8000:8000 --env-file /root/.env registry.digitalocean.com/rr-registry/backend:latest
 
                  docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com
+                 docker cp admin:/var/www/r2byou.com/admin/html /var/www/r2byou.com/admin
