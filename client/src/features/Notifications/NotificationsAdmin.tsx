@@ -5,23 +5,24 @@ import Button from '../../ui/Buttons/Button';
 import { emptyInputField } from '../../utils/helpers';
 import RichText from '../../ui/UserInteractions/RichText';
 import { memo } from 'react';
-import { io } from 'socket.io-client';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
+// import { io } from 'socket.io-client';
+// import { useSelector } from 'react-redux';
+// import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 
 export default memo(function NotificationsAdmin() {
    const { control, handleSubmit } = useForm();
 
-   const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
-   const user = useSelector(selectCurrentUser);
+   // const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
+   // const user = useSelector(selectCurrentUser);
 
    const handleOnSubmit = (data: FieldValues) => {
-      const notification = {
-         ...data,
-         created_at: Date.now(),
-         created_by: user.name,
-      };
-      socket.emit('send_message', { ...notification });
+      console.log(data);
+      // const notification = {
+      //    ...data,
+      //    created_at: Date.now(),
+      //    created_by: user.name,
+      // };
+      // socket.emit('send_message', { ...notification });
       emptyInputField('.notifications__richtext--input');
       emptyInputField('.notifications__admin--input');
    };

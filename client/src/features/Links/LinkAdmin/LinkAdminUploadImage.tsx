@@ -6,7 +6,7 @@ import { Control } from 'react-hook-form';
 import { ILink } from '@/interfaces/ILink';
 import { useLinks } from '@/context/LinkContext';
 import UserCheckboxInput from '@/ui/UserInteractions/UserCheckboxInput';
-import { socket } from '@/utils/constants';
+// import { socket } from '@/utils/constants';
 import { useGetImage } from '@/hooks/useGetImage';
 
 interface LinkAdminUploadImageProps {
@@ -34,7 +34,7 @@ export default function LinkAdminUploadImage({ isChecked, control, isOpen, link 
          if (formData.has('image')) {
             try {
                const res = await uploadLinkImage({ data: formData, id: link._id }).unwrap();
-               socket.emit('link', { id: link._id, data: { image: res.data.image } });
+               // socket.emit('link', { id: link._id, data: { image: res.data.image } });
 
                updateLink(res.data);
             } catch (error) {
@@ -49,18 +49,18 @@ export default function LinkAdminUploadImage({ isChecked, control, isOpen, link 
    const handleFullScreen = async (event: React.ChangeEvent<HTMLInputElement>) => {
       const data = event.target.checked;
       const res = await updateLinkAPI({ id: link._id, data: { isPreview: data } }).unwrap();
-      socket.emit('link', { id: link._id, data: { isPreview: data } });
+      // socket.emit('link', { id: link._id, data: { isPreview: data } });
 
       updateLink(res.doc);
    };
    const handlePrimary = async (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
          const res = await updateLinkAPI({ id: link._id, data: { order: 0 } }).unwrap();
-         socket.emit('link', { id: link._id, data: { order: 0 } });
+         // socket.emit('link', { id: link._id, data: { order: 0 } });
          updateLink(res.doc);
       } else {
          const res = await updateLinkAPI({ id: link._id, data: { order: 1 } }).unwrap();
-         socket.emit('link', { id: link._id, data: { order: 1 } });
+         // socket.emit('link', { id: link._id, data: { order: 1 } });
          updateLink(res.doc);
       }
    };

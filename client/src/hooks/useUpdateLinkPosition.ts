@@ -4,7 +4,7 @@ import { ILink } from '../interfaces/ILink';
 import { useAppDispatch } from '../redux-hooks';
 import { UserProfileData } from '../interfaces/AuthInterfaces';
 import { useUpdateUserMutation } from '../features/Auth/slices/user/userApiSlice';
-import { socket } from '../utils/constants';
+// import { socket } from '../utils/constants';
 import { isEqual } from 'lodash';
 
 interface UpdateLinkPositionProps {
@@ -27,30 +27,30 @@ export const useUpdateLinkPosition = ({ user }: UpdateLinkPositionProps) => {
       }
    }, [dispatch, user]);
 
-   useEffect(() => {
-      socket.on('link', (data: { id: string; data: object }) => {
-         setSortedLinks(links =>
-            links.map((link: ILink) => {
-               if (link._id === data.id) {
-                  const updatedLink = { ...link, ...data.data };
+   // useEffect(() => {
+   //    socket.on('link', (data: { id: string; data: object }) => {
+   //       setSortedLinks(links =>
+   //          links.map((link: ILink) => {
+   //             if (link._id === data.id) {
+   //                const updatedLink = { ...link, ...data.data };
 
-                  dispatch(
-                     updateUser({
-                        ...user,
-                        availableLinks: sortedLinks.map(l => (l._id === updatedLink._id ? updatedLink : l)),
-                     })
-                  );
-                  return updatedLink;
-               }
-               return link;
-            })
-         );
-      });
+   //                dispatch(
+   //                   updateUser({
+   //                      ...user,
+   //                      availableLinks: sortedLinks.map(l => (l._id === updatedLink._id ? updatedLink : l)),
+   //                   })
+   //                );
+   //                return updatedLink;
+   //             }
+   //             return link;
+   //          })
+   //       );
+   //    });
 
-      return () => {
-         socket.off('link');
-      };
-   }, [dispatch, sortedLinks, user]);
+   //    return () => {
+   //       socket.off('link');
+   //    };
+   // }, [dispatch, sortedLinks, user]);
 
    const updateLinkPosition = async (currentPos: number, newPos: number) => {
       try {
