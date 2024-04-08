@@ -1,5 +1,6 @@
 import { useTheme } from '../../context/ThemeContext';
 import { SparklesCore } from '../../ui/Aceternity/Sparkles';
+import ShareLinks from '../Links/ShareLinks';
 
 export default function HomeNoAuth() {
    const { theme } = useTheme(),
@@ -7,6 +8,7 @@ export default function HomeNoAuth() {
 
    return (
       <div className='home__no-auth'>
+         <ShareLinks />
          <div className='home__no-auth--container'>
             <SparklesCore
                id='tsparticlesfullpage'
