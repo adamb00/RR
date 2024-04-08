@@ -59,15 +59,15 @@ app.use(globalErrorHandler);
 
 const io = new Server(server, { cors: { origin: '*' }, path: '/socket.io' });
 
-io.on('connect_error', err => {
+io.once('connect_error', err => {
    console.log(`connect_error due to ${err.message}`);
 });
-io.on('connection', socket => {
+io.once('connection', socket => {
    socket.on('link', async data => {
       socket.broadcast.emit('link', data);
    });
 
-   socket.on('send_message', async data => {
+   socket.once('send_message', async data => {
       const res = await handleSocketNotification(data);
       socket.broadcast.emit('notification_created', res);
    });
