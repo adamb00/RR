@@ -32,7 +32,8 @@ app.use(compression());
 
 app.use(helmet());
 
-app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE'] }));
+// app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'] }));
+app.use(cors());
 app.options('*', cors());
 
 app.use(express.json({ limit: '10kb' }));
