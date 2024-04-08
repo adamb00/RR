@@ -27,17 +27,17 @@ const app: Application = express();
 
 app.enable('trust proxy');
 
-app.use(cookieParser());
-app.use(compression());
+// app.use(cookieParser());
+// app.use(compression());
 
-app.use(helmet());
+// app.use(helmet());
 
 // app.use(cors({ origin: '*', credentials: true, methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'] }));
 app.use(cors());
-app.options('*', cors());
+// app.options('*', cors());
 
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
