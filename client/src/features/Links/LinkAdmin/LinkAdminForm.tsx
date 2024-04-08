@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { ILink } from '@/interfaces/ILink';
 import { useUpdateLinkMutation } from '../linkApiSlice';
 import { useLinks } from '@/context/LinkContext';
-import { socket } from '@/utils/constants';
+// import { socket } from '@/utils/constants';
 
 interface LinkAdminFormProps {
    isChecked: boolean;
@@ -28,7 +28,7 @@ export default function LinkAdminForm({ setIsChecked, control, isOpen, handleSub
 
       const res = await updateLinkAPI({ id: link._id, data: updatedData }).unwrap();
 
-      socket.emit('link', { id: link._id, data });
+      // socket.emit('link', { id: link._id, data });
       updateLink(res.doc);
       setIsChecked(true);
       emptyInputField('.admin-links__title--input');
