@@ -42,7 +42,7 @@ jobs:
               port: ${{ secrets.DROPLET_SSH_PORT }}
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
-                 docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+                 docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
                  docker stop $(docker ps -q)
                  docker rm $(docker ps -a -q)
 
