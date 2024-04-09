@@ -46,8 +46,6 @@ jobs:
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-                 docker stop $(docker ps -q)
-                 docker rm $(docker ps -a -q)
 
                  docker run -d \
                  --restart always \
