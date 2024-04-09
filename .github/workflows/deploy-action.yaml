@@ -9,7 +9,7 @@ env:
    IMAGE_NAME: 'r2byou'
 
 jobs:
-   push-images:
+   build_and_push:
       runs-on: ubuntu-latest
       steps:
          - name: Checkout repository
