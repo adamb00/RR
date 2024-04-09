@@ -47,6 +47,18 @@ jobs:
               source: docker-compose.yaml
               target: /home/${{ secrets.DROPLET_USERNAME }}/docker-compose/docker-compose.yaml
 
+         - name: SSH into DigitalOcean droplet and run docker-compose up
+           uses: appleboy/ssh-action@master
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
+              script: |
+                 cd /home/${{ secrets.DROPLET_USERNAME }}/docker-compose/
+                 docker-compose up -d
+
          # - name: SSH into DigitalOcean droplet
          #   uses: appleboy/ssh-action@master
          #   with:
@@ -61,6 +73,7 @@ jobs:
          #         docker pull $REGISTRY/$IMAGE_NAME
          #         docker stop $IMAGE_NAME || true
          #         docker rm $IMAGE_NAME || true
+
 # env:
 #    REGISTRY: 'registry.digitalocean.com/rr-registry'
 #    IMAGE_NAME_FRONTEND: 'frontend:latest'
