@@ -1,3 +1,88 @@
+# version: '3.8'
+
+# services:
+#    nginx:
+#       depends_on:
+#          - node-app
+#          - react-app
+#          - admin-app
+#       container_name: nginx
+#       restart: unless-stopped
+#       image: nginx
+#       ports:
+#          - 80:80
+#          - 443:443
+#       volumes:
+#          - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#          - ./certbot/conf:/etc/letsencrypt
+#          - ./certbot/www:/var/www/certbot
+
+#    certbot:
+#       image: certbot/certbot
+#       container_name: certbot
+#       volumes:
+#          - ./certbot/conf:/etc/letsencrypt
+#          - ./certbot/www:/var/www/certbot
+#       command: certonly --webroot -w /var/www/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
+
+#    admin-app:
+#       image: adamb00/r2byou:admin
+#       restart: always
+#       container_name: admin-app
+#       stdin_open: true
+#       tty: true
+#       # ports:
+#       #    - '80:80'
+#       #    - '443:443'
+#       build:
+#          context: ./admin
+#          dockerfile: Dockerfile
+#          args:
+#             - VITE_NODE_ENV=production
+#             - VITE_FACEBOOK_APP_ID=3092655644205329
+#             - VITE_BASE_URL_SOCKET=https://r2byou.com/
+#             - VITE_BASE_URL=https://r2byou.com/api/v1
+#             - VITE_BASE_URL_LINK=https://r2byou.com/
+#       networks:
+#          - mern-app
+#    react-app:
+#       image: adamb00/r2byou:frontend
+#       restart: always
+#       container_name: react-app
+#       stdin_open: true
+#       tty: true
+#       # ports:
+#       #    - '80:80'
+#       #    - '443:443'
+#       build:
+#          context: ./client
+#          dockerfile: Dockerfile
+#          args:
+#             - VITE_NODE_ENV=production
+#             - VITE_FACEBOOK_APP_ID=3092655644205329
+#             - VITE_BASE_URL_SOCKET=https://r2byou.com/
+#             - VITE_BASE_URL=https://r2byou.com/api/v1
+#             - VITE_BASE_URL_LINK=https://r2byou.com/
+#       networks:
+#          - mern-app
+#    node-app:
+#       image: adamb00/r2byou:backend
+#       restart: always
+#       stdin_open: true
+#       tty: true
+#       container_name: api-server
+#       ports:
+#          - '8000:8000'
+#       build:
+#          context: ./server
+#          dockerfile: Dockerfile
+#       networks:
+#          - mern-app
+
+# networks:
+#    mern-app:
+#       driver: bridge
+
 version: '3.8'
 
 services:
@@ -31,40 +116,18 @@ services:
       container_name: admin-app
       stdin_open: true
       tty: true
-      # ports:
-      #    - '80:80'
-      #    - '443:443'
-      build:
-         context: ./admin
-         dockerfile: Dockerfile
-         args:
-            - VITE_NODE_ENV=production
-            - VITE_FACEBOOK_APP_ID=3092655644205329
-            - VITE_BASE_URL_SOCKET=https://r2byou.com/
-            - VITE_BASE_URL=https://r2byou.com/api/v1
-            - VITE_BASE_URL_LINK=https://r2byou.com/
       networks:
          - mern-app
+
    react-app:
       image: adamb00/r2byou:frontend
       restart: always
       container_name: react-app
       stdin_open: true
       tty: true
-      # ports:
-      #    - '80:80'
-      #    - '443:443'
-      build:
-         context: ./client
-         dockerfile: Dockerfile
-         args:
-            - VITE_NODE_ENV=production
-            - VITE_FACEBOOK_APP_ID=3092655644205329
-            - VITE_BASE_URL_SOCKET=https://r2byou.com/
-            - VITE_BASE_URL=https://r2byou.com/api/v1
-            - VITE_BASE_URL_LINK=https://r2byou.com/
       networks:
          - mern-app
+
    node-app:
       image: adamb00/r2byou:backend
       restart: always
@@ -73,9 +136,6 @@ services:
       container_name: api-server
       ports:
          - '8000:8000'
-      build:
-         context: ./server
-         dockerfile: Dockerfile
       networks:
          - mern-app
 
