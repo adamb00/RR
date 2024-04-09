@@ -4,6 +4,10 @@ on:
       branches:
          - 'main'
 
+env:
+   REGISTRY: 'adamb00'
+   IMAGE_NAME: 'r2byou'
+
 jobs:
    push-images:
       runs-on: ubuntu-latest
@@ -24,6 +28,28 @@ jobs:
            run: |
               docker-compose build
               docker-compose push
+   deploy:
+      runs-on: ubuntu-latest
+      needs: build_and_push
+
+      steps:
+         - name: Deploy to Digital Ocean droplet via SSH action
+           uses: appleboy/ssh-action@v0.1.3
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
+              script: |
+                 docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+                 docker stop $(docker ps -q)
+                 docker rm $(docker ps -a -q)
+
+                 docker run -d \
+                 --restart always \
+                 --name $(echo $IMAGE_NAME) \
+                 $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
 
 # env:
 #    REGISTRY: 'registry.digitalocean.com/rr-registry'
