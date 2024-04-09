@@ -8,7 +8,7 @@ services:
          - admin-app
       container_name: nginx
       restart: unless-stopped
-      image: nginx
+      image: adamb00/r2byou:nginx
       ports:
          - 80:80
          - 443:443
@@ -31,18 +31,36 @@ services:
       container_name: admin-app
       stdin_open: true
       tty: true
+
+      build:
+         context: ./admin
+         dockerfile: Dockerfile
+         args:
+            - VITE_NODE_ENV=production
+            - VITE_FACEBOOK_APP_ID=3092655644205329
+            - VITE_BASE_URL_SOCKET=https://r2byou.com/
+            - VITE_BASE_URL=https://r2byou.com/api/v1
+            - VITE_BASE_URL_LINK=https://r2byou.com/
       networks:
          - mern-app
-
    react-app:
       image: adamb00/r2byou:frontend
       restart: always
       container_name: react-app
       stdin_open: true
       tty: true
+
+      build:
+         context: ./client
+         dockerfile: Dockerfile
+         args:
+            - VITE_NODE_ENV=production
+            - VITE_FACEBOOK_APP_ID=3092655644205329
+            - VITE_BASE_URL_SOCKET=https://r2byou.com/
+            - VITE_BASE_URL=https://r2byou.com/api/v1
+            - VITE_BASE_URL_LINK=https://r2byou.com/
       networks:
          - mern-app
-
    node-app:
       image: adamb00/r2byou:backend
       restart: always
@@ -51,6 +69,9 @@ services:
       container_name: api-server
       ports:
          - '8000:8000'
+      build:
+         context: ./server
+         dockerfile: Dockerfile
       networks:
          - mern-app
 
