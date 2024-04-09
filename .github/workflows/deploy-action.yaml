@@ -47,10 +47,15 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
+                 docker pull $REGISTRY/$IMAGE_NAME:latest
+                 docker stop $IMAGE_NAME || true
+                 docker rm $IMAGE_NAME || true
                  docker run -d \
-                 --restart always \
-                 --name $(echo $IMAGE_NAME) \
-                 $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+                   --restart always \
+                   --name $IMAGE_NAME \
+                   -p 80:80 \ 
+                   -p 443:443 \
+                   $REGISTRY/$IMAGE_NAME:latest
 
 # env:
 #    REGISTRY: 'registry.digitalocean.com/rr-registry'
