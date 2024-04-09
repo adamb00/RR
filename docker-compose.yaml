@@ -25,7 +25,7 @@ services:
       command: certonly --webroot -w /var/www/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
 
    admin-app:
-      image: adamb00/r2byou/admin:latest
+      image: adamb00/r2byou:admin
       restart: always
       container_name: admin-app
       stdin_open: true
@@ -45,7 +45,7 @@ services:
       networks:
          - mern-app
    react-app:
-      image: adamb00/r2byou/frontend:latest
+      image: adamb00/r2byou:frontend
       restart: always
       container_name: react-app
       stdin_open: true
@@ -65,7 +65,7 @@ services:
       networks:
          - mern-app
    node-app:
-      image: adamb00/r2byou/backend:latest
+      image: adamb00/r2byou:backend
       restart: always
       stdin_open: true
       tty: true
