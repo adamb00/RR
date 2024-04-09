@@ -23,26 +23,27 @@ services:
          - ./certbot/conf:/etc/letsencrypt
          - ./certbot/www:/var/www/certbot
       command: certonly --webroot -w /var/www/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
-   admin-app:
-      image: adamb00/r2byou/admin:latest
-      restart: always
-      container_name: admin-app
-      stdin_open: true
-      tty: true
-      ports:
-         - '80:80'
-         - '443:443'
-      build:
-         context: ./admin
-         dockerfile: Dockerfile
-         args:
-            - VITE_NODE_ENV=production
-            - VITE_FACEBOOK_APP_ID=3092655644205329
-            - VITE_BASE_URL_SOCKET=https://r2byou.com/
-            - VITE_BASE_URL=https://r2byou.com/api/v1
-            - VITE_BASE_URL_LINK=https://r2byou.com/
-      networks:
-         - mern-app
+
+   # admin-app:
+   #    image: adamb00/r2byou/admin:latest
+   #    restart: always
+   #    container_name: admin-app
+   #    stdin_open: true
+   #    tty: true
+   #    ports:
+   #       - '80:80'
+   #       - '443:443'
+   #    build:
+   #       context: ./admin
+   #       dockerfile: Dockerfile
+   #       args:
+   #          - VITE_NODE_ENV=production
+   #          - VITE_FACEBOOK_APP_ID=3092655644205329
+   #          - VITE_BASE_URL_SOCKET=https://r2byou.com/
+   #          - VITE_BASE_URL=https://r2byou.com/api/v1
+   #          - VITE_BASE_URL_LINK=https://r2byou.com/
+   #    networks:
+   #       - mern-app
    react-app:
       image: adamb00/r2byou/frontend:latest
       restart: always
