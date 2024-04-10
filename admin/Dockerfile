@@ -27,7 +27,7 @@ FROM nginx:stable-alpine
 
 COPY --from=development /usr/src/app/dist /var/www/admin.r2byou.com/html
 
-EXPOSE 80
-EXPOSE 443
+# EXPOSE 80
+# EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
