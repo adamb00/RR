@@ -16,6 +16,8 @@ services:
          - ./nginx/nginx.conf:/etc/nginx/nginx.conf
          - ./certbot/conf:/etc/letsencrypt
          - ./certbot/www:/var/www/certbot
+         - ./client:/usr/share/nginx/r2byou.com
+         - ./admin:/usr/share/nginx/admin.r2byou.com
 
    certbot:
       image: certbot/certbot
