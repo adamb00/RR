@@ -14,18 +14,18 @@ services:
          - 443:443
       volumes:
          - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-         - ./certbot/conf:/etc/letsencrypt
-         - ./certbot/www:/var/www/certbot
+         #  - ./certbot/conf:/etc/letsencrypt
+         #  - ./certbot/www:/var/www/certbot
          - ./client:/usr/share/nginx/html
          - ./admin:/usr/share/nginx/admin
 
-   certbot:
-      image: certbot/certbot
-      container_name: certbot
-      volumes:
-         - ./certbot/conf:/etc/letsencrypt
-         - ./certbot/www:/var/www/certbot
-      command: certonly --webroot -w /var/www/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
+   #  certbot:
+   #     image: certbot/certbot
+   #     container_name: certbot
+   #     volumes:
+   #        - ./certbot/conf:/etc/letsencrypt
+   #        - ./certbot/www:/var/www/certbot
+   #     command: certonly --webroot -w /var/www/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
 
    admin-app:
       image: adamb00/r2byou:admin
