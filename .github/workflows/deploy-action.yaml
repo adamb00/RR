@@ -36,16 +36,16 @@ jobs:
          - name: Checkout repository
            uses: actions/checkout@v2
 
-         - name: Copy docker-compose.yaml to droplet
-           uses: appleboy/scp-action@master
-           with:
-              host: ${{ secrets.DROPLET_HOST }}
-              username: ${{ secrets.DROPLET_USERNAME }}
-              key: ${{ secrets.DROPLET_SSH_KEY }}
-              port: ${{ secrets.DROPLET_SSH_PORT }}
-              passphrase: ${{ secrets.SSH_PASSPHRASE }}
-              source: docker-compose.yaml
-              target: /home/r2byou
+         # - name: Copy docker-compose.yaml to droplet
+         #   uses: appleboy/scp-action@master
+         #   with:
+         #      host: ${{ secrets.DROPLET_HOST }}
+         #      username: ${{ secrets.DROPLET_USERNAME }}
+         #      key: ${{ secrets.DROPLET_SSH_KEY }}
+         #      port: ${{ secrets.DROPLET_SSH_PORT }}
+         #      passphrase: ${{ secrets.SSH_PASSPHRASE }}
+         #      source: docker-compose.yaml
+         #      target: /home/r2byou
 
          - name: SSH into DigitalOcean droplet and run docker-compose up
            uses: appleboy/ssh-action@master
@@ -56,27 +56,43 @@ jobs:
               port: ${{ secrets.DROPLET_SSH_PORT }}
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
-                 docker stop $(docker ps -q)
-                 docker rm $(docker ps -a -q)
+                 echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-                 cd /home/r2byou
+                  docker stop $(docker ps -q)
+                  docker rm $(docker ps -a -q)
 
-                 docker compose up -d
+                  docker run -d --name admin adamb00/r2byou:admin
+                  docker run -d --name frontend adamb00/r2byou:frontend
+                  docker run -d --name backend -p 8000:8000 --env-file /root/.env adamb00/r2byou:backend
+                  
+                  docker cp admin:/var/www/admin.r2byou.com/html /var/www/admin.r2byou.com
+                  docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com
 
-         # - name: SSH into DigitalOcean droplet
-         #   uses: appleboy/ssh-action@master
-         #   with:
-         #      host: ${{ secrets.DROPLET_HOST }}
-         #      username: ${{ secrets.DROPLET_USERNAME }}
-         #      key: ${{ secrets.DROPLET_SSH_KEY }}
-         #      port: ${{ secrets.DROPLET_SSH_PORT }}
-         #      passphrase: ${{ secrets.SSH_PASSPHRASE }}
-         #      script: |
-         #         echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+#   docker pull adamb00/r2byou:frontend
+#   docker pull adamb00/r2byou:backend
+#   docker pull adamb00/r2byou:admin
 
-         #         docker pull $REGISTRY/$IMAGE_NAME
-         #         docker stop $IMAGE_NAME || true
-         #         docker rm $IMAGE_NAME || true
+#   docker stop $(docker ps -q)
+#   docker rm $(docker ps -a -q)
+
+#   cd /home/r2byou
+
+#   docker compose up -d
+
+# - name: SSH into DigitalOcean droplet
+#   uses: appleboy/ssh-action@master
+#   with:
+#      host: ${{ secrets.DROPLET_HOST }}
+#      username: ${{ secrets.DROPLET_USERNAME }}
+#      key: ${{ secrets.DROPLET_SSH_KEY }}
+#      port: ${{ secrets.DROPLET_SSH_PORT }}
+#      passphrase: ${{ secrets.SSH_PASSPHRASE }}
+#      script: |
+#         echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+#         docker pull $REGISTRY/$IMAGE_NAME
+#         docker stop $IMAGE_NAME || true
+#         docker rm $IMAGE_NAME || true
 
 # env:
 #    REGISTRY: 'registry.digitalocean.com/rr-registry'

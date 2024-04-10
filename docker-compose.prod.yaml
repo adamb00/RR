@@ -1,23 +1,23 @@
 version: '3.8'
 
 services:
-   nginx:
-      depends_on:
-         - node-app
-         - react-app
-         - admin-app
-      container_name: nginx
-      restart: unless-stopped
-      image: nginx
-      ports:
-         - 8080:80
-         - 443:443
-      volumes:
-         - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-         #  - ./certbot/conf:/etc/letsencrypt
-         #  - ./certbot/www:/var/www/certbot
-         - ./client:/usr/share/nginx/html
-         - ./admin:/usr/share/nginx/admin
+   #  nginx:
+   #     depends_on:
+   #        - node-app
+   #        - react-app
+   #        - admin-app
+   #     container_name: nginx
+   #     restart: unless-stopped
+   #     image: nginx
+   #     ports:
+   #        - 8080:80
+   #        - 443:443
+   # volumes:
+   #    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+   #     - ./certbot/conf:/etc/letsencrypt
+   #     - ./certbot/www:/var/www/certbot
+   #    - ./client:/usr/share/nginx/html
+   #    - ./admin:/usr/share/nginx/admin
 
    #  certbot:
    #     image: certbot/certbot
@@ -30,7 +30,7 @@ services:
    admin-app:
       image: adamb00/r2byou:admin
       restart: always
-      container_name: admin-app
+      container_name: admin
       stdin_open: true
       tty: true
       build:
@@ -47,7 +47,7 @@ services:
    react-app:
       image: adamb00/r2byou:frontend
       restart: always
-      container_name: react-app
+      container_name: frontend
       stdin_open: true
       tty: true
       build:
@@ -66,7 +66,7 @@ services:
       restart: always
       stdin_open: true
       tty: true
-      container_name: api-server
+      container_name: backend
       ports:
          - '8000:8000'
       build:
