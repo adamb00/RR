@@ -57,6 +57,10 @@ jobs:
               passphrase: ${{ secrets.SSH_PASSPHRASE }}
               script: |
                  cd /home/${{ secrets.DROPLET_USERNAME }}/docker-compose/
+
+                 docker stop $(docker ps -q)
+                 docker rm $(docker ps -a -q)
+
                  docker compose up -d
 
          # - name: SSH into DigitalOcean droplet
