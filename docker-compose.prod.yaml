@@ -31,7 +31,6 @@ services:
       container_name: admin-app
       stdin_open: true
       tty: true
-
       build:
          context: ./admin
          dockerfile: Dockerfile
@@ -49,7 +48,6 @@ services:
       container_name: react-app
       stdin_open: true
       tty: true
-
       build:
          context: ./client
          dockerfile: Dockerfile
