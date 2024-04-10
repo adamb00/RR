@@ -47,6 +47,17 @@ jobs:
               source: docker-compose.yaml
               target: /home/${{ secrets.DROPLET_USERNAME }}/docker-compose
 
+         - name: Copy docker-compose.yaml to droplet
+           uses: appleboy/scp-action@master
+           with:
+              host: ${{ secrets.DROPLET_HOST }}
+              username: ${{ secrets.DROPLET_USERNAME }}
+              key: ${{ secrets.DROPLET_SSH_KEY }}
+              port: ${{ secrets.DROPLET_SSH_PORT }}
+              passphrase: ${{ secrets.SSH_PASSPHRASE }}
+              source: ./server/.env
+              target: /home/${{ secrets.DROPLET_USERNAME }}/docker-compose
+
          - name: SSH into DigitalOcean droplet and run docker-compose up
            uses: appleboy/ssh-action@master
            with:

@@ -8,7 +8,7 @@ services:
          - admin-app
       container_name: nginx
       restart: unless-stopped
-      image: adamb00/r2byou:nginx
+      image: nginx
       ports:
          - 80:80
          - 443:443
