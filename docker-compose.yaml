@@ -24,7 +24,7 @@ services:
       volumes:
          - ./certbot/conf:/etc/letsencrypt
          - ./certbot/www:/var/www/certbot
-      command: certonly --webroot -w /var/www/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
+      command: certonly --webroot -w /home/root/certbot/docker-compose/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
 
    admin-app:
       image: adamb00/r2byou:admin
