@@ -1,0 +1,24 @@
+.login {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+
+   &__form {
+      width: 30vw;
+      height: 30vh;
+      border-radius: $default-border-radius;
+      box-shadow: $default-box-shadow;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3rem;
+      padding: 3rem;
+
+      @include respond(tab-port) {
+         width: 50vw;
+         height: 50vh;
+      }
+   }
+}

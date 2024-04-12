@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import Button from '../../ui/Buttons/Button';
+import Button from '@/ui/Buttons/Button';
 import AvailablePoints from './AvailablePoints';
 import Team from './Team';
-import InviteModal from '../../ui/Modals/InviteModal';
+import InviteModal from '@/ui/Modals/InviteModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 
 export default function HomeAuth() {
    const [inviteModalOpen, setInviteModalOpen] = useState<boolean>(false);
    const user = useSelector(selectCurrentUser);
-
-   console.log(import.meta.env.VITE_BASE_URL);
 
    return (
       <>

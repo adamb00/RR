@@ -1,0 +1,26 @@
+.user-input {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+
+   &--checkbox {
+      width: 120%;
+      display: flex;
+      gap: 1rem;
+   }
+
+   &__label {
+      margin: 0 0 0.5rem 0.5rem;
+      color: $color-grey-light;
+      font-size: $default-font-size;
+      text-transform: uppercase;
+   }
+   &__input {
+      border-radius: $default-border-radius;
+      border: none;
+      padding: 1rem;
+      outline: none;
+      font-size: $default-font-size;
+      color: $color-purple;
+   }
+}

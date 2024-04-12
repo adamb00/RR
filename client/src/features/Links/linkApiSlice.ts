@@ -3,15 +3,11 @@ import { apiSlice } from '@/app/api/apiSlice';
 export const linkApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       createLink: builder.mutation({
-         query: data => (
-            console.log('BUILDER', builder),
-            console.log('BUILDER', data),
-            {
-               url: '/link',
-               method: 'POST',
-               body: data,
-            }
-         ),
+         query: data => ({
+            url: '/link',
+            method: 'POST',
+            body: data,
+         }),
       }),
 
       getLinks: builder.mutation({

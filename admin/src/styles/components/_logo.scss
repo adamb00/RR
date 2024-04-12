@@ -1,0 +1,15 @@
+.header-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 10rem;
+   height: 10rem;
+   background: none;
+
+   &__image {
+      width: 10rem;
+      height: 10rem;
+      z-index: 2000;
+      cursor: pointer;
+   }
+}
