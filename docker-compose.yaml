@@ -1,31 +1,6 @@
 version: '3.8'
 
 services:
-   # nginx:
-   #    depends_on:
-   #       - node-app
-   #       - react-app
-   #       - admin-app
-   #    container_name: nginx
-   #    restart: unless-stopped
-   #    image: nginx
-   #    ports:
-   #       - 8080:80
-   #       - 443:443
-   #    volumes:
-   #       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-   #       - ./certbot/conf:/etc/letsencrypt
-   #       - ./certbot/www:/var/www/certbot
-   #       - ./client:/usr/share/nginx/html
-   #       - ./admin:/usr/share/nginx/admin
-   # certbot:
-   #    image: certbot/certbot
-   #    container_name: certbot
-   #    volumes:
-   #       - ./certbot/conf:/etc/letsencrypt
-   #       - ./certbot/www:/var/www/certbot
-   #    command: certonly --webroot -w /home/root/certbot/docker-compose/certbot --force-renewal --email borsodi.dm@gmail.com -d r2byou.com -d www.r2byou.com --agree-tos
-
    admin-app:
       image: adamb00/r2byou:admin
       restart: always

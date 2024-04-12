@@ -50,6 +50,10 @@ jobs:
                   docker stop $(docker ps -q)
                   docker rm $(docker ps -a -q)
 
+                  docker pull adamb00/r2byou:admin
+                  docker pull adamb00/r2byou:frontend
+                  docker pull adamb00/r2byou:backend
+
                   docker run -d --name admin adamb00/r2byou:admin
                   docker run -d --name frontend adamb00/r2byou:frontend
                   docker run -d --name backend -p 8000:8000 --env-file /root/.env adamb00/r2byou:backend

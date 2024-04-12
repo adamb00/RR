@@ -22,12 +22,8 @@ COPY . .
 
 RUN npm run build
 
-
 FROM nginx:stable-alpine 
 
 COPY --from=development /usr/src/app/dist /var/www/r2byou.com/html
-
-# EXPOSE 80
-# EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
