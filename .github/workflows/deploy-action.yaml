@@ -54,5 +54,8 @@ jobs:
                   docker run -d --name frontend adamb00/r2byou:frontend
                   docker run -d --name backend -p 8000:8000 --env-file /root/.env adamb00/r2byou:backend
 
-                  docker cp admin:/var/www/admin.r2byou.com/html /var/www/admin.r2byou.com
-                  docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com
+                  rm -rf /var/www/admin.r2byou.com
+                  rm -rf /var/www/r2byou.com
+
+                  docker cp admin:/var/www/admin.r2byou.com/html /var/www/admin.r2byou.com/html
+                  docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com/html
