@@ -57,5 +57,8 @@ jobs:
                   rm -rf /var/www/admin.r2byou.com
                   rm -rf /var/www/r2byou.com
 
+                  mkdir /var/www/admin.r2byou.com
+                  mkdir /var/www/r2byou.com
+
                   docker cp admin:/var/www/admin.r2byou.com/html /var/www/admin.r2byou.com/html
                   docker cp frontend:/var/www/r2byou.com/html /var/www/r2byou.com/html
