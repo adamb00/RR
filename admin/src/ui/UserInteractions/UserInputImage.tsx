@@ -13,7 +13,6 @@ export default function UserImageInput({
    name,
    onChange,
    children,
-   id,
    className,
 }: PropsWithChildren<UploadImageProps>) {
    return (
@@ -27,7 +26,7 @@ export default function UserImageInput({
                   style={{ display: 'none' }}
                   type='file'
                   name={name}
-                  id={id}
+                  id={name}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                      if (onChange) onChange(e);
                      const file = e.target.files && e.target.files[0];

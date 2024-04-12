@@ -43,12 +43,6 @@
       @include respond(tab-port) {
          padding: 1.5rem 1rem;
       }
-      @include respond(phone) {
-         gap: 1rem;
-         padding: 0.5rem 1rem;
-         flex-direction: column;
-         align-items: center;
-      }
    }
 
    &__image-container {
@@ -56,13 +50,6 @@
       display: flex;
       flex-direction: column;
       gap: 3rem;
-
-      @include respond(phone) {
-         width: 100%;
-         margin: 2rem 0;
-         border-bottom: 1px solid $color-grey-light;
-         padding-bottom: 2rem;
-      }
       justify-content: flex-start;
       align-items: center;
       align-self: start;
@@ -75,8 +62,8 @@
          border-radius: 100%;
          height: 12rem;
          width: 12rem;
-         background-color: $color-grey-light;
-         border: 1px dashed $color-grey-light;
+         background-color: $color-grey-dark-2;
+         border: 1px dashed $color-grey-light-1;
          cursor: pointer;
       }
       &--label {
@@ -110,12 +97,6 @@
       @include respond(tab-port) {
          align-self: end;
       }
-      @include respond(phone) {
-         width: 100%;
-         justify-content: space-between;
-         display: flex;
-         align-self: self-start;
-      }
    }
    &__icon {
       cursor: pointer;
@@ -141,6 +122,7 @@
    }
    &__interactions {
       width: 100%;
+      min-height: 5rem;
 
       &--open {
          min-height: auto;
@@ -170,10 +152,47 @@
          font-size: 1.2rem;
          padding: 0.5rem;
       }
-      @include respond(phone) {
-         flex-direction: column-reverse;
-         align-items: flex-start;
-         justify-content: center;
+   }
+   &__item {
+      font-size: 2rem;
+      letter-spacing: 0.2rem;
+      font-family: 'Montserrat', sans-serif;
+      color: $color-green-main;
+
+      &--link {
+         font-style: italic;
+         font-family: 'Montserrat', sans-serif;
+         letter-spacing: 0.05rem;
+         font-weight: 300;
+         font-size: 1.2rem;
+         color: $color-grey-light-1;
+      }
+
+      @include respond(tab-land) {
+         font-size: 2rem;
+      }
+   }
+   &__admin-form {
+      width: 100%;
+      margin-top: 2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 3rem;
+
+      &--input {
+         font-size: inherit;
+         padding: 1rem 2rem;
+         width: 100%;
+      }
+   }
+   &__checkbox {
+      @include checkbox;
+      color: $color-grey-light-1;
+
+      & input:checked {
+         accent-color: $color-green-main;
       }
    }
 }

@@ -32,7 +32,7 @@ export default function LinksItem({ link }: LinkItemProps) {
             <div className='links__wrapper'>
                <div className='links__wrapper--group'>
                   <div className='links__item'>{currentLinkTitle()}</div>
-                  <div className='links__item--link'>{currentLinkTitle()}</div>
+                  {link.title && <div className='links__item--link'>({link.link})</div>}
                </div>
 
                <LinksInteractions isChecked={isChecked} setIsChecked={setIsChecked} link={link} />

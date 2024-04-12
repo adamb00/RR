@@ -68,8 +68,8 @@ export default function LinksUploadImage({ isChecked, control, isOpen, link }: L
       isChecked && (
          <div className='links__image-container'>
             <div className='links__image-container--image'>
-               <UserImageInput control={control} name='image' onChange={handleImageChange} id={link._id}>
-                  <label className='links__image-contaier--label' htmlFor={link._id}>
+               <UserImageInput control={control} name='image' onChange={handleImageChange}>
+                  <label className='links__image-container--label' htmlFor='image'>
                      {isLoadingLinkImage || uploading ? (
                         <Loader size={100} />
                      ) : link.image && isChecked ? (
@@ -81,14 +81,14 @@ export default function LinksUploadImage({ isChecked, control, isOpen, link }: L
                </UserImageInput>
             </div>
             {isOpen && link.image && (
-               <div className='admin-links__checkbox'>
+               <div className='links__checkbox'>
                   <UserCheckboxInput
                      control={control}
                      name='isPreview'
                      onChange={handleFullScreen}
                      defaultChecked={link.isPreview}
                   >
-                     <label htmlFor='isPreview'>Full Screen?</label>
+                     <label htmlFor='isPreview'>Teljes kép?</label>
                   </UserCheckboxInput>
                   <UserCheckboxInput
                      control={control}
@@ -96,7 +96,7 @@ export default function LinksUploadImage({ isChecked, control, isOpen, link }: L
                      onChange={handlePrimary}
                      defaultChecked={link.order === 0}
                   >
-                     <label htmlFor='primary'>Primary?</label>
+                     <label htmlFor='primary'>Elsődleges?</label>
                   </UserCheckboxInput>
                </div>
             )}

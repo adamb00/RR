@@ -24,7 +24,9 @@ export default function LinksItemForm({ setIsChecked, control, isOpen, handleSub
    const { updateLink } = useLinks();
 
    const handleOnSubmit = async (data: FieldValues) => {
-      const updatedData = { ...data, ...link };
+      const updatedData = { ...link, ...data };
+
+      console.log(updatedData);
 
       const res = await updateLinkAPI({ id: link._id, data: updatedData }).unwrap();
 
@@ -41,17 +43,17 @@ export default function LinksItemForm({ setIsChecked, control, isOpen, handleSub
                   label=''
                   control={control}
                   name='title'
-                  placeholder={link.title ? 'You can easily modify the title' : 'Please add a title for the link'}
+                  placeholder={link.title ? 'Linkhez tartozó cím módosítása' : 'Cím hozzáadása a linkhez'}
                />
 
                <UserInput
                   label=''
                   control={control}
                   name='description'
-                  placeholder={link.description || 'Please add a description for the link'}
+                  placeholder={link.description || 'Leírás hozzáadása a linkhez'}
                />
-               <Button type='submit' className='btn btn--grey'>
-                  Submit
+               <Button type='submit' className='btn'>
+                  Ok
                </Button>
             </form>
          )}
