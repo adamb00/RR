@@ -14,14 +14,14 @@ import {
 import { NavLink } from 'react-router-dom';
 
 interface LinksMenuProps {
-   userId: string;
+   username: string;
    setUrl: Dispatch<SetStateAction<string>>;
    setIsDraggable: Dispatch<SetStateAction<boolean>>;
    setIsOpenSocialModal: Dispatch<SetStateAction<boolean>>;
    handleOpenModal: () => void;
 }
 
-export default function LinksMenu({ userId, setUrl, handleOpenModal, setIsOpenSocialModal }: LinksMenuProps) {
+export default function LinksMenu({ username, setUrl, handleOpenModal, setIsOpenSocialModal }: LinksMenuProps) {
    const [isOpenMenu, setIsOpenMenu] = useState(false);
 
    const ref = useOutsideClick(() => setIsOpenMenu(false));
@@ -29,7 +29,7 @@ export default function LinksMenu({ userId, setUrl, handleOpenModal, setIsOpenSo
    return (
       <div className={`links__side-menu ${isOpenMenu ? 'open' : 'closed'}`} ref={ref}>
          <NavLink
-            to={`/${userId}`}
+            to={`/${username}`}
             target='_blank'
             onClick={() => {
                setIsOpenMenu(false);
@@ -41,7 +41,7 @@ export default function LinksMenu({ userId, setUrl, handleOpenModal, setIsOpenSo
          <Icon
             className='links__icon'
             onClick={() => {
-               setUrl(import.meta.env.VITE_BASE_URL_LINK + userId);
+               setUrl(import.meta.env.VITE_BASE_URL_LINK + username);
                handleOpenModal();
                setIsOpenMenu(false);
             }}

@@ -7,7 +7,7 @@ import NavigationNoAuth from '../Navigation/NavigationNoAuth';
 import useDeviceDetection from '@/hooks/useDetectDevice';
 import SignOut from '@/features/Auth/SignOut';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser, selectIsAdmin } from '@/features/Auth/slices/auth/authSlice';
+import { selectCurrentUser } from '@/features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
 
 import { TelegramIcon } from 'react-share';
@@ -16,7 +16,6 @@ import LanguageChanger from '../Languages/LanguageChanger';
 
 export default function Navbar() {
    const device = useDeviceDetection();
-   const isAdmin = useSelector(selectIsAdmin);
    const user = useSelector(selectCurrentUser);
    const { t } = useTranslation();
 
@@ -47,11 +46,7 @@ export default function Navbar() {
                <NavigationLink to='/my-links'>{t('Links')}</NavigationLink>
             </li>
             <li>
-               {isAdmin ? (
-                  <NavigationLink to='/account/edit-links'>{t('Account')}</NavigationLink>
-               ) : (
-                  <NavigationLink to='/account/personal'>{t('Account')}</NavigationLink>
-               )}
+               <NavigationLink to='/account/personal'>{t('Account')}</NavigationLink>
             </li>
             <li>
                <ThemeSwitcher />
@@ -59,7 +54,9 @@ export default function Navbar() {
             <li>
                <LanguageChanger />
             </li>
-            <li>{!isAdmin && <Notifications />}</li>
+            <li>
+               <Notifications />
+            </li>
             <li>
                <TelegramIcon
                   className='header-nav__telegram-icon'

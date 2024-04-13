@@ -24,7 +24,7 @@ export default function LinksItemForm({ setIsChecked, control, isOpen, handleSub
    const { updateLink } = useLinks();
 
    const handleOnSubmit = async (data: FieldValues) => {
-      const updatedData = { ...link, ...data };
+      const updatedData = { ...data, ...link };
 
       console.log(updatedData);
 

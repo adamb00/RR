@@ -58,7 +58,6 @@ export default authSlice.reducer;
 
 export const selectCurrentUser = (state: { auth: { user: UserProfileData } }) => state.auth.user;
 export const selectCurrentToken = (state: { auth: { token: string } }) => state.auth.token;
-export const selectIsAdmin = (state: { auth: { user: UserProfileData } }) => state.auth.user.role === 'Admin' || false;
 export const selectCurrentUserNotifications = (state: { auth: { user: UserProfileData } }) =>
    state.auth.user.notifications;
 export const selectUnreadNotifications = (state: { auth: { user: UserProfileData } }) =>

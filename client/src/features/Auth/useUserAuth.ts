@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
    getOneUser as getOneUserFn,
+   getOneUserByUsername as getOneUserByUsernameFn,
    activateUser as activateUserFn,
    forgotPassword as forgotPasswordFn,
 } from '@/services/apiUser';
@@ -13,6 +14,19 @@ export const useGetOneUser = (id: string) => {
    } = useQuery({
       queryKey: ['user', id],
       queryFn: () => getOneUserFn(id),
+   });
+
+   return { isLoading, currentUser, error };
+};
+
+export const useGetOneUserByUsername = (username: string) => {
+   const {
+      isLoading,
+      data: currentUser,
+      error,
+   } = useQuery({
+      queryKey: ['user', username],
+      queryFn: () => getOneUserByUsernameFn(username),
    });
 
    return { isLoading, currentUser, error };

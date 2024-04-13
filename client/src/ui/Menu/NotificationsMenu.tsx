@@ -1,28 +1,23 @@
 import NotificationsMenuIsNotOpen from './NotificationsMenuIsNotOpen';
-import NotificationsMenuItem from '../../features/Notifications/NotificationsMenuItem';
+import NotificationsMenuItem from '@/features/Notifications/NotificationsMenuItem';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 
 import Icon from '../Icon';
 
-import { MenuProps } from '../../interfaces/MenuProps';
-import { useAppSelector } from '../../redux-hooks';
-import INotification from '../../interfaces/INotification';
-import { useSelector } from 'react-redux';
-import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
-import useDeviceDetection from '../../hooks/useDetectDevice';
+import { MenuProps } from '@/interfaces/MenuProps';
+import { useAppSelector } from '@/redux-hooks';
+import INotification from '@/interfaces/INotification';
+import useDeviceDetection from '@/hooks/useDetectDevice';
 import Button from '../Buttons/Button';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 export default function NotificationsMenu({ isOpen, setIsOpen }: MenuProps) {
    const navigation = useNavigate();
-   const isAdmin = useSelector(selectIsAdmin);
    const notifications = useAppSelector(state => state.auth.user?.notifications);
    const device = useDeviceDetection();
 
-   const handleGoBack = () => {
-      isAdmin ? navigation('/account/edit-links') : navigation('/account/personal');
-   };
+   const handleGoBack = () => navigation('/account/personal');
 
    if (device !== 'Desktop')
       return (

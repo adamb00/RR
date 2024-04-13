@@ -22,6 +22,20 @@ export default class UserController {
    public deleteOneUser = handler.deleteOne(User);
 }
 
+export const getOneUserByUsername = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const { username } = req.params;
+   const doc = await User.find({ username });
+
+   if (!doc) {
+      return next(new AppError('No document found with that ID', 404));
+   }
+
+   res.status(200).json({
+      status: 'success',
+      doc,
+   });
+});
+
 export const getCurrentUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const currentUser = req.user;
    res.status(200).json({

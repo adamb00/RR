@@ -7,6 +7,7 @@ import UserController, {
    updateMe,
    deleteAllNotifications,
    updatePassword,
+   getOneUserByUsername,
 } from '../controllers/UserController';
 import authenticateUser from '../middlewares/authenticateUser';
 import { resizeImage } from '../middlewares/uploadImage';
@@ -25,6 +26,7 @@ router.post('/upload-image', userController.uploadImage, resizeImage(300), authe
 router.get('/get-image/:key', getImage);
 
 router.route('/').get(userController.getAllUsers).post(userController.createUser);
+router.route('/:username').get(getOneUserByUsername);
 router.route('/:id').get(userController.getOneUser).patch(userController.updateOneUser);
 
 export default router;

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetOneUser } from '@/features/Auth/useUserAuth';
+import { useGetOneUserByUsername } from '@/features/Auth/useUserAuth';
 import { ILink } from '@/interfaces/ILink';
 import 'react-loading-skeleton/dist/skeleton.css';
 import MyLinkHeader from './MyLinkHeader';
@@ -10,11 +10,15 @@ import SubscribeModal from '@/ui/Modals/SubscribeModal';
 import { useState } from 'react';
 
 export default function MyLink() {
-   const { id } = useParams();
-   const { currentUser, isLoading: currentUserIsLoading } = useGetOneUser(id as string);
+   const { username } = useParams();
+
+   const { currentUser, isLoading: currentUserIsLoading } = useGetOneUserByUsername(username as string);
+
    const [isModalOpen, setIsModalOpen] = useState(false);
-   const user: UserProfileData | undefined = currentUser?.doc;
-   const url = `${import.meta.env.VITE_BASE_URL_LINK}/${id}}`;
+   const user: UserProfileData | undefined = currentUser?.doc[0];
+   const url = `${import.meta.env.VITE_BASE_URL_LINK}/${username}}`;
+
+   console.log(user);
 
    if (currentUserIsLoading) return <MyLinkSkeleton />;
 

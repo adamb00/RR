@@ -2,6 +2,15 @@ import { OPTIONS } from '../utils/helpers';
 
 export const getOneUser = async (id: string) => {
    const response = await fetch(import.meta.env.VITE_BASE_URL + `/user/${id}`, await OPTIONS({ method: 'GET' }));
+   console.log(response);
+   const responseData = await response.json();
+
+   if (!response.ok) throw new Error(responseData.message);
+
+   return responseData;
+};
+export const getOneUserByUsername = async (username: string) => {
+   const response = await fetch(import.meta.env.VITE_BASE_URL + `/user/${username}`, await OPTIONS({ method: 'GET' }));
    const responseData = await response.json();
 
    if (!response.ok) throw new Error(responseData.message);

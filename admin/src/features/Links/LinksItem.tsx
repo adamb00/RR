@@ -23,7 +23,7 @@ export default function LinksItem({ link }: LinkItemProps) {
       setIsChecked(link.active);
    }, [link.active]);
 
-   const currentLinkTitle = () => link.title ?? '';
+   const currentLinkTitle = () => link.title ?? link.link;
 
    return (
       <div className='links__link'>

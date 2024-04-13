@@ -10,7 +10,6 @@ import Account from './features/Account/Account';
 import Notifications from './features/Notifications/Notifications';
 import PersonalInformation from './features/Account/PersonalInformation';
 import Security from './features/Account/Security';
-import EditLinks from './features/Account/EditLinks';
 import Affiliate from './features/Affiliate/Affiliate';
 import FAQ from './features/FAQ/FAQ';
 import Contact from './features/Contact/Contact';
@@ -55,7 +54,7 @@ export default function App() {
             {/* NON AUTHENTICATED ROUTES */}
 
             <Route path='/' element={<Home />} />
-            <Route path='/:id' element={<MyLink />} />
+            <Route path='/:username' element={<MyLink />} />
             <Route path='about' element={<About />} />
             <Route path='affiliate' element={<Affiliate />} />
             <Route path='faq' element={<FAQ />} />
@@ -77,10 +76,6 @@ export default function App() {
                   <Route path='personal' element={<PersonalInformation />} />
                   <Route path='security' element={<Security />} />
                   <Route path='notifications' element={<Notifications />} />
-                  {/* ADMIN ROUTES */}
-                  <Route element={<RequireAuth allowedRoles={['Admin']} />}>
-                     <Route path='edit-links' element={<EditLinks />} />
-                  </Route>
                </Route>
             </Route>
 

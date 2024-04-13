@@ -12,7 +12,7 @@ import SocialModal from '@/ui/Modals/SocialModal';
 export default function Links() {
    const user = useSelector(selectCurrentUser);
 
-   const { _id, availableLinks } = user;
+   const { availableLinks, username } = user;
    const device = useDeviceDetection();
    const [isOpenModal, setIsOpenModal] = useState(false);
    const [url, setUrl] = useState<string>('');
@@ -29,7 +29,7 @@ export default function Links() {
          <ShareModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} url={url} />
          <SocialModal isOpen={isOpenSocialModal} setIsOpen={setIsOpenSocialModal} user={user} />
          <LinksMenu
-            userId={_id}
+            username={username}
             setUrl={setUrl}
             handleOpenModal={handleOpenModal}
             setIsDraggable={setIsDraggable}

@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 import NotificationsItem from './NotificationsItem';
-import INotification from '../../interfaces/INotification';
+import INotification from '@/interfaces/INotification';
 
-import { useAppSelector } from '../../redux-hooks';
+import { useAppSelector } from '@/redux-hooks';
 import {
    useDeleteAllNotificationsMutation,
    useMarkAllNotificationsMutation,
-} from '../../features/Auth/slices/user/userApiSlice';
+} from '@/features/Auth/slices/user/userApiSlice';
 import { useTranslation } from 'react-i18next';
-import { deleteAllNotifications, markAllNotificationAsRead } from '../../features/Auth/slices/auth/authSlice';
+import { deleteAllNotifications, markAllNotificationAsRead } from '@/features/Auth/slices/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import Loader from '../Loader';
 

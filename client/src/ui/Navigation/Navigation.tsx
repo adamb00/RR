@@ -1,13 +1,10 @@
-import { closeMenu } from '../../utils/helpers';
+import { closeMenu } from '@/utils/helpers';
 import NavigationLinkMobile from './NavigationLinkMobile';
-import SignOut from '../../features/Auth/SignOut';
+import SignOut from '@/features/Auth/SignOut';
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
-import { selectIsAdmin } from '../../features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
 
 export default memo(function Navigation() {
-   const isAdmin = useSelector(selectIsAdmin);
    const { t } = useTranslation();
 
    return (
@@ -30,15 +27,9 @@ export default memo(function Navigation() {
                   </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
-                  {isAdmin ? (
-                     <NavigationLinkMobile onClick={closeMenu} to='/account/edit-links'>
-                        {t('Account')}
-                     </NavigationLinkMobile>
-                  ) : (
-                     <NavigationLinkMobile onClick={closeMenu} to='/account/personal'>
-                        {t('Account')}
-                     </NavigationLinkMobile>
-                  )}
+                  <NavigationLinkMobile onClick={closeMenu} to='/account/personal'>
+                     {t('Account')}
+                  </NavigationLinkMobile>
                </li>
                <li className='navigation__item'>
                   <SignOut />

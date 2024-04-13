@@ -14,9 +14,9 @@ import { useIsNotification } from '../hooks/useIsNotification';
 // const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
 
 export default function AppLayout() {
-   const { id } = useParams();
+   const { username } = useParams();
    const { isNotification } = useIsNotification();
-   const hasDynamicId = !!id;
+   const hasDynamicId = !!username;
    // const dispatch = useAppDispatch();
    // const [fetchNotificationsApi] = useFetchNotificationsMutation();
    // const [notificationsFetched, setNotificationsFetched] = useState(false);
