@@ -59,7 +59,6 @@ export const createOne = <T extends Document>(Model: Model<T>, customizeRequestB
 export const updateOne = <T extends Document>(Model: Model<T>) => {
    return catchAsync(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
-         console.log(req.body);
          const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
@@ -86,7 +85,12 @@ export const updateOne = <T extends Document>(Model: Model<T>) => {
 export const getOne = <T extends Document>(Model: Model<T>) => {
    return catchAsync(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
-         let query = Model.findById(req.params.id);
+         const { param, value } = req.params;
+
+         let query;
+
+         if (param === 'id') query = Model.findById(value);
+         else query = Model.findOne({ username: value });
 
          const doc = (await query.exec()) as T | null;
 

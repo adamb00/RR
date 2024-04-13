@@ -8,13 +8,14 @@ interface ChildrenProps {
 }
 
 export default function Children({ id }: ChildrenProps) {
-   const { currentUser, isLoading: isLoadingUser } = useGetOneUser(id);
+   const { currentUser, isLoading: isLoadingUser } = useGetOneUser('id', id as string);
    const { image: userImage, isLoading: isLoadingImage } = useGetImage(currentUser);
 
    if (!currentUser) return;
    if (isLoadingUser || isLoadingImage) return <Loader size={100} />;
 
    const { doc: user } = currentUser;
+   console.log(user);
 
    if (user.photo) {
       return (

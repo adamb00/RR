@@ -23,8 +23,10 @@ export default class UserController {
 }
 
 export const getOneUserByUsername = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-   const { username } = req.params;
-   const doc = await User.find({ username });
+   const param = req.params;
+   console.log(param);
+   const doc = await User.find(param);
+   console.log(doc);
 
    if (!doc) {
       return next(new AppError('No document found with that ID', 404));

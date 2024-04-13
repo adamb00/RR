@@ -6,14 +6,14 @@ import {
    forgotPassword as forgotPasswordFn,
 } from '@/services/apiUser';
 
-export const useGetOneUser = (id: string) => {
+export const useGetOneUser = (param: string, id: string) => {
    const {
       isLoading,
       data: currentUser,
       error,
    } = useQuery({
       queryKey: ['user', id],
-      queryFn: () => getOneUserFn(id),
+      queryFn: () => getOneUserFn(param, id),
    });
 
    return { isLoading, currentUser, error };

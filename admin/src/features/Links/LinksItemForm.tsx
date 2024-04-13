@@ -7,7 +7,6 @@ import { Dispatch, SetStateAction } from 'react';
 import { ILink } from '@/interfaces/ILink';
 import { useUpdateLinkMutation } from '@/features/Links/linkApiSlice';
 import { useLinks } from '@/contexts/LinkContext';
-// import { socket } from '@/utils/constants';
 
 interface LinksItemFormProps {
    isChecked: boolean;
@@ -25,12 +24,7 @@ export default function LinksItemForm({ setIsChecked, control, isOpen, handleSub
 
    const handleOnSubmit = async (data: FieldValues) => {
       const updatedData = { ...data, ...link };
-
-      console.log(updatedData);
-
       const res = await updateLinkAPI({ id: link._id, data: updatedData }).unwrap();
-
-      // socket.emit('link', { id: link._id, data });
       updateLink(res.doc);
       setIsChecked(true);
       emptyInputField('.links__title--input');

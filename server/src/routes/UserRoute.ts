@@ -26,7 +26,7 @@ router.post('/upload-image', userController.uploadImage, resizeImage(300), authe
 router.get('/get-image/:key', getImage);
 
 router.route('/').get(userController.getAllUsers).post(userController.createUser);
-router.route('/:username').get(getOneUserByUsername);
-router.route('/:id').get(userController.getOneUser).patch(userController.updateOneUser);
+router.route('/:param/:value').get(userController.getOneUser).patch(userController.updateOneUser);
+// router.route('/:username').get(userController.getOneUser);
 
 export default router;

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetOneUserByUsername } from '@/features/Auth/useUserAuth';
+import { useGetOneUser } from '@/features/Auth/useUserAuth';
 import { ILink } from '@/interfaces/ILink';
 import 'react-loading-skeleton/dist/skeleton.css';
 import MyLinkHeader from './MyLinkHeader';
@@ -12,10 +12,10 @@ import { useState } from 'react';
 export default function MyLink() {
    const { username } = useParams();
 
-   const { currentUser, isLoading: currentUserIsLoading } = useGetOneUserByUsername(username as string);
+   const { currentUser, isLoading: currentUserIsLoading } = useGetOneUser('username', username as string);
 
    const [isModalOpen, setIsModalOpen] = useState(false);
-   const user: UserProfileData | undefined = currentUser?.doc[0];
+   const user: UserProfileData | undefined = currentUser?.doc;
    const url = `${import.meta.env.VITE_BASE_URL_LINK}/${username}}`;
 
    console.log(user);

@@ -18,9 +18,7 @@ export default function LinksInteractions({ link, isChecked, setIsChecked }: Lin
 
    const handleOnChange = async () => {
       setIsChecked(!isChecked);
-      console.log(link._id);
       const res = await activateLinkApi({ id: link._id, data: { active: !isChecked } }).unwrap();
-      console.log(res);
       updateLink(res.doc);
    };
 
@@ -42,11 +40,6 @@ export default function LinksInteractions({ link, isChecked, setIsChecked }: Lin
             activeBoxShadow='0px 0px 1px 10px rgba(0, 0, 0, 0.2)'
             className='links__switch'
          />
-         {/* <CopyToClipboard text={link.link}>
-            <ButtonIcon onClick={() => {}} className='links__icon'>
-               <CiMedicalClipboard />
-            </ButtonIcon>
-         </CopyToClipboard> */}
 
          <Icon onClick={handleOnDelete} className='links__icon links__icon--remove'>
             &#10005;

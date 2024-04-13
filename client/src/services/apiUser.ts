@@ -1,7 +1,10 @@
 import { OPTIONS } from '../utils/helpers';
 
-export const getOneUser = async (id: string) => {
-   const response = await fetch(import.meta.env.VITE_BASE_URL + `/user/${id}`, await OPTIONS({ method: 'GET' }));
+export const getOneUser = async (param: string, id: string) => {
+   const response = await fetch(
+      import.meta.env.VITE_BASE_URL + `/user/${param}/${id}`,
+      await OPTIONS({ method: 'GET' })
+   );
    console.log(response);
    const responseData = await response.json();
 

@@ -5,7 +5,7 @@ import { useUpdateLinkMutation, useUploadLinkImageMutation } from '@/features/Li
 import { Control } from 'react-hook-form';
 import { ILink } from '@/interfaces/ILink';
 import UserCheckboxInput from '@/ui/UserInteractions/UserInputCheckbox';
-import { socket } from '@/utils/constants';
+
 import { useGetImage } from '@/hooks/useGetImage';
 import { useLinks } from '@/contexts/LinkContext';
 
@@ -34,7 +34,6 @@ export default function LinksUploadImage({ isChecked, control, isOpen, link }: L
          if (formData.has('image')) {
             try {
                const res = await uploadLinkImage({ data: formData, id: link._id }).unwrap();
-               socket.emit('link', { id: link._id, data: { image: res.data.image } });
 
                updateLink(res.data);
             } catch (error) {
@@ -49,18 +48,15 @@ export default function LinksUploadImage({ isChecked, control, isOpen, link }: L
    const handleFullScreen = async (event: React.ChangeEvent<HTMLInputElement>) => {
       const data = event.target.checked;
       const res = await updateLinkAPI({ id: link._id, data: { isPreview: data } }).unwrap();
-      socket.emit('link', { id: link._id, data: { isPreview: data } });
 
       updateLink(res.doc);
    };
    const handlePrimary = async (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
          const res = await updateLinkAPI({ id: link._id, data: { order: 0 } }).unwrap();
-         socket.emit('link', { id: link._id, data: { order: 0 } });
          updateLink(res.doc);
       } else {
          const res = await updateLinkAPI({ id: link._id, data: { order: 1 } }).unwrap();
-         socket.emit('link', { id: link._id, data: { order: 1 } });
          updateLink(res.doc);
       }
    };
