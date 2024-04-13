@@ -130,3 +130,14 @@ export const handleError = (error: IError | string | null, item: string): string
 
    return (error as IError).item === item ? (error as IError).message : '';
 };
+export const handleLink = (link: string, referralCode: number) => {
+   let updatedLink: string;
+
+   if (link.endsWith('/')) {
+      updatedLink = `${link}${referralCode}`;
+   } else {
+      updatedLink = `${link}/${referralCode}`;
+   }
+
+   return updatedLink;
+};

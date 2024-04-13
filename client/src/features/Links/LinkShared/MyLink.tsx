@@ -18,8 +18,6 @@ export default function MyLink() {
    const user: UserProfileData | undefined = currentUser?.doc;
    const url = `${import.meta.env.VITE_BASE_URL_LINK}/${username}}`;
 
-   console.log(user);
-
    if (currentUserIsLoading) return <MyLinkSkeleton />;
 
    if (!user) return <p>No user found</p>;
@@ -32,7 +30,7 @@ export default function MyLink() {
             {user.availableLinks
                .sort((a, b) => a.order - b.order)
                .map((link: ILink) => (
-                  <MyLinkContainer link={link} key={link._id} />
+                  <MyLinkContainer link={link} key={link._id} user={user} />
                ))}
          </div>
       </div>
