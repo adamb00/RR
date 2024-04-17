@@ -12,7 +12,6 @@ const notificationSchema: Schema = new Schema<INotification>({
 
    created_at: {
       type: Date,
-      default: Date.now(),
    },
    created_by: {
       type: String,

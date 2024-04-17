@@ -9,7 +9,13 @@ export const signToken = (id: string): string => {
    return jwt.sign({ id }, env.JWT_SECRET, { expiresIn: '30m' });
 };
 
-export const createAndSendToken = async (user: IUser, statusCode: number, req: Request, res: Response) => {
+export const createAndSendToken = async (user: IUser, req: Request, res: Response) => {
+   if (!user) {
+      return res.status(400).json({
+         status: 'error',
+         message: 'User not found',
+      });
+   }
    const token = signToken(user._id);
 
    if (!req.user) req.user = user;
@@ -23,11 +29,13 @@ export const createAndSendToken = async (user: IUser, statusCode: number, req: R
 
    user.password = '';
 
-   const updatedUser = await User.findByIdAndUpdate(user.id, { refreshToken: token });
+   // const updatedUser = await User.findByIdAndUpdate(user.id, { refreshToken: token });
 
-   res.status(statusCode).json({
+   res.status(200).json({
       status: 'success',
       token,
-      data: updatedUser,
+      data: user,
    });
+
+   console.log('success');
 };

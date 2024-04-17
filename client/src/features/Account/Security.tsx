@@ -36,17 +36,17 @@ export default function Security() {
 
    const [isVisible, setIsVisible] = useState(false);
    return (
-      <div>
+      <div className='security'>
          <h1 className='heading-primary'>{t('Update your password')}</h1>
-         <form action='' className='account__change-password__form' onSubmit={handleSubmit(handleResetPassword)}>
+         <form action='' className='security__form' onSubmit={handleSubmit(handleResetPassword)}>
             <UserInput
                control={control}
                name='passwordCurrent'
                id='passwordCurrent'
                //TODO TRANSLATE THE ERROR COME FROM THE SERVER
                eError={handleError(error, 'passwordCurrent')}
-               className='account__change-password__form--input current'
-               fieldErrorClassname='account__change-password__form--error'
+               className='security__form--input current'
+               fieldErrorClassname='security__form--error'
                type={isVisible ? 'text' : 'password'}
                placeholder={t('Your current password')}
                rules={{
@@ -58,20 +58,16 @@ export default function Security() {
                }}
             >
                <FormIcon tooltip={t('Enter Your current password')}>
-                  <CiUnlock className='account__change-password__form--icon' />
+                  <CiUnlock className='security__form--icon' />
                </FormIcon>
-               <PasswordVisible
-                  className='account__change-password__form--icon'
-                  isVisible={isVisible}
-                  setIsVisible={setIsVisible}
-               />
+               <PasswordVisible className='security__form--icon' isVisible={isVisible} setIsVisible={setIsVisible} />
             </UserInput>
             <UserInput
                control={control}
                name='password'
                id='password'
-               className='account__change-password__form--input new'
-               fieldErrorClassname='account__change-password__form--error'
+               className='security__form--input new'
+               fieldErrorClassname='security__form--error'
                type={isVisible ? 'text' : 'password'}
                placeholder={t('Your new password')}
                rules={{
@@ -84,15 +80,15 @@ export default function Security() {
                }}
             >
                <FormIcon tooltip={t('Enter Your new password')}>
-                  <CiUnlock className='account__change-password__form--icon' />
+                  <CiUnlock className='security__form--icon' />
                </FormIcon>
             </UserInput>
             <UserInput
                control={control}
                name='passwordConfirm'
                id='passwordConfirm'
-               className='account__change-password__form--input newConfirm'
-               fieldErrorClassname='account__change-password__form--error'
+               className='security__form--input newConfirm'
+               fieldErrorClassname='security__form--error'
                type={isVisible ? 'text' : 'password'}
                placeholder={t('Your new password again')}
                rules={{
@@ -101,11 +97,11 @@ export default function Security() {
                }}
             >
                <FormIcon tooltip={t('Confirm Your new password')}>
-                  <CiUnlock className='account__change-password__form--icon' />
+                  <CiUnlock className='security__form--icon' />
                </FormIcon>
             </UserInput>
 
-            {error && typeof error !== 'object' && <p className='account__change-password__form--error'>{error}</p>}
+            {error && typeof error !== 'object' && <p className='security__form--error'>{error}</p>}
             <Button type='submit' disabled={isLoading} className='btn btn--primary'>
                {t('Reset Password')}
             </Button>

@@ -186,38 +186,4 @@
          font-style: italic;
       }
    }
-
-   &__richtext {
-      @include richText;
-   }
-   &__admin {
-      padding: 1rem 3rem;
-
-      &--form {
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-         gap: 2rem;
-      }
-      &--error {
-         padding-left: 2rem;
-         color: $color-error;
-         font-size: $default-font-size;
-      }
-
-      &--input {
-         @include defaultInput;
-      }
-
-      &--textarea {
-         resize: none;
-         @include defaultInput;
-         min-height: 24rem !important;
-      }
-
-      &--button {
-         margin: 5rem 0;
-         width: 50%;
-      }
-   }
 }

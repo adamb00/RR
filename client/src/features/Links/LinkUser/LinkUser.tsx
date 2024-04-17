@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { useGetImage } from '@/hooks/useGetImage';
 import LinksSkeleton from './LinksSkeleton';
+import { handleLink } from '@/utils/helpers';
 
 interface LinkUserProps {
    link: ILink;
@@ -17,19 +18,11 @@ interface LinkUserProps {
 export default function LinkUser({ link, user, setIsOpen, setUrl }: LinkUserProps) {
    const { image: linkImage, isLoading: isLoadingLinkImage } = useGetImage(link);
 
-   let updatedLink: string;
-
-   if (link.link.endsWith('/')) {
-      updatedLink = `${link.link}${user?.referralCode}`;
-   } else {
-      updatedLink = `${link.link}/${user?.referralCode}`;
-   }
-
    if (isLoadingLinkImage) return <LinksSkeleton />;
 
    const handleOpenModal = () => {
       if (setIsOpen) setIsOpen(true);
-      if (setUrl) setUrl(() => updatedLink);
+      if (setUrl) setUrl(() => handleLink(link.link, user!.referralCode));
    };
 
    if (!link.isPreview)

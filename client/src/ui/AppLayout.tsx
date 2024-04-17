@@ -1,89 +1,31 @@
 import { Outlet, useParams } from 'react-router-dom';
-
 import Header from './Header';
 import { useIsNotification } from '../hooks/useIsNotification';
-// import { useAppDispatch } from '../redux-hooks';
-// import { memo, useCallback, useEffect, useState } from 'react';
-
-// import io from 'socket.io-client';
-// import INotification from '../interfaces/INotification';
-// import { useFetchNotificationsMutation } from '../features/Auth/slices/user/userApiSlice';
-// import { useSelector } from 'react-redux';
-// import { selectCurrentUser, updateUser } from '../features/Auth/slices/auth/authSlice';
-
-// const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
+import { socket } from '@/utils/constants';
+import { useEffect } from 'react';
+import { useRefreshUserMutation } from '@/features/Auth/slices/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '@/features/Auth/slices/auth/authSlice';
 
 export default function AppLayout() {
    const { username } = useParams();
    const { isNotification } = useIsNotification();
    const hasDynamicId = !!username;
-   // const dispatch = useAppDispatch();
-   // const [fetchNotificationsApi] = useFetchNotificationsMutation();
-   // const [notificationsFetched, setNotificationsFetched] = useState(false);
-   // const user = useSelector(selectCurrentUser);
+   const [refreshUser] = useRefreshUserMutation();
+   const dispatch = useDispatch();
 
-   // const handleNotificationCreated = useCallback(
-   //    async (data: INotification) => {
-   //       if (user && user.notifications) {
-   //          try {
-   //             const fetchedNotifications = await Promise.all(
-   //                user.notifications.map(async (notification: { read: boolean; _id: string }) => {
-   //                   const res = await fetchNotificationsApi(notification._id).unwrap();
-   //                   return { ...res.doc, read: notification.read };
-   //                })
-   //             );
-   //             const sortedNotifications = fetchedNotifications.sort((a, b) => {
-   //                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-   //             });
+   useEffect(() => {
+      const handleNotification = async () => {
+         const res = await refreshUser({}).unwrap();
+         dispatch(updateUser(res.data));
+      };
 
-   //             const updatedNotifications = [...sortedNotifications, { ...data, read: false }];
+      socket.on('notification_created', handleNotification);
 
-   //             const newUser = { ...user, notifications: updatedNotifications };
-   //             dispatch(updateUser(newUser));
-   //             setNotificationsFetched(true);
-   //          } catch (error) {
-   //             console.error('Error fetching notifications:', error);
-   //          }
-   //       }
-   //    },
-   //    [dispatch, fetchNotificationsApi, user]
-   // );
-
-   // const fetchNotificationsForUser = useCallback(
-   //    async (user: { notifications: { read: boolean; _id: string }[]; role: string }) => {
-   //       if (user && user.role !== 'Admin') {
-   //          const fetchedNotifications = await Promise.all(
-   //             user.notifications.map(async (notification: { read: boolean; _id: string }) => {
-   //                const res = await fetchNotificationsApi(notification._id).unwrap();
-   //                return { ...res.doc, read: notification.read };
-   //             })
-   //          );
-   //          const sortedNotifications = fetchedNotifications.sort((a, b) => {
-   //             return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-   //          });
-   //          const updatedNotifications = [...sortedNotifications];
-
-   //          const newUser = { ...user, notifications: updatedNotifications };
-
-   //          dispatch(updateUser(newUser));
-   //       }
-   //    },
-   //    [dispatch, fetchNotificationsApi]
-   // );
-
-   // if (!notificationsFetched && user) {
-   //    fetchNotificationsForUser(user);
-   //    setNotificationsFetched(true);
-   // }
-
-   // useEffect(() => {
-   //    socket.on('notification_created', handleNotificationCreated);
-
-   //    return () => {
-   //       socket.off('notification_created', handleNotificationCreated);
-   //    };
-   // }, [dispatch, fetchNotificationsForUser, handleNotificationCreated, notificationsFetched, setNotificationsFetched, user]);
-
+      return () => {
+         socket.off('notification_created', handleNotification);
+      };
+   }, [dispatch, refreshUser]);
    return (
       <>
          <main className='main'>

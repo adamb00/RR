@@ -13,6 +13,7 @@ import NotificationRouter from './routes/NotificationRoute';
 import AuthRouter from './routes/AuthRoute';
 import PurchaseRouter from './routes/PurchaseRoute';
 import SubscriptionRouter from './routes/SubscribeRoute';
+import EmailRouter from './routes/EmailRoute';
 
 import AppError from './utils/appError';
 import { globalErrorHandler } from './controllers/ErrorController';
@@ -23,7 +24,6 @@ import { Server } from 'socket.io';
 import { getImage } from './middlewares/getImage';
 
 const app: Application = express();
-// export const server = createServer(app);
 
 app.enable('trust proxy');
 
@@ -51,6 +51,7 @@ app.use(`/api/${env.VERSION}/notification`, NotificationRouter);
 app.use(`/api/${env.VERSION}/purchase`, PurchaseRouter);
 app.use(`/api/${env.VERSION}/subscribe`, SubscriptionRouter);
 app.use(`/api/${env.VERSION}/get-image/:key`, getImage);
+app.use(`/api/${env.VERSION}/send-mail`, EmailRouter);
 
 app.all('*', (req: Request, _res: Response, next: NextFunction) => {
    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
@@ -71,10 +72,10 @@ app.use(globalErrorHandler);
 //       io.close();
 //    });
 
-//    // socket.once('send_message', async data => {
-//    //    const res = await handleSocketNotification(data);
-//    //    socket.broadcast.emit('notification_created', res);
-//    // });
+// socket.once('send_message', async data => {
+//    const res = await handleSocketNotification(data);
+//    socket.broadcast.emit('notification_created', res);
+// });
 // });
 
 export default app;

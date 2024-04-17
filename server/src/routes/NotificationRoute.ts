@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import NotificationController from '../controllers/NotificationController';
+import NotificationController, { createNotification } from '../controllers/NotificationController';
 import authenticateUser from '../middlewares/authenticateUser';
 import restrictTo from '../middlewares/restrictTo';
 
@@ -8,7 +8,7 @@ const notificationController = new NotificationController();
 
 router.use(authenticateUser);
 
-router.route('/').get(notificationController.getAllNotifications);
+router.route('/').get(notificationController.getAllNotifications).post(createNotification);
 
 router
    .route('/:id')

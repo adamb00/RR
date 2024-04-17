@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '@/context/ThemeContext';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
 
 interface SelectProps extends React.ComponentPropsWithoutRef<'input'> {

@@ -12,16 +12,14 @@
 @import './components/button';
 @import './components/header';
 @import './components/themeToggler';
-@import './components/user-input';
 @import './components/dropdown';
 @import './components/shareLinks';
 @import './components/paginator';
 @import './components/team';
-@import './components/trash';
 @import './components/navigation';
 @import './components/icon';
 @import './components/upload-image';
-@import './components/user-image';
+@import './components/user-input';
 @import './components/personal';
 @import './components/shareModal';
 @import './components/forgotPassword';
@@ -31,6 +29,8 @@
 @import './components/invite-modal';
 @import './components/subscribeModal';
 @import './components/socialModal';
+@import './components/menu';
+@import './components/security';
 
 @import './pages/login';
 @import './pages/signup';
@@ -39,5 +39,4 @@
 @import './pages/account';
 @import './pages/notifications';
 @import './pages/restricted-route';
-@import './pages/admin-links';
 @import './pages/shared-links';

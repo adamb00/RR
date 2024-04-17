@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import INotification from '../../interfaces/INotification';
-import { stripHtmlTags, truncateText } from '../../utils/helpers';
+import INotification from '@/interfaces/INotification';
+import { stripHtmlTags, truncateText } from '@/utils/helpers';
 import { Dispatch, SetStateAction } from 'react';
-import { useMarkOneNotificationAsRead } from '../../hooks/useMarkOneNotificationAsRead.ts';
+import { useMarkOneNotificationAsRead } from '@/hooks/useMarkOneNotificationAsRead.ts';
 
 interface NotificationItemProps {
    notification: INotification;
@@ -11,7 +11,8 @@ interface NotificationItemProps {
 
 export default function NotificationsItem({ notification, setShowModal }: NotificationItemProps) {
    const navigation = useNavigate();
-   const { read, _id, title, message } = notification;
+
+   const { _id, read, message, title } = notification;
 
    const handleOnMarkOneNotificationAsRead = useMarkOneNotificationAsRead(_id);
 

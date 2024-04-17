@@ -1,6 +1,6 @@
 import { apiSlice } from '@/app/api/apiSlice';
 
-export const authApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'User'] }).injectEndpoints({
+export const authApiSlice = apiSlice.injectEndpoints({
    endpoints: builder => ({
       login: builder.mutation({
          query: data => ({
@@ -14,6 +14,12 @@ export const authApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Link', 'U
             url: `/auth/signup`,
             method: 'POST',
             body: data,
+         }),
+      }),
+      refreshUser: builder.mutation({
+         query: () => ({
+            url: '/auth/refresh-user',
+            method: 'GET',
          }),
       }),
 
@@ -45,4 +51,5 @@ export const {
    useGetReferralCodeMutation,
    useResetPasswordMutation,
    useLogoutMutation,
+   useRefreshUserMutation,
 } = authApiSlice;

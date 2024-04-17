@@ -4,10 +4,10 @@ import Button from '../Buttons/Button';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import NavigationNoAuth from '../Navigation/NavigationNoAuth';
-import useDeviceDetection from '../../hooks/useDetectDevice';
+import useDeviceDetection from '@/hooks/useDetectDevice';
 
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../features/Auth/slices/auth/authSlice';
+import { selectCurrentUser } from '@/features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
 import LanguageChanger from '../Languages/LanguageChanger';
 

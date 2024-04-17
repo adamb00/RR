@@ -1,14 +1,13 @@
 .upload-image {
    border-radius: 100%;
-   width: 10rem;
-   height: 10rem;
+   width: 20rem;
+   height: 20rem;
    border: 1px dashed $color-grey-dark-3;
    display: flex;
    align-items: center;
    justify-content: center;
    align-self: center;
    cursor: pointer;
-   margin-bottom: 2rem;
 
    &__container {
       display: flex;
@@ -16,10 +15,9 @@
       justify-content: center;
    }
    &__image {
-      // width: 100%;
       border-radius: 100%;
-      min-width: 12rem !important;
-      height: 12rem !important;
+      min-width: 20rem !important;
+      height: 20rem !important;
       object-fit: cover;
    }
 }

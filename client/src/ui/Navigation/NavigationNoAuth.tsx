@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../Buttons/Button';
 import NavigationLinkMobile from './NavigationLinkMobile';
-import { closeMenu } from '../../utils/helpers';
+import { closeMenu } from '@/utils/helpers';
 import { useTranslation } from 'react-i18next';
 
 export default function NavigationNoAuth() {

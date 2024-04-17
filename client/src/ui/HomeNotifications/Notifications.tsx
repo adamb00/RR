@@ -3,9 +3,9 @@ import { memo, useState } from 'react';
 import ButtonIcon from '../Buttons/ButtonIcon';
 import { CiBellOn } from 'react-icons/ci';
 import NotificationsModal from './NotificationsModal';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useSelector } from 'react-redux';
-import { selectUnreadNotifications } from '../../features/Auth/slices/auth/authSlice';
+import { selectUnreadNotifications } from '@/features/Auth/slices/auth/authSlice';
 
 export default memo(function Notifications() {
    const [showModal, setShowModal] = useState(false);

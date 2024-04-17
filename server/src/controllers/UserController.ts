@@ -10,6 +10,7 @@ import util from 'util';
 import { correctPassword } from '../middlewares/correctPassword';
 import { createAndSendToken } from '../middlewares/createAndSendToken';
 import IUser from '../interfaces/IUser';
+import { handleNotifications } from '../utils/helpers';
 
 const unlinkFile = util.promisify(fs.unlink);
 
@@ -21,22 +22,6 @@ export default class UserController {
    public updateOneUser = handler.updateOne(User);
    public deleteOneUser = handler.deleteOne(User);
 }
-
-export const getOneUserByUsername = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-   const param = req.params;
-   console.log(param);
-   const doc = await User.find(param);
-   console.log(doc);
-
-   if (!doc) {
-      return next(new AppError('No document found with that ID', 404));
-   }
-
-   res.status(200).json({
-      status: 'success',
-      doc,
-   });
-});
 
 export const getCurrentUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const currentUser = req.user;
@@ -132,15 +117,17 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
       filteredBody.photo = uploadImage.Key;
       await unlinkFile(req.file.path);
    }
-   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+   const updatedUser = (await User.findByIdAndUpdate(req.user.id, filteredBody, {
       new: true,
       runValidators: true,
-   });
+   })) as IUser;
+
+   const user = await handleNotifications(updatedUser);
 
    res.status(200).json({
       status: 'success',
       data: {
-         user: updatedUser,
+         user,
       },
    });
 });
@@ -170,7 +157,7 @@ export const updatePassword = catchAsync(async (req: Request, res: Response, nex
    user.passwordConfirm = req.body.passwordConfirm;
    await user.save();
 
-   createAndSendToken(user, 200, req, res);
+   await createAndSendToken(user, req, res);
 });
 export const deleteAllNotifications = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const user = req.user as IUser;

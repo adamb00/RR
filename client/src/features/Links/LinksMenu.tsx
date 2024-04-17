@@ -10,7 +10,6 @@ import {
    IoSettingsOutline,
    IoShareSocialOutline,
 } from 'react-icons/io5';
-// import { RiDragDropLine } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 
 interface LinksMenuProps {

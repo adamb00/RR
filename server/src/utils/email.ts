@@ -21,8 +21,9 @@ export default class Email {
 
    private newTransportDev() {
       return nodemailer.createTransport({
-         host: 'mail.r2byou.com',
-         port: 587,
+         host: env.EMAIL_HOST,
+         port: env.EMAIL_PORT,
+         secure: true,
          auth: {
             user: env.EMAIL_USERNAME,
             pass: env.EMAIL_PASSWORD,

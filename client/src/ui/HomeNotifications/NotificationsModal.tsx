@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import NotificationsItem from './NotificationsItem';
 import INotification from '@/interfaces/INotification';
-
-import { useAppSelector } from '@/redux-hooks';
 import {
    useDeleteAllNotificationsMutation,
    useMarkAllNotificationsMutation,
@@ -11,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { deleteAllNotifications, markAllNotificationAsRead } from '@/features/Auth/slices/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import Loader from '../Loader';
+import { useAppSelector } from '@/redux-hooks';
 
 interface NotificationsProps {
    setShowModal: Dispatch<SetStateAction<boolean>>;

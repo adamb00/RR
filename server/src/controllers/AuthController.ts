@@ -8,11 +8,11 @@ import { correctPassword } from '../middlewares/correctPassword';
 import { createAndSendToken } from '../middlewares/createAndSendToken';
 import { MongoError } from 'mongodb';
 import IUser from '../interfaces/IUser';
-import { JwtPayload } from 'jsonwebtoken';
 import env from '../utils/validateEnv';
 import crypto from 'crypto';
 import Link from '../models/LinkModel';
-import { jwtVerifyPromisified } from '../middlewares/verifyJwt';
+import Notification from '../models/NotificationModel';
+import { handleNotifications } from '../utils/helpers';
 
 declare global {
    namespace Express {
@@ -41,7 +41,7 @@ export default class AuthController {
       user.active = true;
       await user.save();
 
-      createAndSendToken(user, 200, req, res);
+      await createAndSendToken(user, req, res);
    });
 
    public signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -175,8 +175,10 @@ export default class AuthController {
          return next(new AppError('Incorrect password.', 401));
       }
 
-      await createAndSendToken(user, 200, req, res);
-      req.user = user;
+      const updatedUser = await handleNotifications(user);
+
+      await createAndSendToken(updatedUser, req, res);
+      req.user = updatedUser;
    });
 
    public handleRefreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -189,22 +191,37 @@ export default class AuthController {
 
       res.clearCookie('jwt');
 
-      const user = (await User.findOne({ refreshToken }).exec()) as IUser;
+      // const user = (await User.findOne({ refreshToken }).exec()) as IUser;
+      const user = await User.findOne({ refreshToken });
+
+      // if (!user) {
+      //    const decoded: JwtPayload = (await jwtVerifyPromisified(refreshToken, env.JWT_SECRET, res)) as JwtPayload;
+      //    const currentUser = await User.findById(decoded.id);
+
+      //    if (currentUser) {
+      //       currentUser.refreshToken = '';
+      //       await currentUser.save();
+      //    }
+
+      //    res.status(403);
+      //    return new AppError('No user found with this token', 403);
+      // }
 
       if (!user) {
-         const decoded: JwtPayload = (await jwtVerifyPromisified(refreshToken, env.JWT_SECRET, res)) as JwtPayload;
-         const currentUser = await User.findById(decoded.id);
-
-         if (currentUser) {
-            currentUser.refreshToken = '';
-            await currentUser.save();
-         }
-
-         res.sendStatus(403);
+         res.status(404).json({
+            status: 'error',
+            message: 'No user found with this token.',
+         });
+         return next(new AppError('No user found with this token.', 404));
       }
 
-      await createAndSendToken(user, 200, req, res);
+      await createAndSendToken(user, req, res);
       req.user = user;
+   });
+
+   public handleRefreshUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      const user = await handleNotifications(req.user as IUser);
+      await createAndSendToken(user, req, res);
    });
 
    public signout = (_req: Request, res: Response) => {
@@ -266,6 +283,6 @@ export default class AuthController {
       user.passwordResetExpires = undefined;
       await user.save();
 
-      createAndSendToken(user, 200, req, res);
+      await createAndSendToken(user, req, res);
    });
 }

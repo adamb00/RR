@@ -1,4 +1,6 @@
 import ICustomError from '../interfaces/ICustomError';
+import IUser from '../interfaces/IUser';
+import Notification from '../models/NotificationModel';
 
 export const getErrorMessage = (error: unknown): string | ICustomError => {
    let message: string;
@@ -31,4 +33,30 @@ export const generateString = (length: number) => {
    }
 
    return result;
+};
+
+export const handleNotifications = async (user: IUser) => {
+   const notifications = await Promise.all(
+      user.notifications.map(async notification => {
+         const notificationDetails = await Notification.findById(notification._id);
+
+         if (notificationDetails) {
+            return {
+               _id: notificationDetails._id,
+               title: notificationDetails.title,
+               message: notificationDetails.message,
+               created_at: notificationDetails.created_at,
+               created_by: notificationDetails.created_by,
+               read: notification.read,
+            };
+         }
+      })
+   );
+
+   const updatedUser = {
+      ...user.toObject(),
+      notifications: notifications.filter(notification => notification !== null),
+   } as IUser;
+
+   return updatedUser;
 };

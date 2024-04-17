@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Controller, Control, RegisterOptions } from 'react-hook-form';
-import { useState } from 'react'; // Import useState hook
+import { useState } from 'react';
 
 interface UserInputProps extends React.ComponentPropsWithoutRef<'input'> {
    name: string;

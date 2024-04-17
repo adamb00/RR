@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App.tsx';
 import { ThemeProvider } from './context/ThemeContext.tsx';
-// import { LinkProvider } from './context/LinkContext.tsx';
 import { StrictMode } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { store, persistor } from './app/store.ts';
@@ -24,7 +23,6 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
          <QueryClientProvider client={queryClient}>
             <Provider store={store}>
-               {/* <LinkProvider> */}
                <ThemeProvider>
                   <ReactQueryDevtools initialIsOpen={false} />
                   <PersistGate loading={null} persistor={persistor}>
@@ -33,7 +31,6 @@ createRoot(document.getElementById('root')!).render(
                      </Routes>
                   </PersistGate>
                </ThemeProvider>
-               {/* </LinkProvider> */}
             </Provider>
          </QueryClientProvider>
       </BrowserRouter>

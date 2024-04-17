@@ -1,0 +1,60 @@
+.menu {
+   min-height: 4rem;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding: 0 10rem;
+   overflow-x: scroll;
+   font-size: $default-font-size;
+   border-bottom: 0.5px solid $color-grey-light-4;
+   scroll-behavior: smooth;
+
+   @include respond(phone) {
+      min-height: 5rem;
+      padding: 0 5rem;
+   }
+
+   &__nav {
+      display: flex;
+      align-items: center;
+   }
+   &__list {
+      display: flex;
+      gap: 10rem;
+      white-space: nowrap;
+      align-items: center;
+      @include respond(phone) {
+         gap: 7rem;
+      }
+   }
+   &__item {
+      &--active {
+         color: $color-primary-tint;
+      }
+      &:hover {
+         cursor: pointer;
+         color: $color-primary-tint;
+      }
+   }
+   &::-webkit-scrollbar {
+      height: 2px;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: $color-primary-tint;
+      border-radius: $default-border-radius;
+      cursor: pointer;
+   }
+
+   &::-webkit-scrollbar-thumb:hover {
+      background-color: $color-primary;
+   }
+
+   &__go-back {
+      font-size: 3rem;
+      &:hover {
+         cursor: pointer;
+         color: $color-primary-tint;
+      }
+   }
+}
