@@ -47,6 +47,8 @@ jobs:
               script: |
                  echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
+                  docker system prune -f
+
                   docker stop $(docker ps -q)
                   docker rm $(docker ps -a -q)
 

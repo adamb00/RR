@@ -13,6 +13,8 @@ import crypto from 'crypto';
 import Link from '../models/LinkModel';
 import Notification from '../models/NotificationModel';
 import { handleNotifications } from '../utils/helpers';
+import { JwtPayload } from 'jsonwebtoken';
+import { jwtVerifyPromisified } from '../middlewares/verifyJwt';
 
 declare global {
    namespace Express {
@@ -191,28 +193,22 @@ export default class AuthController {
 
       res.clearCookie('jwt');
 
-      // const user = (await User.findOne({ refreshToken }).exec()) as IUser;
-      const user = await User.findOne({ refreshToken });
-
-      // if (!user) {
-      //    const decoded: JwtPayload = (await jwtVerifyPromisified(refreshToken, env.JWT_SECRET, res)) as JwtPayload;
-      //    const currentUser = await User.findById(decoded.id);
-
-      //    if (currentUser) {
-      //       currentUser.refreshToken = '';
-      //       await currentUser.save();
-      //    }
-
-      //    res.status(403);
-      //    return new AppError('No user found with this token', 403);
-      // }
+      const user = (await User.findOne({ refreshToken }).exec()) as IUser;
 
       if (!user) {
-         res.status(404).json({
+         const decoded: JwtPayload = (await jwtVerifyPromisified(refreshToken, env.JWT_SECRET, res)) as JwtPayload;
+         const currentUser = await User.findById(decoded.id);
+
+         if (currentUser) {
+            currentUser.refreshToken = '';
+            await currentUser.save();
+         }
+
+         res.status(403).json({
             status: 'error',
             message: 'No user found with this token.',
          });
-         return next(new AppError('No user found with this token.', 404));
+         return next(new AppError('No user found with this token', 403));
       }
 
       await createAndSendToken(user, req, res);
