@@ -61,7 +61,7 @@ jobs:
                   docker run -d --name backend -p 8000:8000 --env-file /root/.env adamb00/r2byou:backend
 
                   rm -rf /var/www/admin.r2byou.com
-                  rm -rf /var/www/r2byou.com
+                  rm -rf /var/www/r2byou.com/html/assets
 
                   mkdir /var/www/admin.r2byou.com
                   mkdir /var/www/r2byou.com
