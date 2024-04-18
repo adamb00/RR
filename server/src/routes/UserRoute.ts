@@ -16,10 +16,10 @@ const router: Router = Router();
 const userController = new UserController();
 
 router.get('/current-user', authenticateUser, getCurrentUser);
-router.patch('/update-password', authenticateUser, updatePassword);
-router.patch('/mark-notifications', authenticateUser, markNotifications);
-router.patch('/mark-one-notification', authenticateUser, markNotification);
-router.patch('/delete-notifications', authenticateUser, deleteAllNotifications);
+router.post('/update-password', authenticateUser, updatePassword);
+router.post('/mark-notifications', authenticateUser, markNotifications);
+router.post('/mark-one-notification', authenticateUser, markNotification);
+router.post('/delete-notifications', authenticateUser, deleteAllNotifications);
 
 router.post('/upload-image', userController.uploadImage, resizeImage(300), authenticateUser, updateMe);
 router.get('/get-image/:key', getImage);

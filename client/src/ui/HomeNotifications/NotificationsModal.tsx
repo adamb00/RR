@@ -24,6 +24,7 @@ export default function NotificationsModal({ setShowModal }: NotificationsProps)
 
    const handleOnClick = async () => {
       const res = await markAllNotifications({}).unwrap();
+      console.log(res);
       dispatch(markAllNotificationAsRead({ ...res }));
       setShowModal(false);
    };

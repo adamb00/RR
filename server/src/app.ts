@@ -17,9 +17,6 @@ import EmailRouter from './routes/EmailRoute';
 
 import AppError from './utils/appError';
 import { globalErrorHandler } from './controllers/ErrorController';
-
-import { createServer } from 'http';
-import { Server } from 'socket.io';
 import { getImage } from './middlewares/getImage';
 
 const app: Application = express();

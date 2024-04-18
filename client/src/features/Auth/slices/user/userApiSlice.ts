@@ -26,20 +26,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
       markNotification: builder.mutation({
          query: data => ({
             url: `/user/mark-one-notification`,
-            method: 'PATCH',
+            method: 'POST',
             body: data,
          }),
       }),
       markAllNotifications: builder.mutation({
          query: () => ({
             url: `/user/mark-notifications`,
-            method: 'PATCH',
+            method: 'POST',
          }),
       }),
       deleteAllNotifications: builder.mutation({
          query: () => ({
             url: `/user/delete-notifications`,
-            method: 'PATCH',
+            method: 'POST',
          }),
       }),
       uploadUserImage: builder.mutation({
@@ -62,7 +62,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       updatePassword: builder.mutation({
          query: data => ({
             url: `/user/update-password`,
-            method: 'PATCH',
+            method: 'POST',
             body: data,
          }),
       }),
