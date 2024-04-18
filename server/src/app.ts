@@ -20,7 +20,6 @@ import { globalErrorHandler } from './controllers/ErrorController';
 
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-// import { handleSocketNotification } from './controllers/NotificationController';
 import { getImage } from './middlewares/getImage';
 
 const app: Application = express();
@@ -58,24 +57,5 @@ app.all('*', (req: Request, _res: Response, next: NextFunction) => {
 });
 
 app.use(globalErrorHandler);
-
-// const io = new Server(server, { cors: { origin: '*' }, path: '/socket.io' });
-
-// io.sockets.setMaxListeners(0);
-
-// io.once('connect_error', err => {
-//    console.log(`connect_error due to ${err.message}`);
-// });
-// io.once('connection', socket => {
-//    socket.on('link', async data => {
-//       socket.broadcast.emit('link', data);
-//       io.close();
-//    });
-
-// socket.once('send_message', async data => {
-//    const res = await handleSocketNotification(data);
-//    socket.broadcast.emit('notification_created', res);
-// });
-// });
 
 export default app;

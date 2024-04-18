@@ -34,11 +34,11 @@ process.on('SIGTERM', () => {
 });
 
 const io = new Server(server, {
-   cors: { origin: '*' },
+   cors: { origin: env.NODE_ENV === 'prod' ? ['https://admin.r2byou.com', 'https://r2byou.com'] : '*' },
 });
 
 io.on('connection', (socket: Socket) => {
-   socket.once('notification', data => {
+   socket.on('notification', data => {
       socket.broadcast.emit('notification_created', data);
    });
    socket.on('disconnect', () => {
