@@ -1,4 +1,4 @@
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 export const iconSize = 44;
 export const iconSizeMobile = 32;
@@ -12,4 +12,4 @@ export const tertiaryColor = 'rgb(175, 161, 189)';
 export const lightGrey = 'rgb(238, 238, 238)';
 export const darkGrey = 'rgb(109, 109, 109)';
 
-export const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
+// export const socket = io(import.meta.env.VITE_BASE_URL_SOCKET);
