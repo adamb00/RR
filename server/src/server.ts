@@ -49,3 +49,95 @@ process.on('SIGTERM', () => {
 //       console.error(`Socket error: ${err.message}`);
 //    });
 // });
+
+// location ~* \.io {
+//    proxy_set_header X-Real-IP $remote_addr;
+//    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+//    proxy_set_header Host $http_host;
+//    proxy_set_header X-NginX-Proxy false;
+
+//    proxy_pass http://localhost:8000;
+//    proxy_redirect off;
+
+//    proxy_http_version 1.1;
+//    proxy_set_header Upgrade $http_upgrade;
+//    proxy_set_header Connection "upgrade";
+//  }
+
+// server {
+//    listen 80;
+//    listen [::]:80;
+//    server_name r2byou.com www.r2byou.com;
+
+//    location / {
+//        root /var/www/r2byou.com/html;
+//        try_files $uri $uri/ /index.html;
+//        index index.html index.htm index.nginx-debian.html;
+//    }
+
+//    # Redirect HTTP to HTTPS
+//    return 301 https://$host$request_uri;
+// }
+
+// server {
+//    listen 443 ssl;
+//    listen [::]:443 ssl;
+//    server_name r2byou.com www.r2byou.com;
+
+//    ssl_certificate /etc/letsencrypt/live/r2byou.com/fullchain.pem; # Your SSL certificate
+//    ssl_certificate_key /etc/letsencrypt/live/r2byou.com/privkey.pem; # Your SSL certificate key
+//    include /etc/letsencrypt/options-ssl-nginx.conf; # SSL configurations
+//    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # DH parameters
+
+//    location / {
+//        root /var/www/r2byou.com/html;
+//        try_files $uri $uri/ /index.html;
+//        index index.html index.htm index.nginx-debian.html;
+//    }
+
+//    location /api {
+//       proxy_pass http://localhost:8000;
+//        proxy_http_version 1.1;
+//        proxy_set_header X-Forwarded-Proto $scheme;
+//        proxy_set_header Upgrade $http_upgrade;
+// #        proxy_set_header Connection 'upgrade';
+//        proxy_set_header Connection "";
+//        proxy_set_header X-Real-IP $remote_addr;
+//        proxy_set_header Host $host;
+//        proxy_cache_bypass $http_upgrade;
+//    }
+
+//    error_page 404 /index.html;
+// }
+
+// server {
+//    listen 80;
+//    listen [::]:80;
+//    server_name admin.r2byou.com www.admin.r2byou.com;
+
+//    location / {
+//        root /var/www/admin.r2byou.com/html;
+//           try_files $uri $uri/ /index.html;
+//        index index.html index.htm index.nginx-debian.html;
+//    }
+
+//    # Redirect HTTP to HTTPS
+//    return 301 https://$host$request_uri;
+// }
+
+// server {
+//    listen 443 ssl;
+//    listen [::]:443 ssl;
+//    server_name admin.r2byou.com www.admin.r2byou.com;
+
+//    ssl_certificate /etc/letsencrypt/live/admin.r2byou.com/fullchain.pem;
+//    ssl_certificate_key /etc/letsencrypt/live/admin.r2byou.com/privkey.pem;
+
+//    # Other SSL configurations...
+
+//    location / {
+//        root /var/www/admin.r2byou.com/html;
+//        try_files $uri $uri/ /index.html;
+//        index index.html index.htm index.nginx-debian.html;
+//    }
+// }
