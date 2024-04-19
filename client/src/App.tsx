@@ -10,7 +10,7 @@ import AppLayout from './ui/AppLayout';
 // import NotificationItem from './features/Notifications/NotificationItem';
 // import MyLink from './features/Links/LinkShared/MyLink';
 // import About from './features/About/About';
-import SignIn from './features/Auth/SignIn';
+// import SignIn from './features/Auth/SignIn';
 // import SignUp from './features/Auth/SignUp';
 // import Affiliate from './features/Affiliate/Affiliate';
 // import FAQ from './features/FAQ/FAQ';
@@ -21,7 +21,7 @@ import SignIn from './features/Auth/SignIn';
 
 // import RequireAuth from './ui/RequireAuth';
 // import RestrictedRoute from './ui/RestrictedRoute';
-import Home from './features/Home/Home';
+// import Home from './features/Home/Home';
 // import Links from './features/Links/Links';
 
 import i18n from 'i18next';
@@ -51,14 +51,14 @@ export default function App() {
       <Routes>
          <Route path='/' element={<AppLayout />}>
             {/* NON AUTHENTICATED ROUTES */}
-
+            {/* 
             <Route path='/' element={<Home />} />
-            <Route path='signin' element={<SignIn />} />
-            {/* <Route path='/:username' element={<MyLink />} />
+            <Route path='/:username' element={<MyLink />} />
             <Route path='about' element={<About />} />
             <Route path='affiliate' element={<Affiliate />} />
             <Route path='faq' element={<FAQ />} />
             <Route path='contact' element={<Contact />} />
+            <Route path='signin' element={<SignIn />} />
             <Route path='signup' element={<SignUp />} />
             <Route path='signup/:refCode' element={<SignUp />} />
             <Route path='activate-account/:token' element={<ActivateAccount />} />
