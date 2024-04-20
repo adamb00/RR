@@ -12,10 +12,24 @@ export default function TestComp() {
       console.log(res);
    };
 
+   const body = {
+      link: 'https://magiceden.io/launchpad',
+      title: 'Magic Eden',
+   };
+
+   const handleOnSubmitHttpsLink = async () => {
+      const res = await fetch('https://r2byou.com/api/v1/link', {
+         method: 'POST',
+         body: JSON.stringify(body),
+      });
+      console.log(res);
+   };
+
    return (
       <>
          <button onClick={handleSubmit(handleOnSubmitHttps)}>PressHttps</button>
          <button onClick={handleOnSubmitNoHookFormHttps}>PressNoHookformHttps</button>
+         <button onClick={handleSubmit(handleOnSubmitHttpsLink)}>PressHttpsLink</button>
       </>
    );
 }
