@@ -34,3 +34,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 //     proxy_set_header Host $host;
 //     proxy_cache_bypass $http_upgrade;
 // }
+// https://r2byou.com/api/v1/user/mark-notifications
+// https://r2byou.com/api/v1/user/mark-notifications
