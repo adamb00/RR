@@ -9,7 +9,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
    try {
       console.log('headers', req.headers);
       console.log('cookies', req.cookies);
-      const token = req.headers.cookie?.split('=')[1] || req.headers.authorization?.split(' ')[1] || req.cookies.jwt;
+      const token = req.headers.authorization?.split(' ')[1] || req.cookies.jwt;
 
       console.log('token', token);
 
