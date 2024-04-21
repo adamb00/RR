@@ -7,11 +7,14 @@ import { jwtVerifyPromisified } from './verifyJwt';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
    try {
+      console.log('headers', req.headers);
+      console.log('cookies', req.cookies);
       const token = req.headers.cookie?.split('=')[1] || req.headers.authorization?.split(' ')[1] || req.cookies.jwt;
 
       console.log('token', token);
 
       if (!token) {
+         console.log('No token');
          return next(new AppError('You are not logged in! Please log in to get access.', 401));
       }
 
@@ -19,13 +22,17 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
       console.log('decoded', decoded);
 
-      if (!decoded.id || !decoded) return next(new AppError('Something went wrong', 404));
+      if (!decoded.id || !decoded) {
+         console.log('No decoded');
+         return next(new AppError('Something went wrong', 404));
+      }
 
       const currentUser = await User.findById(decoded.id);
 
       console.log('currentUser', currentUser);
 
       if (!currentUser) {
+         console.log('No currentUser');
          return next(new AppError('The user belonging to this token does no longer exist.', 401));
       }
 
