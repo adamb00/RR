@@ -9,15 +9,21 @@ export default async (req: Request, res: Response, next: NextFunction) => {
    try {
       const token = req.headers.cookie?.split('=')[1] || req.headers.authorization?.split(' ')[1] || req.cookies.jwt;
 
+      console.log('token', token);
+
       if (!token) {
          return next(new AppError('You are not logged in! Please log in to get access.', 401));
       }
 
       const decoded = (await jwtVerifyPromisified(token, env.JWT_SECRET, res)) as JwtPayload;
 
+      console.log('decoded', decoded);
+
       if (!decoded.id || !decoded) return next(new AppError('Something went wrong', 404));
 
       const currentUser = await User.findById(decoded.id);
+
+      console.log('currentUser', currentUser);
 
       if (!currentUser) {
          return next(new AppError('The user belonging to this token does no longer exist.', 401));
