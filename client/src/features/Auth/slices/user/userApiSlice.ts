@@ -66,6 +66,18 @@ export const userApiSlice = apiSlice.injectEndpoints({
             body: data,
          }),
       }),
+      test: builder.mutation({
+         query: () => ({
+            url: `/user/test`,
+            method: 'POST',
+         }),
+      }),
+      testAuth: builder.mutation({
+         query: () => ({
+            url: `/user/test-auth`,
+            method: 'POST',
+         }),
+      }),
    }),
 });
 
@@ -79,4 +91,6 @@ export const {
    useGetUserImageMutation,
    useDeleteAllNotificationsMutation,
    useGetOneUserMutation,
+   useTestAuthMutation,
+   useTestMutation,
 } = userApiSlice;
