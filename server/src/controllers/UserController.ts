@@ -173,9 +173,11 @@ export const deleteAllNotifications = catchAsync(async (req: Request, res: Respo
 });
 
 export const testAuth = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   console.log(req.body);
    res.status(200).json({
       status: 'success',
-      doc: req.user,
+      doc: req.body,
+      message: 'Successfully posted',
    });
 });
 

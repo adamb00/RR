@@ -1,10 +1,13 @@
+import { selectCurrentUser } from '@/features/Auth/slices/auth/authSlice';
 import { useTestAuthMutation, useTestMutation } from '@/features/Auth/slices/user/userApiSlice';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 export default function TestComp() {
    const { handleSubmit } = useForm();
    const [testAuth] = useTestAuthMutation();
    const [test] = useTestMutation();
+   const user = useSelector(selectCurrentUser);
    const handleOnSubmitHttps = async () => {
       const res = await fetch('https://r2byou.com/api/v1/user/mark-notifications', { method: 'POST' });
       console.log(res);
@@ -19,12 +22,16 @@ export default function TestComp() {
       console.log(res);
    };
    const handleOnSubmitNoHookTestAuth = async () => {
-      const res = await fetch('https://r2byou.com/api/v1/user/test-auth', { method: 'POST' });
+      console.log(user);
+      const res = await fetch('https://r2byou.com/api/v1/user/test-auth', {
+         method: 'POST',
+         body: JSON.stringify(user),
+      });
       console.log(res);
    };
 
    const handleTestAuth = async () => {
-      const res = await testAuth({}).unwrap();
+      const res = await testAuth({ ...user }).unwrap();
       console.log(res);
    };
    const handleTest = async () => {

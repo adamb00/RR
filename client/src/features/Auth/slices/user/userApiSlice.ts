@@ -73,9 +73,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
          }),
       }),
       testAuth: builder.mutation({
-         query: () => ({
+         query: user => ({
             url: `/user/test-auth`,
             method: 'POST',
+            body: user,
          }),
       }),
    }),

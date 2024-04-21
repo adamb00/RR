@@ -18,7 +18,7 @@ const router: Router = Router();
 const userController = new UserController();
 
 router.post('/test', test);
-router.post('/test-auth', authenticateUser, testAuth);
+router.post('/test-auth', testAuth);
 router.post('/update-password', authenticateUser, updatePassword);
 router.post('/mark-notifications', authenticateUser, markNotifications);
 router.post('/mark-one-notification', authenticateUser, markNotification);
