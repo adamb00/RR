@@ -5,24 +5,24 @@ import AppLayout from './ui/AppLayout';
 import SignIn from './features/Auth/SignIn';
 import Home from './features/Home/Home';
 
-// import Account from './features/Account/Account';
-// import Notifications from './features/Notifications/Notifications';
-// import PersonalInformation from './features/Account/PersonalInformation';
-// import Security from './features/Account/Security';
-// import NotificationItem from './features/Notifications/NotificationItem';
-// import MyLink from './features/Links/LinkShared/MyLink';
-// import About from './features/About/About';
-// import SignUp from './features/Auth/SignUp';
-// import Affiliate from './features/Affiliate/Affiliate';
-// import FAQ from './features/FAQ/FAQ';
-// import Contact from './features/Contact/Contact';
-// import ActivateAccount from './ui/ActivateAccount';
-// import ForgotPassword from './features/Auth/ForgotPassword';
-// import ResetPassword from './features/Auth/ResetPassword';
+import Account from './features/Account/Account';
+import Notifications from './features/Notifications/Notifications';
+import PersonalInformation from './features/Account/PersonalInformation';
+import Security from './features/Account/Security';
+import NotificationItem from './features/Notifications/NotificationItem';
+import MyLink from './features/Links/LinkShared/MyLink';
+import About from './features/About/About';
+import SignUp from './features/Auth/SignUp';
+import Affiliate from './features/Affiliate/Affiliate';
+import FAQ from './features/FAQ/FAQ';
+import Contact from './features/Contact/Contact';
+import ActivateAccount from './ui/ActivateAccount';
+import ForgotPassword from './features/Auth/ForgotPassword';
+import ResetPassword from './features/Auth/ResetPassword';
 
-// import RequireAuth from './ui/RequireAuth';
-// import RestrictedRoute from './ui/RestrictedRoute';
-// import Links from './features/Links/Links';
+import RequireAuth from './ui/RequireAuth';
+import RestrictedRoute from './ui/RestrictedRoute';
+import Links from './features/Links/Links';
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -53,7 +53,7 @@ export default function App() {
             {/* NON AUTHENTICATED ROUTES */}
             <Route path='signin' element={<SignIn />} />
             <Route path='/' element={<Home />} />
-            {/*
+
             <Route path='/:username' element={<MyLink />} />
             <Route path='about' element={<About />} />
             <Route path='affiliate' element={<Affiliate />} />
@@ -64,10 +64,10 @@ export default function App() {
             <Route path='activate-account/:token' element={<ActivateAccount />} />
             <Route path='unauthorized' element={<RestrictedRoute />} />
             <Route path='forgot-password' element={<ForgotPassword />} />
-            <Route path='reset-password/:token' element={<ResetPassword />} /> */}
+            <Route path='reset-password/:token' element={<ResetPassword />} />
 
             {/* AUTHENTICATED ROUTES */}
-            {/* <Route element={<RequireAuth allowedRoles={['User', 'Admin']} />}>
+            <Route element={<RequireAuth allowedRoles={['User', 'Admin']} />}>
                <Route path='/' element={<Home />} />
                <Route path='my-links' element={<Links />} />
                <Route path='account' element={<Account />}>
@@ -78,7 +78,7 @@ export default function App() {
                </Route>
             </Route>
 
-            <Route path='*' element={<RestrictedRoute />} /> */}
+            <Route path='*' element={<RestrictedRoute />} />
          </Route>
       </Routes>
    );

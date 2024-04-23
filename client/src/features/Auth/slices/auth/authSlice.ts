@@ -61,4 +61,4 @@ export const selectCurrentToken = (state: { auth: { token: string } }) => state.
 export const selectCurrentUserNotifications = (state: { auth: { user: UserProfileData } }) =>
    state.auth.user.notifications;
 export const selectUnreadNotifications = (state: { auth: { user: UserProfileData } }) =>
-   state.auth.user.notifications.filter((notification: INotification) => !notification.read).length || 0;
+   state.auth.user?.notifications.filter((notification: INotification) => !notification.read).length || 0;

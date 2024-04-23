@@ -7,8 +7,6 @@ import UserController, {
    updateMe,
    deleteAllNotifications,
    updatePassword,
-   testAuth,
-   test,
 } from '../controllers/UserController';
 import authenticateUser from '../middlewares/authenticateUser';
 import { resizeImage } from '../middlewares/uploadImage';
@@ -17,8 +15,6 @@ import { getImage } from '../middlewares/getImage';
 const router: Router = Router();
 const userController = new UserController();
 
-router.post('/test', test);
-router.post('/test-auth', testAuth);
 router.post('/update-password', authenticateUser, updatePassword);
 router.post('/mark-notifications', authenticateUser, markNotifications);
 router.post('/mark-one-notification', authenticateUser, markNotification);
