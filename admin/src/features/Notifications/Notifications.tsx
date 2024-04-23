@@ -3,7 +3,7 @@ import UserInput from '@/ui/UserInteractions/UserInput';
 import UserRichText from '@/ui/UserInteractions/UserRichText';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useCreateNotificationMutation } from './notificationApislice';
-// import { socket } from '@/utils/constants';
+import { socket } from '@/utils/constants';
 
 export default function Notifications() {
    const [createNotification, { isLoading }] = useCreateNotificationMutation();
@@ -14,7 +14,7 @@ export default function Notifications() {
       };
       const res = await createNotification(notification).unwrap();
       console.log(res);
-      // socket.emit('notification', res.doc);
+      socket.emit('notification', res.doc);
    };
    const { control, handleSubmit } = useForm();
 

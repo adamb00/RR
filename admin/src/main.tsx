@@ -23,16 +23,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </BrowserRouter>
    </React.StrictMode>
 );
-
-// location /api {
-//    proxy_pass http://localhost:8000;
-//     proxy_http_version 1.1;
-//     proxy_set_header X-Forwarded-Proto $scheme;
-//     proxy_set_header Upgrade $http_upgrade;
-//     proxy_set_header Connection 'upgrade';
-//     proxy_set_header X-Real-IP $remote_addr;
-//     proxy_set_header Host $host;
-//     proxy_cache_bypass $http_upgrade;
-// }
-// https://r2byou.com/api/v1/user/mark-notifications
-// https://r2byou.com/api/v1/user/mark-notifications
