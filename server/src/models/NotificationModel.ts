@@ -1,6 +1,5 @@
 import { InferSchemaType, Schema, model } from 'mongoose';
 import INotification from '../interfaces/INotification';
-import { AsyncLocalStorage } from 'async_hooks';
 
 const notificationSchema: Schema = new Schema<INotification>({
    title: {

@@ -5,6 +5,17 @@ export const emptyInputField = (className: string) => {
    }
 };
 
+export const truncateText = (text: string, maxLength: number) => {
+   if (text && text.length > maxLength) {
+      const commaIndex = text.lastIndexOf(',', maxLength - 3);
+      if (commaIndex !== -1) {
+         return text.substring(0, commaIndex) + '...';
+      }
+      return text.substring(0, maxLength - 3) + '...';
+   }
+   return text;
+};
+
 export const OPTIONS = async (options: {
    method: string;
    data?: FormData | string | object | FileReader;

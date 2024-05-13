@@ -2,6 +2,7 @@ import { Document } from 'mongoose';
 import INotification from './INotification';
 import ILink from './ILink';
 import ISocialLinks from './ISocialLinks';
+import ISystemNotifications from './ISystemNotifications';
 
 export default interface IUser extends Document {
    name: string;
@@ -26,6 +27,7 @@ export default interface IUser extends Document {
    activationToken?: string;
    activationTokenExpires?: Date;
    notifications: INotification[];
+   systemNotifications: ISystemNotifications[];
    availablePoints: number;
    accumulatedPoints: number;
    availableLinks: ILink[];

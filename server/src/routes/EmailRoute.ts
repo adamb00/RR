@@ -14,7 +14,7 @@ class Email {
       this.from = env.EMAIL_FROM;
    }
 
-   private newTransportDev() {
+   private newTransport() {
       return nodemailer.createTransport({
          host: 'mail.r2byou.com',
          port: 465,
@@ -34,7 +34,7 @@ class Email {
             subject,
             text: 'Hello world',
          };
-         await this.newTransportDev().sendMail(mailOptions);
+         await this.newTransport().sendMail(mailOptions);
       } catch (err) {
          console.log(err);
       }
@@ -50,15 +50,3 @@ router.route('/').post(async () => {
 });
 
 export default router;
-
-// mail {
-//    server_name mail.r2byou.com;
-//    auth_http   http://localhost:8000;
-//    # disabling xclient command
-//    xclient off;
-//    server {
-//        listen     476;
-//        protocol   smtp;
-//        smtp_auth  none;
-//    }
-// }

@@ -34,6 +34,12 @@ const authSlice = createSlice({
             state.user.notifications = [];
          }
       },
+      deleteSystemNotifications: state => {
+         if (state.user) {
+            console.log(state.user);
+            state.user.systemNotifications = [];
+         }
+      },
       markOneNotificationAsRead: (state, action) => {
          const notification = state.user?.notifications.find(
             notification => notification._id === action.payload.notificationIdToUpdate
@@ -52,6 +58,7 @@ export const {
    markAllNotificationAsRead,
    markOneNotificationAsRead,
    deleteAllNotifications,
+   deleteSystemNotifications,
 } = authSlice.actions;
 
 export default authSlice.reducer;

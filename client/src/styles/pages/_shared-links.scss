@@ -161,16 +161,16 @@
    }
 
    &__no-preview {
-      background-color: $color-white;
-      color: $color-white;
+      // background-color: $color-white;
+      // color: $color-white;
       max-height: 25rem;
       min-height: 15rem;
       align-items: center;
-      justify-content: space-between;
+      // justify-content: space-between;
       display: flex;
+      width: 100%;
       gap: 1rem;
       border-radius: 1.2rem;
-      position: relative;
       padding-left: 4rem;
 
       @include respond(phone) {

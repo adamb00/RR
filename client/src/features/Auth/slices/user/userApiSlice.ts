@@ -42,6 +42,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
             method: 'POST',
          }),
       }),
+      deleteSystemNotifications: builder.mutation({
+         query: () => ({
+            url: '/user/delete-system_notifications',
+            method: 'POST',
+         }),
+      }),
       uploadUserImage: builder.mutation({
          query: (body: FormData) => (
             console.log(body),
@@ -66,19 +72,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
             body: data,
          }),
       }),
-      test: builder.mutation({
-         query: () => ({
-            url: `/user/test`,
-            method: 'POST',
-         }),
-      }),
-      testAuth: builder.mutation({
-         query: user => ({
-            url: `/user/test-auth`,
-            method: 'POST',
-            body: user,
-         }),
-      }),
    }),
 });
 
@@ -92,6 +85,5 @@ export const {
    useGetUserImageMutation,
    useDeleteAllNotificationsMutation,
    useGetOneUserMutation,
-   useTestAuthMutation,
-   useTestMutation,
+   useDeleteSystemNotificationsMutation,
 } = userApiSlice;

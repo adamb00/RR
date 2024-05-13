@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { TelegramIcon } from 'react-share';
 
 import LanguageChanger from '../Languages/LanguageChanger';
+import SystemNotification from '../SystemNotifications/SystemNotification';
 
 export default function Navbar() {
    const device = useDeviceDetection();
@@ -31,6 +32,9 @@ export default function Navbar() {
                </li>
                <li>
                   <Notifications />
+               </li>
+               <li>
+                  <SystemNotification />
                </li>
                {user ? <Navigation /> : <NavigationNoAuth />}
             </ul>
@@ -56,6 +60,9 @@ export default function Navbar() {
             </li>
             <li>
                <Notifications />
+            </li>
+            <li>
+               <SystemNotification />
             </li>
             <li>
                <TelegramIcon

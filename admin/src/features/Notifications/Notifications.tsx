@@ -13,7 +13,6 @@ export default function Notifications() {
          ...data,
       };
       const res = await createNotification(notification).unwrap();
-      console.log(res);
       socket.emit('notification', res.doc);
    };
    const { control, handleSubmit } = useForm();

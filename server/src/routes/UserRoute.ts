@@ -7,6 +7,7 @@ import UserController, {
    updateMe,
    deleteAllNotifications,
    updatePassword,
+   deleteSystemNotifications,
 } from '../controllers/UserController';
 import authenticateUser from '../middlewares/authenticateUser';
 import { resizeImage } from '../middlewares/uploadImage';
@@ -19,6 +20,7 @@ router.post('/update-password', authenticateUser, updatePassword);
 router.post('/mark-notifications', authenticateUser, markNotifications);
 router.post('/mark-one-notification', authenticateUser, markNotification);
 router.post('/delete-notifications', authenticateUser, deleteAllNotifications);
+router.post('/delete-system_notifications', authenticateUser, deleteSystemNotifications);
 
 router.post('/upload-image', userController.uploadImage, resizeImage(300), authenticateUser, updateMe);
 router.get('/current-user', authenticateUser, getCurrentUser);

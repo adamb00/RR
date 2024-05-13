@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import LinksInteractions from './LinksInteractions';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import LinksItemForm from './LinksItemForm';
+import { truncateText } from '@/utils/helper';
 
 interface LinkItemProps {
    link: ILink;
@@ -23,7 +24,7 @@ export default function LinksItem({ link }: LinkItemProps) {
       setIsChecked(link.active);
    }, [link.active]);
 
-   const currentLinkTitle = () => link.title ?? link.link;
+   const currentLinkTitle = () => truncateText(link.title, 80) ?? truncateText(link.link, 80);
 
    return (
       <div className='links__link'>
@@ -32,7 +33,7 @@ export default function LinksItem({ link }: LinkItemProps) {
             <div className='links__wrapper'>
                <div className='links__wrapper--group'>
                   <div className='links__item'>{currentLinkTitle()}</div>
-                  {link.title && <div className='links__item--link'>({link.link})</div>}
+                  {link.title && <div className='links__item--link'>{truncateText(link.link, 40)}</div>}
                </div>
 
                <LinksInteractions isChecked={isChecked} setIsChecked={setIsChecked} link={link} />

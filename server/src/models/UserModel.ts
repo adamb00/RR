@@ -6,6 +6,7 @@ import { linkSchema } from './LinkModel';
 import crypto from 'crypto';
 import slugify from 'slugify';
 import ISocialLinks from '../interfaces/ISocialLinks';
+import { systemNotificationSchema } from './SystemNotificationModel';
 
 const SocialMediaSchema: Schema = new Schema<ISocialLinks>({
    platform: {
@@ -103,6 +104,10 @@ const userSchema: Schema = new Schema<IUser>(
             read: { type: Boolean, default: false },
          },
       ],
+      systemNotifications: {
+         type: [systemNotificationSchema],
+         default: [],
+      },
       accumulatedPoints: {
          type: Number,
          default: 0,

@@ -3,6 +3,7 @@ import { htmlToText } from 'html-to-text';
 import env from './validateEnv';
 import pug from 'pug';
 import IUser from '../interfaces/IUser';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export default class Email {
    private to: string;
@@ -23,7 +24,7 @@ export default class Email {
       return nodemailer.createTransport({
          host: env.EMAIL_HOST,
          port: env.EMAIL_PORT,
-         secure: true,
+         secure: false,
          auth: {
             user: env.EMAIL_USERNAME,
             pass: env.EMAIL_PASSWORD,

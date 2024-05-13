@@ -171,3 +171,16 @@ export const deleteAllNotifications = catchAsync(async (req: Request, res: Respo
       message: 'All notifications deleted successfully.',
    });
 });
+
+export const deleteSystemNotifications = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const user = req.user as IUser;
+
+   user.systemNotifications = [];
+
+   await user.save();
+
+   res.status(201).json({
+      status: 'success',
+      message: 'All notifications deleted successfully.',
+   });
+});

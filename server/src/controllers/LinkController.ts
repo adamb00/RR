@@ -81,6 +81,7 @@ export default class LinkController {
    });
 
    public activateLink = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+      console.log('lol');
       const isActive = req.body.active;
       const link = req.params.id;
 

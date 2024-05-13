@@ -12,6 +12,14 @@
 
    z-index: 1000;
 
+   @include respond(tab-port) {
+      padding: 0 0 0 2rem;
+   }
+
+   @include respond(phone) {
+      padding: 0 04rem 0 2rem;
+   }
+
    &.transparent {
       background-image: linear-gradient(to bottom left, $color-grey-light-1 40%, $color-grey-light-6);
    }
@@ -21,10 +29,10 @@
          margin-right: 8rem;
       }
       @include respond(tab-port) {
-         margin-right: 3rem;
+         margin-right: 2rem;
       }
       @include respond(phone) {
-         margin-right: 5rem;
+         margin-right: 2rem;
       }
 
       &__telegram-icon {

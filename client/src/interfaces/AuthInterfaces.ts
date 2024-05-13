@@ -1,6 +1,7 @@
 import { ILink } from './ILink';
 import INotification from './INotification';
 import { ISocialLinks } from './ISocialLinks';
+import ISystemNotifications from './ISystemNotifications';
 
 export interface UserProfileData {
    name: string;
@@ -27,4 +28,5 @@ export interface UserProfileData {
    phone: string;
    username: string;
    socialLinks: ISocialLinks[];
+   systemNotifications: ISystemNotifications[];
 }

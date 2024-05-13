@@ -19,16 +19,12 @@
          top: 2rem;
          right: 2rem;
       }
-      @include respond(phone) {
-         top: 4rem;
-      }
    }
    &__background {
       height: 6rem;
       width: 6rem;
       border-radius: 50%;
       position: fixed;
-      // top: 2rem;
       right: 6.5rem;
       background-image: radial-gradient($color-grey-light-1, $color-grey-light-6);
       z-index: 1000;
@@ -36,9 +32,6 @@
       @include respond(tab-port) {
          top: 2.2rem;
          right: 2.2rem;
-      }
-      @include respond(phone) {
-         top: 4.2rem;
       }
    }
    &__nav {
