@@ -79,6 +79,8 @@ export default class AuthController {
 
          await new Email(newUser, url).sendWelcome();
 
+         console.log(url);
+
          res.status(201).json({
             status: 'success',
          });
