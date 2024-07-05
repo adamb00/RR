@@ -7,6 +7,11 @@ import AppError from '../utils/appError';
 import ISystemNotifications from '../interfaces/ISystemNotifications';
 
 export const createPurchase = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   if (!req.body.affid) {
+      res.status(404).json({ status: 'error', message: 'Referral code needed' });
+      return next(new AppError('Referral code needed', 404));
+   }
+
    const doc = await Purchase.create({ ...req.body, created_at: new Date(Date.now()) });
 
    const user = await User.findOne({ referralCode: +doc.affid });
