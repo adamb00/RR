@@ -29,11 +29,11 @@ const Table = () => {
 
    useEffect(() => {
       fetchUsers();
-      const interval = setInterval(() => {
-         fetchUsers();
-      }, 300000);
+      // const interval = setInterval(() => {
+      //    fetchUsers();
+      // }, 300000);
 
-      return () => clearInterval(interval);
+      // return () => clearInterval(interval);
    }, [fetchUsers]);
 
    const getCurrentUserPoints = async (id: string) => {

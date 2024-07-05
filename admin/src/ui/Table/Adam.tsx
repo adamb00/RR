@@ -51,11 +51,11 @@ export default function Adam() {
 
    useEffect(() => {
       fetchUsers();
-      const interval = setInterval(() => {
-         fetchUsers();
-      }, 300000);
+      // const interval = setInterval(() => {
+      //    fetchUsers();
+      // }, 300000);
 
-      return () => clearInterval(interval);
+      // return () => clearInterval(interval);
    }, [fetchUsers]);
    return (
       <table className='table'>
@@ -72,13 +72,13 @@ export default function Adam() {
                <td className='table__data'>{data?._id}</td>
                <td className='table__data'>{data?.email}</td>
                <td className='table__data'>{data?.adamPoints}</td>
-               <td className='table__data table__trc' onClick={() => handleCopy(data!.trc)}>
-                  {data?.trc && (
-                     <>
-                        {data.trc} <IoCopyOutline />
-                     </>
-                  )}
-               </td>
+               {data?.trc ? (
+                  <td className='table__data table__trc' onClick={() => handleCopy(data!.trc)}>
+                     {data.trc} <IoCopyOutline />
+                  </td>
+               ) : (
+                  <td className='table__data'></td>
+               )}
                <td>
                   <UserInput control={control} name='points' label='' className='table__input' max={data?.adamPoints} />
                   <button
