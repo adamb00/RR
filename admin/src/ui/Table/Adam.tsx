@@ -21,7 +21,7 @@ export default function Adam() {
    const fetchUsers = useCallback(async () => {
       try {
          // const result = await getOneUser('661961155367cdafaead01a7').unwrap(); // DEV
-         const result = await getOneUser('667d106abd4b08028018e9ca').unwrap(); // PROD
+         const result = await getOneUser('66879c060d285c5a78f3df90').unwrap(); // PROD
          setData(result.user);
       } catch (error) {
          console.error('Failed to fetch users: ', error);
@@ -73,7 +73,11 @@ export default function Adam() {
                <td className='table__data'>{data?.email}</td>
                <td className='table__data'>{data?.adamPoints}</td>
                <td className='table__data table__trc' onClick={() => handleCopy(data!.trc)}>
-                  {data?.trc} <IoCopyOutline />
+                  {data?.trc && (
+                     <>
+                        {data.trc} <IoCopyOutline />
+                     </>
+                  )}
                </td>
                <td>
                   <UserInput control={control} name='points' label='' className='table__input' max={data?.adamPoints} />
