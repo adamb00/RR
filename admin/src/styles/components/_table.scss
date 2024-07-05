@@ -1,0 +1,81 @@
+.table {
+   background-color: $color-grey-dark-2;
+   border-collapse: collapse;
+
+   &__head {
+      padding: 1rem 2rem;
+      font-size: 2rem;
+
+      color: $color-green-main;
+   }
+
+   &__row {
+      text-align: center;
+      position: relative;
+
+      &--active {
+         background-color: $color-success;
+
+         .table__data {
+            color: $color-grey-dark-1;
+         }
+
+         td {
+            background-color: inherit;
+
+            &:has(input) {
+               background-color: $color-grey-dark-2;
+            }
+         }
+      }
+   }
+
+   &__header {
+      padding: 2rem 4rem;
+      border: 1px solid $color-grey-light-1;
+   }
+
+   &__data {
+      font-size: 1.6rem;
+      border: 1px solid $color-grey-light-1;
+      padding: 1rem;
+      color: $color-purple;
+   }
+
+   &__trc {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+         color: $color-grey-light-2;
+      }
+   }
+
+   &__button {
+      background-color: white;
+      border: none;
+      padding: 1rem;
+      top: 50%;
+      position: absolute;
+      transform: translateY(-50%);
+      border-radius: 100%;
+      margin-left: 1rem;
+      cursor: pointer;
+
+      &:hover {
+         background-color: $color-success;
+      }
+   }
+
+   &__input {
+      margin: -0.5rem 8rem 0 0.5rem;
+      outline: none;
+      width: 8rem;
+      border-radius: $default-border-radius;
+      border: none;
+      color: $color-grey-dark-2;
+      font-weight: 500;
+   }
+}

@@ -9,7 +9,14 @@ export const notificationApiSlice = apiSlice.injectEndpoints({
             body: data,
          }),
       }),
+      createSystemNotification: builder.mutation({
+         query: ({ id, notification }) => ({
+            url: `/notification/add-system-notification/${id}`,
+            method: 'PATCH',
+            body: notification,
+         }),
+      }),
    }),
 });
 
-export const { useCreateNotificationMutation } = notificationApiSlice;
+export const { useCreateNotificationMutation, useCreateSystemNotificationMutation } = notificationApiSlice;

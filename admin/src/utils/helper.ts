@@ -48,3 +48,38 @@ export const OPTIONS = async (options: {
       body,
    };
 };
+
+export const formatDate = (dateStr: string, lang: string) => {
+   const date = new Date(dateStr);
+
+   if (isNaN(date.getTime())) {
+      return 'Nincs elérhető kérés';
+   }
+   return new Intl.DateTimeFormat(lang, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+   }).format(new Date(date));
+};
+
+export const handleCopy = (text: string) => {
+   if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(err => {
+         console.error('Failed to copy text: ', err);
+      });
+   } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+         document.execCommand('copy');
+      } catch (err) {
+         console.error('Failed to copy text: ', err);
+      }
+      document.body.removeChild(textArea);
+   }
+};

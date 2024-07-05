@@ -27,4 +27,8 @@ export interface UserProfileData {
    phone: string;
    username: string;
    socialLinks: ISocialLinks[];
+   trc: string;
+   lastAsk: Date;
+   hasActiveAsk: boolean;
+   adamPoints: number;
 }

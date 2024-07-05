@@ -5,6 +5,8 @@ export const systemNotificationSchema: Schema = new Schema<ISystemNotifications>
    name: String,
    points: Number,
    created_at: Date,
+   type: String,
+   message: String,
 });
 
 const SystemNotification = model<ISystemNotifications>('SystemNotification', systemNotificationSchema);

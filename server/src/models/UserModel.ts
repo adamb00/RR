@@ -56,7 +56,8 @@ const userSchema: Schema = new Schema<IUser>(
       passwordChangedAt: Date,
       passwordResetToken: String,
       passwordResetExpires: Date,
-      birthday: { type: Date },
+      birthday: Date,
+      adamPoints: { type: Number, default: 0 },
       availablePoints: {
          type: Number,
          default: 0,
@@ -116,10 +117,14 @@ const userSchema: Schema = new Schema<IUser>(
          type: [linkSchema],
       },
       socialLinks: { type: [SocialMediaSchema] },
+      trc: String,
       phone: {
          type: String,
       },
       refreshToken: String,
+      lastAsk: Date,
+      hasActiveAsk: { type: Boolean, default: false },
+      description: { type: String, maxlength: 200 },
    },
    { validateBeforeSave: false }
 );

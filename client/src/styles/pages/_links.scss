@@ -83,7 +83,7 @@
       flex-direction: column;
       cursor: pointer;
       border-radius: $default-border-radius;
-      min-width: 70%;
+      min-width: 80%;
       &:hover {
          box-shadow: $hover-box-shadow;
       }
@@ -136,6 +136,7 @@
          position: relative;
 
          &-no-preview {
+            padding-left: 15rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -148,6 +149,7 @@
          }
          @include respond(phone) {
             min-height: 20rem;
+            padding-left: 0rem;
          }
       }
 

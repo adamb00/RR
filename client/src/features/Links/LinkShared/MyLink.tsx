@@ -8,9 +8,11 @@ import MyLinkSkeleton from './MyLinkSkeleton';
 import MyLinkContainer from './MyLinkContainer';
 import SubscribeModal from '@/ui/Modals/SubscribeModal';
 import { useState } from 'react';
+import useDeviceDetection from '@/hooks/useDetectDevice';
 
 export default function MyLink() {
    const { username } = useParams();
+   const device = useDeviceDetection();
 
    const { currentUser, isLoading: currentUserIsLoading } = useGetOneUser('username', username as string);
 
@@ -26,6 +28,8 @@ export default function MyLink() {
       <div className='shared-link'>
          <SubscribeModal setIsOpen={setIsModalOpen} isOpen={isModalOpen} user={user} />
          <MyLinkHeader url={url} user={user} setIsOpen={setIsModalOpen} isOpen={isModalOpen} />
+         {device === 'Mobile' && <div className='shared-link__desc'>"{user.description}"</div>}
+
          <div className='shared-link__container'>
             {user.availableLinks
                .sort((a, b) => a.order - b.order)

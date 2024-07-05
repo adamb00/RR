@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '@/ui/Buttons/Button';
+// import Button from '@/ui/Buttons/Button';
 import AvailablePoints from './AvailablePoints';
-import Team from './Team';
+// import Team from './Team';
 import InviteModal from '@/ui/Modals/InviteModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
@@ -19,10 +19,10 @@ export default function HomeAuth() {
             />
          )}
          <AvailablePoints />
-         <Button className='btn btn--tertiary home__invite' onClick={() => setInviteModalOpen(true)}>
+         {/* <Button className='btn btn--tertiary home__invite' onClick={() => setInviteModalOpen(true)}>
             Build your own family now!
          </Button>
-         <Team />
+         <Team /> */}
       </>
    );
 }

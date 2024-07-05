@@ -35,15 +35,7 @@ export const getAll = <T extends Document>(Model: Model<T>, filterFn?: (req: Req
 export const createOne = <T extends Document>(Model: Model<T>, customizeRequestBody?: (req: Request) => void) => {
    return catchAsync(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
       try {
-         // if (customizeRequestBody) {
-         //    customizeRequestBody(req);
-         // }
-
-         console.log(req.body);
-
          const doc = await Model.create(req.body);
-
-         console.log(doc);
 
          res.status(201).json({
             status: 'success',
@@ -63,8 +55,6 @@ export const updateOne = <T extends Document>(Model: Model<T>) => {
             new: true,
             runValidators: true,
          });
-
-         console.log(doc);
 
          if (!doc) {
             return next(new AppError('No document found with that ID', 404));

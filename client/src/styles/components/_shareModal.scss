@@ -24,7 +24,7 @@
    align-items: center;
    justify-content: center;
    position: relative;
-   background-color: $color-grey-light-3;
+   background-color: $color-grey-light-1;
    border-radius: $default-border-radius;
    box-shadow: $default-box-shadow;
 
@@ -51,6 +51,7 @@
       }
 
       &__wrapper {
+         align-self: center;
          display: flex;
          gap: 3rem;
          @include respond(phone) {

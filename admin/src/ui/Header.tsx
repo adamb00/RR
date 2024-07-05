@@ -38,6 +38,15 @@ export default function Header() {
                Fiók
             </NavLink>
 
+            <NavLink
+               className={({ isActive }) =>
+                  isActive ? `header-nav__item header-nav__item--active` : `header-nav__item`
+               }
+               to='/reseller'
+            >
+               Viszonteladók
+            </NavLink>
+
             <Logout />
          </ul>
       </nav>

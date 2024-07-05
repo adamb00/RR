@@ -27,6 +27,10 @@ export interface UserProfileData {
    refreshToken: string;
    phone: string;
    username: string;
+   trc: string;
    socialLinks: ISocialLinks[];
    systemNotifications: ISystemNotifications[];
+   lastAsk: Date;
+   hasActiveAsk: boolean;
+   description: string;
 }

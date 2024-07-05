@@ -184,3 +184,19 @@ export const deleteSystemNotifications = catchAsync(async (req: Request, res: Re
       message: 'All notifications deleted successfully.',
    });
 });
+
+export const getOneUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const { id } = req.params;
+
+   const user = await User.findById(id);
+   if (!user) {
+      res.status(404).json({
+         status: 'error',
+         message: 'No user found...',
+         item: 'email',
+      });
+      return next(new AppError('No user found...', 404));
+   }
+
+   res.json({ status: 'succes', user });
+});

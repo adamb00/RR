@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import NotificationController, { createNotification } from '../controllers/NotificationController';
+import NotificationController, {
+   createNotification,
+   createSystemNotification,
+} from '../controllers/NotificationController';
 import authenticateUser from '../middlewares/authenticateUser';
 import restrictTo from '../middlewares/restrictTo';
 
@@ -14,5 +17,7 @@ router
    .route('/:id')
    .get(notificationController.getOneNotification)
    .patch(restrictTo('Admin'), notificationController.updateOneNotification);
+
+router.route('/add-system-notification/:id').patch(createSystemNotification);
 
 export default router;

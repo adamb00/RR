@@ -29,12 +29,17 @@ export default interface IUser extends Document {
    notifications: INotification[];
    systemNotifications: ISystemNotifications[];
    availablePoints: number;
+   adamPoints: number;
    accumulatedPoints: number;
    availableLinks: ILink[];
    refreshToken: string;
    phone: string;
    username: string;
+   trc: string;
    socialLinks: ISocialLinks[];
+   lastAsk: Date;
+   hasActiveAsk: boolean;
+   description: string;
 
    createPasswordResetToken: () => string;
    createActivationToken: () => string;

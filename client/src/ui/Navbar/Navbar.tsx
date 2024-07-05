@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TelegramIcon } from 'react-share';
 
-import LanguageChanger from '../Languages/LanguageChanger';
+// import LanguageChanger from '../Languages/LanguageChanger';
 import SystemNotification from '../SystemNotifications/SystemNotification';
 
 export default function Navbar() {
@@ -27,14 +27,21 @@ export default function Navbar() {
                <li>
                   <ThemeSwitcher />
                </li>
-               <li>
+               {/* <li>
                   <LanguageChanger />
-               </li>
+               </li> */}
                <li>
                   <Notifications />
                </li>
                <li>
                   <SystemNotification />
+               </li>
+               <li>
+                  <TelegramIcon
+                     className='header-nav__telegram-icon'
+                     //TODO NAVIGATE TO TELEGRAM GROUP
+                     onClick={() => alert('This will navigate to telegram group')}
+                  />
                </li>
                {user ? <Navigation /> : <NavigationNoAuth />}
             </ul>
@@ -55,9 +62,9 @@ export default function Navbar() {
             <li>
                <ThemeSwitcher />
             </li>
-            <li>
+            {/* <li>
                <LanguageChanger />
-            </li>
+            </li> */}
             <li>
                <Notifications />
             </li>

@@ -23,9 +23,9 @@ export default function NavbarNotAuth() {
                <li>
                   <ThemeSwitcher />
                </li>
-               <li>
+               {/* <li>
                   <LanguageChanger />
-               </li>
+               </li> */}
 
                {user ? <Navigation /> : <NavigationNoAuth />}
             </ul>

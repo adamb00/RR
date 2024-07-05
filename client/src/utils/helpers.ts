@@ -47,6 +47,8 @@ export const IS_VALID_NUMBER = (v: string) => {
 export const IS_VALID_PHONE_NUMBER = (phoneNumber: string) =>
    /^\+?[1-9][0-9]{7,14}$/.test(phoneNumber) || 'Phone number must be a valid phone number';
 
+export const IS_VALID_TRON = (v: string) => /^T[A-Za-z1-9]{33}$/.test(v) || 'TRC20 address must be a valid address';
+
 export const formatDate = (dateStr: string, lang: string) => {
    const date = new Date(dateStr);
 
@@ -140,4 +142,20 @@ export const handleLink = (link: string, referralCode: number) => {
    }
 
    return updatedLink;
+};
+
+export const formatText = (description: string) => {
+   if (description.length <= 50) {
+      return `"${description}"`;
+   }
+
+   const sliceIndex = description.slice(50).search(/[,.]/);
+   if (sliceIndex === -1) {
+      // No comma or dot found, slice at 50
+      return `"${description.slice(0, 50)}\n${description.slice(50).trimStart()}"`;
+   }
+
+   // Adjust sliceIndex because we sliced the description after 50 characters
+   const actualSliceIndex = 50 + sliceIndex + 1;
+   return `"${description.slice(0, actualSliceIndex)}\n${description.slice(actualSliceIndex).trimStart()}"`;
 };

@@ -7,6 +7,7 @@ import { selectCurrentUser } from './features/Auth/slices/auth/authSlice';
 import { useSelector } from 'react-redux';
 import Notifications from './features/Notifications/Notifications';
 import Account from './features/Account/Account';
+import Reseller from './features/Reseller/Reseller';
 
 export default function App() {
    const user = useSelector(selectCurrentUser);
@@ -19,6 +20,7 @@ export default function App() {
                   <Route path='/' element={<Links />} />
                   <Route path='/notifications' element={<Notifications />} />
                   <Route path='/account' element={<Account />} />
+                  <Route path='/reseller' element={<Reseller />} />
                </Route>
             )}
          </Route>

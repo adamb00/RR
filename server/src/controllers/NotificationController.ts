@@ -3,6 +3,8 @@ import Notification from '../models/NotificationModel';
 import * as handler from './../utils/handleControllers';
 import User from '../models/UserModel';
 import catchAsync from '../utils/catchAsync';
+import AppError from '../utils/appError';
+import ISystemNotifications from '../interfaces/ISystemNotifications';
 
 export default class NotificationController {
    public getAllNotifications = handler.getAll(Notification);
@@ -30,5 +32,34 @@ export const createNotification = catchAsync(async (req: Request, res: Response,
    res.status(201).json({
       status: 'success',
       doc,
+   });
+});
+
+export const createSystemNotification = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const { id } = req.params;
+   const { notification } = req.body;
+
+   const user = await User.findById(id);
+
+   if (!user) {
+      res.status(404).json({
+         status: 'error',
+         message: 'No user found...',
+      });
+      return next(new AppError('No user found...', 404));
+   }
+
+   const updatedNotification = {
+      message: notification,
+      created_at: new Date(Date.now()),
+      type: 'Cashout',
+   } as ISystemNotifications;
+
+   user.systemNotifications.push(updatedNotification);
+
+   user.save();
+
+   res.status(201).json({
+      status: 'success',
    });
 });

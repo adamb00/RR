@@ -14,6 +14,7 @@ import AuthRouter from './routes/AuthRoute';
 import PurchaseRouter from './routes/PurchaseRoute';
 import SubscriptionRouter from './routes/SubscribeRoute';
 import EmailRouter from './routes/EmailRoute';
+import TransactionRouter from './routes/TransactionRoute';
 
 import AppError from './utils/appError';
 import { globalErrorHandler } from './controllers/ErrorController';
@@ -53,6 +54,7 @@ app.use(`/api/${env.VERSION}/purchase`, PurchaseRouter);
 app.use(`/api/${env.VERSION}/subscribe`, SubscriptionRouter);
 app.use(`/api/${env.VERSION}/get-image/:key`, getImage);
 app.use(`/api/${env.VERSION}/send-mail`, EmailRouter);
+app.use(`/api/${env.VERSION}/transaction`, TransactionRouter);
 
 app.all('*', (req: Request, _res: Response, next: NextFunction) => {
    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
