@@ -58,7 +58,7 @@ export default function MyLinkHeader({ user, setIsOpen }: MyLinkHeaderProps) {
             </div>
             {device !== 'Mobile' && (
                <div className='shared-link__desc'>
-                  {user.description.length > 50 ? formatText(user.description) : user.description}
+                  {user.description && user.description?.length > 50 ? formatText(user.description) : user.description}
                </div>
             )}
             {/* </div> */}

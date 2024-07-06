@@ -51,11 +51,11 @@ export default function Adam() {
 
    useEffect(() => {
       fetchUsers();
-      // const interval = setInterval(() => {
-      //    fetchUsers();
-      // }, 300000);
+      const interval = setInterval(() => {
+         fetchUsers();
+      }, 300000);
 
-      // return () => clearInterval(interval);
+      return () => clearInterval(interval);
    }, [fetchUsers]);
    return (
       <table className='table'>
