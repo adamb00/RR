@@ -56,7 +56,7 @@ const Table = () => {
          requestTime: userData.lastAsk,
          fulfillTime: Date.now(),
          userID: userData._id,
-         userEmail: 'borsodi.dm@gmail.com',
+         userEmail: userData.email,
          amount: +formData.points,
          wallet: userData.trc,
          type: 'CashoutUser',

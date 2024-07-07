@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import UserInput from '../UserInteractions/UserInput';
 import { FieldValues, useForm } from 'react-hook-form';
 import { IoCopyOutline } from 'react-icons/io5';
-import { handleCopy } from '@/utils/helper';
+import { emptyInputField, handleCopy } from '@/utils/helper';
 import { useCreateTransactionMutation } from '@/features/Transactions/transactionsApiSlice';
 
 export default function Adam() {
@@ -32,6 +32,7 @@ export default function Adam() {
       const data = { adamPoints: +currentPoints - +formData.points };
       await updateUser({ id, data }).unwrap();
 
+      emptyInputField('table__input');
       resetField('points');
       reset();
 

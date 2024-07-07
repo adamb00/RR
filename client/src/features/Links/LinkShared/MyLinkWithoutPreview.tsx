@@ -25,6 +25,17 @@ export default function MyLinkWithoutPreview({ link, user }: MyLinkContainerProp
                <p className='shared-link__description'>{link.description}</p>
             </div>
          </Link>
+         <div className='shared-link__vid'>
+            {/* <video src='https://www.youtube.com/watch?v=yu_x8qv6mfA'></video>*/}
+
+            <video className='shared-link__vid--video' controls preload='preload' id='tlc' autoPlay muted loop>
+               <source
+                  src='https://fbfythyraexrdhlkdana.supabase.co/storage/v1/object/public/videos/TLC_EN.mp4'
+                  // src='https://fbfythyraexrdhlkdana.supabase.co/storage/v1/object/public/videos/TLC_HUN.mp4?t=2024-06-28T07%3A34%3A04.812Z'
+                  type='video/mp4'
+               />
+            </video>
+         </div>
       </BackgroundGradient>
    );
 }

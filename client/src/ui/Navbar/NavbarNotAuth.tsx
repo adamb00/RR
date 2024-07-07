@@ -9,7 +9,7 @@ import useDeviceDetection from '@/hooks/useDetectDevice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '@/features/Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
-import LanguageChanger from '../Languages/LanguageChanger';
+// import LanguageChanger from '../Languages/LanguageChanger';
 
 export default function NavbarNotAuth() {
    const device = useDeviceDetection();
@@ -54,9 +54,9 @@ export default function NavbarNotAuth() {
             <li>
                <ThemeSwitcher />
             </li>
-            <li>
+            {/* <li>
                <LanguageChanger />
-            </li>
+            </li> */}
 
             <li>
                <Button onClick={() => navigate('/signin')} className='btn btn--conic-border'>

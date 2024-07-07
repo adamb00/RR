@@ -254,4 +254,23 @@
          margin-bottom: 4rem;
       }
    }
+
+   &__vid {
+      height: 20rem;
+      background-color: $color-white;
+      border-radius: $default-border-radius;
+      margin: 0.5rem;
+      overflow: hidden;
+
+      &--video {
+         // min-width: 100%;
+         background-color: transparent;
+         border-radius: 0.8rem 0 0 0.8rem;
+         max-height: 20rem;
+
+         @include respond(phone) {
+            min-width: 100%;
+         }
+      }
+   }
 }
