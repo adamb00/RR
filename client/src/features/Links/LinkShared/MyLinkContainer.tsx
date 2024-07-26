@@ -58,7 +58,12 @@ export default function MyLinkContainer({ link, user }: MyLinkContainerProps) {
       <Link className='shared-link__card' to={handleLink(link.link, user.referralCode)} target='_blank'>
          <div className='my-link'>
             <div className='my-link__header'>
-               <video
+               <iframe
+                  className='my-link__video'
+                  src='https://www.youtube.com/watch?v=GPqbdKV53b0'
+                  allowFullScreen
+               ></iframe>
+               {/* <video
                   className='my-link__video'
                   controls
                   preload='preload'
@@ -67,8 +72,8 @@ export default function MyLinkContainer({ link, user }: MyLinkContainerProps) {
                   muted
                   loop
                >
-                  <source className='my-link__video--video' src={link.video} type='video/mp4' />
-               </video>
+                  <source className='my-link__video--video' src={'https://youtu.be/GPqbdKV53b0'} type='video/mp4' />
+               </video> */}
                <div className='my-link__header--wrapper'>
                   <h1 className='heading-primary heading-primary--small'>{link.title}</h1>
                   <div className='my-link__header--desc'>{link.description}</div>

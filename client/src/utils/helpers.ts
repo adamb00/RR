@@ -144,4 +144,4 @@ export const handleLink = (link: string, referralCode: number) => {
    return updatedLink;
 };
 
-export const userImage = (img: string) => `https://r2byou-dev.s3.amazonaws.com/${img}`;
+export const userImage = (img: string) => `https://r2byou.s3.amazonaws.com/${img}`;
