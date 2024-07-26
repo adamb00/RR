@@ -41,6 +41,7 @@ $default-border-radius: 0.8rem;
 
 $color-hover-box-shadow: var(--color-hover-box-shadow);
 
+$default-box-shadow-red: -1px 4px 6px -1px rgba($color-primary-tint, 1);
 $default-box-shadow: 0 0.5rem 2rem rgba($color-black, 0.2);
 $hover-box-shadow: 0 0.5rem 2rem $color-hover-box-shadow !important;
 

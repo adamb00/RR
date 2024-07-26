@@ -26,6 +26,7 @@ export default function UserImageInput({
                   style={{ display: 'none' }}
                   type='file'
                   name={name}
+                  multiple
                   id={name}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                      if (onChange) onChange(e);

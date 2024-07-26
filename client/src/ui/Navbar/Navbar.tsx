@@ -14,6 +14,7 @@ import { TelegramIcon } from 'react-share';
 
 // import LanguageChanger from '../Languages/LanguageChanger';
 import SystemNotification from '../SystemNotifications/SystemNotification';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
    const device = useDeviceDetection();
@@ -71,13 +72,12 @@ export default function Navbar() {
             <li>
                <SystemNotification />
             </li>
-            <li>
+            <Link to={'https://t.me/+Vniw7HsQxMs2YzI0'} target='_blank'>
                <TelegramIcon
                   className='header-nav__telegram-icon'
                   //TODO NAVIGATE TO TELEGRAM GROUP
-                  onClick={() => alert('This will navigate to telegram group')}
                />
-            </li>
+            </Link>
             <li>
                <SignOut />
             </li>

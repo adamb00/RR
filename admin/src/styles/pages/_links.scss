@@ -13,82 +13,10 @@
    &__container {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 2rem;
       margin-top: 5rem;
    }
 
-   &__link {
-      position: relative;
-      display: flex;
-      align-self: center;
-      flex-direction: row;
-      padding: 1.5rem 3rem;
-      gap: 2rem;
-      font-size: $default-font-size;
-      border-radius: $default-border-radius;
-      background-color: $color-grey-dark-3;
-      width: 90%;
-      box-shadow: $default-box-shadow;
-
-      &:hover {
-         top: -0.3rem;
-         box-shadow: $hover-box-shadow;
-      }
-
-      @include respond(tab-land) {
-         padding: 0.5rem 5rem;
-         cursor: default;
-      }
-
-      @include respond(tab-port) {
-         padding: 1.5rem 1rem;
-      }
-   }
-
-   &__image-container {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-      justify-content: flex-start;
-      align-items: center;
-      align-self: start;
-
-      &--image {
-         display: flex;
-         align-self: center;
-         justify-content: center;
-         align-items: center;
-         border-radius: 100%;
-         height: 12rem;
-         width: 12rem;
-         background-color: $color-grey-dark-2;
-         border: 1px dashed $color-grey-light-1;
-         cursor: pointer;
-      }
-      &--label {
-         cursor: pointer;
-         height: 12rem;
-         width: 12rem;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         border-radius: 100%;
-      }
-   }
-   &__image {
-      border-radius: 100%;
-      height: 12rem;
-      width: 12rem;
-      object-fit: cover;
-   }
-   &__chevron {
-      position: absolute;
-      right: 1rem;
-      bottom: 1rem;
-      cursor: pointer;
-      color: $color-green-main;
-   }
    &__group {
       display: flex;
       align-items: center;
@@ -97,6 +25,13 @@
       @include respond(tab-port) {
          align-self: end;
       }
+   }
+   &__video {
+      background-color: $color-white;
+      border-radius: $default-border-radius;
+      padding: 1rem 0.8rem;
+      color: $color-grey-dark-1;
+      cursor: pointer;
    }
    &__icon {
       cursor: pointer;
@@ -120,13 +55,85 @@
          color: $color-grey-dark-1;
       }
    }
+
+   &__link {
+      border-radius: $default-border-radius;
+      box-shadow: $default-box-shadow;
+      font-size: $default-font-size;
+      border-radius: $default-border-radius;
+      background-color: $color-grey-dark-3;
+      width: 90%;
+      align-self: center;
+      display: flex;
+      align-items: center;
+      position: relative;
+      gap: 3rem;
+
+      &:hover {
+         top: -0.3rem;
+         box-shadow: $hover-box-shadow;
+      }
+   }
+   &__image {
+      min-width: 12rem;
+      max-height: 12rem;
+      border-radius: 100%;
+   }
+   &__image-container {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      align-self: start;
+      padding: 2rem;
+      gap: 3rem;
+      position: relative;
+
+      &--image {
+         z-index: 3000;
+         display: flex;
+         justify-content: center;
+         border-radius: 100%;
+         height: 12rem !important;
+         width: 12rem !important;
+         background-color: $color-grey-dark-2;
+         border: 1px dashed $color-grey-light-1;
+         cursor: pointer;
+
+         &--2 {
+            position: absolute;
+            right: -1rem;
+            z-index: 2000;
+         }
+         &--3 {
+            position: absolute;
+            right: -4rem;
+            z-index: 1000;
+         }
+      }
+
+      &--label {
+         cursor: pointer;
+         height: 12rem;
+         width: 12rem;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border-radius: 100%;
+      }
+   }
+
    &__interactions {
       width: 100%;
       min-height: 5rem;
+      margin-right: 2rem;
+      margin-left: 4rem;
 
       &--open {
          min-height: auto;
          margin-bottom: 2rem;
+         margin-top: 2rem;
       }
 
       &--large {
@@ -172,6 +179,15 @@
          font-size: 2rem;
       }
    }
+
+   &__chevron {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      cursor: pointer;
+      color: $color-green-main;
+   }
+
    &__admin-form {
       width: 100%;
       margin-top: 2rem;
@@ -189,6 +205,8 @@
    }
    &__checkbox {
       @include checkbox;
+      flex-direction: row;
+      gap: 3rem;
       color: $color-grey-light-1;
 
       & input:checked {

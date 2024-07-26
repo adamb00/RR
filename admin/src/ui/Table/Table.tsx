@@ -3,7 +3,7 @@ import { useGetUsersMutation, useUpdateUserMutation } from '@/features/Reseller/
 
 import { useReactTable, getCoreRowModel, flexRender, ColumnDef } from '@tanstack/react-table';
 import { UserProfileData } from '@/interfaces/IUser';
-import { formatDate, handleCopy } from '@/utils/helper';
+import { handleCopy } from '@/utils/helper';
 import { IoCopyOutline } from 'react-icons/io5';
 import UserInput from '../UserInteractions/UserInput';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -70,7 +70,7 @@ const Table = () => {
    const columns = useMemo<ColumnDef<UserProfileData>[]>(
       () => [
          {
-            accessorKey: '_id',
+            accessorKey: 'referralCode',
             header: 'ID',
             cell: props => <p>{props.getValue<string>()}</p>,
          },
@@ -78,12 +78,7 @@ const Table = () => {
          {
             accessorKey: 'availablePoints',
             header: 'Elérhető pontok',
-            cell: props => <p>{props.getValue<number>()}</p>,
-         },
-         {
-            accessorKey: 'lastAsk',
-            header: 'Utolsó kérés időpontja',
-            cell: props => <p>{formatDate(props.getValue<string>(), 'hu')}</p>,
+            cell: props => <p>{props.getValue<number>().toFixed(1)}</p>,
          },
          {
             accessorKey: 'trc',
@@ -130,13 +125,13 @@ const Table = () => {
          </thead>
          <tbody className='table__body'>
             {table.getRowModel().rows.map(row => (
-               <tr className={`table__row ${row.original.hasActiveAsk && 'table__row--active'}`} key={row.id}>
+               <tr className={`table__row ${row.original.availablePoints > 20 && 'table__row--active'}`} key={row.id}>
                   {row.getVisibleCells().map(cell => (
                      <td className='table__data' key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                      </td>
                   ))}
-                  {row.original.hasActiveAsk && (
+                  {row.original.availablePoints > 20 && (
                      <td>
                         <UserInput
                            control={control}

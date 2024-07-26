@@ -110,6 +110,8 @@ export const updateMe = catchAsync(async (req: Request, res: Response, next: Nex
       await s3Delete(req.user.photo);
    }
 
+   console.log(req.file);
+
    const uploadImage = await s3Upload(req.file as Express.Multer.File);
 
    const filteredBody = filterObj(req.body, 'name', 'email');

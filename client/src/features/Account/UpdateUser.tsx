@@ -10,6 +10,7 @@ import { useUpdateUserMutation } from '@/features/Auth/slices/user/userApiSlice'
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Information from '@/ui/Information';
+import RichText from '@/ui/UserInteractions/RichText';
 
 export default function UpdateUser() {
    const { control, handleSubmit } = useForm();
@@ -110,19 +111,32 @@ export default function UpdateUser() {
                className='update-user__information'
             />
 
-            <UserInput
+            <RichText
+               control={control}
+               defaultValue={user.description || ''}
+               name='description'
+               placeholder='Bemutatkozó szöveg megadása'
+               max={300}
+               maxLength={300}
+               fieldErrorClassname='update-user__form--error'
+               rules={{
+                  maxLength: 300,
+               }}
+            />
+
+            {/* <UserInput
                control={control}
                name='description'
                className='update-user__input'
                placeholder='Bemutatkozó szöveg megadása'
-               maxLength={100}
-               max={100}
+               maxLength={300}
+               max={300}
                defaultValue={user.description || ''}
                fieldErrorClassname='update-user__form--error'
                rules={{
-                  maxLength: 100,
+                  maxLength: 300,
                }}
-            />
+            /> */}
          </form>
 
          <form className='update-user__form' id='trc20' ref={trc20Ref}>

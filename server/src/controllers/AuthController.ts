@@ -15,6 +15,7 @@ import Notification from '../models/NotificationModel';
 import { handleNotifications } from '../utils/helpers';
 import { JwtPayload } from 'jsonwebtoken';
 import { jwtVerifyPromisified } from '../middlewares/verifyJwt';
+import IUserSocialLinks from '../interfaces/IUserSocialLinks';
 
 declare global {
    namespace Express {

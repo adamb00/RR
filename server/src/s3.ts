@@ -8,15 +8,45 @@ const s3 = new S3({
    secretAccessKey: env.AWS_SECRET_KEY,
 });
 
-export const upload = (file: Express.Multer.File) => {
+const baseUrl = `https://${env.AWS_BUCKET_NAME}.s3.amazonaws.com/`;
+
+export const upload = async (file: Express.Multer.File) => {
    const fileStream = fs.createReadStream(file.path);
+
    const uploadParams = {
       Bucket: env.AWS_BUCKET_NAME,
       Body: fileStream,
       Key: file.filename,
    };
 
-   return s3.upload(uploadParams).promise();
+   try {
+      return await s3.upload(uploadParams).promise();
+   } catch (error) {
+      console.error('Error uploading object:', error);
+      throw error;
+   }
+};
+export const uploadMultiple = async (files: Express.Multer.File[]): Promise<string[]> => {
+   const uploadPromises = files.map(file => {
+      const fileStream = fs.createReadStream(file.path);
+      const params = {
+         Bucket: env.AWS_BUCKET_NAME,
+         Body: fileStream,
+         Key: file.filename,
+      };
+
+      return new Promise<string>((resolve, reject) => {
+         s3.upload(params, (err: any, data: any) => {
+            if (err) {
+               reject(err);
+            } else {
+               resolve(data.Location);
+            }
+         });
+      });
+   });
+
+   return Promise.all(uploadPromises);
 };
 export const download = (file: string) => {
    const donwloadParams = {
@@ -27,11 +57,17 @@ export const download = (file: string) => {
    return s3.getObject(donwloadParams).createReadStream();
 };
 
-export const remove = (file: string) => {
+export const remove = async (file: string) => {
+   const key = file.replace(baseUrl, '');
+
    const removeParams = {
-      Key: file,
+      Key: key,
       Bucket: env.AWS_BUCKET_NAME,
    };
-
-   return s3.deleteObject(removeParams).promise();
+   try {
+      await s3.deleteObject(removeParams).promise();
+   } catch (error) {
+      console.error('Error deleting object:', error);
+      throw error;
+   }
 };

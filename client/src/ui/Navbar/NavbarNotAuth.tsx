@@ -38,7 +38,7 @@ export default function NavbarNotAuth() {
                <NavigationLink to='/'>{t('Home')}</NavigationLink>
             </li>
 
-            <li>
+            {/* <li>
                <NavigationLink to='about'>{t('About us')}</NavigationLink>
             </li>
             <li>
@@ -49,7 +49,7 @@ export default function NavbarNotAuth() {
             </li>
             <li>
                <NavigationLink to='contact'>{t('Contact us')}</NavigationLink>
-            </li>
+            </li> */}
 
             <li>
                <ThemeSwitcher />

@@ -16,9 +16,10 @@ export default function Information({ className, cont }: InformationProps) {
       backgroundColor: isDark ? darkGrey : lightGrey,
       fontSize: '1.2rem',
       color: isDark ? lightGrey : darkGrey,
+      zIndex: 5000,
    };
-   const overlayStyle = { background: 'rgba(109, 109, 109,0.5)' };
-   const arrowStyle = { color: isDark ? darkGrey : lightGrey };
+   const overlayStyle = { background: 'rgba(109, 109, 109,0.5)', zIndex: 5000 };
+   const arrowStyle = { color: isDark ? darkGrey : lightGrey, zIndex: 5000 };
    return (
       <div className={`${className}`}>
          <Popup

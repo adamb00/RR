@@ -1,6 +1,4 @@
 import { UserProfileData } from '@/interfaces/AuthInterfaces';
-import { useGetImage } from '@/hooks/useGetImage';
-import MyLinkHeaderSkeleton from './MyLinkHeaderSkeleton';
 import useDeviceDetection from '@/hooks/useDetectDevice';
 import { MenuProps } from '@/interfaces/MenuProps';
 import Icon from '@/ui/Icon';
@@ -8,15 +6,14 @@ import { FaBell } from 'react-icons/fa';
 import { ISocialLinks } from '@/interfaces/ISocialLinks';
 import { SocialIcon } from 'react-social-icons';
 import useDetectOrientation from '@/hooks/useDetectOrientation';
-import { formatText } from '@/utils/helpers';
-
+import { Link } from 'react-router-dom';
+import { userImage } from '@/utils/helpers';
 interface MyLinkHeaderProps extends MenuProps {
    user: UserProfileData;
    url: string;
 }
 
 export default function MyLinkHeader({ user, setIsOpen }: MyLinkHeaderProps) {
-   const { image: userImage, isLoading: isLoadingUserImage } = useGetImage(user);
    const device = useDeviceDetection();
    const { socialLinks, username } = user;
    const orientation = useDetectOrientation();
@@ -35,8 +32,6 @@ export default function MyLinkHeader({ user, setIsOpen }: MyLinkHeaderProps) {
 
    const iconStyle = getStyleForDeviceAndOrientation(device, orientation);
 
-   if (isLoadingUserImage) return <MyLinkHeaderSkeleton />;
-
    return (
       <div className='shared-link__header'>
          <div className='shared-link__subscribe' onClick={() => setIsOpen(true)}>
@@ -46,22 +41,41 @@ export default function MyLinkHeader({ user, setIsOpen }: MyLinkHeaderProps) {
             <p className='shared-link__subscribe--text'>Subscribe</p>
          </div>
          <div className='shared-link__image'>
-            <img src={userImage} alt='User Image' onClick={() => setIsOpen(true)} />
+            <img src={userImage(user.photo)} alt='User Image' onClick={() => setIsOpen(true)} />
          </div>
          <div className='shared-link__header--wrapper'>
             {/* <div> */}
-            <div className='shared-link__username'>@{username}</div>
+            <div className='shared-link__username'>{username}</div>
             <div className='sharemodal__container__wrapper'>
                {socialLinks.map((link: ISocialLinks) => (
-                  <SocialIcon network={link.platform} url={link.url} target='_blank' key={link._id} style={iconStyle} />
+                  <div key={link._id}>
+                     {link.default ? (
+                        <SocialIcon
+                           network={link.platform}
+                           url={link.url}
+                           target='_blank'
+                           key={link._id}
+                           style={iconStyle}
+                        />
+                     ) : (
+                        <Link to={link.url} target='_blank' key={link._id}>
+                           <img
+                              src={userImage(user.photo)}
+                              alt='User Image'
+                              onClick={() => setIsOpen(true)}
+                              className='shared-link__social-image'
+                           />
+                        </Link>
+                     )}
+                  </div>
                ))}
             </div>
             {device !== 'Mobile' && (
-               <div className='shared-link__desc'>
-                  {user.description && user.description?.length > 50 ? formatText(user.description) : user.description}
-               </div>
+               <div
+                  className='shared-link__desc'
+                  dangerouslySetInnerHTML={{ __html: user.description ?? user.description }}
+               ></div>
             )}
-            {/* </div> */}
          </div>
       </div>
    );

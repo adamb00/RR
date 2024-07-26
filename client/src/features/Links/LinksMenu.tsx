@@ -1,5 +1,6 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import Icon from '@/ui/Icon';
+import Information from '@/ui/Information';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 import {
@@ -27,26 +28,33 @@ export default function LinksMenu({ username, setUrl, handleOpenModal, setIsOpen
 
    return (
       <div className={`links__side-menu ${isOpenMenu ? 'open' : 'closed'}`} ref={ref}>
-         <NavLink
-            to={`/${username}`}
-            target='_blank'
-            onClick={() => {
-               setIsOpenMenu(false);
-            }}
-         >
-            <IoEyeOutline className='links__icon' />
-         </NavLink>
+         <div className='links__navlink'>
+            <Information cont={'Ezt az oldalt fogják látni a vásárlók.'} className='links__information' />
+            <NavLink
+               to={`/${username}`}
+               target='_blank'
+               onClick={() => {
+                  setIsOpenMenu(false);
+               }}
+            >
+               <IoEyeOutline className='links__icon' />
+            </NavLink>
+         </div>
 
-         <Icon
-            className='links__icon'
-            onClick={() => {
-               setUrl(import.meta.env.VITE_BASE_URL_LINK + username);
-               handleOpenModal();
-               setIsOpenMenu(false);
-            }}
-         >
-            <IoCopyOutline />
-         </Icon>
+         <div className='links__navlink'>
+            <Information cont={'Saját link egyszerű megosztása.'} className='links__information' />
+
+            <Icon
+               className='links__icon'
+               onClick={() => {
+                  setUrl(import.meta.env.VITE_BASE_URL_LINK + username);
+                  handleOpenModal();
+                  setIsOpenMenu(false);
+               }}
+            >
+               <IoCopyOutline />
+            </Icon>
+         </div>
 
          {/* <Icon
             className='links__icon links__icon'
@@ -57,23 +65,30 @@ export default function LinksMenu({ username, setUrl, handleOpenModal, setIsOpen
          >
             <RiDragDropLine />
          </Icon> */}
-         <Icon
-            className='links__icon links__icon--settings'
-            onClick={() => {
-               setIsOpenMenu(false);
-            }}
-         >
-            <IoSettingsOutline />
-         </Icon>
-         <Icon
-            className='links__icon'
-            onClick={() => {
-               setIsOpenMenu(false);
-               setIsOpenSocialModal(true);
-            }}
-         >
-            <IoShareSocialOutline />
-         </Icon>
+         <div className='links__navlink'>
+            <Information cont={'Különböző beállítások. (Még fejlesztés alatt)'} className='links__information' />
+
+            <Icon
+               className='links__icon links__icon--settings'
+               onClick={() => {
+                  setIsOpenMenu(false);
+               }}
+            >
+               <IoSettingsOutline />
+            </Icon>
+         </div>
+         <div className='links__navlink'>
+            <Information cont={'Social media linkek'} className='links__information' />
+            <Icon
+               className='links__icon'
+               onClick={() => {
+                  setIsOpenMenu(false);
+                  setIsOpenSocialModal(true);
+               }}
+            >
+               <IoShareSocialOutline />
+            </Icon>
+         </div>
 
          <Icon className='links__icon links__icon--chevron' onClick={() => setIsOpenMenu(open => !open)}>
             {isOpenMenu ? <IoChevronBack /> : <IoChevronForward />}

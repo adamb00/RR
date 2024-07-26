@@ -1,5 +1,6 @@
 import { InferSchemaType, Schema, model } from 'mongoose';
 import ILink from '../interfaces/ILink';
+import env from '../utils/validateEnv';
 
 export const linkSchema: Schema = new Schema<ILink>(
    {
@@ -30,9 +31,14 @@ export const linkSchema: Schema = new Schema<ILink>(
       isPreview: {
          type: Boolean,
       },
-      image: {
-         type: String,
-         // default: 'logo.png',
+      isModify: {
+         type: Boolean,
+         default: true,
+      },
+      video: String,
+      images: {
+         type: [String],
+         default: [`https://${env.AWS_BUCKET_NAME}.s3.amazonaws.com/r2fittshop-logo.png`],
       },
    },
 

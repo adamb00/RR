@@ -7,11 +7,20 @@ interface UserInputProps extends ComponentPropsWithoutRef<'input'> {
    label: string;
 }
 
-export default function UserInput({ control, name, type, label, placeholder, className }: UserInputProps) {
+export default function UserInput({
+   control,
+   name,
+   type,
+   label,
+   placeholder,
+   className,
+   defaultValue,
+}: UserInputProps) {
    return (
       <Controller
          control={control}
          name={name}
+         defaultValue={defaultValue}
          render={({ field: { value, onChange, onBlur } }) => (
             <div className='user-input'>
                <label htmlFor={name} className='user-input__label'>
@@ -24,7 +33,6 @@ export default function UserInput({ control, name, type, label, placeholder, cla
                   onChange={onChange}
                   onBlur={onBlur}
                   type={type}
-                  id={name}
                   className={`user-input__input ${className}`}
                   placeholder={placeholder}
                />

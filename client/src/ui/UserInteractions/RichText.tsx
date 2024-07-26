@@ -1,21 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMemo, useRef } from 'react';
+import { ComponentPropsWithoutRef, useMemo, useRef } from 'react';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-interface RichTextProps {
+interface RichTextProps extends ComponentPropsWithoutRef<'input'> {
    placeholder?: string;
    name: string;
    control: Control;
    rules?: RegisterOptions;
    className?: string;
    fieldErrorClassname?: string;
+   defaultValue?: string;
 }
+// interface RichTextProps {
+//    placeholder?: string;
+//    name: string;
+//    control: Control;
+//    rules?: RegisterOptions;
+//    className?: string;
+//    fieldErrorClassname?: string;
+//    defaultValue?: string;
+// }
 
 //TODO TRANSLATE IF POSSIBLE
 
-export default function RichText({ control, name, rules, fieldErrorClassname, className, placeholder }: RichTextProps) {
+export default function RichText({
+   control,
+   name,
+   rules,
+   fieldErrorClassname,
+   className,
+   placeholder,
+   defaultValue,
+}: RichTextProps) {
    const quill = useRef<any>(null);
 
    const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'list', 'bullet', 'link', 'color', 'clean'];
@@ -40,6 +58,7 @@ export default function RichText({ control, name, rules, fieldErrorClassname, cl
 
    return (
       <Controller
+         defaultValue={defaultValue}
          control={control}
          name={name}
          rules={rules}

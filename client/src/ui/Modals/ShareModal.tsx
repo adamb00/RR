@@ -59,6 +59,7 @@ export default function ShareModal({ isOpen, setIsOpen, url, setOutterModal }: S
                         <FacebookIcon size={iconSize} round />
                      </FacebookShareButton>
                   </div>
+
                   <div className='sharemodal__container--item'>
                      <FacebookMessengerShareButton url={url} appId={import.meta.env.VITE_FACEBOOK_APP_ID}>
                         <FacebookMessengerIcon size={iconSize} round />

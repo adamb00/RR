@@ -1,8 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 import { ILink } from '@/interfaces/ILink';
 import { useGetLinksMutation } from '@/features/Links/linkApiSlice';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '@/features/Auth/slices/auth/authSlice';
 
 interface LinkContextType {
    links: ILink[];
@@ -17,22 +15,19 @@ const LinkContext = createContext<LinkContextType | undefined>(undefined);
 const LinkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
    const [links, setLinks] = useState<ILink[]>([]);
    const [getLinks, { isLoading }] = useGetLinksMutation();
-   const user = useSelector(selectCurrentUser);
 
    useEffect(() => {
-      if (user) {
-         const fetchLinks = async () => {
-            try {
-               const response = await getLinks({}).unwrap();
-               setLinks(response.doc);
-            } catch (error) {
-               console.error('Error fetching links:', error);
-            }
-         };
+      const fetchLinks = async () => {
+         try {
+            const result = await getLinks({}).unwrap();
+            setLinks(result.doc);
+         } catch (error) {
+            console.error('Failed to fetch links:', error);
+         }
+      };
 
-         fetchLinks();
-      }
-   }, [getLinks, user]);
+      fetchLinks();
+   }, [getLinks]);
 
    const updateLink = (updatedLink: ILink) => {
       setLinks(prevLinks => prevLinks.map(link => (link._id === updatedLink._id ? { ...link, ...updatedLink } : link)));

@@ -17,7 +17,15 @@ export const linkApiSlice = apiSlice.injectEndpoints({
       }),
       uploadLinkImage: builder.mutation({
          query: (data: { data: FormData; id: string }) => ({
-            url: `/link/${data.id}/upload-image`,
+            url: `/link/${data.id}/upload-images`,
+            method: 'POST',
+            body: data.data,
+         }),
+      }),
+
+      uploadLinkVideo: builder.mutation({
+         query: (data: { data: FormData; id: string }) => ({
+            url: `/link/${data.id}/upload-video`,
             method: 'POST',
             body: data.data,
          }),
@@ -55,4 +63,5 @@ export const {
    useUpdateLinkMutation,
    useDeleteLinkMutation,
    useActivateLinkMutation,
+   useUploadLinkVideoMutation,
 } = linkApiSlice;

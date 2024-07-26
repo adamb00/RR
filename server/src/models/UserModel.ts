@@ -5,10 +5,10 @@ import bcrypt from 'bcrypt';
 import { linkSchema } from './LinkModel';
 import crypto from 'crypto';
 import slugify from 'slugify';
-import ISocialLinks from '../interfaces/ISocialLinks';
+import IUserSocialLinks from '../interfaces/IUserSocialLinks';
 import { systemNotificationSchema } from './SystemNotificationModel';
 
-const SocialMediaSchema: Schema = new Schema<ISocialLinks>({
+const SocialMediaSchema: Schema<IUserSocialLinks> = new Schema<IUserSocialLinks>({
    platform: {
       type: String,
       required: true,
@@ -17,7 +17,21 @@ const SocialMediaSchema: Schema = new Schema<ISocialLinks>({
       type: String,
       required: true,
    },
+   default: {
+      type: Boolean,
+      required: true,
+      default: true,
+   },
 });
+
+const SocialMedia = model<IUserSocialLinks>('SocialMedia', SocialMediaSchema);
+
+const defaultSocialLinks: IUserSocialLinks[] = [
+   new SocialMedia({ platform: 'facebook', url: 'https://www.facebook.com/share/MC95ExqUGeqGFHEE/?mibextid=K35XfP' }),
+   new SocialMedia({ platform: 'instagram', url: 'https://www.instagram.com/reni_visnyeine?igsh=NnYycHJoNmFocWg5' }),
+   new SocialMedia({ platform: 'youtube', url: 'https://youtube.com/@visnyeinerenifitness?si=bWFnxVFjhJZKR2BW' }),
+   new SocialMedia({ platform: 'tiktok', url: 'https://www.tiktok.com/@r2fittland.visnyeinereni?_t=8nti3nwH1tJ&_r=1' }),
+];
 
 const userSchema: Schema = new Schema<IUser>(
    {
@@ -116,7 +130,10 @@ const userSchema: Schema = new Schema<IUser>(
       availableLinks: {
          type: [linkSchema],
       },
-      socialLinks: { type: [SocialMediaSchema] },
+      socialLinks: {
+         type: [SocialMediaSchema],
+         default: defaultSocialLinks,
+      },
       trc: String,
       phone: {
          type: String,
@@ -124,7 +141,7 @@ const userSchema: Schema = new Schema<IUser>(
       refreshToken: String,
       lastAsk: Date,
       hasActiveAsk: { type: Boolean, default: false },
-      description: { type: String, maxlength: 200 },
+      description: { type: String, maxlength: 300 },
    },
    { validateBeforeSave: false }
 );

@@ -27,7 +27,7 @@ export default function NavigationNoAuth() {
                      {t('Home')}
                   </NavigationLinkMobile>
                </li>
-               <li className='navigation__item'>
+               {/* <li className='navigation__item'>
                   <NavigationLinkMobile to='/about' onClick={closeMenu}>
                      {t('About us')}
                   </NavigationLinkMobile>
@@ -46,7 +46,7 @@ export default function NavigationNoAuth() {
                   <NavigationLinkMobile to='/contact' onClick={closeMenu}>
                      {t('Contact us')}
                   </NavigationLinkMobile>
-               </li>
+               </li> */}
                <li className='navigation__item'>
                   <Button className='btn btn--primary' onClick={handleNavigateToLogin}>
                      {t('Log in')}

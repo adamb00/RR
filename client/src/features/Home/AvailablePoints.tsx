@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser, updateUser } from '../Auth/slices/auth/authSlice';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
 import { useTranslation } from 'react-i18next';
 import { useCookies } from 'react-cookie';
-import Button from '@/ui/Buttons/Button';
-import { useUpdateUserMutation } from '../Auth/slices/user/userApiSlice';
+
 import Information from '@/ui/Information';
 import { useNavigate } from 'react-router-dom';
 import { primaryColor } from '@/utils/constants';
@@ -17,14 +16,6 @@ export default function AvailablePoints() {
    const [first, second, third] = t('AvailablePoints').split('$$');
    let thirdD = third;
    user.accumulatedPoints === 0 ? (thirdD = '-ból.') : (thirdD = '-ből.');
-   const [updateUserAPI] = useUpdateUserMutation();
-   const dispatch = useDispatch();
-
-   const handleExchangePoints = async () => {
-      const data = { lastAsk: Date.now(), hasActiveAsk: true };
-      const res = await updateUserAPI({ id: user._id, data }).unwrap();
-      dispatch(updateUser({ ...res.data.data }));
-   };
 
    const handleNavigateToWallet = () => {
       navigate('/account/personal#trc20');
@@ -48,20 +39,16 @@ export default function AvailablePoints() {
       <div className='home__points'>
          <div>
             {first}
-            <span className='home__points--point'>{user.availablePoints}</span>
+            <span className='home__points--point'>
+               {user.availablePoints < 1 ? user.availablePoints.toFixed(1) : user.availablePoints}
+            </span>
             {second}
-            <span className='home__points--point'>{user.accumulatedPoints}</span>
+            <span className='home__points--point'>
+               {user.availablePoints > 1 ? user.accumulatedPoints.toFixed(1) : user.availablePoints}
+            </span>
             {cookies.i18next === 'hu' && thirdD}
          </div>
-         {user.availablePoints > 20 && (
-            <Button
-               onClick={handleExchangePoints}
-               disabled={user.availablePoints < 20}
-               className='home__points--button'
-            >
-               Pontok beváltása
-            </Button>
-         )}
+
          <Information className='home__information' cont={content} />
       </div>
    );

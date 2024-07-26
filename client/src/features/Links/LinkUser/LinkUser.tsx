@@ -3,9 +3,8 @@ import { ILink } from '@/interfaces/ILink';
 import { UserProfileData } from '@/interfaces/AuthInterfaces';
 import { Dispatch, SetStateAction } from 'react';
 
-import { useGetImage } from '@/hooks/useGetImage';
-import LinksSkeleton from './LinksSkeleton';
 import { handleLink } from '@/utils/helpers';
+import useDeviceDetection from '@/hooks/useDetectDevice';
 
 interface LinkUserProps {
    link: ILink;
@@ -16,10 +15,7 @@ interface LinkUserProps {
 }
 
 export default function LinkUser({ link, user, setIsOpen, setUrl }: LinkUserProps) {
-   const { image: linkImage, isLoading: isLoadingLinkImage } = useGetImage(link);
-
-   if (isLoadingLinkImage) return <LinksSkeleton />;
-
+   const device = useDeviceDetection();
    const handleOpenModal = () => {
       if (setIsOpen) setIsOpen(true);
       if (setUrl) setUrl(() => handleLink(link.link, user!.referralCode));
@@ -32,7 +28,19 @@ export default function LinkUser({ link, user, setIsOpen, setUrl }: LinkUserProp
                <h1 className='heading-primary'>{link.title}</h1>
                <p className='links__card--description'>{link.description}</p>
             </div>
-            <img src={linkImage} alt={link.description} className='links__card--image-no-preview' loading='lazy' />
+            {device !== 'Mobile' && (
+               <div className='links__card--image-container'>
+                  {link.images.map((image: string, i: number) => (
+                     <img
+                        key={i}
+                        src={image}
+                        alt={link.description}
+                        className={`links__card--image-no-preview links__card--image-no-preview--${i + 1}`}
+                        loading='lazy'
+                     />
+                  ))}
+               </div>
+            )}
          </div>
       );
 
@@ -42,7 +50,7 @@ export default function LinkUser({ link, user, setIsOpen, setUrl }: LinkUserProp
             <h1 className='heading-primary'>{link.title}</h1>
             <p className='links__card--description'>{link.description}</p>
          </div>
-         <img src={linkImage} alt={link.description} className='links__card--image' loading='lazy' />
+         <img src={link.images[0]} alt={link.description} className='links__card--image' loading='lazy' />
       </div>
    );
 }

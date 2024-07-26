@@ -4,7 +4,7 @@
    }
 
    &__button {
-      background-color: $color-grey-light-3;
+      background-color: $color-grey-light-1;
       height: 7rem;
       width: 7rem;
       position: fixed;
@@ -26,7 +26,7 @@
       border-radius: 50%;
       position: fixed;
       right: 6.5rem;
-      background-image: radial-gradient($color-grey-light-1, $color-grey-light-6);
+      background-image: radial-gradient($color-grey-light-1, $color-grey-light-2);
       z-index: 1000;
       transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
       @include respond(tab-port) {

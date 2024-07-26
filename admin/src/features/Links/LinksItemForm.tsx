@@ -2,39 +2,50 @@ import UserInput from '@/ui/UserInteractions/UserInput';
 
 import Button from '@/ui/Buttons/Button';
 import { emptyInputField } from '@/utils/helper';
-import { Control, FieldValues, UseFormHandleSubmit } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 import { ILink } from '@/interfaces/ILink';
 import { useUpdateLinkMutation } from '@/features/Links/linkApiSlice';
-import { useLinks } from '@/contexts/LinkContext';
+import UserCheckboxInput from '@/ui/UserInteractions/UserInputCheckbox';
 
 interface LinksItemFormProps {
    isChecked: boolean;
    setIsChecked: Dispatch<SetStateAction<boolean>>;
-   control: Control;
    isOpen: boolean;
    setIsOpen: Dispatch<SetStateAction<boolean>>;
    link: ILink;
-   handleSubmit: UseFormHandleSubmit<FieldValues>;
+   // handleSubmit: UseFormHandleSubmit<FieldValues>;
 }
 
-export default function LinksItemForm({ setIsChecked, control, isOpen, handleSubmit, link }: LinksItemFormProps) {
+export default function LinksItemForm({ setIsChecked, isOpen, link }: LinksItemFormProps) {
    const [updateLinkAPI] = useUpdateLinkMutation();
-   const { updateLink } = useLinks();
+   const { handleSubmit, control } = useForm();
 
    const handleOnSubmit = async (data: FieldValues) => {
-      const updatedData = { ...data, ...link };
-      const res = await updateLinkAPI({ id: link._id, data: updatedData }).unwrap();
-      updateLink(res.doc);
+      const primary = data.primary ? { order: 0 } : { order: 1 };
+      const updatedData = { ...link, ...data, ...primary };
+      // console.log(updatedData);
+      await updateLinkAPI({ id: link._id, data: updatedData }).unwrap();
       setIsChecked(true);
       emptyInputField('.links__title--input');
    };
+
+   // const handlePrimary = async (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
+   //    console.log(id);
+   //    if (event.target.checked) {
+   //       await updateLinkAPI({ id, data: { order: 0 } }).unwrap();
+   //    } else {
+   //       await updateLinkAPI({ id, data: { order: 1 } }).unwrap();
+   //    }
+   // };
+
    return (
       <>
          {isOpen && (
-            <form className='links__admin-form' onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className='links__admin-form' onSubmit={handleSubmit(handleOnSubmit)} id={link._id}>
                <UserInput
                   label=''
+                  id={link._id}
                   control={control}
                   name='title'
                   placeholder={link.title ? 'Linkhez tartozó cím módosítása' : 'Cím hozzáadása a linkhez'}
@@ -46,6 +57,25 @@ export default function LinksItemForm({ setIsChecked, control, isOpen, handleSub
                   name='description'
                   placeholder={link.description || 'Leírás hozzáadása a linkhez'}
                />
+               {isOpen && link.images && (
+                  <div className='links__checkbox'>
+                     <UserCheckboxInput control={control} name='isPreview' defaultChecked={link.isPreview}>
+                        <label htmlFor='isPreview'>Teljes kép?</label>
+                     </UserCheckboxInput>
+                     <UserCheckboxInput
+                        control={control}
+                        name='primary'
+                        // onChange={e => handlePrimary(e, link._id)}
+                        defaultChecked={link.order === 0}
+                     >
+                        <label htmlFor='primary'>Elsődleges?</label>
+                     </UserCheckboxInput>
+                     <UserCheckboxInput control={control} name='isModify' defaultChecked={link.isModify}>
+                        <label htmlFor='modify'>Módosítható?</label>
+                     </UserCheckboxInput>
+                  </div>
+               )}
+
                <Button type='submit' className='btn'>
                   Ok
                </Button>

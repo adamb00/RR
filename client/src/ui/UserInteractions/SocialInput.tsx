@@ -7,10 +7,12 @@ export default function SocialInput({
    control,
    name,
    defaultValue,
+   disabled,
 }: {
    control: Control;
    name: string;
    defaultValue: string;
+   disabled: boolean;
 }) {
    const device = useDeviceDetection();
    const orientation = useDetectOrientation();
@@ -44,6 +46,7 @@ export default function SocialInput({
                   onChange={e => {
                      onFieldChange(e);
                   }}
+                  disabled={disabled}
                   defaultValue={value}
                   className='social-modal__input'
                />

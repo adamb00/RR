@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import INotification from './INotification';
 import ILink from './ILink';
-import ISocialLinks from './ISocialLinks';
+import ISocialLinks from './IUserSocialLinks';
 import ISystemNotifications from './ISystemNotifications';
 
 export default interface IUser extends Document {

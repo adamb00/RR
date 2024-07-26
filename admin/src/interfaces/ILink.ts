@@ -5,8 +5,11 @@ export interface ILink {
    active: boolean;
    title: string;
    order: number;
-   image: string;
+   images: string[];
    isPreview: boolean;
    description: string;
    createdBy: string;
+   isModify: boolean;
+   video: string;
+   primary: boolean;
 }
