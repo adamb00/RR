@@ -1,4 +1,3 @@
-import { useGetImage } from '@/hooks/useGetImage';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { UserProfileData } from '@/interfaces/AuthInterfaces';
 import { MenuProps } from '@/interfaces/MenuProps';
@@ -10,6 +9,7 @@ import { CiMail } from 'react-icons/ci';
 import UserCheckboxInput from '../UserInteractions/UserCheckboxInput';
 import Button from '../Buttons/Button';
 import { useSubscribeMutation } from '@/features/Links/subscibeApiSlice';
+import { userImage } from '@/utils/helpers';
 
 interface SubscribeModalProps extends MenuProps {
    user: UserProfileData;
@@ -22,7 +22,6 @@ export default function SubscribeModal({ setIsOpen, isOpen, user }: SubscribeMod
    const { t } = useTranslation();
 
    const ref = useOutsideClick(handleCloseModal);
-   const { image } = useGetImage(user);
    const { username } = user;
    const { control, handleSubmit, watch } = useForm();
    const [subscribe] = useSubscribeMutation();
@@ -41,7 +40,7 @@ export default function SubscribeModal({ setIsOpen, isOpen, user }: SubscribeMod
             <div className='close close--dark' onClick={handleCloseModal}>
                &#10005;
             </div>
-            <img src={image} alt='User Image' className='subscribe-modal__image' />
+            <img src={userImage(user.photo)} alt='User Image' className='subscribe-modal__image' />
             <h2 className='heading-primary--small'>Subscribe to @{username}</h2>
 
             <form className='subscribe-modal__form'>
