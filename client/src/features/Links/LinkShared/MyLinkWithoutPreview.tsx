@@ -1,5 +1,4 @@
 import { ILink } from '@/interfaces/ILink';
-import { BackgroundGradient } from '@/ui/Aceternity/BackgroundGradient';
 import { Link } from 'react-router-dom';
 
 import { UserProfileData } from '@/interfaces/AuthInterfaces';
