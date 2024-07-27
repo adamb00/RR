@@ -37,17 +37,14 @@ export default function MyLinkContainer({ link, user }: MyLinkContainerProps) {
                   </div>
                </div>
                <div className='my-link__container'>
-                  <video
-                     className='my-link__video'
-                     controls
-                     preload='preload'
-                     id={`video--${link.video}`}
-                     autoPlay
-                     muted
-                     loop
-                  >
-                     <source className='my-link__video--video' src={link.video} type='video/mp4' />
-                  </video>
+                  <iframe
+                     width='120'
+                     height='220'
+                     src={link.video}
+                     title='R&amp;R BCAA citrom és ananász - mangó ízben'
+                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                     allowFullScreen
+                  ></iframe>
                   <img src={link.images[2]} alt={link.description} className='my-link__image' />
                </div>
             </div>
@@ -58,17 +55,14 @@ export default function MyLinkContainer({ link, user }: MyLinkContainerProps) {
       <Link className='shared-link__card' to={handleLink(link.link, user.referralCode)} target='_blank'>
          <div className='my-link'>
             <div className='my-link__header'>
-               <video
+               <iframe
                   className='my-link__video'
-                  controls
-                  preload='preload'
-                  id={`video--${link.video}`}
-                  autoPlay
-                  muted
-                  loop
-               >
-                  <source className='my-link__video--video' src={link.video} type='video/mp4' />
-               </video>
+                  src={link.video}
+                  title='R&amp;R BCAA citrom és ananász - mangó ízben'
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                  allowFullScreen
+               ></iframe>
+
                <div className='my-link__header--wrapper'>
                   <h1 className='heading-primary heading-primary--small'>{link.title}</h1>
                   <div className='my-link__header--desc'>{link.description}</div>
