@@ -1,7 +1,7 @@
 import { ILink } from '@/interfaces/ILink';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useUploadLinkImageMutation, useUploadLinkVideoMutation } from './linkApiSlice';
+import { useUploadLinkImageMutation } from './linkApiSlice';
 
 interface LinkImageProps {
    link: ILink;
@@ -9,12 +9,12 @@ interface LinkImageProps {
    fetchLinks: () => void;
 }
 
-export default function LinkImage({ link, isOpen, fetchLinks }: LinkImageProps) {
+export default function LinkImage({ link, fetchLinks }: LinkImageProps) {
    const [uploading, setUploading] = useState(false);
    const [uploadLinkImage] = useUploadLinkImageMutation();
-   const [uploadLinkVideo] = useUploadLinkVideoMutation();
+   // const [uploadLinkVideo] = useUploadLinkVideoMutation();
    const [error, setError] = useState('');
-   const [isLoading, setIsLoading] = useState(false);
+   // const [isLoading, setIsLoading] = useState(false);
    const { control } = useForm();
 
    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
@@ -38,18 +38,18 @@ export default function LinkImage({ link, isOpen, fetchLinks }: LinkImageProps) 
          fetchLinks();
       }
    };
-   const handleVideoChange = async (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
-      const video = event.target.files;
-      const formData = new FormData();
+   // const handleVideoChange = async (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
+   //    const video = event.target.files;
+   //    const formData = new FormData();
 
-      if (video) formData.append('video', video[0]);
+   //    if (video) formData.append('video', video[0]);
 
-      setIsLoading(true);
-      await uploadLinkVideo({ data: formData, id }).unwrap();
+   //    setIsLoading(true);
+   //    await uploadLinkVideo({ data: formData, id }).unwrap();
 
-      fetchLinks();
-      setIsLoading(false);
-   };
+   //    fetchLinks();
+   //    setIsLoading(false);
+   // };
    return (
       <div className='links__image-container'>
          <div className='links__image-container--image'>
@@ -97,7 +97,7 @@ export default function LinkImage({ link, isOpen, fetchLinks }: LinkImageProps) 
             </p>
          )}
 
-         {isOpen && (
+         {/* {isOpen && (
             <Controller
                control={control}
                name='video'
@@ -117,7 +117,7 @@ export default function LinkImage({ link, isOpen, fetchLinks }: LinkImageProps) 
                   </div>
                )}
             />
-         )}
+         )} */}
       </div>
    );
 }

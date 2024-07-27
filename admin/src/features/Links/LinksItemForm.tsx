@@ -14,7 +14,6 @@ interface LinksItemFormProps {
    isOpen: boolean;
    setIsOpen: Dispatch<SetStateAction<boolean>>;
    link: ILink;
-   // handleSubmit: UseFormHandleSubmit<FieldValues>;
 }
 
 export default function LinksItemForm({ setIsChecked, isOpen, link }: LinksItemFormProps) {
@@ -24,20 +23,10 @@ export default function LinksItemForm({ setIsChecked, isOpen, link }: LinksItemF
    const handleOnSubmit = async (data: FieldValues) => {
       const primary = data.primary ? { order: 0 } : { order: 1 };
       const updatedData = { ...link, ...data, ...primary };
-      // console.log(updatedData);
       await updateLinkAPI({ id: link._id, data: updatedData }).unwrap();
       setIsChecked(true);
       emptyInputField('.links__title--input');
    };
-
-   // const handlePrimary = async (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
-   //    console.log(id);
-   //    if (event.target.checked) {
-   //       await updateLinkAPI({ id, data: { order: 0 } }).unwrap();
-   //    } else {
-   //       await updateLinkAPI({ id, data: { order: 1 } }).unwrap();
-   //    }
-   // };
 
    return (
       <>
@@ -56,6 +45,12 @@ export default function LinksItemForm({ setIsChecked, isOpen, link }: LinksItemF
                   control={control}
                   name='description'
                   placeholder={link.description || 'Leírás hozzáadása a linkhez'}
+               />
+               <UserInput
+                  label=''
+                  control={control}
+                  name='video'
+                  placeholder={link.video || 'Video hozzáadása a linkhez'}
                />
                {isOpen && link.images && (
                   <div className='links__checkbox'>
