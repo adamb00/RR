@@ -21,7 +21,7 @@ export default function Adam() {
    const fetchUsers = useCallback(async () => {
       try {
          // const result = await getOneUser('661961155367cdafaead01a7').unwrap(); // DEV
-         const result = await getOneUser('66879c060d285c5a78f3df90').unwrap(); // PROD
+         const result = await getOneUser('66a50cac25fdb23b5823df2f').unwrap(); // PROD
          setData(result.user);
       } catch (error) {
          console.error('Failed to fetch users: ', error);
