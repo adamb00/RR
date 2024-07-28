@@ -42,7 +42,9 @@ export const createPurchase = catchAsync(async (req: Request, res: Response, nex
 export const adamPoints = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
    const adam = await User.findOne({ email: 'borsodi.dm@gmail.com' });
 
-   if (!req.body.affid) {
+   const user = await User.findOne({ referralCode: req.body.affid });
+
+   if (!req.body.affid || !user) {
       res.status(404).json({ status: 'error', message: 'Referral code needed' });
       return next(new AppError('Referral code needed', 404));
    }

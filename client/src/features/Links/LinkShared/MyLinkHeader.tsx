@@ -38,7 +38,7 @@ export default function MyLinkHeader({ user, setIsOpen }: MyLinkHeaderProps) {
             <Icon className='shared-link__subscribe--icon'>
                <FaBell />
             </Icon>
-            <p className='shared-link__subscribe--text'>Subscribe</p>
+            <p className='shared-link__subscribe--text'>Feliratkozás</p>
          </div>
          <div className='shared-link__image'>
             <img src={userImage(user.photo)} alt='User Image' onClick={() => setIsOpen(true)} />

@@ -41,14 +41,15 @@ export default function SubscribeModal({ setIsOpen, isOpen, user }: SubscribeMod
                &#10005;
             </div>
             <img src={userImage(user.photo)} alt='User Image' className='subscribe-modal__image' />
-            <h2 className='heading-primary--small'>Subscribe to @{username}</h2>
+            <h2 className='heading-primary--small'>Feliratkozás {username} fiókjára!</h2>
 
             <form className='subscribe-modal__form'>
                <UserInput
                   className='subscribe-modal__form--input'
                   control={control}
                   name='email'
-                  placeholder='Please provide use Your e-mail'
+                  placeholder='Kérjük, adja meg e-mail címét.'
+                  // placeholder='Please provide use Your e-mail'
                >
                   <FormIcon tooltip={t('Enter Your e-mail address')}>
                      <CiMail className='subscribe-modal__form--icon' />
@@ -61,13 +62,14 @@ export default function SubscribeModal({ setIsOpen, isOpen, user }: SubscribeMod
                      defaultChecked={false}
                      outterClassName='subscribe-modal__form--input__checkbox'
                   >
-                     I agree to R2BYou's Terms and Conditions and Privacy Notice.
+                     {/* I agree to R2BYou's Terms and Conditions and Privacy Notice. */}
+                     Elfogadom az R2BYou Általános Szerződési Feltételeit és Adatvédelmi Nyilatkozatát.
                   </UserCheckboxInput>
                </div>
             </form>
 
             <Button className='btn btn--secondary' disabled={!accepted} onClick={handleSubmit(handleOnSubmit)}>
-               Subscribe
+               Feliratkozás
             </Button>
          </div>
       </div>
