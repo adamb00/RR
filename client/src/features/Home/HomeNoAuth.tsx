@@ -19,7 +19,7 @@ export default function HomeNoAuth() {
                   particleColor={isDark ? '#8debcf' : '#ed535b'}
                />
             </div>
-            <h1 className='heading-primary'>Here comes some fancy title</h1>
+            {/* <h1 className='heading-primary'>Here comes some fancy title</h1> */}
          </div>
       </>
    );

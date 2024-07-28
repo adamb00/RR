@@ -37,7 +37,7 @@ export default function SystemNotificationModal({ setShowModal }: SystemNotifica
                   ))}
                </>
             ) : (
-               <p>Currently you have no notification</p>
+               <p>{t('Currently you have no notification')}</p>
             )}
          </div>
       </div>

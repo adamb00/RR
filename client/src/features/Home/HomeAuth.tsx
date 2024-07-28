@@ -5,6 +5,7 @@ import AvailablePoints from './AvailablePoints';
 import InviteModal from '@/ui/Modals/InviteModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../Auth/slices/auth/authSlice';
+import AffiliateTable from './AffiliateTable';
 
 export default function HomeAuth() {
    const [inviteModalOpen, setInviteModalOpen] = useState<boolean>(false);
@@ -19,6 +20,8 @@ export default function HomeAuth() {
             />
          )}
          <AvailablePoints />
+         <AffiliateTable />
+
          {/* <Button className='btn btn--tertiary home__invite' onClick={() => setInviteModalOpen(true)}>
             Build your own family now!
          </Button>

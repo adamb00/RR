@@ -6,7 +6,7 @@ export default function Notifications() {
    const notifications = useAppSelector(state => state.auth.user?.notifications);
    const { t } = useTranslation();
    if (!notifications || notifications.length < 1)
-      return <h1 className='heading-primary'>{t('Currently you have no notifciations')}</h1>;
+      return <h1 className='heading-primary'>{t('Currently you have no notification')}</h1>;
 
    return <NotificationItem />;
 }

@@ -101,6 +101,12 @@ export default function UpdateUser() {
                className='update-user__input'
                placeholder='Kérjük add meg a felhasználóneved'
                defaultValue={user.username || ''}
+               rules={{
+                  pattern: {
+                     value: /^[a-zA-Z0-9_-]+$/,
+                     message: 'A felhasználónév csak betűket, számokat, kötőjelet és alulvonást tartalmazhat',
+                  },
+               }}
                fieldErrorClassname='update-user__form--error'
             />
          </form>
@@ -113,6 +119,7 @@ export default function UpdateUser() {
 
             <RichText
                control={control}
+               className='update-user__richtext'
                defaultValue={user.description || ''}
                name='description'
                placeholder='Bemutatkozó szöveg megadása'

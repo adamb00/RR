@@ -8,6 +8,17 @@
       padding: 1rem;
    }
 
+   &__richtext {
+      background-color: $color-primary-tint;
+      border-radius: 2rem;
+      overflow: hidden;
+      color: $color-grey-light-1 !important;
+
+      &::placeholder {
+         color: $color-grey-light-3;
+      }
+   }
+
    &__form {
       width: 100%;
       display: flex;
@@ -23,9 +34,10 @@
 
    &__input {
       @include defaultInput;
-      background-color: transparent;
-      background-image: linear-gradient(to right, $color-primary-tint, transparent);
-      color: $color-grey-light-4;
+      background-color: $color-primary-tint;
+      // background-color: transparent;
+      // background-image: linear-gradient(to right, $color-primary-tint, transparent);
+      color: $color-grey-light-1;
       border: none;
       padding: 2.5rem 2rem;
       letter-spacing: 0.1rem;

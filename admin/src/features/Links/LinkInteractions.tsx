@@ -60,7 +60,6 @@ export default function LinkInteractions({ link, isOpen, setIsOpen, fetchLinks }
             setIsChecked={setIsChecked}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            // handleSubmit={handleSubmit}
             link={link}
          />
       </div>

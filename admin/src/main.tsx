@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import '@/styles/main.scss';
-import { store, persistor } from './app/store';
+import { store, persistor } from './app/store.ts';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';

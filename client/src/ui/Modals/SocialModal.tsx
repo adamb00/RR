@@ -11,6 +11,7 @@ import SocialInput from '../UserInteractions/SocialInput';
 
 import Select, { SingleValue } from 'react-select';
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SocialModalProps extends MenuProps {
    user: UserProfileData;
@@ -29,6 +30,7 @@ export default function SocialModal({ isOpen, setIsOpen, user }: SocialModalProp
    const [updateUserAPI] = useUpdateUserMutation();
    const { socialLinks, _id } = user;
 
+   const { t } = useTranslation();
    const dispatch = useDispatch();
 
    const { handleSubmit, control } = useForm();
@@ -53,24 +55,6 @@ export default function SocialModal({ isOpen, setIsOpen, user }: SocialModalProp
    }, [socialLinks, options]);
 
    const handleOnSubmit = async (data: FieldValues) => {
-      // const updatedData = Object.entries(data)
-      //    /* eslint-disable-next-line */
-      //    .filter(([_, url]) => url !== '')
-      //    .map(([platform, url]) => ({
-      //       platform,
-      //       url,
-      //       default: false,
-      //    }));
-      // console.log(updatedData);
-      // const links = [...socialLinks.filter(link => link.default), ...updatedData];
-      // reset();
-      // console.log(links);
-      // const res = await updateUserAPI({
-      //    data: { socialLinks: links },
-      //    id: _id,
-      // }).unwrap();
-      // dispatch(updateUser({ ...res.data.data }));
-
       const existingNonDefaultLink = socialLinks.find(link => link.default !== true);
 
       const newLink = {
@@ -96,7 +80,7 @@ export default function SocialModal({ isOpen, setIsOpen, user }: SocialModalProp
             <div className='close' onClick={handleCloseModal}>
                &#10005;
             </div>
-            <h1 className='heading-primary'>Share your pages</h1>
+            <h1 className='heading-primary'>{t('Share your pages')}</h1>
             <div className='social-modal__body'>
                <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
 
@@ -110,7 +94,7 @@ export default function SocialModal({ isOpen, setIsOpen, user }: SocialModalProp
                )}
             </div>
             <Button className='btn btn--primary' onClick={handleSubmit(handleOnSubmit)}>
-               Submit
+               {t('Submit')}
             </Button>
          </div>
       </div>

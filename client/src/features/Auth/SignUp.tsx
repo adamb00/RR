@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetReferralCodeMutation, useRegisterMutation } from './slices/auth/authApiSlice';
 import { getErrorMessage } from '@/utils/helpers';
 import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 
 export default function SignUp() {
    const { control, handleSubmit } = useForm();
@@ -51,6 +52,7 @@ export default function SignUp() {
    const handleSubmitForm = async (data: object) => {
       try {
          await register({ ...data, parent: validReferralCode }).unwrap();
+         toast.success('Sikeres regisztráció! Megerősítő e-mail kiküldésre került!');
          navigate('/');
       } catch (error: unknown) {
          setError(() => getErrorMessage(error));
