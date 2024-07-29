@@ -133,15 +133,15 @@ export const handleError = (error: IError | string | null, item: string): string
    return (error as IError).item === item ? (error as IError).message : '';
 };
 export const handleLink = (link: string, referralCode: number) => {
-   let updatedLink: string;
+   // let updatedLink: string;
 
-   if (link.endsWith('/')) {
-      updatedLink = `${link}&affid=${referralCode}`;
-   } else {
-      updatedLink = `${link}/&affid=${referralCode}`;
-   }
+   // if (link.endsWith('/')) {
+   //    updatedLink = `${link}&affid=${referralCode}`;
+   // } else {
+   //    updatedLink = `${link}&affid=${referralCode}`;
+   // }
 
-   return updatedLink;
+   return `${link}&affid=${referralCode}`;
 };
 
 export const userImage = (img: string) => `https://r2byou.s3.amazonaws.com/${img}`;
