@@ -136,9 +136,9 @@ export const handleLink = (link: string, referralCode: number) => {
    let updatedLink: string;
 
    if (link.endsWith('/')) {
-      updatedLink = `${link}${referralCode}`;
+      updatedLink = `${link}&affid=${referralCode}`;
    } else {
-      updatedLink = `${link}/${referralCode}`;
+      updatedLink = `${link}/&affid=${referralCode}`;
    }
 
    return updatedLink;

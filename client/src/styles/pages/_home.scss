@@ -102,6 +102,10 @@
          overflow: hidden;
          box-shadow: $default-box-shadow;
          width: 50vw;
+
+         @include respond(phone) {
+            width: 90vw;
+         }
       }
       &--head {
          background-color: $color-tertiary;

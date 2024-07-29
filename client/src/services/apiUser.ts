@@ -5,7 +5,6 @@ export const getOneUser = async (param: string, id: string) => {
       import.meta.env.VITE_BASE_URL + `/user/${param}/${id}`,
       await OPTIONS({ method: 'GET' })
    );
-   console.log(response);
    const responseData = await response.json();
 
    if (!response.ok) throw new Error(responseData.message);
