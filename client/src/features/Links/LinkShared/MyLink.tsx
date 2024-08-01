@@ -29,7 +29,7 @@ export default function MyLink() {
          <SubscribeModal setIsOpen={setIsModalOpen} isOpen={isModalOpen} user={user} />
          <MyLinkHeader url={url} user={user} setIsOpen={setIsModalOpen} isOpen={isModalOpen} />
          {device === 'Mobile' && user.description && (
-            <div className='shared-link__desc' dangerouslySetInnerHTML={{ __html: `"${user.description}"` }}></div>
+            <div className='shared-link__desc' dangerouslySetInnerHTML={{ __html: user.description }}></div>
          )}
 
          <div className='shared-link__container'>
