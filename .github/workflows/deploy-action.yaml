@@ -26,8 +26,10 @@ jobs:
 
          - name: Build and push Docker images
            run: |
-              docker-compose -f docker-compose.prod.yaml build
-              docker-compose -f docker-compose.prod.yaml push
+              docker compose -f docker-compose.prod.yaml build
+              docker compose -f docker-compose.prod.yaml push
+           #   docker-compose -f docker-compose.prod.yaml build
+           #   docker-compose -f docker-compose.prod.yaml push
 
    deploy-to-digitalocean:
       runs-on: ubuntu-latest
