@@ -49,7 +49,6 @@ export default function SubscribeModal({ setIsOpen, isOpen, user }: SubscribeMod
                   control={control}
                   name='email'
                   placeholder='Kérjük, adja meg e-mail címét.'
-                  // placeholder='Please provide use Your e-mail'
                >
                   <FormIcon tooltip={t('Enter Your e-mail address')}>
                      <CiMail className='subscribe-modal__form--icon' />
@@ -62,7 +61,6 @@ export default function SubscribeModal({ setIsOpen, isOpen, user }: SubscribeMod
                      defaultChecked={false}
                      outterClassName='subscribe-modal__form--input__checkbox'
                   >
-                     {/* I agree to R2BYou's Terms and Conditions and Privacy Notice. */}
                      Elfogadom az R2BYou Általános Szerződési Feltételeit és Adatvédelmi Nyilatkozatát.
                   </UserCheckboxInput>
                </div>
