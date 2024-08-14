@@ -38,8 +38,8 @@ app.use(
 );
 app.options('*', cors());
 
-app.use(express.json({ limit: '100kb' }));
-app.use(express.urlencoded({ extended: true, limit: '100kb' }));
+app.use(express.json({ limit: '200kb' }));
+app.use(express.urlencoded({ extended: true, limit: '200kb' }));
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
